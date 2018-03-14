@@ -4,16 +4,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/register_doctor_button"
+    <EditText
+        android:id="@+id/email_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/doctor_registration" />
+        android:hint="Email Address:"/>
+
+    <EditText
+        android:id="@+id/password_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Password:"/>
 
     <Button
-        android:id="@+id/register_patient_button"
+        android:id="@+id/register_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/patient_registration" />
+        android:text="Register" />
+
+
 
 </LinearLayout>

@@ -7,6 +7,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
+
 import com.example.murodjonrahimov.wecare.fragments.DoctorsForumFragment;
 import com.example.murodjonrahimov.wecare.fragments.ListOfDoctorsFragment;
 import com.example.murodjonrahimov.wecare.fragments.PatientMyPostFragment;
@@ -17,12 +20,19 @@ import com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment;
 
 public class PatientActivity extends AppCompatActivity {
 
+    public final static String EMAIL_KEY = "email";
     private ActionBar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_activity);
+
+        EditText emailID = findViewById(R.id.email_id);
+        emailID.setText(getIntent().getExtras().getString(EMAIL_KEY));
+        TextView welcomeText = findViewById(R.id.welcome);
+
 
         toolbar = getSupportActionBar();
         loadFragment(new DoctorsForumFragment());

@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+
 import com.example.murodjonrahimov.wecare.fragments.DoctorsForumFragment;
 import com.example.murodjonrahimov.wecare.fragments.AllPatientsPostsFragment;
 import com.example.murodjonrahimov.wecare.fragments.DoctorProfileFragment;
@@ -63,6 +64,6 @@ public class DoctorActivity extends AppCompatActivity {
         transaction.addToBackStack(null);
         transaction.commit();
     }
-    }
+}
 
 
