@@ -7,12 +7,13 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
-
-import com.example.murodjonrahimov.wecare.fragments.DDoctorsFragment;
-import com.example.murodjonrahimov.wecare.fragments.DPostsFragment;
-import com.example.murodjonrahimov.wecare.fragments.DProfileFragment;
+import com.example.murodjonrahimov.wecare.fragments.DoctorsForumFragment;
+import com.example.murodjonrahimov.wecare.fragments.AllPatientsPostsFragment;
+import com.example.murodjonrahimov.wecare.fragments.DoctorProfileFragment;
 
 // main activity for doctors where Doctors, Posts & Profile Fragments interchange
+// To Do Amar
+
 public class DoctorActivity extends AppCompatActivity {
 
     private ActionBar toolbar;
@@ -23,8 +24,7 @@ public class DoctorActivity extends AppCompatActivity {
         setContentView(R.layout.doctor_activity);
 
         toolbar = getSupportActionBar();
-        toolbar.setTitle("Doctors");
-        loadFragment(new DDoctorsFragment());
+        loadFragment(new DoctorsForumFragment());
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
 
@@ -37,17 +37,17 @@ public class DoctorActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.navigation_doctors:
                         toolbar.setTitle("Doctors");
-                        fragment = new DDoctorsFragment();
+                        fragment = new DoctorsForumFragment();
                         loadFragment(fragment);
                         return true;
                     case R.id.navigation_my_profile:
                         toolbar.setTitle("Profile");
-                        fragment = new DProfileFragment();
+                        fragment = new DoctorProfileFragment();
                         loadFragment(fragment);
                         return true;
                     case R.id.navigation_posts:
                         toolbar.setTitle("Posts");
-                        fragment = new DPostsFragment();
+                        fragment = new AllPatientsPostsFragment();
                         loadFragment(fragment);
                         return true;
                 }

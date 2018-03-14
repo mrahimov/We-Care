@@ -9,13 +9,11 @@ import android.view.ViewGroup;
 
 import com.example.murodjonrahimov.wecare.R;
 
-
-// fragment for PatientActivity
-
-public class PProfileFragment extends Fragment {
+// fragment for DoctorActivity
+public class AllPatientsPostsFragment extends Fragment {
 
 
-    public PProfileFragment() {
+    public AllPatientsPostsFragment() {
         // Required empty public constructor
     }
 
@@ -24,7 +22,7 @@ public class PProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.p_fragment_profile, container, false);
+        return inflater.inflate(R.layout.d_fragment_posts, container, false);
     }
 
 }

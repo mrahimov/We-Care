@@ -11,10 +11,10 @@ import com.example.murodjonrahimov.wecare.R;
 
 // fragment for PatientActivity
 
-public class PDoctorsFragment extends Fragment {
+public class ListOfDoctorsFragment extends Fragment {
 
 
-    public PDoctorsFragment() {
+    public ListOfDoctorsFragment() {
         // Required empty public constructor
     }
 

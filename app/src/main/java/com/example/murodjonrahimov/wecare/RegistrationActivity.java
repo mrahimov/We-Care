@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 
 // registration page for Patients & Doctors
+// To Do Volha
+
 public class RegistrationActivity extends AppCompatActivity {
 
     @Override

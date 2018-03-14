@@ -3,17 +3,17 @@
 
         <item
             android:id="@+id/navigation_doctors"
-            android:title="Doctors"/>
-            <!--android:icon="@drawable/home" />-->
+            android:title="Doctors"
+            android:icon="@drawable/doctor" />
 
         <item
             android:id="@+id/navigation_my_profile"
-            android:title="Profile"/>
-            <!--android:icon="@drawable/map" />-->
+            android:title="My Profile"
+            android:icon="@drawable/profile" />
 
         <item
             android:id="@+id/navigation_posts"
-            android:title="Posts"/>
-            <!--android:icon="@drawable/favourite" />-->
+            android:title="Posts"
+            android:icon="@drawable/posts" />
 
 </menu>

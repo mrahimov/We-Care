@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 
 // Very first activity for sign-in
+// To Do Volha
+
 public class LandingActivity extends AppCompatActivity {
 
     private Button registerButton;
@@ -32,7 +34,7 @@ public class LandingActivity extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+            // To Do Volha
             }
         });
     }
