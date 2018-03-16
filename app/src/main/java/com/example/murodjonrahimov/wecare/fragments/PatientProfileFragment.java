@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.murodjonrahimov.wecare.R;
+import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Patient;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,28 +19,24 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
-// fragment for PatientActivity
-
 public class PatientProfileFragment extends Fragment {
 
 
     private EditText firstName;
     private EditText lastName;
     private EditText country;
-    private EditText occupation;
+    private EditText weight;
     private EditText dob;
-    private EditText uid;
+    private EditText gender;
     private Button saveButton;
     private Button editButton;
     private Button removeButton;
 
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReference;
-    private Patient selectedPatient;
 
 
     public PatientProfileFragment() {
-        // Required empty public constructor
     }
 
 
@@ -47,13 +44,14 @@ public class PatientProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView =  inflater.inflate(R.layout.p_fragment_profile, container, false);
+        View rootView = inflater.inflate(R.layout.p_fragment_profile, container, false);
 
         firstName = rootView.findViewById(R.id.first_name);
         lastName = rootView.findViewById(R.id.last_name);
         country = rootView.findViewById(R.id.country);
-        occupation = rootView.findViewById(R.id.occupation);
+        weight = rootView.findViewById(R.id.weight);
         dob = rootView.findViewById(R.id.dob);
+        gender = rootView.findViewById(R.id.gender);
         saveButton = rootView.findViewById(R.id.save_button);
         editButton = rootView.findViewById(R.id.edit_button);
         removeButton = rootView.findViewById(R.id.remove_button);
@@ -64,28 +62,17 @@ public class PatientProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                saveNewPatientProfile();
+                String name = firstName.getText().toString();
+                String surname = lastName.getText().toString();
+                String countryOrigin = country.getText().toString();
+                String patientWeight = weight.getText().toString();
+                String dateOfBirth = dob.getText().toString();
+                String sex = gender.getText().toString();
+
+                Patient patient = new Patient(name, surname, countryOrigin, patientWeight, dateOfBirth, sex);
+                Database.savePatient(patient);
             }
         });
-
-//        editButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                Patient patient = new Patient(selectedPatient.getUid(), selectedPatient.getLastName(), selectedPatient.getFirstName(), selectedPatient.getCountry(),
-//                selectedPatient.getOccupation(), selectedPatient.getDob());
-//
-//                editPatientProfile(patient);
-//            }
-//        });
-//
-//        removeButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//               deletePatientProfile(selectedPatient);
-//            }
-//        });
 
         return rootView;
     }
@@ -96,30 +83,5 @@ public class PatientProfileFragment extends Fragment {
         mReference = mDatabase.getReference();
 
     }
-
-    private void saveNewPatientProfile() {
-        String name = firstName.getText().toString();
-        String surname = lastName.getText().toString();
-        String countryOrigin = country.getText().toString();
-        String patientOccupation = occupation.getText().toString();
-        String dateOfBirth = dob.getText().toString();
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        Patient patient = new Patient(name, surname, countryOrigin, patientOccupation, dateOfBirth);
-        mReference.child("patients").child(user.getUid()).setValue(patient);
-    }
-
-//    private void editPatientProfile(Patient selectedPatient) {
-//
-//        mReference.child("patients").child(selectedPatient.getUid()).child("name").setValue(selectedPatient.getFirstName());
-//        mReference.child("patients").child(selectedPatient.getUid()).child("surname").setValue(selectedPatient.getLastName());
-//        mReference.child("patients").child(selectedPatient.getUid()).child("countryOrigin").setValue(selectedPatient.getCountry());
-//        mReference.child("patients").child(selectedPatient.getUid()).child("patientOccupation").setValue(selectedPatient.getOccupation());
-//        mReference.child("patients").child(selectedPatient.getUid()).child("dateOfBirth").setValue(selectedPatient.getDob());
-//    }
-//
-//    private void deletePatientProfile(Patient selectedPatient) {
-//        mReference.child("patients").child(selectedPatient.getUid()).removeValue();
-//    }
 
 }

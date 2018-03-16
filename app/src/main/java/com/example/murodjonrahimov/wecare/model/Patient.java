@@ -10,14 +10,24 @@ public class Patient {
     private String lastName;
     private String country;
     private String dob;
-    private String occupation;
+    private String weight;
+    private String gender;
 
-    public Patient(String firstName, String lastName, String country, String dob, String occupation) {
+    public Patient(String firstName, String lastName, String country, String dob, String weight, String gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.country = country;
         this.dob = dob;
-        this.occupation = occupation;
+        this.weight = weight;
+        this.gender = gender;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getFirstName() {
@@ -53,10 +63,10 @@ public class Patient {
     }
 
     public String getOccupation() {
-        return occupation;
+        return weight;
     }
 
     public void setOccupation(String occupation) {
-        this.occupation = occupation;
+        this.weight = occupation;
     }
 }
