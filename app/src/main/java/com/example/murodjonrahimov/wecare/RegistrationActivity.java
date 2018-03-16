@@ -47,7 +47,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 // cant understand why if either email field or password are blank and I press on button to register, it crashes.
                 //I have taken nullPointOfExceptionon the next line
 
-                if (email.equals(null) || password.equals(null)) {
+                if (email.equals("") || password.equals("")) {
                     Toast.makeText(RegistrationActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG).show();
                 }
 
@@ -62,7 +62,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 Toast.makeText(RegistrationActivity.this, "Registration successful", Toast.LENGTH_LONG).show();
 
-                                Intent intent = new Intent(RegistrationActivity.this, DoctorActivity.class);
+                                Intent intent = new Intent(RegistrationActivity.this, PatientActivity.class);
                                 startActivity(intent);
                             } else {
                                 Toast.makeText(RegistrationActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();

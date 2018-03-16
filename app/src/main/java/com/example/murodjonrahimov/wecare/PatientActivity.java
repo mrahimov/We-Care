@@ -35,7 +35,7 @@ public class PatientActivity extends AppCompatActivity {
 
 
         toolbar = getSupportActionBar();
-        loadFragment(new DoctorsForumFragment());
+        loadFragment(new ListOfDoctorsFragment());
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
 
