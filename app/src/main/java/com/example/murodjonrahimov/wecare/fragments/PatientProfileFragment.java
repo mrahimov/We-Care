@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.murodjonrahimov.wecare.PatientPostForm;
 import com.example.murodjonrahimov.wecare.PatientProfileForm;
@@ -31,15 +34,13 @@ import com.google.firebase.database.ValueEventListener;
 public class PatientProfileFragment extends Fragment {
 
 
-    private EditText firstName;
-    private EditText lastName;
-    private EditText country;
-    private EditText weight;
-    private EditText dob;
-    private EditText gender;
+    private TextView firstName;
+    private TextView lastName;
+    private TextView country;
+    private TextView weight;
+    private TextView dob;
+    private TextView gender;
     private FloatingActionButton fab;
-    private Button editButton;
-    private Button removeButton;
 
     public PatientProfileFragment() {
     }
@@ -79,10 +80,12 @@ public class PatientProfileFragment extends Fragment {
 
         String userID = Database.getUserId();
 
-        ref.orderByChild("patients").equalTo(userID).addChildEventListener(new ChildEventListener() {
+
+        ref.child("patients").equalTo(userID).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Patient patient = dataSnapshot.getValue(Patient.class);
+                firstName.setText(patient.getFirstName().toString());
 
             }
 
@@ -106,19 +109,5 @@ public class PatientProfileFragment extends Fragment {
 
             }
         });
-
-//        ref.child("patients").orderByKey().equalTo(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-//
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                Patient patient = dataSnapshot.getValue(Patient.class);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//        });
     }
 }

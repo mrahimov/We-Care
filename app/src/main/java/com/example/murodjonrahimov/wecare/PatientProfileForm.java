@@ -6,8 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.murodjonrahimov.wecare.database.Database;
+import com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment;
 import com.example.murodjonrahimov.wecare.model.Patient;
 
 
@@ -47,6 +49,7 @@ public class PatientProfileForm extends AppCompatActivity {
 
                 Patient patient = new Patient(name, surname, countryOrigin, patientWeight, dateOfBirth, sex);
                 Database.savePatient(patient);
+                finish();
             }
         });
 
