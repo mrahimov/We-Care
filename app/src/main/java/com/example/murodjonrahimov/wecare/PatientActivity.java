@@ -29,11 +29,6 @@ public class PatientActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_activity);
 
-//        EditText emailID = findViewById(R.id.email_id);
-//        emailID.setText(getIntent().getExtras().getString(EMAIL_KEY));
-//        TextView welcomeText = findViewById(R.id.welcome);
-
-
         toolbar = getSupportActionBar();
         loadFragment(new ListOfDoctorsFragment());
 

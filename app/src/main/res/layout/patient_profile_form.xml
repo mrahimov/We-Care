@@ -5,37 +5,37 @@
     android:orientation="vertical"
     tools:context="com.example.murodjonrahimov.wecare.PatientProfileForm">
 
-    <EditText
+    <TextView
         android:id="@+id/first_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="First Name"/>
 
-    <EditText
+    <TextView
         android:id="@+id/last_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Last Name"/>
 
-    <EditText
+    <TextView
         android:id="@+id/country"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Country"/>
 
-    <EditText
+    <TextView
         android:id="@+id/dob"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="DOB"/>
 
-    <EditText
+    <TextView
         android:id="@+id/weight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Weight"/>
 
-    <EditText
+    <TextView
         android:id="@+id/gender"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,4 +46,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="save"/>
+
 </LinearLayout>

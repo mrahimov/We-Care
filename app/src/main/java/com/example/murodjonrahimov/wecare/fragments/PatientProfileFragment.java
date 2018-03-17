@@ -20,6 +20,7 @@ import com.example.murodjonrahimov.wecare.model.Patient;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -63,7 +64,8 @@ public class PatientProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), PatientProfileForm.class);
-                startActivity(intent);            }
+                startActivity(intent);
+            }
         });
         return rootView;
     }
@@ -73,12 +75,30 @@ public class PatientProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         FirebaseDatabase db = Database.getDatabase();
+        DatabaseReference ref = db.getReference();
+
         String userID = Database.getUserId();
-        db.getReference().child("patients").orderByKey().equalTo(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+
+        ref.orderByChild("patients").equalTo(userID).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Patient patient = dataSnapshot.getValue(Patient.class);
+
+            }
 
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Patient patient = dataSnapshot.getValue(Patient.class);
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
             }
 
             @Override
@@ -86,5 +106,19 @@ public class PatientProfileFragment extends Fragment {
 
             }
         });
+
+//        ref.child("patients").orderByKey().equalTo(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+//
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                Patient patient = dataSnapshot.getValue(Patient.class);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//        });
     }
 }
