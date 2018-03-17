@@ -78,30 +78,24 @@ public class PatientProfileFragment extends Fragment {
         FirebaseDatabase db = Database.getDatabase();
         DatabaseReference ref = db.getReference();
 
-        String userID = Database.getUserId();
+        final String userID = Database.getUserId();
 
 
-        ref.child("patients").equalTo(userID).addChildEventListener(new ChildEventListener() {
+        ref.child("patients").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Patient patient = dataSnapshot.getValue(Patient.class);
-                firstName.setText(patient.getFirstName().toString());
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    if (dataSnapshot1.getKey().equals(userID)){
+                        Patient patient = dataSnapshot1.getValue(Patient.class);
+                        firstName.setText(patient.getFirstName());
+                        lastName.setText(patient.getLastName());
+                        country.setText(patient.getCountry());
+                        dob.setText(patient.getDob());
+                        gender.setText(patient.getGender());
+                        weight.setText(patient.getWeight());
+                    }
 
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+                }
             }
 
             @Override

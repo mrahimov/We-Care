@@ -38,6 +38,7 @@ public class PatientPostForm extends AppCompatActivity {
 
                 Post post = new Post(message, addedBy, timestamp);
                 Database.savePost(post);
+                finish();
             }
         });
 

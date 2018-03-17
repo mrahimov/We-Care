@@ -22,6 +22,14 @@ public class Patient {
         this.gender = gender;
     }
 
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
     public String getGender() {
         return gender;
     }
