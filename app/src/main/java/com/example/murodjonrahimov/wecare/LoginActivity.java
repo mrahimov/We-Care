@@ -40,7 +40,6 @@ public class LoginActivity extends AppCompatActivity {
 
         final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-// if any of the fields (signInEmail or signInPassword is empty, it crashes, Volha to fix)
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override

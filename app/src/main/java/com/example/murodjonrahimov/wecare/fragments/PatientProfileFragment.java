@@ -1,7 +1,10 @@
 package com.example.murodjonrahimov.wecare.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,14 +12,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.murodjonrahimov.wecare.PatientPostForm;
+import com.example.murodjonrahimov.wecare.PatientProfileForm;
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Patient;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class PatientProfileFragment extends Fragment {
@@ -28,13 +36,9 @@ public class PatientProfileFragment extends Fragment {
     private EditText weight;
     private EditText dob;
     private EditText gender;
-    private Button saveButton;
+    private FloatingActionButton fab;
     private Button editButton;
     private Button removeButton;
-
-    private FirebaseDatabase mDatabase;
-    private DatabaseReference mReference;
-
 
     public PatientProfileFragment() {
     }
@@ -52,36 +56,35 @@ public class PatientProfileFragment extends Fragment {
         weight = rootView.findViewById(R.id.weight);
         dob = rootView.findViewById(R.id.dob);
         gender = rootView.findViewById(R.id.gender);
-        saveButton = rootView.findViewById(R.id.save_button);
-        editButton = rootView.findViewById(R.id.edit_button);
-        removeButton = rootView.findViewById(R.id.remove_button);
+        fab = rootView.findViewById(R.id.add_fab);
 
-        initFirebase();
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String name = firstName.getText().toString();
-                String surname = lastName.getText().toString();
-                String countryOrigin = country.getText().toString();
-                String patientWeight = weight.getText().toString();
-                String dateOfBirth = dob.getText().toString();
-                String sex = gender.getText().toString();
-
-                Patient patient = new Patient(name, surname, countryOrigin, patientWeight, dateOfBirth, sex);
-                Database.savePatient(patient);
-            }
+                Intent intent = new Intent(getActivity(), PatientProfileForm.class);
+                startActivity(intent);            }
         });
-
         return rootView;
     }
 
-    private void initFirebase() {
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        mDatabase = FirebaseDatabase.getInstance();
-        mReference = mDatabase.getReference();
+        FirebaseDatabase db = Database.getDatabase();
+        String userID = Database.getUserId();
+        db.getReference().child("patients").orderByKey().equalTo(userID).addListenerForSingleValueEvent(new ValueEventListener() {
 
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Patient patient = dataSnapshot.getValue(Patient.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
-
 }

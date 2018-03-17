@@ -2,32 +2,32 @@ package com.example.murodjonrahimov.wecare;
 
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Post;
 
-public class PatientPostTemplate extends AppCompatActivity {
+public class PatientPostForm extends AppCompatActivity {
 
-    private FloatingActionButton fab;
     private EditText messageED;
     private EditText addedByED;
     private EditText timestampED;
+    private Button saveButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.patient_post_template);
+        setContentView(R.layout.patient_post_form);
 
-        fab = findViewById(R.id.add_fab);
+        saveButton = findViewById(R.id.save_button);
         messageED = findViewById(R.id.message_ed);
         addedByED = findViewById(R.id.added_by_ed);
         timestampED = findViewById(R.id.timestamp_ed);
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

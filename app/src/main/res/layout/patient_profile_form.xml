@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment">
+    tools:context="com.example.murodjonrahimov.wecare.PatientProfileForm">
 
     <EditText
         android:id="@+id/first_name"
@@ -41,9 +41,9 @@
         android:layout_height="wrap_content"
         android:hint="Sex"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_fab"
+    <Button
+        android:id="@+id/save_button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="wrap_content"
+        android:text="save"/>
 </LinearLayout>

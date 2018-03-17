@@ -25,13 +25,18 @@ public class Database {
     public static void savePost(Post post) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         post.setAddedBy(user.getUid());
-        getDatabase().getReference().child("posts").setValue(post);
+        getDatabase().getReference().child("posts").push().setValue(post);
     }
 
     public static void saveDoctor(Doctor doctor) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         getDatabase().getReference().child("doctors").child(user.getUid()).setValue(doctor);
 
+    }
+
+    public static String getUserId() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        return user.getUid();
     }
 
 }

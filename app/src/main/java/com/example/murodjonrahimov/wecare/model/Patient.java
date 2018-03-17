@@ -1,8 +1,5 @@
 package com.example.murodjonrahimov.wecare.model;
 
-/**
- * Created by olgakoleda on 3/15/18.
- */
 
 public class Patient {
 
@@ -12,6 +9,9 @@ public class Patient {
     private String dob;
     private String weight;
     private String gender;
+
+    public Patient() {
+    }
 
     public Patient(String firstName, String lastName, String country, String dob, String weight, String gender) {
         this.firstName = firstName;
