@@ -20,6 +20,11 @@
         <activity android:name=".DoctorActivity"></activity>
         <activity android:name=".PatientActivity"></activity>
         <activity android:name=".RegistrationActivity"></activity>
+        <activity android:name=".PatientProfileForm"></activity>
+        <activity android:name=".PatientPostForm"></activity>
+        <activity android:name=".DoctorProfileForm"></activity>
+
+
     </application>
 
 </manifest>

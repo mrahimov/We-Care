@@ -40,18 +40,14 @@ public class LoginActivity extends AppCompatActivity {
 
         final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-// if any of the fields (signInEmail or signInPassword is empty, it crashes, Volha to fix)
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (signInEmail.getText().toString().equals(" ") || signInPassword.getText().toString().equals(" ")) {
-
+                if (signInEmail.getText().toString().equals("") || signInPassword.getText().toString().equals("")) {
                     Toast.makeText(LoginActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG).show();
-
                 }
-
                 else {
 
                     final ProgressDialog progressDialog = ProgressDialog.show(LoginActivity.this, "Please wait... ", "Processing...", true);
