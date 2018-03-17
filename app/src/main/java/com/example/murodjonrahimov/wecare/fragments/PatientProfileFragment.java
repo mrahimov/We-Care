@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.murodjonrahimov.wecare.PatientPostForm;
 import com.example.murodjonrahimov.wecare.PatientProfileForm;
@@ -31,15 +34,13 @@ import com.google.firebase.database.ValueEventListener;
 public class PatientProfileFragment extends Fragment {
 
 
-    private EditText firstName;
-    private EditText lastName;
-    private EditText country;
-    private EditText weight;
-    private EditText dob;
-    private EditText gender;
+    private TextView firstName;
+    private TextView lastName;
+    private TextView country;
+    private TextView weight;
+    private TextView dob;
+    private TextView gender;
     private FloatingActionButton fab;
-    private Button editButton;
-    private Button removeButton;
 
     public PatientProfileFragment() {
     }
@@ -77,28 +78,24 @@ public class PatientProfileFragment extends Fragment {
         FirebaseDatabase db = Database.getDatabase();
         DatabaseReference ref = db.getReference();
 
-        String userID = Database.getUserId();
+        final String userID = Database.getUserId();
 
-        ref.orderByChild("patients").equalTo(userID).addChildEventListener(new ChildEventListener() {
+
+        ref.child("patients").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Patient patient = dataSnapshot.getValue(Patient.class);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    if (dataSnapshot1.getKey().equals(userID)){
+                        Patient patient = dataSnapshot1.getValue(Patient.class);
+                        firstName.setText(patient.getFirstName());
+                        lastName.setText(patient.getLastName());
+                        country.setText(patient.getCountry());
+                        dob.setText(patient.getDob());
+                        gender.setText(patient.getGender());
+                        weight.setText(patient.getWeight());
+                    }
 
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+                }
             }
 
             @Override
@@ -106,19 +103,5 @@ public class PatientProfileFragment extends Fragment {
 
             }
         });
-
-//        ref.child("patients").orderByKey().equalTo(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-//
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                Patient patient = dataSnapshot.getValue(Patient.class);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//        });
     }
 }
