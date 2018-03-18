@@ -8,13 +8,13 @@
         android:id="@+id/email_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Email Address:"/>
+        android:hint="Email Address:" />
 
     <EditText
         android:id="@+id/password_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Password:"/>
+        android:hint="Password:" />
 
     <Button
         android:id="@+id/register_patient_button"

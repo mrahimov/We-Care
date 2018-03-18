@@ -16,12 +16,10 @@ import com.example.murodjonrahimov.wecare.PatientPostForm;
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.controller.PatientsPostsAdapter;
 import com.example.murodjonrahimov.wecare.database.Database;
-import com.example.murodjonrahimov.wecare.model.Patient;
 import com.example.murodjonrahimov.wecare.model.Post;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -82,6 +80,8 @@ public class PatientMyPostFragment extends Fragment {
                     String retrievedAddedBydataSnapshot1 = dataSnapshot1.child("addedBy").getValue().toString();
                     if (retrievedAddedBydataSnapshot1.equals(userID)) {
                         Post post = dataSnapshot1.getValue(Post.class);
+                        String postKey = dataSnapshot1.getKey();
+                        post.setKey(postKey);
                         myPosts.add(post);
                     }
                 }

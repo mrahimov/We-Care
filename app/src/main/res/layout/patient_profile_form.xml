@@ -9,42 +9,42 @@
         android:id="@+id/first_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="First Name"/>
+        android:hint="First Name" />
 
     <EditText
         android:id="@+id/last_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Last Name"/>
+        android:hint="Last Name" />
 
     <EditText
         android:id="@+id/country"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Country"/>
+        android:hint="Country" />
 
     <EditText
         android:id="@+id/dob"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="DOB"/>
+        android:hint="DOB" />
 
     <EditText
         android:id="@+id/weight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Weight"/>
+        android:hint="Weight" />
 
     <EditText
         android:id="@+id/gender"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Sex"/>
+        android:hint="Sex" />
 
     <Button
         android:id="@+id/save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="save"/>
+        android:text="save" />
 
 </LinearLayout>

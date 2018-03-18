@@ -18,7 +18,6 @@ import com.example.murodjonrahimov.wecare.model.Patient;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
@@ -74,7 +73,7 @@ public class PatientProfileFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    if (dataSnapshot1.getKey().equals(userID)){
+                    if (dataSnapshot1.getKey().equals(userID)) {
                         Patient patient = dataSnapshot1.getValue(Patient.class);
                         firstName.setText(patient.getFirstName());
                         lastName.setText(patient.getLastName());

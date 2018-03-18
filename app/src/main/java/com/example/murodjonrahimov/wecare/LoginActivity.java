@@ -16,9 +16,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-
-// Very first activity for sign-in
-
 public class LoginActivity extends AppCompatActivity {
 
 
@@ -47,8 +44,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (signInEmail.getText().toString().equals("") || signInPassword.getText().toString().equals("")) {
                     Toast.makeText(LoginActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG).show();
-                }
-                else {
+                } else {
 
                     final ProgressDialog progressDialog = ProgressDialog.show(LoginActivity.this, "Please wait... ", "Processing...", true);
 
@@ -64,9 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Intent intent = new Intent(LoginActivity.this, PatientActivity.class);
                                 intent.putExtra(EMAIL_KEY, firebaseAuth.getCurrentUser().getEmail());
                                 startActivity(intent);
-                            }
-
-                            else {
+                            } else {
                                 Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
 
                             }
