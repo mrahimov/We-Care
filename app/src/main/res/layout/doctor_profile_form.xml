@@ -9,38 +9,38 @@
         android:id="@+id/first_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="First Name"/>
+        android:hint="First Name" />
 
     <EditText
         android:id="@+id/last_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Last Name"/>
+        android:hint="Last Name" />
 
     <EditText
         android:id="@+id/country"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Country of Work"/>
+        android:hint="Country of Work" />
 
     <EditText
         android:id="@+id/major"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Major Speciality"/>
+        android:hint="Major Speciality" />
 
     <EditText
         android:id="@+id/years_of_experience"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Years of experience"/>
+        android:hint="Years of experience" />
 
 
     <Button
         android:id="@+id/save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="save"/>
+        android:text="save" />
 
 
 </LinearLayout>

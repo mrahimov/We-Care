@@ -1,5 +1,6 @@
 package com.example.murodjonrahimov.wecare.database;
 
+import com.example.murodjonrahimov.wecare.model.Comment;
 import com.example.murodjonrahimov.wecare.model.Doctor;
 import com.example.murodjonrahimov.wecare.model.Patient;
 import com.example.murodjonrahimov.wecare.model.Post;
@@ -16,7 +17,6 @@ public class Database {
 
         database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference();
-
         return ref;
     }
 
@@ -40,6 +40,11 @@ public class Database {
     public static String getUserId() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         return user.getUid();
+    }
+
+    public static void saveComment(Comment comment) {
+        getDatabase().child("comments").push().setValue(comment);
+
     }
 
 }

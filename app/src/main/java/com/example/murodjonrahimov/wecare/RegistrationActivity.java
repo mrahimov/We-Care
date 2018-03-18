@@ -15,9 +15,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-// registration page for Patients & Doctors
-// To Do Volha
-
 public class RegistrationActivity extends AppCompatActivity {
 
     public final static String EMAIL_KEY = "email";
@@ -49,9 +46,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 if (email.equals("") || password.equals("")) {
                     Toast.makeText(RegistrationActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG).show();
-                }
-
-                else {
+                } else {
 
                     final ProgressDialog progressDialog = ProgressDialog.show(RegistrationActivity.this, "Please wait ...", "Processing...", true);
                     (firebaseAuth.createUserWithEmailAndPassword(email, password)).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -85,9 +80,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 if (email.equals("") || password.equals("")) {
                     Toast.makeText(RegistrationActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG).show();
-                }
-
-                else {
+                } else {
 
                     final ProgressDialog progressDialog = ProgressDialog.show(RegistrationActivity.this, "Please wait ...", "Processing...", true);
                     (firebaseAuth.createUserWithEmailAndPassword(email, password)).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

@@ -33,7 +33,7 @@ public class PatientsPostsAdapter extends RecyclerView.Adapter<PatientPostsViewH
 
     @Override
     public int getItemCount() {
-            return postsList.size();
+        return postsList.size();
     }
 
     public void setData(List<Post> postsList) {

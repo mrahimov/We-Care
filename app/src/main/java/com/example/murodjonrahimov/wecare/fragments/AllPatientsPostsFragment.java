@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class AllPatientsPostsFragment extends Fragment {
   private View rootView;
@@ -28,29 +26,33 @@ public class AllPatientsPostsFragment extends Fragment {
   private RecyclerView recyclerView;
 
   public AllPatientsPostsFragment() {
-    // Required empty public constructor
   }
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    // Inflate the layout for this fragment
     rootView = inflater.inflate(R.layout.d_fragment_posts, container, false);
-
 
     recyclerView = rootView.findViewById(R.id.recyclerview_allposts);
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    adapter = new AllPostsAdapter();
+    recyclerView.setAdapter(adapter);
 
     DatabaseReference ref1 = FirebaseDatabase.getInstance()
       .getReference();
-    DatabaseReference ref2;
-    ref2 = ref1.child("posts");
+    DatabaseReference ref2 = ref1.child("posts");
 
-    ref2.addListenerForSingleValueEvent(new ValueEventListener() {
+    ref2.addValueEventListener(new ValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot dataSnapshot) {
+        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+          Post post = dataSnapshot1.getValue(Post.class);
+          String postKey = dataSnapshot1.getKey();
+          post.setKey(postKey);
+          postList.add(post);
+        }
 
-        collectPosts((Map<String,Object>) dataSnapshot.getValue());
-
+        adapter.setPostList(postList);
+        adapter.notifyDataSetChanged();
       }
 
       @Override
@@ -59,30 +61,7 @@ public class AllPatientsPostsFragment extends Fragment {
       }
     });
 
-
     return rootView;
   }
 
-  private void collectPosts(Map<String, Object> posts) {
-    Log.d("TED", posts.size() + "");
-    for (Map.Entry<String, Object> entry : posts.entrySet()) {
-      //Get user map
-      Map singlePost = (Map) entry.getValue();
-      //Get phone field and append to list
-      Post post = new Post();
-      post.setMessage((String) singlePost.get("message"));
-      post.setAddedBy((String) singlePost.get("addedBy"));
-      post.setTimeStamp((String) singlePost.get("timeStamp"));
-
-      postList.add(post);
-
-    }
-    //if (postList != null) {
-    Log.d("TEG", "" + postList.size());
-    adapter = new AllPostsAdapter(postList);
-    recyclerView.setAdapter(adapter);
-
-    //}
-
-  }
 }

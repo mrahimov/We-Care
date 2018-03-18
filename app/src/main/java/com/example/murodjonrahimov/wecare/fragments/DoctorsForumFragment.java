@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 
 import com.example.murodjonrahimov.wecare.R;
 
-// fragment for DoctorActivity
 
 public class DoctorsForumFragment extends Fragment {
 
