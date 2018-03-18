@@ -1,32 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
-  app:cardCornerRadius="@dimen/cardview_compat_inset_shadow"
-  android:padding="12dp"
-  android:layout_height="150dp"
-  android:orientation="vertical">
+  android:id="@+id/card_view"
+  android:layout_width="match_parent"
+  android:layout_height="120dp"
+  android:layout_margin="8dp">
 
     <LinearLayout
       android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:padding="12dp"
       android:orientation="vertical"
-      android:layout_height="match_parent">
+    >
 
     <TextView
       android:id="@+id/textview_addaedy"
       android:layout_width="match_parent"
-      android:text="add"
       android:layout_height="wrap_content"/>
 
     <TextView
       android:id="@+id/textview_message"
       android:layout_width="match_parent"
-      android:text="message"
       android:layout_height="wrap_content"/>
 
     <TextView
       android:id="@+id/textview_timeStamp"
-      android:text="time"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"/>
 
