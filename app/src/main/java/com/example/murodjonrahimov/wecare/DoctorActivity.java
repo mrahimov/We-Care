@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.fragments.DoctorsForumFragment;
 import com.example.murodjonrahimov.wecare.fragments.AllPatientsPostsFragment;
 import com.example.murodjonrahimov.wecare.fragments.DoctorProfileFragment;
@@ -44,7 +45,7 @@ public class DoctorActivity extends AppCompatActivity {
                         loadFragment(fragment);
                         return true;
                     case R.id.navigation_my_profile:
-                        toolbar.setTitle("Profile");
+                        toolbar.setTitle("Doctor Profile");
                         fragment = new DoctorProfileFragment();
                         loadFragment(fragment);
                         return true;

@@ -7,10 +7,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.TextView;
 
-import com.example.murodjonrahimov.wecare.fragments.DoctorsForumFragment;
+import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.fragments.ListOfDoctorsFragment;
 import com.example.murodjonrahimov.wecare.fragments.PatientMyPostFragment;
 import com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment;
