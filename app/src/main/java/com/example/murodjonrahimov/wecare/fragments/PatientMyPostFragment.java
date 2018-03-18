@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +16,24 @@ import android.widget.EditText;
 import com.example.murodjonrahimov.wecare.PatientActivity;
 import com.example.murodjonrahimov.wecare.PatientPostForm;
 import com.example.murodjonrahimov.wecare.R;
+import com.example.murodjonrahimov.wecare.controller.PatientsPostsAdapter;
 import com.example.murodjonrahimov.wecare.database.Database;
+import com.example.murodjonrahimov.wecare.model.Patient;
 import com.example.murodjonrahimov.wecare.model.Post;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class PatientMyPostFragment extends Fragment {
 
+    private PatientsPostsAdapter patientsPostsAdapter;
+    private List<Post> myPosts;
 
     public PatientMyPostFragment() {
     }
@@ -34,6 +47,11 @@ public class PatientMyPostFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.p_fragment_posts, container, false);
 
         RecyclerView recyclerView = rootView.findViewById(R.id.recyclerview);
+
+        patientsPostsAdapter = new PatientsPostsAdapter();
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setAdapter(patientsPostsAdapter);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         return rootView;
 
@@ -51,5 +69,35 @@ public class PatientMyPostFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        DatabaseReference db = Database.getDatabase();
+
+        final String userID = Database.getUserId();
+
+
+        db.child("posts").addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                myPosts = new ArrayList<>();
+
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    String retrievedAddedBydataSnapshot1 = dataSnapshot1.child("addedBy").getValue().toString();
+                    if (retrievedAddedBydataSnapshot1.equals(userID)) {
+                        Post post = dataSnapshot1.getValue(Post.class);
+                        myPosts.add(post);
+                    }
+                }
+                patientsPostsAdapter.setData(myPosts);
+                patientsPostsAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
+
 }

@@ -5,32 +5,35 @@ import com.example.murodjonrahimov.wecare.model.Patient;
 import com.example.murodjonrahimov.wecare.model.Post;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Database {
 
     private static FirebaseDatabase database;
 
-    public static FirebaseDatabase getDatabase() {
+    public static DatabaseReference getDatabase() {
 
         database = FirebaseDatabase.getInstance();
-        return database;
+        DatabaseReference ref = database.getReference();
+
+        return ref;
     }
 
     public static void savePatient(Patient patient) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        getDatabase().getReference().child("patients").child(user.getUid()).setValue(patient);
+        getDatabase().child("patients").child(user.getUid()).setValue(patient);
     }
 
     public static void savePost(Post post) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         post.setAddedBy(user.getUid());
-        getDatabase().getReference().child("posts").push().setValue(post);
+        getDatabase().child("posts").push().setValue(post);
     }
 
     public static void saveDoctor(Doctor doctor) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        getDatabase().getReference().child("doctors").child(user.getUid()).setValue(doctor);
+        getDatabase().child("doctors").child(user.getUid()).setValue(doctor);
 
     }
 
