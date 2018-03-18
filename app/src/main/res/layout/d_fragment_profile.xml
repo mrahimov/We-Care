@@ -5,31 +5,31 @@
     android:orientation="vertical"
     tools:context="com.example.murodjonrahimov.wecare.fragments.DoctorProfileFragment">
 
-    <EditText
+    <TextView
         android:id="@+id/first_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="First Name"/>
 
-    <EditText
+    <TextView
         android:id="@+id/last_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Last Name"/>
 
-    <EditText
+    <TextView
         android:id="@+id/country"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Country of Work"/>
 
-    <EditText
+    <TextView
         android:id="@+id/major"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Major Speciality"/>
 
-    <EditText
+    <TextView
         android:id="@+id/years_of_experience"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
