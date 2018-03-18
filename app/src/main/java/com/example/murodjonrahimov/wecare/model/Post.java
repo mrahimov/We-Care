@@ -13,6 +13,8 @@ public class Post {
         this.timeStamp = timeStamp;
     }
 
+    public Post() {
+    }
 
     public String getMessage() {
         return message;

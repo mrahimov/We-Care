@@ -66,13 +66,11 @@ public class PatientProfileFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        FirebaseDatabase db = Database.getDatabase();
-        DatabaseReference ref = db.getReference();
+        DatabaseReference db = Database.getDatabase();
 
         final String userID = Database.getUserId();
 
-
-        ref.child("patients").addValueEventListener(new ValueEventListener() {
+        db.child("patients").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
