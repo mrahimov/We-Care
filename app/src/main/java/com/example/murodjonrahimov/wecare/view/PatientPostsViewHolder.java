@@ -45,5 +45,4 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder {
         timestamp.setText("Date: " + post.getTimeStamp());
     }
 
-
 }

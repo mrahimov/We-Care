@@ -65,10 +65,13 @@ public class PostWithComments extends AppCompatActivity {
                 allComments = new ArrayList<>();
 
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    String retrievedPostKeydataSnapshot1 = dataSnapshot1.child("postId").getValue().toString();
-                    if (retrievedPostKeydataSnapshot1.equals(postKey)) {
-                        Comment comment = dataSnapshot1.getValue(Comment.class);
-                        allComments.add(comment);
+                    Object postIdWrapper = dataSnapshot1.child("postId").getValue();
+                    if(postIdWrapper != null) {
+                        String retrievedPostId = postIdWrapper.toString();
+                        if (retrievedPostId.equals(postKey)) {
+                            Comment comment = dataSnapshot1.getValue(Comment.class);
+                            allComments.add(comment);
+                        }
                     }
                 }
                 commentsAdapter.setData(allComments);
@@ -94,10 +97,7 @@ public class PostWithComments extends AppCompatActivity {
             }
         });
 
-
     }
-
-
 }
 
 
