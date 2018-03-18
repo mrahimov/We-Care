@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
 
   private EditText signInEmail;
   private EditText signInPassword;
+  private CheckBox checkBoxDoctor;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     Button signInButton = findViewById(R.id.sign_in_button);
     signInEmail = findViewById(R.id.email_login_edit_text);
     signInPassword = findViewById(R.id.password_login_edit_text);
+    checkBoxDoctor = findViewById(R.id.checkbox_doctor);
 
     final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
@@ -65,38 +68,56 @@ public class LoginActivity extends AppCompatActivity {
               progressDialog.dismiss();
 
               if (task.isSuccessful()) {
-                final String userEmail = firebaseAuth.getCurrentUser().getEmail();
-                Toast.makeText(LoginActivity.this, userEmail, Toast.LENGTH_LONG).show();
+                final String userEmail = firebaseAuth.getCurrentUser()
+                  .getEmail();
+                Toast.makeText(LoginActivity.this, userEmail, Toast.LENGTH_LONG)
+                  .show();
 
-                DatabaseReference root = FirebaseDatabase.getInstance().getReference();
-                DatabaseReference users = root.child("patients");
-                users.addListenerForSingleValueEvent(new ValueEventListener() {
-                  @Override
-                  public void onDataChange(DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
-                      Toast.makeText(LoginActivity.this, "Doctor Login Successful", Toast.LENGTH_LONG)
-                        .show();
+                DatabaseReference root = FirebaseDatabase.getInstance()
+                  .getReference();
+                if (checkBoxDoctor.isChecked()) {
+                  DatabaseReference users = root.child("doctors");
+                  users.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                      if (snapshot.exists()) {
+                        Toast.makeText(LoginActivity.this, "Doctor Login Successful", Toast.LENGTH_LONG)
+                          .show();
 
-                      Intent intent = new Intent(LoginActivity.this, DoctorActivity.class);
-                      intent.putExtra(EMAIL_KEY, firebaseAuth.getCurrentUser()
-                        .getEmail());
-                      startActivity(intent);
-                    } else {
-                      Toast.makeText(LoginActivity.this, "Patient Login Successful", Toast.LENGTH_LONG)
-                        .show();
-
-                      Intent intent = new Intent(LoginActivity.this, PatientActivity.class);
-                      intent.putExtra(EMAIL_KEY, firebaseAuth.getCurrentUser()
-                        .getEmail());
-                      startActivity(intent);
+                        Intent intent = new Intent(LoginActivity.this, DoctorActivity.class);
+                        intent.putExtra(EMAIL_KEY, firebaseAuth.getCurrentUser()
+                          .getEmail());
+                        startActivity(intent);
+                      }
                     }
-                  }
 
-                  @Override
-                  public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-                  }
-                });
+                    }
+                  });
+                } else {
+                  DatabaseReference users = root.child("patients");
+                  users.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                      if (snapshot.exists()) {
+                        Toast.makeText(LoginActivity.this, "Patient Login Successful", Toast.LENGTH_LONG)
+                          .show();
+
+                        Intent intent = new Intent(LoginActivity.this, PatientActivity.class);
+                        intent.putExtra(EMAIL_KEY, firebaseAuth.getCurrentUser()
+                          .getEmail());
+                        startActivity(intent);
+                      }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                  });
+                }
               } else {
                 Toast.makeText(LoginActivity.this, task.getException()
                   .getMessage(), Toast.LENGTH_LONG)
