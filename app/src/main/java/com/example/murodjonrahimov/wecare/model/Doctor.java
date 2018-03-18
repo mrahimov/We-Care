@@ -9,6 +9,9 @@ public class Doctor {
     private String major;
     private String yearsOfExperience;
 
+    public Doctor() {
+    }
+
     public Doctor(String firstName, String lastName, String countryOfPractice, String major, String yearsOfExperience) {
         this.firstName = firstName;
         this.lastName = lastName;
