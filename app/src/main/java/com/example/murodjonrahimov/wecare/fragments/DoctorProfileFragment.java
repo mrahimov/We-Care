@@ -58,7 +58,7 @@ public class DoctorProfileFragment extends Fragment {
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    FirebaseDatabase db = Database.getDatabase();
+    FirebaseDatabase db = FirebaseDatabase.getInstance();
     DatabaseReference ref = db.getReference();
 
     final String userID = Database.getUserId();
