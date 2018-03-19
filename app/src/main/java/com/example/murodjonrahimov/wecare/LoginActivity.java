@@ -49,11 +49,7 @@ public class LoginActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
 
-        if (signInEmail.getText()
-          .toString()
-          .equals("") || signInPassword.getText()
-          .toString()
-          .equals("")) {
+        if (signInEmail.getText().toString().equals("") || signInPassword.getText().toString().equals("")) {
           Toast.makeText(LoginActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG)
             .show();
         } else {
