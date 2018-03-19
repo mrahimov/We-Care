@@ -67,8 +67,10 @@ public class ListOfDoctorsFragment extends Fragment {
 
             @Override
             public DoctorsListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
                 View view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.listofdocs, parent, false);
+
                 return new DoctorsListViewHolder(view);
             }
 
