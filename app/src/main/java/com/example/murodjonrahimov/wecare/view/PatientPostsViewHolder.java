@@ -10,6 +10,8 @@ import com.example.murodjonrahimov.wecare.PostWithComments;
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.model.Post;
 
+import java.text.SimpleDateFormat;
+
 public class PatientPostsViewHolder extends RecyclerView.ViewHolder {
 
     public final static String POST_KEY = "post";
@@ -39,6 +41,7 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void onBind(Post post) {
+
         this.post = post;
         message.setText("Message: " + post.getMessage());
         addedBy.setText("Added by: " + post.getAddedBy());

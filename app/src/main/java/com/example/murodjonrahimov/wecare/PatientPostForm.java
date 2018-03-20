@@ -9,12 +9,13 @@ import android.widget.EditText;
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Post;
 
+import java.text.SimpleDateFormat;
+
 
 public class PatientPostForm extends AppCompatActivity {
 
     private EditText messageED;
     private EditText addedByED;
-    private EditText timestampED;
     private Button saveButton;
 
     @Override
@@ -25,7 +26,6 @@ public class PatientPostForm extends AppCompatActivity {
         saveButton = findViewById(R.id.save_button);
         messageED = findViewById(R.id.message_ed);
         addedByED = findViewById(R.id.added_by_ed);
-        timestampED = findViewById(R.id.timestamp_ed);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,9 +33,12 @@ public class PatientPostForm extends AppCompatActivity {
 
                 String message = messageED.getText().toString();
                 String addedBy = addedByED.getText().toString();
-                String timestamp = timestampED.getText().toString();
 
-                Post post = new Post(message, addedBy, timestamp);
+                long date = System.currentTimeMillis();
+                SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm a");
+                String dateString = sdf.format(date);
+
+                Post post = new Post(message, addedBy, dateString);
                 Database.savePost(post);
                 finish();
             }
