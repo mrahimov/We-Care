@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class PostWithComments extends AppCompatActivity {
 
         TextView message = findViewById(R.id.message_ed);
         TextView addedBy = findViewById(R.id.added_by_ed);
-        TextView timestamp = findViewById(R.id.timestamp_ed);
+        final TextView timestamp = findViewById(R.id.timestamp_ed);
 
         Intent intent = getIntent();
         final Post post = intent.getParcelableExtra(PatientPostsViewHolder.POST_KEY);
@@ -90,7 +91,12 @@ public class PostWithComments extends AppCompatActivity {
             public void onClick(View v) {
 
                 String receivedComment = addedComment.getText().toString();
-                Comment comment = new Comment(receivedComment, postKey);
+
+                long date = System.currentTimeMillis();
+                SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm a");
+                String dateString = sdf.format(date);
+
+                Comment comment = new Comment(receivedComment, postKey, dateString);
                 Database.saveComment(comment);
                 addedComment.getText().clear();
 

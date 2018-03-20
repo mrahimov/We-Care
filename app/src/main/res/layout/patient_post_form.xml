@@ -17,12 +17,6 @@
         android:layout_height="wrap_content"
         android:hint="added by" />
 
-    <EditText
-        android:id="@+id/timestamp_ed"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="date" />
-
     <Button
         android:id="@+id/save_button"
         android:layout_width="wrap_content"
