@@ -12,7 +12,7 @@ import com.example.murodjonrahimov.wecare.fragments.DoctorsForumFragment;
 import com.example.murodjonrahimov.wecare.fragments.AllPatientsPostsFragment;
 import com.example.murodjonrahimov.wecare.fragments.DoctorProfileFragment;
 
-public class DoctorActivity extends AppCompatActivity {
+public class DoctorActivity extends AppCompatActivity implements DoctorsForumFragment.onClickListenerDoc{
 
     private ActionBar toolbar;
 
@@ -60,6 +60,13 @@ public class DoctorActivity extends AppCompatActivity {
         transaction.replace(R.id.frame_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+
+
+    @Override
+    public void onclick(String key) {
+
     }
 }
 

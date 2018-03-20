@@ -104,7 +104,7 @@ public class ListOfDoctorsFragment extends Fragment {
 
     }
 
-    public static class DoctorsListViewHolder extends RecyclerView.ViewHolder {
+    public static class DoctorsListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView name;
         TextView yearsOfExp;
         TextView country;
@@ -116,6 +116,11 @@ public class ListOfDoctorsFragment extends Fragment {
             yearsOfExp = itemView.findViewById(R.id.years_of_experience);
             country = itemView.findViewById(R.id.country);
             major = itemView.findViewById(R.id.major);
+        }
+
+        @Override
+        public void onClick(View v) {
+            
         }
     }
 

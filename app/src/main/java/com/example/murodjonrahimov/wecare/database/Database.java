@@ -2,6 +2,7 @@ package com.example.murodjonrahimov.wecare.database;
 
 import com.example.murodjonrahimov.wecare.model.Comment;
 import com.example.murodjonrahimov.wecare.model.Doctor;
+import com.example.murodjonrahimov.wecare.model.DoctorPost;
 import com.example.murodjonrahimov.wecare.model.Patient;
 import com.example.murodjonrahimov.wecare.model.Post;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,7 +29,12 @@ public class Database {
     public static void savePost(Post post) {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         post.setAddedBy(user.getUid());
+
         getDatabase().child("posts").push().setValue(post);
+    }
+
+    public static void saveDoctorPost(DoctorPost doctorPost) {
+        getDatabase().child("DoctorPost").push().setValue(doctorPost);
     }
 
     public static void saveDoctor(Doctor doctor) {
