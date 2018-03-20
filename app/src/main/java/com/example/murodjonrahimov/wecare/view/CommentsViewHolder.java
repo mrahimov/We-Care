@@ -11,14 +11,17 @@ import com.example.murodjonrahimov.wecare.model.Comment;
 public class CommentsViewHolder extends RecyclerView.ViewHolder {
 
     private TextView commentTV;
+    private TextView commentTimestamp;
 
     public CommentsViewHolder(View itemView) {
         super(itemView);
 
         commentTV = itemView.findViewById(R.id.comment_textview);
+        commentTimestamp = itemView.findViewById(R.id.comment_timestamp);
     }
 
     public void onBind(Comment comment) {
         commentTV.setText(comment.getComment());
+        commentTimestamp.setText(comment.getTimeStamp());
     }
 }

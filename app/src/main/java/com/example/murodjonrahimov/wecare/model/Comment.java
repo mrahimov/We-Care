@@ -4,11 +4,21 @@ public class Comment {
 
     private String comment;
     private String postId;
+    private String timeStamp;
 
 
-    public Comment(String comment, String postId) {
+    public Comment(String comment, String postId, String timeStamp) {
         this.comment = comment;
         this.postId = postId;
+        this.timeStamp = timeStamp;
+    }
+
+    public String getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
     }
 
     public Comment() {
