@@ -164,7 +164,6 @@ public class DoctorsForumFragment extends Fragment {
     public interface onClickListenerDoc {
         void onclick(String key);
     }
-
 }
 
 
