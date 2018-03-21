@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.database.Database;
@@ -49,7 +50,7 @@ public class PatientProfileForm extends AppCompatActivity {
         String sex = gender.getText()
           .toString();
 
-        Patient patient = new Patient(name, surname, countryOrigin, patientWeight, dateOfBirth, sex);
+        Patient patient = new Patient(name, surname, countryOrigin, dateOfBirth, patientWeight, sex);
         Database.savePatient(patient);
         finish();
       }

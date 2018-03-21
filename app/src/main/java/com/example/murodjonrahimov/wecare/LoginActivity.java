@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
 
   private EditText signInEmail;
   private EditText signInPassword;
-  private CheckBox checkBoxDoctor;
+  private String checkboxIsChecked; //need this var for set type: doctor or patient
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     Button signInButton = findViewById(R.id.sign_in_button);
     signInEmail = findViewById(R.id.email_login_edit_text);
     signInPassword = findViewById(R.id.password_login_edit_text);
-    checkBoxDoctor = findViewById(R.id.checkbox_doctor);
+
 
     final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
@@ -75,7 +75,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 DatabaseReference root = FirebaseDatabase.getInstance()
                   .getReference();
-                if (checkBoxDoctor.isChecked()) {
                   DatabaseReference users = root.child("doctors");
                   users.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -96,28 +95,6 @@ public class LoginActivity extends AppCompatActivity {
 
                     }
                   });
-                } else {
-                  DatabaseReference users = root.child("patients");
-                  users.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot snapshot) {
-                      if (snapshot.exists()) {
-                        Toast.makeText(LoginActivity.this, "Patient Login Successful", Toast.LENGTH_LONG)
-                          .show();
-
-                        Intent intent = new Intent(LoginActivity.this, PatientActivity.class);
-                        intent.putExtra(EMAIL_KEY, firebaseAuth.getCurrentUser()
-                          .getEmail());
-                        startActivity(intent);
-                      }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                  });
-                }
               } else {
                 Toast.makeText(LoginActivity.this, task.getException()
                   .getMessage(), Toast.LENGTH_LONG)

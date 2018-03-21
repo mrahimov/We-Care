@@ -9,6 +9,8 @@ public class Patient {
     private String dob;
     private String weight;
     private String gender;
+    private String type;
+
 
     public Patient() {
     }
@@ -77,4 +79,13 @@ public class Patient {
     public void setOccupation(String occupation) {
         this.weight = occupation;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
 }

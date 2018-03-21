@@ -8,16 +8,18 @@ public class Doctor {
     private String countryOfPractice;
     private String major;
     private String yearsOfExperience;
+    private String type;
 
     public Doctor() {
     }
 
-    public Doctor(String firstName, String lastName, String countryOfPractice, String major, String yearsOfExperience) {
+    public Doctor(String firstName, String lastName, String countryOfPractice, String major, String yearsOfExperience, String type) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.countryOfPractice = countryOfPractice;
         this.major = major;
         this.yearsOfExperience = yearsOfExperience;
+        this.type = type;
     }
 
     public String getFirstName() {
@@ -58,5 +60,13 @@ public class Doctor {
 
     public void setYearsOfExperience(String yearsOfExperience) {
         this.yearsOfExperience = yearsOfExperience;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
