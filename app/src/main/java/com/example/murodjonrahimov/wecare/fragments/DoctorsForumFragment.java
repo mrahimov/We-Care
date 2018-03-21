@@ -3,17 +3,14 @@ package com.example.murodjonrahimov.wecare.fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,57 +19,41 @@ import android.widget.TextView;
 
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.database.Database;
-import com.example.murodjonrahimov.wecare.model.Doctor;
 import com.example.murodjonrahimov.wecare.model.DoctorPost;
-import com.example.murodjonrahimov.wecare.model.Post;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 
 public class DoctorsForumFragment extends Fragment {
     private View view;
-    FloatingActionButton floatingActionButton;
-    DatabaseReference database;
+    private FloatingActionButton floatingActionButton;
+    private DatabaseReference database;
     private RecyclerView recyclerView;
-    onClickListenerDoc listenerDoc;
-    FirebaseRecyclerAdapter<DoctorPost, DoctorsForumFragment.DoctorPosts> fireBaseRecyclerAdapter;
+    private onClickListenerDoctor listenerDoc;
+    private FirebaseRecyclerAdapter<DoctorPost, DoctorsForumFragment.DoctorPosts> fireBaseRecyclerAdapter;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            listenerDoc = (onClickListenerDoc) context;
+            listenerDoc = (onClickListenerDoctor) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString()
                     + " must implement listener");
         }
     }
-
-    public DoctorsForumFragment() {
-
-        // Required empty public constructor
-    }
-
+    public DoctorsForumFragment() {}
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         database = FirebaseDatabase.getInstance().getReference().child("DoctorPost");
-        //database.child()
         database.keepSynced(true);
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -80,7 +61,6 @@ public class DoctorsForumFragment extends Fragment {
         view = inflater.inflate(R.layout.d_fragment_doctors, container, false);
         return view;
     }
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -89,14 +69,12 @@ public class DoctorsForumFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         floatingActionButton = view.findViewById(R.id.fab);
 
-
         FirebaseRecyclerOptions<DoctorPost> options =
                 new FirebaseRecyclerOptions.Builder<DoctorPost>()
                         .setQuery(database, DoctorPost.class)
                         .build();
 
         fireBaseRecyclerAdapter = new FirebaseRecyclerAdapter<DoctorPost, DoctorPosts>(options) {
-
 
             @Override
             public DoctorsForumFragment.DoctorPosts onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -106,7 +84,6 @@ public class DoctorsForumFragment extends Fragment {
 
                 return new DoctorsForumFragment.DoctorPosts(view);
             }
-
             @Override
             protected void onBindViewHolder(@NonNull DoctorsForumFragment.DoctorPosts holder, int position,
                                             @NonNull final DoctorPost doctor) {
@@ -122,10 +99,8 @@ public class DoctorsForumFragment extends Fragment {
 
                     }
                 });
-            }
-        };
+            }};
         recyclerView.setAdapter(fireBaseRecyclerAdapter);
-
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,7 +114,6 @@ public class DoctorsForumFragment extends Fragment {
 
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
                 final String format = simpleDateFormat.format(new Date());
-
                 builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -158,33 +132,27 @@ public class DoctorsForumFragment extends Fragment {
             }
         });
     }
-
     @Override
     public void onStart() {
         super.onStart();
         fireBaseRecyclerAdapter.startListening();
     }
-
     @Override
     public void onStop() {
         super.onStop();
         fireBaseRecyclerAdapter.stopListening();
     }
-
     public static class DoctorPosts extends RecyclerView.ViewHolder {
         TextView message;
         TextView time;
-
         public DoctorPosts(View itemView) {
             super(itemView);
             message = itemView.findViewById(R.id.message1);
             time = itemView.findViewById(R.id.time1);
         }
     }
-
-    public interface onClickListenerDoc {
+    public interface onClickListenerDoctor {
         void onclick(String key, String message, String timestamp, String addedBy);
-
     }
 
 }
