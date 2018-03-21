@@ -1,5 +1,6 @@
 package com.example.murodjonrahimov.wecare;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 
@@ -63,9 +64,14 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
     }
 
 
-
     @Override
-    public void onclick(String key) {
+    public void onclick(String key, String message, String timestamp, String addedBy) {
+        Intent intent = new Intent(DoctorActivity.this, PostDoctorComments.class);
+        intent.putExtra("key", key);
+        intent.putExtra("message", message);
+        intent.putExtra("timestamp", timestamp);
+        intent.putExtra("addedby", addedBy);
+        startActivity(intent);
 
     }
 }

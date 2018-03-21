@@ -3,6 +3,7 @@
     package="com.example.murodjonrahimov.wecare">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,15 +18,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DoctorActivity"></activity>
-        <activity android:name=".PatientActivity"></activity>
-        <activity android:name=".RegistrationActivity"></activity>
-        <activity android:name=".PatientProfileForm"></activity>
-        <activity android:name=".PatientPostForm"></activity>
-        <activity android:name=".DoctorProfileForm"></activity>
-        <activity android:name=".PostWithComments"></activity>
-
-
+        <activity android:name=".DoctorActivity" />
+        <activity android:name=".PatientActivity" />
+        <activity android:name=".RegistrationActivity" />
+        <activity android:name=".PatientProfileForm" />
+        <activity android:name=".PatientPostForm" />
+        <activity android:name=".DoctorProfileForm" />
+        <activity android:name=".PostWithComments" />
+        <activity android:name=".PostDoctorComments"></activity>
     </application>
 
 </manifest>
