@@ -3,6 +3,7 @@ package com.example.murodjonrahimov.wecare.fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,14 +24,20 @@ import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Doctor;
 import com.example.murodjonrahimov.wecare.model.DoctorPost;
+import com.example.murodjonrahimov.wecare.model.Post;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -62,6 +69,7 @@ public class DoctorsForumFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         database = FirebaseDatabase.getInstance().getReference().child("DoctorPost");
+        //database.child()
         database.keepSynced(true);
     }
 
@@ -80,6 +88,7 @@ public class DoctorsForumFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         floatingActionButton = view.findViewById(R.id.fab);
+
 
         FirebaseRecyclerOptions<DoctorPost> options =
                 new FirebaseRecyclerOptions.Builder<DoctorPost>()
@@ -103,10 +112,13 @@ public class DoctorsForumFragment extends Fragment {
                                             @NonNull final DoctorPost doctor) {
                 holder.message.setText(doctor.getMessage());
                 holder.time.setText(doctor.getTimeStamp());
+                final String key = fireBaseRecyclerAdapter.getRef(position).getKey();
+
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        listenerDoc.onclick(doctor.getKey());
+
+                        listenerDoc.onclick(key, doctor.getMessage(), doctor.getTimeStamp(), doctor.getAddedBy());
 
                     }
                 });
@@ -131,7 +143,7 @@ public class DoctorsForumFragment extends Fragment {
                 builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        DoctorPost doctorPost = new DoctorPost(input1.getText().toString(),"Doctor", format);
+                        final DoctorPost doctorPost = new DoctorPost(input1.getText().toString(), "Doctor", format);
                         Database.saveDoctorPost(doctorPost);
                         dialog.dismiss();
                     }
@@ -162,14 +174,17 @@ public class DoctorsForumFragment extends Fragment {
     public static class DoctorPosts extends RecyclerView.ViewHolder {
         TextView message;
         TextView time;
+
         public DoctorPosts(View itemView) {
             super(itemView);
             message = itemView.findViewById(R.id.message1);
             time = itemView.findViewById(R.id.time1);
         }
     }
+
     public interface onClickListenerDoc {
-        void onclick(String key);
+        void onclick(String key, String message, String timestamp, String addedBy);
+
     }
 
 }
