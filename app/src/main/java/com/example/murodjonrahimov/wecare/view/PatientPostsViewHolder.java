@@ -26,7 +26,7 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
         message = itemView.findViewById(R.id.message_ed);
-        addedBy = itemView.findViewById(R.id.added_by_ed);
+        addedBy = itemView.findViewById(R.id.posted_by_ed);
         timestamp = itemView.findViewById(R.id.timestamp_ed);
         comments = itemView.findViewById(R.id.comments);
 
@@ -41,10 +41,9 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void onBind(Post post) {
-
         this.post = post;
         message.setText("Message: " + post.getMessage());
-        addedBy.setText("Added by: " + post.getAddedBy());
+        addedBy.setText("Posted by: " + post.getPostedByUserName());
         timestamp.setText("Date: " + post.getTimeStamp());
     }
 

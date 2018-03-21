@@ -1,6 +1,8 @@
 package com.example.murodjonrahimov.wecare;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -16,12 +18,19 @@ public class DoctorProfileForm extends AppCompatActivity {
     private EditText countryOfWork;
     private EditText major;
     private EditText yearsOfExperience;
+    private EditText userName;
     private Button saveButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.doctor_profile_form);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        final String userPrefferedName = preferences.getString(RegistrationActivity.USERNAME_KEY, "");
+
+        userName = findViewById(R.id.user_name);
+        userName.setText(userPrefferedName);
 
         firstName = findViewById(R.id.first_name);
         lastName = findViewById(R.id.last_name);
@@ -45,7 +54,7 @@ public class DoctorProfileForm extends AppCompatActivity {
                 String yearsOfPractice = yearsOfExperience.getText()
                         .toString();
 
-                Doctor doctor = new Doctor(name, surname, countryOfPractice, majorSpecialty, yearsOfPractice, "");
+                Doctor doctor = new Doctor(name, surname, countryOfPractice, majorSpecialty, yearsOfPractice, userPrefferedName);
                 Database.saveDoctor(doctor);
                 finish();
             }

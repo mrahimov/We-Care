@@ -1,7 +1,9 @@
 package com.example.murodjonrahimov.wecare;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,7 +38,7 @@ public class PostWithComments extends AppCompatActivity {
         setContentView(R.layout.post_with_comments);
 
         TextView message = findViewById(R.id.message_ed);
-        TextView addedBy = findViewById(R.id.added_by_ed);
+        TextView postedBy = findViewById(R.id.posted_by_ed);
         final TextView timestamp = findViewById(R.id.timestamp_ed);
 
         Intent intent = getIntent();
@@ -44,8 +46,8 @@ public class PostWithComments extends AppCompatActivity {
         final String postKey = post.getKey();
 
         message.setText("Message:" + post.getMessage());
-        addedBy.setText("Added By: " + post.getAddedBy());
         timestamp.setText("Date: " + post.getTimeStamp());
+        postedBy.setText("Posted by: " + post.getPostedByUserName());
 
         addedComment = findViewById(R.id.adding_comment);
         ImageView sendComment = findViewById(R.id.send_image_view);
@@ -92,11 +94,15 @@ public class PostWithComments extends AppCompatActivity {
 
                 String receivedComment = addedComment.getText().toString();
 
+
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                String commentPostedByUsername = preferences.getString(RegistrationActivity.USERNAME_KEY, "");
+
                 long date = System.currentTimeMillis();
                 SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm a");
                 String dateString = sdf.format(date);
 
-                Comment comment = new Comment(receivedComment, postKey, dateString);
+                Comment comment = new Comment(receivedComment, postKey, dateString, commentPostedByUsername);
                 Database.saveComment(comment);
                 addedComment.getText().clear();
 

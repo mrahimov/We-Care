@@ -2,7 +2,9 @@ package com.example.murodjonrahimov.wecare.fragments;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.murodjonrahimov.wecare.PatientProfileForm;
 import com.example.murodjonrahimov.wecare.R;
+import com.example.murodjonrahimov.wecare.RegistrationActivity;
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Patient;
 import com.google.firebase.database.DataSnapshot;
@@ -30,6 +33,7 @@ public class PatientProfileFragment extends Fragment {
     private TextView weight;
     private TextView dob;
     private TextView gender;
+    private TextView patientUserName;
     private FloatingActionButton fab;
 
     public PatientProfileFragment() {
@@ -41,6 +45,12 @@ public class PatientProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.p_fragment_profile, container, false);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        final String userPrefferedName = preferences.getString(RegistrationActivity.USERNAME_KEY, "");
+
+        patientUserName = rootView.findViewById(R.id.user_name);
+        patientUserName.setText(userPrefferedName);
 
         firstName = rootView.findViewById(R.id.first_name);
         lastName = rootView.findViewById(R.id.last_name);
@@ -81,6 +91,7 @@ public class PatientProfileFragment extends Fragment {
                         dob.setText(patient.getDob());
                         gender.setText(patient.getGender());
                         weight.setText(patient.getWeight());
+                        patientUserName.setText(patient.getUserName());
                     }
 
                 }

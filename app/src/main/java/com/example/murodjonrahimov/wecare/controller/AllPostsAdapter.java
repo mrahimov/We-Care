@@ -58,7 +58,7 @@ public class AllPostsAdapter extends RecyclerView.Adapter<AllPostsAdapter.AllPos
 
         public AllPostsViewHolder(final View itemView) {
             super(itemView);
-            textViewAddedBy = itemView.findViewById(R.id.added_by_ed);
+            textViewAddedBy = itemView.findViewById(R.id.posted_by_ed);
             textViewMessage = itemView.findViewById(R.id.message_ed);
             textViewTimeStamp = itemView.findViewById(R.id.timestamp_ed);
 
@@ -77,7 +77,7 @@ public class AllPostsAdapter extends RecyclerView.Adapter<AllPostsAdapter.AllPos
 
         public void onBind(Post post) {
             this.post = post;
-            textViewAddedBy.setText(post.getAddedBy());
+            textViewAddedBy.setText("Posted By: " + post.getPostedByUserName());
             textViewMessage.setText(post.getMessage());
             textViewTimeStamp.setText(post.getTimeStamp());
 

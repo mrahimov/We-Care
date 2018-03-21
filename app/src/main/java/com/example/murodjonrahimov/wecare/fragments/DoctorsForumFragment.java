@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,7 +20,6 @@ import android.widget.TextView;
 
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.database.Database;
-import com.example.murodjonrahimov.wecare.model.Doctor;
 import com.example.murodjonrahimov.wecare.model.DoctorPost;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -29,9 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 
 public class DoctorsForumFragment extends Fragment {
@@ -54,8 +50,6 @@ public class DoctorsForumFragment extends Fragment {
     }
 
     public DoctorsForumFragment() {
-
-        // Required empty public constructor
     }
 
     @Override
@@ -68,7 +62,6 @@ public class DoctorsForumFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.d_fragment_doctors, container, false);
         return view;
     }
@@ -125,7 +118,7 @@ public class DoctorsForumFragment extends Fragment {
 
                 builder.setView(viewInflated);
 
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, yyyy h:mm a");
                 final String format = simpleDateFormat.format(new Date());
 
                 builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
