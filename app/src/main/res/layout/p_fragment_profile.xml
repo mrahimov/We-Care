@@ -9,37 +9,37 @@
         android:id="@+id/first_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="First Name"/>
+        android:hint="First Name" />
 
     <TextView
         android:id="@+id/last_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Last Name"/>
+        android:hint="Last Name" />
 
     <TextView
         android:id="@+id/country"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Country"/>
+        android:hint="Country" />
 
     <TextView
         android:id="@+id/dob"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="DOB"/>
+        android:hint="DOB" />
 
     <TextView
         android:id="@+id/weight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Weight"/>
+        android:hint="Weight" />
 
     <TextView
         android:id="@+id/gender"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Sex"/>
+        android:hint="Sex" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_fab"

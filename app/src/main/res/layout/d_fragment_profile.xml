@@ -9,31 +9,31 @@
         android:id="@+id/first_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="First Name"/>
+        android:hint="First Name" />
 
     <TextView
         android:id="@+id/last_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Last Name"/>
+        android:hint="Last Name" />
 
     <TextView
         android:id="@+id/country"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Country of Work"/>
+        android:hint="Country of Work" />
 
     <TextView
         android:id="@+id/major"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Major Speciality"/>
+        android:hint="Major Speciality" />
 
     <TextView
         android:id="@+id/years_of_experience"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Years of experience"/>
+        android:hint="Years of experience" />
 
 
     <android.support.design.widget.FloatingActionButton

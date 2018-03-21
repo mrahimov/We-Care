@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
+        android:id="@+id/cardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -32,16 +34,34 @@
                 android:layout_height="wrap_content"
                 android:hint="date" />
 
-            <TextView
-                android:id="@+id/comments"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:hint="comments" />
 
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/comments_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cardview"
+        android:layout_above="@+id/adding_comment"/>
 
-</LinearLayout>
+
+    <EditText
+        android:id="@+id/adding_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom"
+        android:hint="Write a comment..." />
+
+    <ImageView
+        android:id="@+id/send_image_view"
+        app:srcCompat = "@drawable/send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/adding_comment"
+        android:gravity="bottom"/>
+
+</RelativeLayout>

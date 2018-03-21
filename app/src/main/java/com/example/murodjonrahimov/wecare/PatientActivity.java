@@ -7,18 +7,12 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-
-import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.fragments.ListOfDoctorsFragment;
 import com.example.murodjonrahimov.wecare.fragments.PatientMyPostFragment;
 import com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment;
 
-// main activity for patients where Doctors, Posts & Profile Fragments interchange
-// To Do Murad
-
 public class PatientActivity extends AppCompatActivity {
 
-    public final static String EMAIL_KEY = "email";
     private ActionBar toolbar;
 
 

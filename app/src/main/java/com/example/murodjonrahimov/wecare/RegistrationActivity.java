@@ -20,9 +20,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-// registration page for Patients & Doctors
-// To Do Volha
-
 public class RegistrationActivity extends AppCompatActivity {
 
   public final static String EMAIL_KEY = "email";

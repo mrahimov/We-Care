@@ -2,23 +2,17 @@ package com.example.murodjonrahimov.wecare;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
-
-import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.fragments.DoctorsForumFragment;
 import com.example.murodjonrahimov.wecare.fragments.AllPatientsPostsFragment;
 import com.example.murodjonrahimov.wecare.fragments.DoctorProfileFragment;
 
-// main activity for doctors where Doctors, Posts & Profile Fragments interchange
-// To Do Amar
-
-public class DoctorActivity extends AppCompatActivity {
+public class DoctorActivity extends AppCompatActivity implements DoctorsForumFragment.onClickListenerDoc{
 
     private ActionBar toolbar;
 
@@ -66,6 +60,13 @@ public class DoctorActivity extends AppCompatActivity {
         transaction.replace(R.id.frame_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+
+
+    @Override
+    public void onclick(String key) {
+
     }
 }
 

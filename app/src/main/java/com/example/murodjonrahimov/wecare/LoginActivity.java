@@ -15,13 +15,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-// Very first activity for sign-in
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -49,18 +49,14 @@ public class LoginActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
 
-        if (signInEmail.getText()
-          .toString()
-          .equals("") || signInPassword.getText()
-          .toString()
-          .equals("")) {
+        if (signInEmail.getText().toString().equals("") || signInPassword.getText().toString().equals("")) {
           Toast.makeText(LoginActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG)
             .show();
         } else {
 
           final ProgressDialog progressDialog = ProgressDialog.show(LoginActivity.this, "Please wait... ", "Processing...", true);
 
-          (firebaseAuth.signInWithEmailAndPassword(signInEmail.getText()
+            (firebaseAuth.signInWithEmailAndPassword(signInEmail.getText()
             .toString(), signInPassword.getText()
             .toString())).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
