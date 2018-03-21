@@ -24,6 +24,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -53,6 +54,8 @@ public class DoctorsForumFragment extends Fragment {
         super.onCreate(savedInstanceState);
         database = FirebaseDatabase.getInstance().getReference().child("DoctorPost");
         database.keepSynced(true);
+        FirebaseMessaging.getInstance().subscribeToTopic("notifications");
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

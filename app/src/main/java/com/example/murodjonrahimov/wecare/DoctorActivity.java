@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import com.example.murodjonrahimov.wecare.fragments.DoctorsForumFragment;
 import com.example.murodjonrahimov.wecare.fragments.AllPatientsPostsFragment;
 import com.example.murodjonrahimov.wecare.fragments.DoctorProfileFragment;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class DoctorActivity extends AppCompatActivity implements DoctorsForumFragment.onClickListenerDoctor {
 
@@ -21,6 +22,8 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.doctor_activity);
+        FirebaseMessaging.getInstance().subscribeToTopic("notifications");
+
 
         toolbar = getSupportActionBar();
         loadFragment(new DoctorsForumFragment());
