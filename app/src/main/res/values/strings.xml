@@ -4,8 +4,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="register_sign_in">Please sign or register</string>
     <string name="registration">Registration</string>
-    <string name="register">Register</string>
-    <string name="patient_registration">Patient Registration</string>
-    <string name="doctor_registration">Doctor Registration</string>
     <string name="sign_in">Log in</string>
+    <string name="licence_id">licence id:</string>
+    <string name="i_am_a_doctor">I\'am a Doctor</string>
+    <string name="register">Register</string>
+    <string name="password">Password:</string>
+    <string name="email_address">Email Address:</string>
 </resources>

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Doctor;
@@ -44,7 +45,7 @@ public class DoctorProfileForm extends AppCompatActivity {
                 String yearsOfPractice = yearsOfExperience.getText()
                         .toString();
 
-                Doctor doctor = new Doctor(name, surname, countryOfPractice, majorSpecialty, yearsOfPractice);
+                Doctor doctor = new Doctor(name, surname, countryOfPractice, majorSpecialty, yearsOfPractice, "");
                 Database.saveDoctor(doctor);
                 finish();
             }
