@@ -13,13 +13,12 @@ public class Doctor {
     public Doctor() {
     }
 
-    public Doctor(String firstName, String lastName, String countryOfPractice, String major, String yearsOfExperience, String type) {
+    public Doctor(String firstName, String lastName, String countryOfPractice, String major, String yearsOfExperience) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.countryOfPractice = countryOfPractice;
         this.major = major;
         this.yearsOfExperience = yearsOfExperience;
-        this.type = type;
     }
 
     public String getFirstName() {

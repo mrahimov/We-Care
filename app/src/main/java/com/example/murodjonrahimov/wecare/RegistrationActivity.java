@@ -12,13 +12,18 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Doctor;
+import com.example.murodjonrahimov.wecare.model.Post;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -56,13 +61,9 @@ public class RegistrationActivity extends AppCompatActivity {
       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
           licenceId.setVisibility(View.VISIBLE);
-
         }
       }
     });
-    //if (doctorCheckbox.isChecked()) {
-    //  licenceId.setVisibility(View.VISIBLE);
-    //}
 
     registerButton.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -97,6 +98,10 @@ public class RegistrationActivity extends AppCompatActivity {
                     .show();
 
                   if (doctorCheckbox.isChecked()) {
+                    Doctor doctor = new Doctor();
+                    doctor.setType("doctor");
+                    Database.saveDoctor(doctor);
+                    finish();
                   Intent intent = new Intent(RegistrationActivity.this, DoctorActivity.class);
                   startActivity(intent);
                 } if (!doctorCheckbox.isChecked()) {

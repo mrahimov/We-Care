@@ -5,12 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.murodjonrahimov.wecare.database.Database;
+import com.example.murodjonrahimov.wecare.model.Doctor;
+import com.example.murodjonrahimov.wecare.model.Patient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -22,7 +26,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
 public class LoginActivity extends AppCompatActivity {
 
   public final static String EMAIL_KEY = "email";
@@ -30,7 +33,8 @@ public class LoginActivity extends AppCompatActivity {
 
   private EditText signInEmail;
   private EditText signInPassword;
-  private String checkboxIsChecked; //need this var for set type: doctor or patient
+  private String type;
+  private String type2;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -42,21 +46,24 @@ public class LoginActivity extends AppCompatActivity {
     signInEmail = findViewById(R.id.email_login_edit_text);
     signInPassword = findViewById(R.id.password_login_edit_text);
 
-
     final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     signInButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
 
-        if (signInEmail.getText().toString().equals("") || signInPassword.getText().toString().equals("")) {
+        if (signInEmail.getText()
+          .toString()
+          .equals("") || signInPassword.getText()
+          .toString()
+          .equals("")) {
           Toast.makeText(LoginActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG)
             .show();
         } else {
 
           final ProgressDialog progressDialog = ProgressDialog.show(LoginActivity.this, "Please wait... ", "Processing...", true);
 
-            (firebaseAuth.signInWithEmailAndPassword(signInEmail.getText()
+          (firebaseAuth.signInWithEmailAndPassword(signInEmail.getText()
             .toString(), signInPassword.getText()
             .toString())).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -66,23 +73,34 @@ public class LoginActivity extends AppCompatActivity {
               if (task.isSuccessful()) {
                 final String userEmail = firebaseAuth.getCurrentUser()
                   .getEmail();
-                Toast.makeText(LoginActivity.this, userEmail, Toast.LENGTH_LONG)
-                  .show();
 
-                DatabaseReference root = FirebaseDatabase.getInstance()
-                  .getReference();
-                  DatabaseReference users = root.child("doctors");
-                  users.addListenerForSingleValueEvent(new ValueEventListener() {
+                DatabaseReference db = Database.getDatabase();
+
+                final String userID = Database.getUserId();
+
+                db.child("doctors")
+                  .addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot snapshot) {
-                      if (snapshot.exists()) {
-                        Toast.makeText(LoginActivity.this, "Doctor Login Successful", Toast.LENGTH_LONG)
-                          .show();
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                      for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
+                        if (dataSnapshot2.getKey()
+                          .equals(userID)) {
+                          Doctor doctor = dataSnapshot2.getValue(Doctor.class);
+                          type = doctor.getType();
+                          type2 = doctor.getType();
 
-                        Intent intent = new Intent(LoginActivity.this, DoctorActivity.class);
-                        intent.putExtra(EMAIL_KEY, firebaseAuth.getCurrentUser()
-                          .getEmail());
-                        startActivity(intent);
+
+                          if (type != null || type2 != null) {
+                            Log.d("DOCTOR", "onDataChange: " +type);
+                            Toast.makeText(LoginActivity.this, "Doctor Login Successful", Toast.LENGTH_LONG)
+                              .show();
+
+                            Intent intent = new Intent(LoginActivity.this, DoctorActivity.class);
+                            intent.putExtra(EMAIL_KEY, firebaseAuth.getCurrentUser()
+                              .getEmail());
+                            startActivity(intent);
+                          }
+                        }
                       }
                     }
 
@@ -91,6 +109,17 @@ public class LoginActivity extends AppCompatActivity {
 
                     }
                   });
+
+                if (type == null && type2 == null) {
+                  Toast.makeText(LoginActivity.this, userEmail, Toast.LENGTH_LONG)
+                    .show();
+
+                  Intent intent = new Intent(LoginActivity.this, PatientActivity.class);
+                  intent.putExtra(EMAIL_KEY, firebaseAuth.getCurrentUser()
+                    .getEmail());
+                  startActivity(intent);
+                }
+
               } else {
                 Toast.makeText(LoginActivity.this, task.getException()
                   .getMessage(), Toast.LENGTH_LONG)
