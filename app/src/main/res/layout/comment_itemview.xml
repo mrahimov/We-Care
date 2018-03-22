@@ -14,11 +14,13 @@
         android:id="@+id/posted_by_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="right"
         />
 
     <TextView
         android:id="@+id/comment_timestamp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"/>
 
 </LinearLayout>
