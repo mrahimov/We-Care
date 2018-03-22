@@ -3,6 +3,7 @@ package com.example.murodjonrahimov.wecare;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -105,6 +106,7 @@ public class PostDoctorComments extends AppCompatActivity {
                 String dateString = sdf.format(date);
 
                 Comment comment = new Comment(receivedComment, Key, dateString, postedByUserName);
+
                 Database.saveComment(comment);
                 addedComment.getText().clear();
 

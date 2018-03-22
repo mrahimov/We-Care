@@ -49,8 +49,8 @@ public class DoctorsForumFragment extends Fragment {
                     + " must implement listener");
         }
     }
-    public DoctorsForumFragment() {
-    }
+
+    public DoctorsForumFragment() {}
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -121,7 +121,6 @@ public class DoctorsForumFragment extends Fragment {
 
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, yyyy h:mm a");
                 final String format = simpleDateFormat.format(new Date());
-
 
                 builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
