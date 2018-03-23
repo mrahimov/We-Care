@@ -1,8 +1,5 @@
 package com.example.murodjonrahimov.wecare.model;
 
-/**
- * Created by olgakoleda on 3/21/18.
- */
 
 public class User {
 
