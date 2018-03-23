@@ -32,14 +32,11 @@ public class RegistrationActivity extends AppCompatActivity {
 
   public final static String EMAIL_KEY = "email";
   public final static String PASSWORD_KEY = "password";
-  private static final String KEY_TYPE = "keyType";
   public static String USERNAME_KEY = "userKey";
   private Button registerButton;
   private CheckBox doctorCheckbox;
   private EditText licenceId;
-  private String type;
 
-  //private Doctor doctor = new Doctor();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +55,8 @@ public class RegistrationActivity extends AppCompatActivity {
     passwordRegistration.setText(getIntent().getExtras()
       .getString(PASSWORD_KEY));
 
+    final EditText userNameRegistration = findViewById(R.id.username_edit_text);
+
     final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     doctorCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -65,6 +64,9 @@ public class RegistrationActivity extends AppCompatActivity {
       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
           licenceId.setVisibility(View.VISIBLE);
+        }
+        else {
+          licenceId.setVisibility(View.INVISIBLE);
         }
       }
     });
@@ -78,10 +80,18 @@ public class RegistrationActivity extends AppCompatActivity {
         String password = passwordRegistration.getText()
           .toString();
 
-        if (email.equals("") || password.equals("")) {
+        String username = userNameRegistration.getText().toString();
+
+        if (email.equals("") || password.equals("") || username.equals("")) {
           Toast.makeText(RegistrationActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG)
             .show();
         }
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(USERNAME_KEY, username);
+        editor.apply();
+
         if (doctorCheckbox.isChecked() && licenceId.getText()
           .toString()
           .isEmpty()) {

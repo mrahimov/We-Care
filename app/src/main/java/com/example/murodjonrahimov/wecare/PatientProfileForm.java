@@ -1,5 +1,6 @@
 package com.example.murodjonrahimov.wecare;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -28,6 +29,9 @@ public class PatientProfileForm extends AppCompatActivity {
         setContentView(R.layout.patient_profile_form);
 
 
+        Intent intent = getIntent();
+        String name = intent.getStringExtra("name");
+
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         final String userPrefferedName = preferences.getString(RegistrationActivity.USERNAME_KEY, "");
 
@@ -35,6 +39,8 @@ public class PatientProfileForm extends AppCompatActivity {
         patientUserName.setText(userPrefferedName);
 
         firstName = findViewById(R.id.first_name);
+        firstName.setText(name);
+        
         lastName = findViewById(R.id.last_name);
         country = findViewById(R.id.country);
         weight = findViewById(R.id.weight);
