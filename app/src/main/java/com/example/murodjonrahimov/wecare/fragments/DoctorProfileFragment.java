@@ -1,7 +1,9 @@
 package com.example.murodjonrahimov.wecare.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import com.example.murodjonrahimov.wecare.RegistrationActivity;
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.DoctorProfileForm;
 import com.example.murodjonrahimov.wecare.R;
@@ -26,6 +29,7 @@ public class DoctorProfileFragment extends Fragment {
     private TextView lastNameED;
     private TextView countryED;
     private TextView majorED;
+    private TextView doctorPrefferedName;
     private TextView yearsOfExperienceED;
     private FloatingActionButton fab;
 
@@ -36,6 +40,12 @@ public class DoctorProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.d_fragment_profile, container, false);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        final String userPrefferedName = preferences.getString(RegistrationActivity.USERNAME_KEY, "");
+
+        doctorPrefferedName = rootView.findViewById(R.id.user_name);
+        doctorPrefferedName.setText(userPrefferedName);
 
         firstNameED = rootView.findViewById(R.id.first_name);
         lastNameED = rootView.findViewById(R.id.last_name);
@@ -74,6 +84,7 @@ public class DoctorProfileFragment extends Fragment {
                                 lastNameED.setText(doctor.getLastName());
                                 countryED.setText(doctor.getCountryOfPractice());
                                 majorED.setText(doctor.getMajor());
+                                doctorPrefferedName.setText(doctor.getDoctorUserName());
                                 yearsOfExperienceED.setText(doctor.getYearsOfExperience());
                             }
                         }

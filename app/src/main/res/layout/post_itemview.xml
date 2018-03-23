@@ -21,10 +21,10 @@
                 android:hint="message" />
 
             <TextView
-                android:id="@+id/added_by_ed"
+                android:id="@+id/posted_by_ed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="added by" />
+                android:hint="posted by" />
 
             <TextView
                 android:id="@+id/timestamp_ed"

@@ -5,6 +5,7 @@ public class Patient {
 
     private String firstName;
     private String lastName;
+    private String userName;
     private String country;
     private String dob;
     private String weight;
@@ -14,13 +15,14 @@ public class Patient {
     public Patient() {
     }
 
-    public Patient(String firstName, String lastName, String country, String dob, String weight, String gender) {
+    public Patient(String firstName, String lastName, String country, String dob, String weight, String gender, String userName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.country = country;
         this.dob = dob;
         this.weight = weight;
         this.gender = gender;
+        this.userName = userName;
     }
 
     public String getWeight() {
@@ -79,4 +81,19 @@ public class Patient {
         this.weight = occupation;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.murodjonrahimov.wecare;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 
@@ -11,8 +12,9 @@ import android.view.MenuItem;
 import com.example.murodjonrahimov.wecare.fragments.DoctorsForumFragment;
 import com.example.murodjonrahimov.wecare.fragments.AllPatientsPostsFragment;
 import com.example.murodjonrahimov.wecare.fragments.DoctorProfileFragment;
+import com.google.firebase.messaging.FirebaseMessaging;
 
-public class DoctorActivity extends AppCompatActivity implements DoctorsForumFragment.onClickListenerDoc{
+public class DoctorActivity extends AppCompatActivity implements DoctorsForumFragment.onClickListenerDoctor {
 
     private ActionBar toolbar;
 
@@ -20,6 +22,8 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.doctor_activity);
+        FirebaseMessaging.getInstance().subscribeToTopic("notifications");
+
 
         toolbar = getSupportActionBar();
         loadFragment(new DoctorsForumFragment());
@@ -63,9 +67,14 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
     }
 
 
-
     @Override
-    public void onclick(String key) {
+    public void onclick(String key, String message, String timestamp, String addedBy) {
+        Intent intent = new Intent(DoctorActivity.this, PostDoctorComments.class);
+        intent.putExtra("key", key);
+        intent.putExtra("message", message);
+        intent.putExtra("timestamp", timestamp);
+        intent.putExtra("addedby", addedBy);
+        startActivity(intent);
 
     }
 }

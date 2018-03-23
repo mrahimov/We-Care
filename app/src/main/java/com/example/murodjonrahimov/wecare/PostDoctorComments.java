@@ -2,9 +2,10 @@ package com.example.murodjonrahimov.wecare;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.preference.PreferenceManager;
+
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,8 +16,6 @@ import android.widget.TextView;
 import com.example.murodjonrahimov.wecare.controller.CommentsAdapter;
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Comment;
-import com.example.murodjonrahimov.wecare.model.Post;
-import com.example.murodjonrahimov.wecare.view.PatientPostsViewHolder;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,8 +25,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostWithComments extends AppCompatActivity {
+public class PostDoctorComments extends AppCompatActivity {
 
+
+    String doctorMessage;
+    String doctorTimeStamp;
+    String doctorAddedBy;
     private EditText addedComment;
     private List<Comment> allComments;
 
@@ -35,27 +38,28 @@ public class PostWithComments extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.post_with_comments);
-
-        TextView message = findViewById(R.id.message_ed);
-        TextView postedBy = findViewById(R.id.posted_by_ed);
-        final TextView timestamp = findViewById(R.id.timestamp_ed);
-
+        setContentView(R.layout.activity_post_doctor_comments);
         Intent intent = getIntent();
-        final Post post = intent.getParcelableExtra(PatientPostsViewHolder.POST_KEY);
-        final String postKey = post.getKey();
-
-        message.setText("Message:" + post.getMessage());
-        timestamp.setText("Date: " + post.getTimeStamp());
-        postedBy.setText("Posted by: " + post.getPostedByUserName());
+        final String Key = intent.getStringExtra("key");
+        doctorTimeStamp = intent.getStringExtra("timestamp");
+        doctorAddedBy = intent.getStringExtra("addedby");
+        doctorMessage = intent.getStringExtra("message");
 
         addedComment = findViewById(R.id.adding_comment);
-        ImageView sendComment = findViewById(R.id.send_image_view);
+
+        ImageView sendComment = findViewById(R.id.send_imageview);
+        TextView message = findViewById(R.id.message_d);
+        TextView addedBy = findViewById(R.id.added_by_d);
+        TextView timestamp = findViewById(R.id.timestamp_d);
+        addedComment = findViewById(R.id.addingcomment);
+        message.setText(doctorMessage);
+        addedBy.setText(doctorAddedBy);
+        timestamp.setText(doctorTimeStamp);
 
 
-        RecyclerView recyclerView = findViewById(R.id.comments_recyclerview);
+        RecyclerView recyclerView = findViewById(R.id.commentsrecyclerview);
         final CommentsAdapter commentsAdapter = new CommentsAdapter();
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setAdapter(commentsAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);
 
@@ -69,9 +73,9 @@ public class PostWithComments extends AppCompatActivity {
 
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Object postIdWrapper = dataSnapshot1.child("postId").getValue();
-                    if(postIdWrapper != null) {
+                    if (postIdWrapper != null) {
                         String retrievedPostId = postIdWrapper.toString();
-                        if (retrievedPostId.equals(postKey)) {
+                        if (retrievedPostId.equals(Key)) {
                             Comment comment = dataSnapshot1.getValue(Comment.class);
                             allComments.add(comment);
                         }
@@ -93,23 +97,20 @@ public class PostWithComments extends AppCompatActivity {
             public void onClick(View v) {
 
                 String receivedComment = addedComment.getText().toString();
-
-
                 SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                String commentPostedByUsername = preferences.getString(RegistrationActivity.USERNAME_KEY, "");
+                final String postedByUserName = preferences.getString(RegistrationActivity.USERNAME_KEY, "");
+
 
                 long date = System.currentTimeMillis();
                 SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm a");
                 String dateString = sdf.format(date);
 
-                Comment comment = new Comment(receivedComment, postKey, dateString, commentPostedByUsername);
+                Comment comment = new Comment(receivedComment, Key, dateString, postedByUserName);
+
                 Database.saveComment(comment);
                 addedComment.getText().clear();
 
             }
         });
-
     }
 }
-
-

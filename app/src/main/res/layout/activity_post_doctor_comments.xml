@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/cardview"
+        android:id="@+id/cardview1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -17,19 +17,19 @@
             android:padding="15dp">
 
             <TextView
-                android:id="@+id/message_ed"
+                android:id="@+id/message_d"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="message" />
 
             <TextView
-                android:id="@+id/posted_by_ed"
+                android:id="@+id/added_by_d"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="posted by" />
+                android:hint="added by" />
 
             <TextView
-                android:id="@+id/timestamp_ed"
+                android:id="@+id/timestamp_d"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="date" />
@@ -40,15 +40,15 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/comments_recyclerview"
+        android:id="@+id/commentsrecyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/cardview"
-        android:layout_above="@+id/adding_comment"/>
+        android:layout_below="@+id/cardview1"
+        android:layout_above="@+id/addingcomment"/>
 
 
     <EditText
-        android:id="@+id/adding_comment"
+        android:id="@+id/addingcomment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -56,12 +56,12 @@
         android:hint="Write a comment..." />
 
     <ImageView
-        android:id="@+id/send_image_view"
+        android:id="@+id/send_imageview"
         app:srcCompat = "@drawable/send"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/adding_comment"
+        android:layout_alignRight="@+id/addingcomment"
         android:gravity="bottom"/>
 
 </RelativeLayout>
