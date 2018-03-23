@@ -7,68 +7,86 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Patient;
 
 public class PatientProfileForm extends AppCompatActivity {
 
-    private EditText firstName;
-    private EditText lastName;
-    private EditText patientUserName;
-    private EditText country;
-    private EditText weight;
-    private EditText dob;
-    private EditText gender;
-    private Button saveButton;
+  private EditText editTextFirstName;
+  private EditText editTextLastName;
+  private EditText EdditTextPatientUserName;
+  private EditText editTextCountry;
+  private EditText editTextWeight;
+  private EditText editTextDob;
+  private EditText editTextGender;
+  private Button saveButton;
+  private String firstName;
+  private String lastName;
+  private String country;
+  private String weight;
+  private String dob;
+  private String gender;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.patient_profile_form);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.patient_profile_form);
 
+    if (savedInstanceState == null) {
+      Bundle bundle = getIntent().getExtras();
+      firstName = bundle.getString("firstName");
+      lastName = bundle.getString("lastName");
+      country = bundle.getString("country");
+      weight = bundle.getString("weight");
+      dob = bundle.getString("dob");
+      gender = bundle.getString("gender");
+    }
+    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    final String userPrefferedName = preferences.getString(RegistrationActivity.USERNAME_KEY, "");
+
+    EdditTextPatientUserName = findViewById(R.id.user_name);
+    EdditTextPatientUserName.setText(userPrefferedName);
 
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        final String userPrefferedName = preferences.getString(RegistrationActivity.USERNAME_KEY, "");
+    editTextFirstName = findViewById(R.id.first_name);
+    editTextLastName = findViewById(R.id.last_name);
+    editTextCountry = findViewById(R.id.country);
+    editTextWeight = findViewById(R.id.weight);
+    editTextDob = findViewById(R.id.dob);
+    editTextGender = findViewById(R.id.gender);
+    saveButton = findViewById(R.id.save_button);
 
-        patientUserName = findViewById(R.id.user_name);
-        patientUserName.setText(userPrefferedName);
+    editTextFirstName.setText(firstName);
+    editTextLastName.setText(lastName);
+    editTextCountry.setText(country);
+    editTextWeight.setText(weight);
+    editTextDob.setText(dob);
+    editTextGender.setText(gender);
 
-        firstName = findViewById(R.id.first_name);
-        firstName.setText(name);
-        
-        lastName = findViewById(R.id.last_name);
-        country = findViewById(R.id.country);
-        weight = findViewById(R.id.weight);
-        dob = findViewById(R.id.dob);
-        gender = findViewById(R.id.gender);
-        saveButton = findViewById(R.id.save_button);
+    saveButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        String name = editTextFirstName.getText()
+          .toString();
+        String surname = editTextLastName.getText()
+          .toString();
+        String countryOrigin = editTextCountry.getText()
+          .toString();
+        String patientWeight = editTextWeight.getText()
+          .toString();
+        String dateOfBirth = editTextDob.getText()
+          .toString();
+        String sex = editTextGender.getText()
+          .toString();
 
-                String name = firstName.getText()
-                        .toString();
-                String surname = lastName.getText()
-                        .toString();
-                String countryOrigin = country.getText()
-                        .toString();
-                String patientWeight = weight.getText()
-                        .toString();
-                String dateOfBirth = dob.getText()
-                        .toString();
-                String sex = gender.getText()
-                        .toString();
-
-                Patient patient = new Patient(name, surname, countryOrigin, patientWeight, dateOfBirth, sex, userPrefferedName);
-                Database.savePatient(patient);
-                finish();
-            }
-        });
-    }
+        Patient patient = new Patient(name, surname, countryOrigin, patientWeight, dateOfBirth, sex, userPrefferedName);
+        Database.savePatient(patient);
+        finish();
+      }
+    });
+  }
 }
