@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
   public final static String EMAIL_KEY = "email";
   public final static String PASSWORD_KEY = "password";
 
+
   private EditText signInEmail;
   private EditText signInPassword;
   private String checkboxIsChecked; //need this var for set type: doctor or patient

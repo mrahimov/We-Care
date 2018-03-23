@@ -1,6 +1,8 @@
 package com.example.murodjonrahimov.wecare;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +15,7 @@ public class PatientProfileForm extends AppCompatActivity {
 
     private EditText firstName;
     private EditText lastName;
+    private EditText patientUserName;
     private EditText country;
     private EditText weight;
     private EditText dob;
@@ -23,6 +26,13 @@ public class PatientProfileForm extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_profile_form);
+
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        final String userPrefferedName = preferences.getString(RegistrationActivity.USERNAME_KEY, "");
+
+        patientUserName = findViewById(R.id.user_name);
+        patientUserName.setText(userPrefferedName);
 
         firstName = findViewById(R.id.first_name);
         lastName = findViewById(R.id.last_name);
@@ -49,7 +59,7 @@ public class PatientProfileForm extends AppCompatActivity {
                 String sex = gender.getText()
                         .toString();
 
-                Patient patient = new Patient(name, surname, countryOrigin, patientWeight, dateOfBirth, sex);
+                Patient patient = new Patient(name, surname, countryOrigin, patientWeight, dateOfBirth, sex, userPrefferedName);
                 Database.savePatient(patient);
                 finish();
             }

@@ -8,18 +8,26 @@ public class Doctor {
     private String countryOfPractice;
     private String major;
     private String yearsOfExperience;
-    private String type;
+    private String doctorUserName;
 
     public Doctor() {
     }
 
-    public Doctor(String firstName, String lastName, String countryOfPractice, String major, String yearsOfExperience, String type) {
+    public Doctor(String firstName, String lastName, String countryOfPractice, String major, String yearsOfExperience, String doctorUserName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.countryOfPractice = countryOfPractice;
         this.major = major;
         this.yearsOfExperience = yearsOfExperience;
-        this.type = type;
+        this.doctorUserName = doctorUserName;
+    }
+
+    public String getDoctorUserName() {
+        return doctorUserName;
+    }
+
+    public void setDoctorUserName(String doctorUserName) {
+        this.doctorUserName = doctorUserName;
     }
 
     public String getFirstName() {
@@ -62,11 +70,4 @@ public class Doctor {
         this.yearsOfExperience = yearsOfExperience;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 }

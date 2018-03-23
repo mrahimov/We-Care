@@ -1,6 +1,9 @@
 package com.example.murodjonrahimov.wecare;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -94,12 +97,16 @@ public class PostDoctorComments extends AppCompatActivity {
             public void onClick(View v) {
 
                 String receivedComment = addedComment.getText().toString();
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                final String postedByUserName = preferences.getString(RegistrationActivity.USERNAME_KEY, "");
+
 
                 long date = System.currentTimeMillis();
                 SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm a");
                 String dateString = sdf.format(date);
 
-                Comment comment = new Comment(receivedComment, Key, dateString);
+                Comment comment = new Comment(receivedComment, Key, dateString, postedByUserName);
+
                 Database.saveComment(comment);
                 addedComment.getText().clear();
 

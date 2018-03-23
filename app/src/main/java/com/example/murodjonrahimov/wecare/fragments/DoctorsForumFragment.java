@@ -31,6 +31,7 @@ import java.util.Date;
 
 
 public class DoctorsForumFragment extends Fragment {
+
     private View view;
     private FloatingActionButton floatingActionButton;
     private DatabaseReference database;
@@ -48,7 +49,9 @@ public class DoctorsForumFragment extends Fragment {
                     + " must implement listener");
         }
     }
+
     public DoctorsForumFragment() {}
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,13 +63,13 @@ public class DoctorsForumFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.d_fragment_doctors, container, false);
         return view;
     }
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         recyclerView = view.findViewById(R.id.doctorForum);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -92,6 +95,7 @@ public class DoctorsForumFragment extends Fragment {
                                             @NonNull final DoctorPost doctor) {
                 holder.message.setText(doctor.getMessage());
                 holder.time.setText(doctor.getTimeStamp());
+
                 final String key = fireBaseRecyclerAdapter.getRef(position).getKey();
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -115,8 +119,9 @@ public class DoctorsForumFragment extends Fragment {
 
                 builder.setView(viewInflated);
 
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, yyyy h:mm a");
                 final String format = simpleDateFormat.format(new Date());
+
                 builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -148,16 +153,18 @@ public class DoctorsForumFragment extends Fragment {
     public static class DoctorPosts extends RecyclerView.ViewHolder {
         TextView message;
         TextView time;
+        TextView doctorName;
+
         public DoctorPosts(View itemView) {
             super(itemView);
             message = itemView.findViewById(R.id.message1);
             time = itemView.findViewById(R.id.time1);
+            doctorName = itemView.findViewById(R.id.posted_by);
         }
     }
     public interface onClickListenerDoctor {
         void onclick(String key, String message, String timestamp, String addedBy);
     }
-
 }
 
 

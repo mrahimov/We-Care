@@ -5,12 +5,22 @@ public class Comment {
     private String comment;
     private String postId;
     private String timeStamp;
+    private String commentPostedByUserName;
 
 
-    public Comment(String comment, String postId, String timeStamp) {
+    public Comment(String comment, String postId, String timeStamp, String commentPostedByUserName) {
         this.comment = comment;
         this.postId = postId;
         this.timeStamp = timeStamp;
+        this.commentPostedByUserName = commentPostedByUserName;
+    }
+
+    public String getCommentPostedByUserName() {
+        return commentPostedByUserName;
+    }
+
+    public void setCommentPostedByUserName(String commentPostedByUserName) {
+        this.commentPostedByUserName = commentPostedByUserName;
     }
 
     public String getTimeStamp() {
