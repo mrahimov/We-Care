@@ -9,6 +9,7 @@ public class Doctor {
     private String major;
     private String yearsOfExperience;
     private String doctorUserName;
+    private String type;
 
     public Doctor() {
     }
@@ -71,4 +72,11 @@ public class Doctor {
         this.yearsOfExperience = yearsOfExperience;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

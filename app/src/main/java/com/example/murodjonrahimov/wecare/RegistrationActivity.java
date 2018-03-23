@@ -33,6 +33,7 @@ public class RegistrationActivity extends AppCompatActivity {
   public final static String EMAIL_KEY = "email";
   public final static String PASSWORD_KEY = "password";
   private static final String KEY_TYPE = "keyType";
+  public static String USERNAME_KEY = "userKey";
   private Button registerButton;
   private CheckBox doctorCheckbox;
   private EditText licenceId;
