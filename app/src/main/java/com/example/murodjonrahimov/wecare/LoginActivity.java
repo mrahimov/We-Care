@@ -90,9 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                           type = doctor.getType();
                           type2 = doctor.getType();
 
-
                           if (type != null || type2 != null) {
-                            Log.d("DOCTOR", "onDataChange: " +type);
                             Toast.makeText(LoginActivity.this, "Doctor Login Successful", Toast.LENGTH_LONG)
                               .show();
 
