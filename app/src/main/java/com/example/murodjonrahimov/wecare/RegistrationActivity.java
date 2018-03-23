@@ -64,9 +64,11 @@ public class RegistrationActivity extends AppCompatActivity {
       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
           licenceId.setVisibility(View.VISIBLE);
+          userNameRegistration.setVisibility(View.GONE);
         }
         else {
           licenceId.setVisibility(View.INVISIBLE);
+          userNameRegistration.setVisibility(View.VISIBLE);
         }
       }
     });
