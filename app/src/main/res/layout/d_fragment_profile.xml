@@ -41,6 +41,11 @@
         android:layout_height="wrap_content"
         android:hint="Years of experience" />
 
+    <TextView
+      android:id="@+id/type_doctor"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="Doctor" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_fab"

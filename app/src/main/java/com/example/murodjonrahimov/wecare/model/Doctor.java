@@ -11,10 +11,11 @@ public class Doctor {
     private String doctorUserName;
     private String type;
 
+
     public Doctor() {
     }
 
-    public Doctor(String firstName, String lastName, String countryOfPractice, String major, String yearsOfExperience, String doctorUserName) {
+    public Doctor(String firstName, String lastName, String countryOfPractice, String major, String yearsOfExperience, String doctorUserName, String type) {
 
         this.firstName = firstName;
         this.lastName = lastName;
@@ -22,6 +23,7 @@ public class Doctor {
         this.major = major;
         this.yearsOfExperience = yearsOfExperience;
         this.doctorUserName = doctorUserName;
+        this.type = type;
     }
 
     public String getDoctorUserName() {

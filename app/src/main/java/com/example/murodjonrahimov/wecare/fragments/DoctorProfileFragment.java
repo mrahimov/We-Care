@@ -31,6 +31,7 @@ public class DoctorProfileFragment extends Fragment {
   private TextView majorED;
   private TextView doctorPrefferedName;
   private TextView yearsOfExperienceED;
+  private TextView type;
   private FloatingActionButton fab;
 
   public DoctorProfileFragment() {
@@ -52,6 +53,7 @@ public class DoctorProfileFragment extends Fragment {
     countryED = rootView.findViewById(R.id.country);
     majorED = rootView.findViewById(R.id.major);
     yearsOfExperienceED = rootView.findViewById(R.id.years_of_experience);
+    type = rootView.findViewById(R.id.type_doctor);
     fab = rootView.findViewById(R.id.add_fab);
 
     fab.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +66,7 @@ public class DoctorProfileFragment extends Fragment {
         intent.putExtra("majorED", majorED.getText());
         intent.putExtra("doctorPrefferedName", doctorPrefferedName.getText());
         intent.putExtra("yearsOfExperienceED", yearsOfExperienceED.getText());
+        intent.putExtra("type", type.getText());
         startActivity(intent);
       }
     });
@@ -73,7 +76,6 @@ public class DoctorProfileFragment extends Fragment {
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-
     DatabaseReference db = Database.getDatabase();
     final String userID = Database.getUserId();
 
@@ -91,6 +93,8 @@ public class DoctorProfileFragment extends Fragment {
               majorED.setText(doctor.getMajor());
               doctorPrefferedName.setText(doctor.getDoctorUserName());
               yearsOfExperienceED.setText(doctor.getYearsOfExperience());
+              type.setText(doctor.getType());
+
             }
           }
         }
