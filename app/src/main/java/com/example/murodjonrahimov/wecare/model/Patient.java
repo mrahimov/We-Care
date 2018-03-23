@@ -10,7 +10,6 @@ public class Patient {
     private String dob;
     private String weight;
     private String gender;
-    private String type;
 
 
     public Patient() {

@@ -14,6 +14,7 @@ public class Doctor {
     }
 
     public Doctor(String firstName, String lastName, String countryOfPractice, String major, String yearsOfExperience, String doctorUserName) {
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.countryOfPractice = countryOfPractice;
