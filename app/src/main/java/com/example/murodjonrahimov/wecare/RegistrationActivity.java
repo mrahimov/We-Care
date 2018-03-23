@@ -37,7 +37,6 @@ public class RegistrationActivity extends AppCompatActivity {
   private Button registerButton;
   private CheckBox doctorCheckbox;
   private EditText licenceId;
-  private String type;
 
   //private Doctor doctor = new Doctor();
 

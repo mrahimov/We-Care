@@ -25,75 +25,80 @@ import com.google.firebase.database.ValueEventListener;
 
 public class DoctorProfileFragment extends Fragment {
 
-    private TextView firstNameED;
-    private TextView lastNameED;
-    private TextView countryED;
-    private TextView majorED;
-    private TextView doctorPrefferedName;
-    private TextView yearsOfExperienceED;
-    private FloatingActionButton fab;
+  private TextView firstNameED;
+  private TextView lastNameED;
+  private TextView countryED;
+  private TextView majorED;
+  private TextView doctorPrefferedName;
+  private TextView yearsOfExperienceED;
+  private FloatingActionButton fab;
 
-    public DoctorProfileFragment() {
-    }
+  public DoctorProfileFragment() {
+  }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.d_fragment_profile, container, false);
+    View rootView = inflater.inflate(R.layout.d_fragment_profile, container, false);
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        final String userPrefferedName = preferences.getString(RegistrationActivity.USERNAME_KEY, "");
+    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+    final String userPrefferedName = preferences.getString(RegistrationActivity.USERNAME_KEY, "");
 
-        doctorPrefferedName = rootView.findViewById(R.id.user_name);
-        doctorPrefferedName.setText(userPrefferedName);
+    doctorPrefferedName = rootView.findViewById(R.id.user_name);
+    doctorPrefferedName.setText(userPrefferedName);
 
-        firstNameED = rootView.findViewById(R.id.first_name);
-        lastNameED = rootView.findViewById(R.id.last_name);
-        countryED = rootView.findViewById(R.id.country);
-        majorED = rootView.findViewById(R.id.major);
-        yearsOfExperienceED = rootView.findViewById(R.id.years_of_experience);
-        fab = rootView.findViewById(R.id.add_fab);
+    firstNameED = rootView.findViewById(R.id.first_name);
+    lastNameED = rootView.findViewById(R.id.last_name);
+    countryED = rootView.findViewById(R.id.country);
+    majorED = rootView.findViewById(R.id.major);
+    yearsOfExperienceED = rootView.findViewById(R.id.years_of_experience);
+    fab = rootView.findViewById(R.id.add_fab);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), DoctorProfileForm.class);
-                startActivity(intent);
+    fab.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Intent intent = new Intent(getActivity(), DoctorProfileForm.class);
+        intent.putExtra("firstNameED", firstNameED.getText());
+        intent.putExtra("lastNameED", lastNameED.getText());
+        intent.putExtra("countryED", countryED.getText());
+        intent.putExtra("majorED", majorED.getText());
+        intent.putExtra("doctorPrefferedName", doctorPrefferedName.getText());
+        intent.putExtra("yearsOfExperienceED", yearsOfExperienceED.getText());
+        startActivity(intent);
+      }
+    });
+    return rootView;
+  }
+
+  @Override
+  public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+
+    DatabaseReference db = Database.getDatabase();
+    final String userID = Database.getUserId();
+
+    db.child("doctors")
+      .addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+          for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
+            if (dataSnapshot2.getKey()
+              .equals(userID)) {
+              Doctor doctor = dataSnapshot2.getValue(Doctor.class);
+              firstNameED.setText(doctor.getFirstName());
+              lastNameED.setText(doctor.getLastName());
+              countryED.setText(doctor.getCountryOfPractice());
+              majorED.setText(doctor.getMajor());
+              doctorPrefferedName.setText(doctor.getDoctorUserName());
+              yearsOfExperienceED.setText(doctor.getYearsOfExperience());
             }
-        });
-        return rootView;
-    }
+          }
+        }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
 
-        DatabaseReference db = Database.getDatabase();
-
-        final String userID = Database.getUserId();
-
-        db.child("doctors")
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
-                            if (dataSnapshot2.getKey()
-                                    .equals(userID)) {
-                                Doctor doctor = dataSnapshot2.getValue(Doctor.class);
-                                firstNameED.setText(doctor.getFirstName());
-                                lastNameED.setText(doctor.getLastName());
-                                countryED.setText(doctor.getCountryOfPractice());
-                                majorED.setText(doctor.getMajor());
-                                doctorPrefferedName.setText(doctor.getDoctorUserName());
-                                yearsOfExperienceED.setText(doctor.getYearsOfExperience());
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-    }
+        }
+      });
+  }
 }

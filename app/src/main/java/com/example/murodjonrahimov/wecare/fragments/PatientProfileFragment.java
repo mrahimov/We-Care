@@ -65,6 +65,12 @@ public class PatientProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), PatientProfileForm.class);
+                intent.putExtra("firstName", firstName.getText());
+                intent.putExtra("lastName", lastName.getText());
+                intent.putExtra("country", country.getText());
+                intent.putExtra("weight", weight.getText());
+                intent.putExtra("dob", dob.getText());
+                intent.putExtra("gender", gender.getText());
                 startActivity(intent);
             }
         });
