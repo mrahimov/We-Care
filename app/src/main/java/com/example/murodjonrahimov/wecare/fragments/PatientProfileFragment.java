@@ -65,6 +65,7 @@ public class PatientProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), PatientProfileForm.class);
+                intent.putExtra("name", firstName.getText().toString());
                 startActivity(intent);
             }
         });
