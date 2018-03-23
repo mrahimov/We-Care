@@ -35,7 +35,6 @@ public class LoginActivity extends AppCompatActivity {
   private EditText signInEmail;
   private EditText signInPassword;
   private String type;
-  private String type2;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +51,8 @@ public class LoginActivity extends AppCompatActivity {
     signInButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
+
+        type = null;
 
         if (signInEmail.getText()
           .toString()
@@ -80,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                 final String userID = Database.getUserId();
 
                 db.child("doctors")
-                  .addValueEventListener(new ValueEventListener() {
+                  .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                       for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
@@ -88,9 +89,8 @@ public class LoginActivity extends AppCompatActivity {
                           .equals(userID)) {
                           Doctor doctor = dataSnapshot2.getValue(Doctor.class);
                           type = doctor.getType();
-                          type2 = doctor.getType();
 
-                          if (type != null || type2 != null) {
+                          if (type != null) {
                             Toast.makeText(LoginActivity.this, "Doctor Login Successful", Toast.LENGTH_LONG)
                               .show();
 
@@ -101,6 +101,15 @@ public class LoginActivity extends AppCompatActivity {
                           }
                         }
                       }
+                      if (type == null) {
+                        Toast.makeText(LoginActivity.this, userEmail, Toast.LENGTH_LONG)
+                          .show();
+
+                        Intent intent = new Intent(LoginActivity.this, PatientActivity.class);
+                        intent.putExtra(EMAIL_KEY, firebaseAuth.getCurrentUser()
+                          .getEmail());
+                        startActivity(intent);
+                      }
                     }
 
                     @Override
@@ -108,17 +117,6 @@ public class LoginActivity extends AppCompatActivity {
 
                     }
                   });
-
-                if (type == null && type2 == null) {
-                  Toast.makeText(LoginActivity.this, userEmail, Toast.LENGTH_LONG)
-                    .show();
-
-                  Intent intent = new Intent(LoginActivity.this, PatientActivity.class);
-                  intent.putExtra(EMAIL_KEY, firebaseAuth.getCurrentUser()
-                    .getEmail());
-                  startActivity(intent);
-                }
-
               } else {
                 Toast.makeText(LoginActivity.this, task.getException()
                   .getMessage(), Toast.LENGTH_LONG)
