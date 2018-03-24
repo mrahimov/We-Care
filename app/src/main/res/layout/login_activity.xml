@@ -17,13 +17,13 @@
           android:id="@+id/email_login_edit_text"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:hint="Email Address:"/>
+          android:hint="@string/email_address"/>
 
         <EditText
           android:id="@+id/password_login_edit_text"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:hint="Password:"/>
+          android:hint="@string/password"/>
 
         <Button
           android:id="@+id/sign_in_button"
@@ -39,6 +39,8 @@
       android:layout_width="70dp"
       android:layout_height="30dp"
       android:layout_gravity="end"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="8dp"
       android:text="@string/register"
       android:textSize="9dp"/>
 
