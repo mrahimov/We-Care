@@ -26,7 +26,6 @@ public class GuideActivity extends AppCompatActivity {
 
         Intent intent = new Intent(GuideActivity.this, GuideDoctorActivity.class);
         startActivity(intent);
-
       }
     });
 
@@ -36,7 +35,6 @@ public class GuideActivity extends AppCompatActivity {
 
         Intent intent = new Intent(GuideActivity.this, GuidePatientActivity.class);
         startActivity(intent);
-
       }
     });
   }

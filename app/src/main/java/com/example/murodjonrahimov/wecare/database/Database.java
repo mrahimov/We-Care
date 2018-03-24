@@ -12,49 +12,63 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class Database {
 
-    private static FirebaseDatabase database;
+  private static FirebaseDatabase database;
 
-    public static DatabaseReference getDatabase() {
+  public static DatabaseReference getDatabase() {
 
-        database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference();
-        return ref;
-    }
+    database = FirebaseDatabase.getInstance();
+    DatabaseReference ref = database.getReference();
+    return ref;
+  }
 
-    public static void savePatient(Patient patient) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        getDatabase().child("patients").child(user.getUid()).setValue(patient);
-    }
+  public static void savePatient(Patient patient) {
+    FirebaseUser user = FirebaseAuth.getInstance()
+      .getCurrentUser();
+    getDatabase().child("patients")
+      .child(user.getUid())
+      .setValue(patient);
+  }
 
-    public static void savePost(Post post) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        post.setAddedBy(user.getUid());
+  public static void savePost(Post post) {
+    FirebaseUser user = FirebaseAuth.getInstance()
+      .getCurrentUser();
+    post.setAddedBy(user.getUid());
 
-        getDatabase().child("posts").push().setValue(post);
-    }
+    getDatabase().child("posts")
+      .push()
+      .setValue(post);
+  }
 
-    public static void saveDoctorPost(DoctorPost doctorPost) {
-        getDatabase().child("DoctorPost").push().setValue(doctorPost);
-    }
+  public static void saveDoctorPost(DoctorPost doctorPost) {
+    getDatabase().child("DoctorPost")
+      .push()
+      .setValue(doctorPost);
+  }
 
-    public static void saveDoctor(Doctor doctor) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        getDatabase().child("doctors").child(user.getUid()).setValue(doctor);
+  public static void saveDoctor(Doctor doctor) {
+    FirebaseUser user = FirebaseAuth.getInstance()
+      .getCurrentUser();
+    getDatabase().child("doctors")
+      .child(user.getUid())
+      .setValue(doctor);
+  }
 
-    }
+  public static String getUserId() {
+    FirebaseUser user = FirebaseAuth.getInstance()
+      .getCurrentUser();
+    return user.getUid();
+  }
 
-    public static String getUserId() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        return user.getUid();
-    }
+  public static void saveComment(Comment comment) {
+    getDatabase().child("comments")
+      .push()
+      .setValue(comment);
+  }
 
-    public static void saveComment(Comment comment) {
-        getDatabase().child("comments").push().setValue(comment);
-
-    }
-
-    public static void updatePost(String postID, int commentCount) {
-        getDatabase().child("posts").child(postID).child("countOfComments").setValue(commentCount);
-    }
-
+  public static void updatePost(String postID, int commentCount) {
+    getDatabase().child("posts")
+      .child(postID)
+      .child("countOfComments")
+      .setValue(commentCount);
+  }
 }

@@ -13,52 +13,51 @@ import com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment;
 
 public class PatientActivity extends AppCompatActivity {
 
-    private ActionBar toolbar;
+  private ActionBar toolbar;
 
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.patient_activity);
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.patient_activity);
+    toolbar = getSupportActionBar();
+    loadFragment(new ListOfDoctorsFragment());
 
-        toolbar = getSupportActionBar();
-        loadFragment(new ListOfDoctorsFragment());
+    BottomNavigationView navigation = findViewById(R.id.navigation);
 
-        BottomNavigationView navigation = findViewById(R.id.navigation);
+    navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+      @Override
+      public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        android.support.v4.app.Fragment fragment;
 
-                android.support.v4.app.Fragment fragment;
+        switch (item.getItemId()) {
+          case R.id.navigation_doctors:
+            toolbar.setTitle("Doctors");
+            fragment = new ListOfDoctorsFragment();
+            loadFragment(fragment);
+            return true;
+          case R.id.navigation_my_profile:
+            toolbar.setTitle("Profile");
+            fragment = new PatientProfileFragment();
+            loadFragment(fragment);
+            return true;
+          case R.id.navigation_posts:
+            toolbar.setTitle("Posts");
+            fragment = new PatientMyPostFragment();
+            loadFragment(fragment);
+            return true;
+        }
+        return false;
+      }
+    });
+  }
 
-                switch (item.getItemId()) {
-                    case R.id.navigation_doctors:
-                        toolbar.setTitle("Doctors");
-                        fragment = new ListOfDoctorsFragment();
-                        loadFragment(fragment);
-                        return true;
-                    case R.id.navigation_my_profile:
-                        toolbar.setTitle("Profile");
-                        fragment = new PatientProfileFragment();
-                        loadFragment(fragment);
-                        return true;
-                    case R.id.navigation_posts:
-                        toolbar.setTitle("Posts");
-                        fragment = new PatientMyPostFragment();
-                        loadFragment(fragment);
-                        return true;
-                }
-                return false;
-            }
-        });
-    }
+  private void loadFragment(android.support.v4.app.Fragment fragment) {
 
-    private void loadFragment(android.support.v4.app.Fragment fragment) {
-
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
+    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+    transaction.replace(R.id.frame_container, fragment);
+    transaction.addToBackStack(null);
+    transaction.commit();
+  }
 }

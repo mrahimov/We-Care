@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.controller.AllPostsAdapter;
 import com.example.murodjonrahimov.wecare.model.Post;
@@ -45,10 +44,12 @@ public class AllPatientsPostsFragment extends Fragment {
       @Override
       public void onDataChange(DataSnapshot dataSnapshot) {
         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-          Post post = dataSnapshot1.getValue(Post.class);
-          String postKey = dataSnapshot1.getKey();
-          post.setKey(postKey);
-          postList.add(post);
+          if (dataSnapshot1 != null) {
+            Post post = dataSnapshot1.getValue(Post.class);
+            String postKey = dataSnapshot1.getKey();
+            post.setKey(postKey);
+            postList.add(post);
+          }
         }
 
         adapter.setPostList(postList);
@@ -63,5 +64,4 @@ public class AllPatientsPostsFragment extends Fragment {
 
     return rootView;
   }
-
 }

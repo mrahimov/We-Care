@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.guide.GuideActivity;
 import com.example.murodjonrahimov.wecare.model.Doctor;
@@ -17,7 +16,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +25,6 @@ public class LoginActivity extends AppCompatActivity {
 
   public final static String EMAIL_KEY = "email";
   public final static String PASSWORD_KEY = "password";
-
 
   private EditText signInEmail;
   private EditText signInPassword;
@@ -144,9 +141,7 @@ public class LoginActivity extends AppCompatActivity {
       public void onClick(View v) {
         Intent intent = new Intent(LoginActivity.this, GuideActivity.class);
         startActivity(intent);
-
       }
     });
   }
-
 }

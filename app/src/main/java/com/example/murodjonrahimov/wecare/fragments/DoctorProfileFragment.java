@@ -1,19 +1,14 @@
 package com.example.murodjonrahimov.wecare.fragments;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.TextView;
-
-import com.example.murodjonrahimov.wecare.RegistrationActivity;
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.DoctorProfileForm;
 import com.example.murodjonrahimov.wecare.R;
@@ -40,7 +35,6 @@ public class DoctorProfileFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
     View rootView = inflater.inflate(R.layout.d_fragment_profile, container, false);
-
 
     firstNameED = rootView.findViewById(R.id.first_name);
     lastNameED = rootView.findViewById(R.id.last_name);
@@ -86,7 +80,6 @@ public class DoctorProfileFragment extends Fragment {
               majorED.setText(doctor.getMajor());
               yearsOfExperienceED.setText(doctor.getYearsOfExperience());
               type.setText(doctor.getType());
-
             }
           }
         }

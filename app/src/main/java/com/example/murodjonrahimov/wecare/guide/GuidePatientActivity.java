@@ -13,15 +13,14 @@ public class GuidePatientActivity extends AppCompatActivity {
 
   private Button buttonSignUp;
   private Button buttonRegister;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_guide_patient);
 
-
     buttonRegister = findViewById(R.id.guide_register);
     buttonSignUp = findViewById(R.id.guide_sign_up);
-
 
     buttonRegister.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -29,7 +28,6 @@ public class GuidePatientActivity extends AppCompatActivity {
 
         Intent intent = new Intent(GuidePatientActivity.this, RegistrationActivity.class);
         startActivity(intent);
-
       }
     });
 
@@ -39,7 +37,6 @@ public class GuidePatientActivity extends AppCompatActivity {
 
         Intent intent = new Intent(GuidePatientActivity.this, LoginActivity.class);
         startActivity(intent);
-
       }
     });
   }

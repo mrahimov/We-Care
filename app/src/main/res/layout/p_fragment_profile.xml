@@ -1,55 +1,55 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment">
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  tools:context="com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment">
 
     <TextView
-        android:id="@+id/first_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="First Name" />
+      android:id="@+id/first_name"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="First Name"/>
 
     <TextView
-        android:id="@+id/last_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Last Name" />
+      android:id="@+id/last_name"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="Last Name"/>
 
     <TextView
-        android:id="@+id/user_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="User Name" />
+      android:id="@+id/user_name"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="User Name"/>
 
     <TextView
-        android:id="@+id/country"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Country" />
+      android:id="@+id/country"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="Country"/>
 
     <TextView
-        android:id="@+id/dob"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="DOB" />
+      android:id="@+id/dob"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="DOB"/>
 
     <TextView
-        android:id="@+id/weight"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Weight" />
+      android:id="@+id/weight"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="Weight"/>
 
     <TextView
-        android:id="@+id/gender"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Sex" />
+      android:id="@+id/gender"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="Sex"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+      android:id="@+id/add_fab"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"/>
 
 </LinearLayout>

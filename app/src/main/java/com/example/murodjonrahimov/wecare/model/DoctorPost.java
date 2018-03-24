@@ -6,55 +6,56 @@ package com.example.murodjonrahimov.wecare.model;
 
 public class DoctorPost {
 
-    private String message;
-    private String addedBy;
-    private String timeStamp;
-    private String key;
+  private String message;
+  private String addedBy;
+  private String timeStamp;
+  private String key;
 
-    public DoctorPost(String message, String addedBy, String timeStamp, String key) {
-        this.message = message;
-        this.addedBy = addedBy;
-        this.timeStamp = timeStamp;
-        this.key = key;
-    }
+  public DoctorPost(String message, String addedBy, String timeStamp, String key) {
+    this.message = message;
+    this.addedBy = addedBy;
+    this.timeStamp = timeStamp;
+    this.key = key;
+  }
 
-    public DoctorPost(String message, String addedBy, String timeStamp) {
-        this.message = message;
-        this.addedBy = addedBy;
-        this.timeStamp = timeStamp;
-    }
-    public DoctorPost() {
-    }
+  public DoctorPost(String message, String addedBy, String timeStamp) {
+    this.message = message;
+    this.addedBy = addedBy;
+    this.timeStamp = timeStamp;
+  }
 
-    public String getKey() {
-        return key;
-    }
+  public DoctorPost() {
+  }
 
-    public void setKey(String key) {
-        this.key = key;
-    }
+  public String getKey() {
+    return key;
+  }
 
-    public String getMessage() {
-        return message;
-    }
+  public void setKey(String key) {
+    this.key = key;
+  }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+  public String getMessage() {
+    return message;
+  }
 
-    public String getAddedBy() {
-        return addedBy;
-    }
+  public void setMessage(String message) {
+    this.message = message;
+  }
 
-    public void setAddedBy(String addedBy) {
-        this.addedBy = addedBy;
-    }
+  public String getAddedBy() {
+    return addedBy;
+  }
 
-    public String getTimeStamp() {
-        return timeStamp;
-    }
+  public void setAddedBy(String addedBy) {
+    this.addedBy = addedBy;
+  }
 
-    public void setTimeStamp(String timeStamp) {
-        this.timeStamp = timeStamp;
-    }
+  public String getTimeStamp() {
+    return timeStamp;
+  }
+
+  public void setTimeStamp(String timeStamp) {
+    this.timeStamp = timeStamp;
+  }
 }

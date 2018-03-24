@@ -6,18 +6,17 @@
   android:orientation="vertical"
   android:padding="10dp">
 
-<TextView
-  android:id="@+id/terms_and_condition"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:textSize="8sp"/>
+    <TextView
+      android:id="@+id/terms_and_condition"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textSize="8sp"/>
 
-        <CheckBox
-          android:id="@+id/input2"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:hint="message"
-          android:imeOptions="actionDone"/>
-
+    <CheckBox
+      android:id="@+id/input2"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="message"
+      android:imeOptions="actionDone"/>
 
 </LinearLayout>
