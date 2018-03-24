@@ -25,15 +25,19 @@
         <activity android:name=".PatientPostForm"/>
         <activity android:name=".DoctorProfileForm"/>
         <activity android:name=".PostWithComments"/>
-        <activity android:name=".PostDoctorComments"></activity>
-        <service
-          android:name=".service.MyFirebaseMessagingService">
+        <activity android:name=".PostDoctorComments"/>
+
+        <service android:name=".service.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
 
-        <activity android:name=".FirstActivity">
+        <activity android:name=".guide.GuideActivity">
+        </activity>
+        <activity android:name=".guide.GuideDoctorActivity">
+        </activity>
+        <activity android:name=".guide.GuidePatientActivity">
         </activity>
     </application>
 
