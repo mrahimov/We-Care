@@ -29,7 +29,6 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 public class DoctorsForumFragment extends Fragment {
 
     private View view;

@@ -20,7 +20,6 @@ public class GuideActivity extends AppCompatActivity {
     doctorButton = findViewById(R.id.button_guide_doctor);
     patientButton = findViewById(R.id.button_guide_patient);
 
-
     doctorButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
