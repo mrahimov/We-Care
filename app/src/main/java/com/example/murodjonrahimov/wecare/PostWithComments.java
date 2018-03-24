@@ -51,8 +51,7 @@ public class PostWithComments extends AppCompatActivity {
 
     RecyclerView recyclerView = findViewById(R.id.comments_recyclerview);
     final CommentsAdapter commentsAdapter = new CommentsAdapter();
-    LinearLayoutManager linearLayoutManager =
-      new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
     recyclerView.setAdapter(commentsAdapter);
     recyclerView.setLayoutManager(linearLayoutManager);
 
