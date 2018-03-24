@@ -18,16 +18,15 @@ public class DoctorProfileForm extends AppCompatActivity {
     private EditText editTextCountryOfWork;
     private EditText editTextMajor;
     private EditText editTextYearsOfExperience;
-    private EditText editTextUserName;
+
     private TextView editTextType;
-    private EditText editTextPrefferedName;
+
     private Button saveButton;
 
     private String firstNameED;
     private String lastNameED;
     private String countryED;
     private String majorED;
-    private String doctorPrefferedName;
     private String yearsOfExperienceED;
     private String type;
 
@@ -42,26 +41,18 @@ public class DoctorProfileForm extends AppCompatActivity {
             lastNameED = bundle.getString("lastNameED");
             countryED = bundle.getString("countryED");
             majorED = bundle.getString("majorED");
-            doctorPrefferedName = bundle.getString("doctorPrefferedName");
             yearsOfExperienceED = bundle.getString("yearsOfExperienceED");
             type = bundle.getString("type");
         }
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        final String userPrefferedName = preferences.getString(RegistrationActivity.USERNAME_KEY, "");
 
         editTextFirstName = findViewById(R.id.first_name);
         editTextLastName = findViewById(R.id.last_name);
         editTextCountryOfWork = findViewById(R.id.country);
         editTextMajor = findViewById(R.id.major);
         editTextYearsOfExperience = findViewById(R.id.years_of_experience);
-        editTextPrefferedName = findViewById(R.id.doctorPrefferedName);
         editTextType = findViewById(R.id.edit_text_type);
         saveButton = findViewById(R.id.save_button);
-
-
-        editTextUserName = findViewById(R.id.user_name);
-        editTextUserName.setText(userPrefferedName);
 
         editTextFirstName.setText(firstNameED);
         editTextLastName.setText(lastNameED);
@@ -69,7 +60,6 @@ public class DoctorProfileForm extends AppCompatActivity {
         editTextMajor.setText(majorED);
         editTextYearsOfExperience.setText(yearsOfExperienceED);
         editTextType.setText(type);
-        editTextPrefferedName.setText(doctorPrefferedName);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +78,7 @@ public class DoctorProfileForm extends AppCompatActivity {
                 String newType = editTextType.getText()
                   .toString();
 
-                Doctor doctor = new Doctor(name, surname, countryOfPractice, majorSpecialty, yearsOfPractice, userPrefferedName, newType);
+                Doctor doctor = new Doctor(name, surname, countryOfPractice, majorSpecialty, yearsOfPractice, newType);
                 Database.saveDoctor(doctor);
                 finish();
             }

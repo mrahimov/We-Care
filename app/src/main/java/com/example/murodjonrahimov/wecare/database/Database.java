@@ -53,4 +53,8 @@ public class Database {
 
     }
 
+    public static void updatePost(String postID, int commentCount) {
+        getDatabase().child("posts").child(postID).child("countOfComments").setValue(commentCount);
+    }
+
 }

@@ -9,10 +9,14 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.murodjonrahimov.wecare.LoginActivity;
 import com.example.murodjonrahimov.wecare.PatientProfileForm;
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.RegistrationActivity;
@@ -44,6 +48,8 @@ public class PatientProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        setHasOptionsMenu(true);
+
         View rootView = inflater.inflate(R.layout.p_fragment_profile, container, false);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -71,6 +77,7 @@ public class PatientProfileFragment extends Fragment {
                 intent.putExtra("weight", weight.getText());
                 intent.putExtra("dob", dob.getText());
                 intent.putExtra("gender", gender.getText());
+                intent.putExtra("userName", patientUserName.getText());
                 startActivity(intent);
             }
         });
@@ -108,5 +115,24 @@ public class PatientProfileFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.settings_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.log_out:
+                return true;
+            case R.id.language:
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 }
