@@ -21,6 +21,7 @@ public class PatientProfileForm extends AppCompatActivity {
   private EditText editTextDob;
   private EditText editTextGender;
   private Button saveButton;
+
   private String firstName;
   private String lastName;
   private String country;
@@ -33,7 +34,6 @@ public class PatientProfileForm extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.patient_profile_form);
 
-    if (savedInstanceState == null) {
       Bundle bundle = getIntent().getExtras();
       firstName = bundle.getString("firstName");
       lastName = bundle.getString("lastName");
@@ -41,15 +41,13 @@ public class PatientProfileForm extends AppCompatActivity {
       weight = bundle.getString("weight");
       dob = bundle.getString("dob");
       gender = bundle.getString("gender");
-    }
+
+
     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     final String userPrefferedName = preferences.getString(RegistrationActivity.USERNAME_KEY, "");
 
     EdditTextPatientUserName = findViewById(R.id.user_name);
     EdditTextPatientUserName.setText(userPrefferedName);
-
-        Intent intent = getIntent();
-        String name = intent.getStringExtra("name");
 
     editTextFirstName = findViewById(R.id.first_name);
     editTextLastName = findViewById(R.id.last_name);

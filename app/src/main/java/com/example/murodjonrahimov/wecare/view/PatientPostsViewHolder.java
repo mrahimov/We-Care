@@ -8,9 +8,9 @@ import android.widget.TextView;
 
 import com.example.murodjonrahimov.wecare.PostWithComments;
 import com.example.murodjonrahimov.wecare.R;
+import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Post;
 
-import java.text.SimpleDateFormat;
 
 public class PatientPostsViewHolder extends RecyclerView.ViewHolder {
 
@@ -45,6 +45,10 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder {
         message.setText("Message: " + post.getMessage());
         addedBy.setText("Posted by: " + post.getPostedByUserName());
         timestamp.setText("Date: " + post.getTimeStamp());
+
+        int countOfComments = post.getCountOfComments();
+        Database.updatePost(post.getKey(), countOfComments);
+        comments.setText(countOfComments + " comments");
     }
 
 }

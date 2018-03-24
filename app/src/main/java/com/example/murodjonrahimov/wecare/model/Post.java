@@ -11,13 +11,15 @@ public class Post implements Parcelable {
     private String timeStamp;
     private String key;
     private String postedByUserName;
+    private int countOfComments;
 
-    public Post(String message, String addedBy, String timeStamp, String key, String postedByUserName) {
+    public Post(String message, String addedBy, String timeStamp, String key, String postedByUserName, int countOfComments) {
         this.message = message;
         this.addedBy = addedBy;
         this.timeStamp = timeStamp;
         this.key = key;
         this.postedByUserName = postedByUserName;
+        this.countOfComments = countOfComments;
     }
 
     public Post(String message, String timeStamp, String postedByUserName) {
@@ -34,6 +36,14 @@ public class Post implements Parcelable {
 
     public void setPostedByUserName(String postedByUserName) {
         this.postedByUserName = postedByUserName;
+    }
+
+    public int getCountOfComments() {
+        return countOfComments;
+    }
+
+    public void setCountOfComments(int countOfComments) {
+        this.countOfComments = countOfComments;
     }
 
     public String getKey() {
@@ -68,6 +78,7 @@ public class Post implements Parcelable {
         this.timeStamp = timeStamp;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -80,6 +91,7 @@ public class Post implements Parcelable {
         dest.writeString(this.timeStamp);
         dest.writeString(this.key);
         dest.writeString(this.postedByUserName);
+        dest.writeInt(this.countOfComments);
     }
 
     protected Post(Parcel in) {
@@ -88,6 +100,7 @@ public class Post implements Parcelable {
         this.timeStamp = in.readString();
         this.key = in.readString();
         this.postedByUserName = in.readString();
+        this.countOfComments = in.readInt();
     }
 
     public static final Creator<Post> CREATOR = new Creator<Post>() {

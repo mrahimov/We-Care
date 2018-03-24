@@ -8,30 +8,20 @@ public class Doctor {
     private String countryOfPractice;
     private String major;
     private String yearsOfExperience;
-    private String doctorUserName;
     private String type;
 
 
     public Doctor() {
     }
 
-    public Doctor(String firstName, String lastName, String countryOfPractice, String major, String yearsOfExperience, String doctorUserName, String type) {
+    public Doctor(String firstName, String lastName, String countryOfPractice, String major, String yearsOfExperience, String type) {
 
         this.firstName = firstName;
         this.lastName = lastName;
         this.countryOfPractice = countryOfPractice;
         this.major = major;
         this.yearsOfExperience = yearsOfExperience;
-        this.doctorUserName = doctorUserName;
         this.type = type;
-    }
-
-    public String getDoctorUserName() {
-        return doctorUserName;
-    }
-
-    public void setDoctorUserName(String doctorUserName) {
-        this.doctorUserName = doctorUserName;
     }
 
     public String getFirstName() {

@@ -104,6 +104,11 @@ public class PostWithComments extends AppCompatActivity {
 
                 Comment comment = new Comment(receivedComment, postKey, dateString, commentPostedByUsername);
                 Database.saveComment(comment);
+
+                int count = post.getCountOfComments() + 1;
+                post.setCountOfComments(count);
+                Database.updatePost(post.getKey(), count);
+
                 addedComment.getText().clear();
 
             }

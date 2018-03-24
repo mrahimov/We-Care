@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+// who was working on this logic?
 public class PostDoctorComments extends AppCompatActivity {
 
 
@@ -39,18 +40,21 @@ public class PostDoctorComments extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_doctor_comments);
+
+        TextView message = findViewById(R.id.message_d);
+        TextView addedBy = findViewById(R.id.added_by_d);
+        TextView timestamp = findViewById(R.id.timestamp_d);
+
+//        why do we need to pass empty data here????/
         Intent intent = getIntent();
         final String Key = intent.getStringExtra("key");
         doctorTimeStamp = intent.getStringExtra("timestamp");
         doctorAddedBy = intent.getStringExtra("addedby");
         doctorMessage = intent.getStringExtra("message");
 
-        addedComment = findViewById(R.id.adding_comment);
-
         ImageView sendComment = findViewById(R.id.send_imageview);
-        TextView message = findViewById(R.id.message_d);
-        TextView addedBy = findViewById(R.id.added_by_d);
-        TextView timestamp = findViewById(R.id.timestamp_d);
+
+
         addedComment = findViewById(R.id.addingcomment);
         message.setText(doctorMessage);
         addedBy.setText(doctorAddedBy);
@@ -106,8 +110,11 @@ public class PostDoctorComments extends AppCompatActivity {
                 String dateString = sdf.format(date);
 
                 Comment comment = new Comment(receivedComment, Key, dateString, postedByUserName);
-
                 Database.saveComment(comment);
+//                int count = post.getCountOfComments() + 1;
+//                post.setCountOfComments(count);
+//                Database.updatePost(post.getKey(), count);
+//
                 addedComment.getText().clear();
 
             }

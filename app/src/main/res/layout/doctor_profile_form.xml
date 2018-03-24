@@ -17,11 +17,6 @@
         android:layout_height="wrap_content"
         android:hint="Last Name" />
 
-    <EditText
-        android:id="@+id/user_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="User Name" />
 
     <EditText
         android:id="@+id/country"
@@ -47,11 +42,6 @@
       android:layout_height="wrap_content"
       android:hint="Doctor" />
 
-    <EditText
-      android:id="@+id/doctorPrefferedName"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="Preffered Name" />
 
     <Button
         android:id="@+id/save_button"
