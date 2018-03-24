@@ -1,6 +1,5 @@
 package com.example.murodjonrahimov.wecare;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -21,7 +20,6 @@ public class PatientProfileForm extends AppCompatActivity {
   private EditText editTextDob;
   private EditText editTextGender;
   private Button saveButton;
-
   private String firstName;
   private String lastName;
   private String country;
@@ -34,14 +32,13 @@ public class PatientProfileForm extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.patient_profile_form);
 
-      Bundle bundle = getIntent().getExtras();
-      firstName = bundle.getString("firstName");
-      lastName = bundle.getString("lastName");
-      country = bundle.getString("country");
-      weight = bundle.getString("weight");
-      dob = bundle.getString("dob");
-      gender = bundle.getString("gender");
-
+    Bundle bundle = getIntent().getExtras();
+    firstName = bundle.getString("firstName");
+    lastName = bundle.getString("lastName");
+    country = bundle.getString("country");
+    weight = bundle.getString("weight");
+    dob = bundle.getString("dob");
+    gender = bundle.getString("gender");
 
     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     final String userPrefferedName = preferences.getString(RegistrationActivity.USERNAME_KEY, "");

@@ -4,8 +4,8 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:orientation="vertical"
   android:background="@drawable/doctors"
+  android:orientation="vertical"
   tools:context="com.example.murodjonrahimov.wecare.guide.GuideActivity">
 
 
@@ -20,17 +20,17 @@
           android:id="@+id/button_guide_doctor"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
+          android:layout_marginRight="1dp"
           android:layout_weight="1"
           android:background="@color/guide_color"
-          android:layout_marginRight="1dp"
           android:text="@string/guide_for_doctors"/>
 
         <Button
           android:id="@+id/button_guide_patient"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_weight="1"
           android:layout_marginLeft="1dp"
+          android:layout_weight="1"
           android:background="@color/guide_color"
           android:text="@string/guide_for_patient"/>
 

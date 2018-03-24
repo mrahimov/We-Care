@@ -6,11 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.example.murodjonrahimov.wecare.PostWithComments;
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.model.Post;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,67 +18,67 @@ import java.util.List;
 
 public class AllPostsAdapter extends RecyclerView.Adapter<AllPostsAdapter.AllPostsViewHolder> {
 
-    List<Post> postList = new ArrayList<>();
+  List<Post> postList = new ArrayList<>();
 
-    public AllPostsAdapter() {
-    }
+  public AllPostsAdapter() {
+  }
 
-    @Override
-    public AllPostsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_itemview, parent, false);
-        return new AllPostsViewHolder(view);
-    }
+  @Override
+  public AllPostsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    View view = LayoutInflater.from(parent.getContext())
+      .inflate(R.layout.post_itemview, parent, false);
+    return new AllPostsViewHolder(view);
+  }
 
-    @Override
-    public void onBindViewHolder(AllPostsViewHolder holder, int position) {
-        holder.onBind(postList.get(position));
-    }
+  @Override
+  public void onBindViewHolder(AllPostsViewHolder holder, int position) {
+    holder.onBind(postList.get(position));
+  }
 
-    @Override
-    public int getItemCount() {
-        return postList.size();
-    }
+  @Override
+  public int getItemCount() {
+    return postList.size();
+  }
 
-    public void setPostList(List<Post> postList) {
-        this.postList.clear();
-        this.postList.addAll(postList);
-    }
+  public void setPostList(List<Post> postList) {
+    this.postList.clear();
+    this.postList.addAll(postList);
+  }
 
-    public class AllPostsViewHolder extends RecyclerView.ViewHolder {
+  public class AllPostsViewHolder extends RecyclerView.ViewHolder {
 
-        public final static String POST_KEY = "post";
-        private Post post;
+    public final static String POST_KEY = "post";
+    private Post post;
 
-        private TextView textViewAddedBy;
-        private TextView textViewMessage;
-        private TextView textViewTimeStamp;
-        private TextView textViewComments;
+    private TextView textViewAddedBy;
+    private TextView textViewMessage;
+    private TextView textViewTimeStamp;
+    private TextView textViewComments;
 
-        public AllPostsViewHolder(final View itemView) {
-            super(itemView);
-            textViewAddedBy = itemView.findViewById(R.id.posted_by_ed);
-            textViewMessage = itemView.findViewById(R.id.message_ed);
-            textViewTimeStamp = itemView.findViewById(R.id.timestamp_ed);
+    public AllPostsViewHolder(final View itemView) {
+      super(itemView);
+      textViewAddedBy = itemView.findViewById(R.id.posted_by_ed);
+      textViewMessage = itemView.findViewById(R.id.message_ed);
+      textViewTimeStamp = itemView.findViewById(R.id.timestamp_ed);
+      textViewComments = itemView.findViewById(R.id.comments);
 
-            textViewComments = itemView.findViewById(R.id.comments);
-
-            textViewComments.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(itemView.getContext(), PostWithComments.class);
-                    intent.putExtra(POST_KEY, post);
-                    itemView.getContext().startActivity(intent);
-                }
-            });
+      textViewComments.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          Intent intent = new Intent(itemView.getContext(), PostWithComments.class);
+          intent.putExtra(POST_KEY, post);
+          itemView.getContext()
+            .startActivity(intent);
         }
-
-
-        public void onBind(Post post) {
-            this.post = post;
-            textViewAddedBy.setText("Posted By: " + post.getPostedByUserName());
-            textViewMessage.setText(post.getMessage());
-            textViewTimeStamp.setText(post.getTimeStamp());
-
-        }
+      });
     }
+
+    public void onBind(Post post) {
+      this.post = post;
+      textViewMessage.setText(post.getMessage());
+      textViewAddedBy.setText("Posted By: " + post.getPostedByUserName());
+      textViewTimeStamp.setText(post.getTimeStamp());
+      textViewComments.setText(post.getCountOfComments() + " comments");
+    }
+  }
 }

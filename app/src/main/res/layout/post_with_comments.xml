@@ -1,67 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/cardview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+      android:id="@+id/cardview"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="15dp">
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:padding="15dp">
 
             <TextView
-                android:id="@+id/message_ed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="message" />
+              android:id="@+id/message_ed"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="message"/>
 
             <TextView
-                android:id="@+id/posted_by_ed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="posted by" />
+              android:id="@+id/posted_by_ed"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="posted by"/>
 
             <TextView
-                android:id="@+id/timestamp_ed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="date" />
+              android:id="@+id/timestamp_ed"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="date"/>
 
 
         </LinearLayout>
-
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/comments_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/cardview"
-        android:layout_above="@+id/adding_comment"/>
-
+      android:id="@+id/comments_recyclerview"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_above="@+id/adding_comment"
+      android:layout_below="@+id/cardview"/>
 
     <EditText
-        android:id="@+id/adding_comment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="bottom"
-        android:hint="Write a comment..." />
+      android:id="@+id/adding_comment"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:gravity="bottom"
+      android:hint="Write a comment..."/>
 
     <ImageView
-        android:id="@+id/send_image_view"
-        app:srcCompat = "@drawable/send"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/adding_comment"
-        android:gravity="bottom"/>
+      android:id="@+id/send_image_view"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_alignRight="@+id/adding_comment"
+      android:gravity="bottom"
+      app:srcCompat="@drawable/send"/>
 
 </RelativeLayout>
