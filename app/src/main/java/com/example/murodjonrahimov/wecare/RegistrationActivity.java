@@ -1,21 +1,27 @@
 package com.example.murodjonrahimov.wecare;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Doctor;
+import com.example.murodjonrahimov.wecare.model.DoctorPost;
 import com.example.murodjonrahimov.wecare.model.Post;
 import com.example.murodjonrahimov.wecare.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,6 +34,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static com.example.murodjonrahimov.wecare.model.TermsAndConditions.terms;
+
 public class RegistrationActivity extends AppCompatActivity {
 
     public final static String EMAIL_KEY = "email";
@@ -36,11 +47,15 @@ public class RegistrationActivity extends AppCompatActivity {
     private Button registerButton;
     private CheckBox doctorCheckbox;
     private EditText licenceId;
+    private ViewGroup viewGroup;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration_activity);
+        viewGroup = (ViewGroup) ((ViewGroup) this.findViewById(android.R.id.content)).getChildAt(0);
+
 
         doctorCheckbox = findViewById(R.id.checkbox_doctor);
         licenceId = findViewById(R.id.licence_edit_text);
@@ -74,64 +89,89 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String email = emailRegistration.getText()
-                        .toString();
-                String password = passwordRegistration.getText()
-                        .toString();
+                AlertDialog.Builder builder = new AlertDialog.Builder(RegistrationActivity.this);
+                builder.setTitle("Terms and Conditions");
 
-                String username = userNameRegistration.getText()
-                        .toString();
+                View viewInflated = LayoutInflater.from(RegistrationActivity.this)
+                        .inflate(R.layout.terms_layout, viewGroup, false);
+                final CheckBox checkBox = viewInflated.findViewById(R.id.input2);
+                final TextView textViewTerms = viewInflated.findViewById(R.id.terms_and_condition);
+                textViewTerms.setText(terms);
 
-                if (email.equals("") || password.equals("") || username.equals("")) {
-                    Toast.makeText(RegistrationActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG)
-                            .show();
-                    return;
-                }
+                builder.setView(viewInflated);
+                builder.setPositiveButton("Accept ", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putString(USERNAME_KEY, username);
-                editor.apply();
+                        String email = emailRegistration.getText()
+                                .toString();
+                        String password = passwordRegistration.getText()
+                                .toString();
 
-                if (doctorCheckbox.isChecked() && licenceId.getText()
-                        .toString()
-                        .isEmpty()) {
-                    Toast.makeText(RegistrationActivity.this, "Please enter a valid licence id", Toast.LENGTH_LONG)
-                            .show();
-                } else {
+                        String username = userNameRegistration.getText()
+                                .toString();
 
-                    final ProgressDialog progressDialog =
-                            ProgressDialog.show(RegistrationActivity.this, "Please wait ...", "Processing...", true);
-                    (firebaseAuth.createUserWithEmailAndPassword(email, password)).addOnCompleteListener(
-                            new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    progressDialog.dismiss();
+                        if (email.equals("") || password.equals("") || username.equals("")) {
+                            Toast.makeText(RegistrationActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG)
+                                    .show();
+                            return;
+                        }
 
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(RegistrationActivity.this, "Registration successful", Toast.LENGTH_LONG)
-                                                .show();
+                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString(USERNAME_KEY, username);
+                        editor.apply();
 
-                                        if (doctorCheckbox.isChecked()) {
-                                            Doctor doctor = new Doctor();
-                                            doctor.setType("doctor");
-                                            Database.saveDoctor(doctor);
-                                            finish();
-                                            Intent intent = new Intent(RegistrationActivity.this, DoctorActivity.class);
-                                            startActivity(intent);
+                        if (doctorCheckbox.isChecked() && licenceId.getText()
+                                .toString()
+                                .isEmpty()) {
+                            Toast.makeText(RegistrationActivity.this, "Please enter a valid licence id", Toast.LENGTH_LONG)
+                                    .show();
+                        } else {
+
+                            final ProgressDialog progressDialog =
+                                    ProgressDialog.show(RegistrationActivity.this, "Please wait ...", "Processing...", true);
+                            (firebaseAuth.createUserWithEmailAndPassword(email, password)).addOnCompleteListener(
+                                    new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            progressDialog.dismiss();
+
+                                            if (task.isSuccessful()) {
+                                                Toast.makeText(RegistrationActivity.this, "Registration successful", Toast.LENGTH_LONG)
+                                                        .show();
+
+                                                if (doctorCheckbox.isChecked()) {
+                                                    Doctor doctor = new Doctor();
+                                                    doctor.setType("doctor");
+                                                    Database.saveDoctor(doctor);
+                                                    finish();
+                                                    Intent intent = new Intent(RegistrationActivity.this, DoctorActivity.class);
+                                                    startActivity(intent);
+                                                }
+                                                if (!doctorCheckbox.isChecked()) {
+                                                    Intent intent = new Intent(RegistrationActivity.this, PatientActivity.class);
+                                                    startActivity(intent);
+                                                }
+                                            } else {
+                                                Toast.makeText(RegistrationActivity.this, task.getException()
+                                                        .getMessage(), Toast.LENGTH_LONG)
+                                                        .show();
+                                            }
                                         }
-                                        if (!doctorCheckbox.isChecked()) {
-                                            Intent intent = new Intent(RegistrationActivity.this, PatientActivity.class);
-                                            startActivity(intent);
-                                        }
-                                    } else {
-                                        Toast.makeText(RegistrationActivity.this, task.getException()
-                                                .getMessage(), Toast.LENGTH_LONG)
-                                                .show();
-                                    }
-                                }
-                            });
-                }
+                                    });
+                        }
+
+                        dialog.dismiss();
+                    }
+                });
+                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
             }
         });
     }
