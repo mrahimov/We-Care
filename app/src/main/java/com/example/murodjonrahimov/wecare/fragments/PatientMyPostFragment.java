@@ -65,25 +65,36 @@ public class PatientMyPostFragment extends Fragment {
 
     db.child("posts")
       .addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                myPosts = new ArrayList<>();
 
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-          myPosts = new ArrayList<>();
+                if (dataSnapshot == null) {
+                    return;
 
-          for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-            String retrievedAddedBydataSnapshot1 = dataSnapshot1.child("addedBy")
-              .getValue()
-              .toString();
-            if (retrievedAddedBydataSnapshot1.equals(userID)) {
-              Post post = dataSnapshot1.getValue(Post.class);
-              String postKey = dataSnapshot1.getKey();
-              post.setKey(postKey);
-              myPosts.add(post);
+                }
+
+                else{
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                        if(dataSnapshot1.child("addedBy").getValue() == null) {
+                            continue;
+                        }
+
+                            String retrievedAddedBydataSnapshot1 = dataSnapshot1.child("addedBy").getValue().toString();
+                            if (retrievedAddedBydataSnapshot1.equals(userID)) {
+                                Post post = dataSnapshot1.getValue(Post.class);
+                                String postKey = dataSnapshot1.getKey();
+                                post.setKey(postKey);
+                                myPosts.add(post);
+                            }
+                        }
+
+
+                }
+
+                patientsPostsAdapter.setData(myPosts);
+                patientsPostsAdapter.notifyDataSetChanged();
             }
-          }
-          patientsPostsAdapter.setData(myPosts);
-          patientsPostsAdapter.notifyDataSetChanged();
-        }
 
         @Override
         public void onCancelled(DatabaseError databaseError) {

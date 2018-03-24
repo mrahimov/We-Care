@@ -6,13 +6,19 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.murodjonrahimov.wecare.LoginActivity;
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.DoctorProfileForm;
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.model.Doctor;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +41,7 @@ public class DoctorProfileFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
     View rootView = inflater.inflate(R.layout.d_fragment_profile, container, false);
+      setHasOptionsMenu(true);
 
     firstNameED = rootView.findViewById(R.id.first_name);
     lastNameED = rootView.findViewById(R.id.last_name);
@@ -89,5 +96,27 @@ public class DoctorProfileFragment extends Fragment {
 
         }
       });
+  }
+  @Override
+  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    inflater.inflate(R.menu.settings_menu, menu);
+    super.onCreateOptionsMenu(menu, inflater);
+
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+
+    switch (item.getItemId()) {
+      case R.id.log_out:
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
+        return true;
+      case R.id.language:
+        return true;
+    }
+    return super.onOptionsItemSelected(item);
+
   }
 }

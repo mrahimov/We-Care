@@ -14,11 +14,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.murodjonrahimov.wecare.LoginActivity;
 import com.example.murodjonrahimov.wecare.PatientProfileForm;
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.RegistrationActivity;
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Patient;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -106,24 +109,31 @@ public class PatientProfileFragment extends Fragment {
         @Override
         public void onCancelled(DatabaseError databaseError) {
 
-        }
-      });
-  }
 
-  @Override
-  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-    inflater.inflate(R.menu.settings_menu, menu);
-    super.onCreateOptionsMenu(menu, inflater);
-  }
+    }
 
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
+        });
+    }
 
-    switch (item.getItemId()) {
-      case R.id.log_out:
-        return true;
-      case R.id.language:
-        return true;
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.settings_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.log_out:
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.language:
+                return true;
     }
     return super.onOptionsItemSelected(item);
   }
