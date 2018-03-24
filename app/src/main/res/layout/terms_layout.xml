@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  android:padding="10dp">
+
+<TextView
+  android:id="@+id/terms_and_condition"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:textSize="8sp"/>
+
+        <CheckBox
+          android:id="@+id/input2"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="message"
+          android:imeOptions="actionDone"/>
+
+
+</LinearLayout>

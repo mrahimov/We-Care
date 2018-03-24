@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Doctor;
 
@@ -18,7 +19,7 @@ public class DoctorProfileForm extends AppCompatActivity {
     private EditText editTextMajor;
     private EditText editTextYearsOfExperience;
     private EditText editTextUserName;
-    private EditText editTextType;
+    private TextView editTextType;
     private EditText editTextPrefferedName;
     private Button saveButton;
 

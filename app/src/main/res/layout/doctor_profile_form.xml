@@ -42,16 +42,16 @@
         android:hint="Years of experience" />
 
     <EditText
-      android:id="@+id/edit_text_type"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="Doctor" />
-
-    <EditText
       android:id="@+id/doctorPrefferedName"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:hint="Preffered Name" />
+
+    <TextView
+      android:id="@+id/edit_text_type"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="Doctor" />
 
     <Button
         android:id="@+id/save_button"
