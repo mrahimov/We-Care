@@ -37,7 +37,6 @@ public class RegistrationActivity extends AppCompatActivity {
   private CheckBox doctorCheckbox;
   private EditText licenceId;
 
-
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -48,16 +47,16 @@ public class RegistrationActivity extends AppCompatActivity {
     registerButton = findViewById(R.id.register_account);
 
     final EditText emailRegistration = findViewById(R.id.email_edit_text);
-    emailRegistration.setText(getIntent().getExtras()
-      .getString(EMAIL_KEY));
-
     final EditText passwordRegistration = findViewById(R.id.password_edit_text);
-    passwordRegistration.setText(getIntent().getExtras()
-      .getString(PASSWORD_KEY));
-
     final EditText userNameRegistration = findViewById(R.id.username_edit_text);
-
     final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+    if (savedInstanceState != null) {
+      emailRegistration.setText(getIntent().getExtras()
+        .getString(EMAIL_KEY));
+      passwordRegistration.setText(getIntent().getExtras()
+        .getString(PASSWORD_KEY));
+    }
 
     doctorCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
       @Override
@@ -65,8 +64,7 @@ public class RegistrationActivity extends AppCompatActivity {
         if (isChecked) {
           licenceId.setVisibility(View.VISIBLE);
           userNameRegistration.setVisibility(View.GONE);
-        }
-        else {
+        } else {
           licenceId.setVisibility(View.INVISIBLE);
           userNameRegistration.setVisibility(View.VISIBLE);
         }
@@ -82,7 +80,8 @@ public class RegistrationActivity extends AppCompatActivity {
         String password = passwordRegistration.getText()
           .toString();
 
-        String username = userNameRegistration.getText().toString();
+        String username = userNameRegistration.getText()
+          .toString();
 
         if (email.equals("") || password.equals("") || username.equals("")) {
           Toast.makeText(RegistrationActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG)
@@ -118,13 +117,14 @@ public class RegistrationActivity extends AppCompatActivity {
                     doctor.setType("doctor");
                     Database.saveDoctor(doctor);
                     finish();
-                  Intent intent = new Intent(RegistrationActivity.this, DoctorActivity.class);
-                  startActivity(intent);
-                } if (!doctorCheckbox.isChecked()) {
+                    Intent intent = new Intent(RegistrationActivity.this, DoctorActivity.class);
+                    startActivity(intent);
+                  }
+                  if (!doctorCheckbox.isChecked()) {
                     Intent intent = new Intent(RegistrationActivity.this, PatientActivity.class);
                     startActivity(intent);
                   }
-                }else {
+                } else {
                   Toast.makeText(RegistrationActivity.this, task.getException()
                     .getMessage(), Toast.LENGTH_LONG)
                     .show();
