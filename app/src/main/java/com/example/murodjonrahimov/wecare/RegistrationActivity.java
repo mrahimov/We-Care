@@ -38,6 +38,9 @@ public class RegistrationActivity extends AppCompatActivity {
   private CheckBox doctorCheckbox;
   private EditText licenceId;
   private ViewGroup viewGroup;
+  private String email;
+  private String password;
+  private String username;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +79,24 @@ public class RegistrationActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
 
+        email = emailRegistration.getText()
+          .toString();
+        password = passwordRegistration.getText()
+          .toString();
+
+        final String username = userNameRegistration.getText()
+          .toString();
+
+        if (licenceId.equals("") && username.equals("")) {
+          Toast.makeText(RegistrationActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG)
+            .show();
+          return;
+        }
+        if (email.equals("") || password.equals("") ) {
+          Toast.makeText(RegistrationActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG)
+            .show();
+          return;
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(RegistrationActivity.this);
         builder.setTitle("Terms and Conditions");
 
@@ -90,19 +111,6 @@ public class RegistrationActivity extends AppCompatActivity {
           @Override
           public void onClick(DialogInterface dialog, int which) {
 
-            String email = emailRegistration.getText()
-              .toString();
-            String password = passwordRegistration.getText()
-              .toString();
-
-            String username = userNameRegistration.getText()
-              .toString();
-
-            if (email.equals("") || password.equals("") || username.equals("")) {
-              Toast.makeText(RegistrationActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG)
-                .show();
-              return;
-            }
 
             SharedPreferences preferences = getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
