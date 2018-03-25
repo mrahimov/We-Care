@@ -85,6 +85,7 @@ public class PostWithComments extends AppCompatActivity {
                 }
                 commentsAdapter.setData(allComments);
                 commentsAdapter.notifyDataSetChanged();
+
             }
 
             @Override
