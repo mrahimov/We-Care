@@ -21,7 +21,7 @@
               android:id="@+id/message_ed"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:hint="message"
+              android:hint="@string/message"
               android:textColor="#000"
               android:textSize="18sp"/>
 
@@ -29,7 +29,7 @@
               android:id="@+id/posted_by_ed"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:hint="posted by"
+              android:hint="@string/posted_by"
               android:textColor="#000"
               android:textSize="18sp"/>
 
@@ -37,7 +37,7 @@
               android:id="@+id/timestamp_ed"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:hint="date"
+              android:hint="@string/date"
               android:textColor="#000"
               android:textSize="18sp"/>
 
@@ -46,7 +46,7 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:clickable="true"
-              android:hint="comments"
+              android:hint="@string/comments"
               android:textColor="#000"
               android:textSize="18sp"/>
 

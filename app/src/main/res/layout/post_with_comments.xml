@@ -24,7 +24,7 @@
               android:layout_height="wrap_content"
               android:textColor="#000"
               android:textSize="18sp"
-              android:hint="message"/>
+              android:hint="@string/message"/>
 
             <TextView
               android:id="@+id/posted_by_ed"
@@ -32,7 +32,7 @@
               android:layout_height="wrap_content"
               android:textColor="#000"
               android:textSize="18sp"
-              android:hint="posted by"/>
+              android:hint="@string/posted_by"/>
 
             <TextView
               android:id="@+id/timestamp_ed"
@@ -40,7 +40,7 @@
               android:layout_height="wrap_content"
               android:textColor="#000"
               android:textSize="18sp"
-              android:hint="date"/>
+              android:hint="@string/date"/>
 
 
         </LinearLayout>
@@ -60,7 +60,7 @@
       android:layout_marginBottom="8dp"
       android:layout_alignParentBottom="true"
       android:gravity="bottom"
-      android:hint="Write a comment..."/>
+      android:hint="@string/write_a_comment"/>
 
     <ImageView
       android:id="@+id/send_image_view"
