@@ -35,21 +35,6 @@ public class PatientPostForm extends AppCompatActivity {
   private TextView textViewGastroenterologist;
   private TextView textViewOther;
   private String doctorINeed;
-  //private String Allergist;
-  //private String Cardiologist;
-  //private String Dermatologist;
-  //private String Nephrologist;
-  //private String Neurologist;
-  //private String Obstetrician;
-  //private String Ophthalmologist;
-  //private String Otolaryngologist;
-  //private String Pediatrician;
-  //private String Psychiatrist;
-  //private String Rheumatologist;
-  //private String Urologist;
-  //private String Gastroenterologis;
-  //private String Other;
-  //private String Gp;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
