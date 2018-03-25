@@ -1,52 +1,93 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:orientation="vertical"
-  tools:context="com.example.murodjonrahimov.wecare.fragments.DoctorProfileFragment">
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView
-      android:id="@+id/first_name"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="First Name"/>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context="com.example.murodjonrahimov.wecare.fragments.DoctorProfileFragment">
 
-    <TextView
-      android:id="@+id/last_name"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="Last Name"/>
+        <TextView
+            android:id="@+id/first_name_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="First Name:" />
+
+        <TextView
+            android:id="@+id/first_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/last_name_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Last Name:" />
+
+        <TextView
+            android:id="@+id/last_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/country_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Country of Work:" />
+
+        <TextView
+            android:id="@+id/country"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/major_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Major Speciality:" />
+
+        <TextView
+            android:id="@+id/major"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/years_of_experience_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Years of experience:" />
+
+        <TextView
+            android:id="@+id/years_of_experience"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/type_doctor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/number_of_doctors_comments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/number_of_doctors_comments"/>
 
 
-    <TextView
-      android:id="@+id/country"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="Country of Work"/>
-
-    <TextView
-      android:id="@+id/major"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="Major Speciality"/>
-
-    <TextView
-      android:id="@+id/years_of_experience"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="Years of experience"/>
-
-    <TextView
-      android:id="@+id/type_doctor"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="Doctor"/>
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
-      android:id="@+id/add_fab"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"/>
+        android:id="@+id/add_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:clickable="true"
+        android:src="@drawable/edit"
+        app:fabSize="normal" />
 
-
-</LinearLayout>
-
+</android.support.design.widget.CoordinatorLayout>

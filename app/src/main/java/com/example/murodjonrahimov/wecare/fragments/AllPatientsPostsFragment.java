@@ -21,7 +21,7 @@ import java.util.List;
 public class AllPatientsPostsFragment extends Fragment {
   private View rootView;
   private AllPostsAdapter adapter;
-  private List<Post> postList = new ArrayList<>();
+  private List<Post> postList;
   private RecyclerView recyclerView;
   private DatabaseReference ref2;
 
@@ -37,9 +37,9 @@ public class AllPatientsPostsFragment extends Fragment {
     adapter = new AllPostsAdapter();
     recyclerView.setAdapter(adapter);
 
-    DatabaseReference ref1 = FirebaseDatabase.getInstance()
-      .getReference();
-    ref2 = ref1.child("posts");
+
+    DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference ref2 = ref1.child("posts");
 
     return rootView;
   }
@@ -48,6 +48,8 @@ public class AllPatientsPostsFragment extends Fragment {
     ref2.addValueEventListener(new ValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot dataSnapshot) {
+        postList = new ArrayList<>();
+
         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
           if (dataSnapshot1 != null) {
             Post post = dataSnapshot1.getValue(Post.class);
