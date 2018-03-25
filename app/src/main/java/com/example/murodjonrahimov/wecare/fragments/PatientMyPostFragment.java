@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.example.murodjonrahimov.wecare.PatientPostForm;
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.controller.PatientsPostsAdapter;
@@ -25,81 +26,79 @@ import java.util.List;
 
 public class PatientMyPostFragment extends Fragment {
 
-  private PatientsPostsAdapter patientsPostsAdapter;
-  private List<Post> myPosts;
+    private PatientsPostsAdapter patientsPostsAdapter;
+    private List<Post> myPosts;
 
-  public PatientMyPostFragment() {
-  }
+    public PatientMyPostFragment() {
+    }
 
-  @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-    View rootView = inflater.inflate(R.layout.p_fragment_posts, container, false);
+        View rootView = inflater.inflate(R.layout.p_fragment_posts, container, false);
 
-    RecyclerView recyclerView = rootView.findViewById(R.id.recyclerview);
+        RecyclerView recyclerView = rootView.findViewById(R.id.recyclerview);
 
-    patientsPostsAdapter = new PatientsPostsAdapter();
-    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-    recyclerView.setAdapter(patientsPostsAdapter);
-    recyclerView.setLayoutManager(linearLayoutManager);
+        patientsPostsAdapter = new PatientsPostsAdapter();
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        recyclerView.setAdapter(patientsPostsAdapter);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
-    return rootView;
-  }
+        return rootView;
+    }
 
-  @Override
-  public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-    super.onViewCreated(view, savedInstanceState);
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-    FloatingActionButton fab = getActivity().findViewById(R.id.add_fab);
-    fab.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        Intent intent = new Intent(getActivity(), PatientPostForm.class);
-        startActivity(intent);
-      }
-    });
-
-    DatabaseReference db = Database.getDatabase();
-
-    final String userID = Database.getUserId();
-
-    db.child("posts")
-      .addValueEventListener(new ValueEventListener() {
+        FloatingActionButton fab = getActivity().findViewById(R.id.add_fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                myPosts = new ArrayList<>();
-
-                if (dataSnapshot == null) {
-                    return;
-
-                }
-
-                else{
-                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                        if(dataSnapshot1.child("addedBy").getValue() == null) {
-                            continue;
-                        }
-
-                            String retrievedAddedBydataSnapshot1 = dataSnapshot1.child("addedBy").getValue().toString();
-                            if (retrievedAddedBydataSnapshot1.equals(userID)) {
-                                Post post = dataSnapshot1.getValue(Post.class);
-                                String postKey = dataSnapshot1.getKey();
-                                post.setKey(postKey);
-                                myPosts.add(post);
-                            }
-                        }
-
-
-                }
-
-                patientsPostsAdapter.setData(myPosts);
-                patientsPostsAdapter.notifyDataSetChanged();
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PatientPostForm.class);
+                startActivity(intent);
             }
+        });
 
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
+        DatabaseReference db = Database.getDatabase();
 
-        }
-      });
-  }
+        final String userID = Database.getUserId();
+
+        db.child("posts")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        myPosts = new ArrayList<>();
+
+                        if (dataSnapshot == null) {
+                            return;
+
+                        } else {
+                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                                if (dataSnapshot1.child("addedBy").getValue() == null) {
+                                    continue;
+                                }
+
+                                String retrievedAddedBydataSnapshot1 = dataSnapshot1.child("addedBy").getValue().toString();
+                                if (retrievedAddedBydataSnapshot1.equals(userID)) {
+                                    Post post = dataSnapshot1.getValue(Post.class);
+                                    String postKey = dataSnapshot1.getKey();
+                                    post.setKey(postKey);
+                                    myPosts.add(post);
+                                }
+                            }
+
+
+                        }
+
+                        patientsPostsAdapter.setData(myPosts);
+                        patientsPostsAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+    }
 }

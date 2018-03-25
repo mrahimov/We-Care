@@ -1,5 +1,6 @@
 package com.example.murodjonrahimov.wecare;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -92,7 +93,7 @@ public class PostWithComments extends AppCompatActivity {
         String receivedComment = addedComment.getText()
           .toString();
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences preferences = getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
         String commentPostedByUsername = preferences.getString(RegistrationActivity.USERNAME_KEY, "");
 
         long date = System.currentTimeMillis();
