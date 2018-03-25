@@ -40,6 +40,7 @@ public class RegistrationActivity extends AppCompatActivity {
   private String email;
   private String password;
   private String username;
+  private String licence;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -83,57 +84,53 @@ public class RegistrationActivity extends AppCompatActivity {
         password = passwordRegistration.getText()
           .toString();
 
-        final String username = userNameRegistration.getText()
+        licence = licenceId.getText()
           .toString();
 
-        if (licenceId.equals("") && username.equals("")) {
+        username = userNameRegistration.getText()
+          .toString();
+
+        if (email.equals("") || password.equals("") || licence.equals("") && username.equals("")) {
           Toast.makeText(RegistrationActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG)
             .show();
           return;
         }
-        if (email.equals("") || password.equals("")) {
-          Toast.makeText(RegistrationActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG)
+
+        if (doctorCheckbox.isChecked() && licence.equals("")) {
+          Toast.makeText(RegistrationActivity.this, "Please enter a valid licence id", Toast.LENGTH_LONG)
             .show();
-          return;
-        }
-        AlertDialog.Builder builder = new AlertDialog.Builder(RegistrationActivity.this);
-        builder.setTitle("Terms and Conditions");
+        } else {
 
-        View viewInflated = LayoutInflater.from(RegistrationActivity.this)
-          .inflate(R.layout.terms_layout, viewGroup, false);
-        final CheckBox checkBox = viewInflated.findViewById(R.id.input2);
-        final TextView textViewTerms = viewInflated.findViewById(R.id.terms_and_condition);
-        textViewTerms.setText(terms);
+          final ProgressDialog progressDialog =
+            ProgressDialog.show(RegistrationActivity.this, "Please wait ...", "Processing...", true);
+          (firebaseAuth.createUserWithEmailAndPassword(email, password)).addOnCompleteListener(
+            new OnCompleteListener<AuthResult>() {
+              @Override
+              public void onComplete(@NonNull final Task<AuthResult> task) {
+                progressDialog.dismiss();
 
-        builder.setView(viewInflated);
-        builder.setPositiveButton("Accept ", new DialogInterface.OnClickListener() {
-          @Override
-          public void onClick(DialogInterface dialog, int which) {
+                if (task.isSuccessful()) {
+                  Toast.makeText(RegistrationActivity.this, "Registration successful", Toast.LENGTH_LONG)
+                    .show();
 
-            SharedPreferences preferences =
-              getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putString(USERNAME_KEY, username);
-            editor.apply();
+                  AlertDialog.Builder builder = new AlertDialog.Builder(RegistrationActivity.this);
+                  builder.setTitle("Terms and Conditions");
 
-            if (doctorCheckbox.isChecked() && licenceId.getText()
-              .toString()
-              .isEmpty()) {
-              Toast.makeText(RegistrationActivity.this, "Please enter a valid licence id", Toast.LENGTH_LONG)
-                .show();
-            } else {
+                  View viewInflated = LayoutInflater.from(RegistrationActivity.this)
+                    .inflate(R.layout.terms_layout, viewGroup, false);
+                  final TextView textViewTerms = viewInflated.findViewById(R.id.terms_and_condition);
+                  textViewTerms.setText(terms);
 
-              final ProgressDialog progressDialog =
-                ProgressDialog.show(RegistrationActivity.this, "Please wait ...", "Processing...", true);
-              (firebaseAuth.createUserWithEmailAndPassword(email, password)).addOnCompleteListener(
-                new OnCompleteListener<AuthResult>() {
-                  @Override
-                  public void onComplete(@NonNull Task<AuthResult> task) {
-                    progressDialog.dismiss();
+                  builder.setView(viewInflated);
+                  builder.setPositiveButton("Accept ", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-                    if (task.isSuccessful()) {
-                      Toast.makeText(RegistrationActivity.this, "Registration successful", Toast.LENGTH_LONG)
-                        .show();
+                      SharedPreferences preferences =
+                        getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
+                      SharedPreferences.Editor editor = preferences.edit();
+                      editor.putString(USERNAME_KEY, username);
+                      editor.apply();
 
                       if (doctorCheckbox.isChecked()) {
                         Doctor doctor = new Doctor();
@@ -147,25 +144,25 @@ public class RegistrationActivity extends AppCompatActivity {
                         Intent intent = new Intent(RegistrationActivity.this, PatientActivity.class);
                         startActivity(intent);
                       }
-                    } else {
-                      Toast.makeText(RegistrationActivity.this, task.getException()
-                        .getMessage(), Toast.LENGTH_LONG)
-                        .show();
-                    }
-                  }
-                });
-            }
 
-            dialog.dismiss();
-          }
-        });
-        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-          @Override
-          public void onClick(DialogInterface dialog, int which) {
-            dialog.cancel();
-          }
-        });
-        builder.show();
+                      dialog.dismiss();
+                    }
+                  });
+                  builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                      dialog.cancel();
+                    }
+                  });
+                  builder.show();
+                } else {
+                  Toast.makeText(RegistrationActivity.this, task.getException()
+                    .getMessage(), Toast.LENGTH_LONG)
+                    .show();
+                }
+              }
+            });
+        }
       }
     });
   }
