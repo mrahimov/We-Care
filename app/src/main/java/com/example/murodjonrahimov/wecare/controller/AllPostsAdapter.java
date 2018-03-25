@@ -18,7 +18,7 @@ import java.util.List;
 
 public class AllPostsAdapter extends RecyclerView.Adapter<AllPostsAdapter.AllPostsViewHolder> {
 
-  List<Post> postList = new ArrayList<>();
+  private List<Post> postList = new ArrayList<>();
 
   public AllPostsAdapter() {
   }

@@ -92,7 +92,7 @@ public class RegistrationActivity extends AppCompatActivity {
             .show();
           return;
         }
-        if (email.equals("") || password.equals("") ) {
+        if (email.equals("") || password.equals("")) {
           Toast.makeText(RegistrationActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG)
             .show();
           return;
