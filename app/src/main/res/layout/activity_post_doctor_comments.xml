@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:padding="8dp"
   android:orientation="vertical">
 
     <android.support.v7.widget.CardView
@@ -20,18 +22,24 @@
               android:id="@+id/message_d"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:textColor="#000"
+              android:textSize="18sp"
               android:hint="message"/>
 
             <TextView
               android:id="@+id/added_by_d"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:textColor="#000"
+              android:textSize="18sp"
               android:hint="added by"/>
 
             <TextView
               android:id="@+id/timestamp_d"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:textColor="#000"
+              android:textSize="18sp"
               android:hint="date"/>
 
 
@@ -50,16 +58,19 @@
     <EditText
       android:id="@+id/addingcomment"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="50dp"
       android:layout_alignParentBottom="true"
+      android:layout_marginBottom="8dp"
       android:gravity="bottom"
       android:hint="Write a comment..."/>
 
     <ImageView
       android:id="@+id/send_imageview"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_width="30dp"
+      android:layout_height="30dp"
       android:layout_alignParentBottom="true"
+      android:layout_marginBottom="8dp"
+      android:layout_marginRight="8dp"
       android:layout_alignRight="@+id/addingcomment"
       android:gravity="bottom"
       app:srcCompat="@drawable/send"/>

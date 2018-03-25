@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.example.murodjonrahimov.wecare.LoginActivity;
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.DoctorProfileForm;
@@ -42,7 +41,7 @@ public class DoctorProfileFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
     View rootView = inflater.inflate(R.layout.d_fragment_profile, container, false);
-      setHasOptionsMenu(true);
+    setHasOptionsMenu(true);
 
     firstNameED = rootView.findViewById(R.id.first_name);
     lastNameED = rootView.findViewById(R.id.last_name);
@@ -99,11 +98,11 @@ public class DoctorProfileFragment extends Fragment {
         }
       });
   }
+
   @Override
   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
     inflater.inflate(R.menu.settings_menu, menu);
     super.onCreateOptionsMenu(menu, inflater);
-
   }
 
   @Override
@@ -111,15 +110,15 @@ public class DoctorProfileFragment extends Fragment {
 
     switch (item.getItemId()) {
       case R.id.log_out:
-        FirebaseAuth.getInstance().signOut();
-          getActivity().finishAffinity();
-          Intent intent = new Intent(getContext(), LoginActivity.class);
+        FirebaseAuth.getInstance()
+          .signOut();
+        getActivity().finishAffinity();
+        Intent intent = new Intent(getContext(), LoginActivity.class);
         startActivity(intent);
         return true;
       case R.id.language:
         return true;
     }
     return super.onOptionsItemSelected(item);
-
   }
 }

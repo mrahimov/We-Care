@@ -3,7 +3,6 @@ package com.example.murodjonrahimov.wecare;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,9 +25,9 @@ import java.util.List;
 
 public class PostDoctorComments extends AppCompatActivity {
 
-  String doctorMessage;
-  String doctorTimeStamp;
-  String doctorAddedBy;
+  private String doctorMessage;
+  private String doctorTimeStamp;
+  private String doctorAddedBy;
   private EditText addedComment;
   private List<Comment> allComments;
 
@@ -95,7 +94,8 @@ public class PostDoctorComments extends AppCompatActivity {
       @Override
       public void onClick(View v) {
 
-        String receivedComment = addedComment.getText().toString();
+        String receivedComment = addedComment.getText()
+          .toString();
 
         SharedPreferences preferences = getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
         final String postedByUserName = preferences.getString(RegistrationActivity.USERNAME_KEY, "");

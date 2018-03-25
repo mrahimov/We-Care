@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.murodjonrahimov.wecare.PostWithComments;
 import com.example.murodjonrahimov.wecare.R;
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class AllPostsAdapter extends RecyclerView.Adapter<AllPostsAdapter.AllPostsViewHolder> {
 
-  List<Post> postList = new ArrayList<>();
+  private List<Post> postList = new ArrayList<>();
 
   public AllPostsAdapter() {
   }
@@ -54,6 +55,7 @@ public class AllPostsAdapter extends RecyclerView.Adapter<AllPostsAdapter.AllPos
     private TextView textViewMessage;
     private TextView textViewTimeStamp;
     private TextView textViewComments;
+    private LinearLayout linearLayoutComits;
 
     public AllPostsViewHolder(final View itemView) {
       super(itemView);
@@ -61,13 +63,15 @@ public class AllPostsAdapter extends RecyclerView.Adapter<AllPostsAdapter.AllPos
       textViewMessage = itemView.findViewById(R.id.message_ed);
       textViewTimeStamp = itemView.findViewById(R.id.timestamp_ed);
       textViewComments = itemView.findViewById(R.id.comments);
+      linearLayoutComits = itemView.findViewById(R.id.linear_layout_comments);
 
-      textViewComments.setOnClickListener(new View.OnClickListener() {
+      linearLayoutComits.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
           Intent intent = new Intent(itemView.getContext(), PostWithComments.class);
           intent.putExtra(POST_KEY, post);
-          itemView.getContext().startActivity(intent);
+          itemView.getContext()
+            .startActivity(intent);
         }
       });
     }

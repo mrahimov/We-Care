@@ -3,7 +3,6 @@ package com.example.murodjonrahimov.wecare;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -64,13 +63,20 @@ public class PatientProfileForm extends AppCompatActivity {
       @Override
       public void onClick(View v) {
 
-        String name = editTextFirstName.getText().toString();
-        String surname = editTextLastName.getText().toString();
-        String countryOrigin = editTextCountry.getText().toString();
-        String patientWeight = editTextWeight.getText().toString();
-        String dateOfBirth = editTextDob.getText().toString();
-        String sex = editTextGender.getText().toString();
-        String patientUsername = editTextPatientUserName.getText().toString();
+        String name = editTextFirstName.getText()
+          .toString();
+        String surname = editTextLastName.getText()
+          .toString();
+        String countryOrigin = editTextCountry.getText()
+          .toString();
+        String patientWeight = editTextWeight.getText()
+          .toString();
+        String dateOfBirth = editTextDob.getText()
+          .toString();
+        String sex = editTextGender.getText()
+          .toString();
+        String patientUsername = editTextPatientUserName.getText()
+          .toString();
 
         SharedPreferences preferences = getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
