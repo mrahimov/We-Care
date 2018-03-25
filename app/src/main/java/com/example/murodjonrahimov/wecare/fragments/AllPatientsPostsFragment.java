@@ -23,7 +23,6 @@ public class AllPatientsPostsFragment extends Fragment {
   private AllPostsAdapter adapter;
   private List<Post> postList;
   private RecyclerView recyclerView;
-  private DatabaseReference ref2;
 
   public AllPatientsPostsFragment() {
   }
@@ -37,14 +36,9 @@ public class AllPatientsPostsFragment extends Fragment {
     adapter = new AllPostsAdapter();
     recyclerView.setAdapter(adapter);
 
-
     DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference();
     DatabaseReference ref2 = ref1.child("posts");
 
-    return rootView;
-  }
-
-  private void fetchData(DatabaseReference ref2) {
     ref2.addValueEventListener(new ValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot dataSnapshot) {
@@ -68,13 +62,7 @@ public class AllPatientsPostsFragment extends Fragment {
 
       }
     });
-  }
 
-  @Override
-
-  public void onResume() {
-    super.onResume();
-    postList.clear();
-    fetchData(ref2);
+    return rootView;
   }
 }
