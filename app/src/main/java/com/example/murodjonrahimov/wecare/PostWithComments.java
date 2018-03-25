@@ -28,7 +28,7 @@ import java.util.List;
 public class PostWithComments extends AppCompatActivity {
 
   private EditText addedComment;
-  private List<Comment> allComments;
+  private List<Comment> allComments=new ArrayList<>();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class PostWithComments extends AppCompatActivity {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
 
-          allComments = new ArrayList<>();
+          allComments.clear();
 
           for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
             Object postIdWrapper = dataSnapshot1.child("postId")
