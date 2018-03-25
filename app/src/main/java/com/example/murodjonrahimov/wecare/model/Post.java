@@ -11,6 +11,7 @@ public class Post implements Parcelable {
   private String key;
   private String postedByUserName;
   private int countOfComments;
+  private String doctorINeed;
 
   public Post(String message, String addedBy, String timeStamp, String key, String postedByUserName, int countOfComments) {
     this.message = message;
@@ -21,10 +22,11 @@ public class Post implements Parcelable {
     this.countOfComments = countOfComments;
   }
 
-  public Post(String message, String timeStamp, String postedByUserName) {
+  public Post(String message, String timeStamp, String postedByUserName, String doctorINeed) {
     this.message = message;
     this.timeStamp = timeStamp;
     this.postedByUserName = postedByUserName;
+    this.doctorINeed = doctorINeed;
   }
 
   public Post() {
@@ -82,6 +84,14 @@ public class Post implements Parcelable {
     return CREATOR;
   }
 
+  public String getDoctorINeed() {
+    return doctorINeed;
+  }
+
+  public void setDoctorINeed(String doctorINeed) {
+    this.doctorINeed = doctorINeed;
+  }
+
   @Override
   public int describeContents() {
     return 0;
@@ -93,6 +103,7 @@ public class Post implements Parcelable {
     dest.writeString(this.addedBy);
     dest.writeString(this.timeStamp);
     dest.writeString(this.key);
+    dest.writeString(this.doctorINeed);
     dest.writeString(this.postedByUserName);
     dest.writeInt(this.countOfComments);
   }
@@ -100,6 +111,7 @@ public class Post implements Parcelable {
   protected Post(Parcel in) {
     this.message = in.readString();
     this.addedBy = in.readString();
+    this.doctorINeed = in.readString();
     this.timeStamp = in.readString();
     this.key = in.readString();
     this.postedByUserName = in.readString();

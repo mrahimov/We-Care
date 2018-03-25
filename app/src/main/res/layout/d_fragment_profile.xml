@@ -16,7 +16,7 @@
             android:id="@+id/first_name_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="First Name:" />
+            android:text="@string/first_name" />
 
         <TextView
             android:id="@+id/first_name"
@@ -27,7 +27,7 @@
             android:id="@+id/last_name_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Last Name:" />
+            android:text="@string/last_name" />
 
         <TextView
             android:id="@+id/last_name"
@@ -38,7 +38,7 @@
             android:id="@+id/country_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Country of Work:" />
+            android:text="@string/country_of_work" />
 
         <TextView
             android:id="@+id/country"
@@ -49,7 +49,7 @@
             android:id="@+id/major_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Major Speciality:" />
+            android:text="@string/major_speciality" />
 
         <TextView
             android:id="@+id/major"
@@ -60,7 +60,7 @@
             android:id="@+id/years_of_experience_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Years of experience:" />
+            android:text="@string/years_of_experience" />
 
         <TextView
             android:id="@+id/years_of_experience"
