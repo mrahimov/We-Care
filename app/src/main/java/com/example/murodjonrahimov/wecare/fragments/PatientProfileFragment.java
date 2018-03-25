@@ -1,5 +1,6 @@
 package com.example.murodjonrahimov.wecare.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -48,7 +49,7 @@ public class PatientProfileFragment extends Fragment {
 
     View rootView = inflater.inflate(R.layout.p_fragment_profile, container, false);
 
-    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+    SharedPreferences preferences = getActivity().getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
     final String userPrefferedName = preferences.getString(RegistrationActivity.USERNAME_KEY, "");
 
     patientUserName = rootView.findViewById(R.id.user_name);

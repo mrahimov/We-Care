@@ -1,5 +1,6 @@
 package com.example.murodjonrahimov.wecare;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -94,9 +95,9 @@ public class PostDoctorComments extends AppCompatActivity {
       @Override
       public void onClick(View v) {
 
-        String receivedComment = addedComment.getText()
-          .toString();
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String receivedComment = addedComment.getText().toString();
+
+        SharedPreferences preferences = getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
         final String postedByUserName = preferences.getString(RegistrationActivity.USERNAME_KEY, "");
 
         long date = System.currentTimeMillis();

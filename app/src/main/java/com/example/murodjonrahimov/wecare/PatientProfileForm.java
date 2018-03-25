@@ -1,5 +1,6 @@
 package com.example.murodjonrahimov.wecare;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -14,7 +15,7 @@ public class PatientProfileForm extends AppCompatActivity {
 
   private EditText editTextFirstName;
   private EditText editTextLastName;
-  private EditText EdditTextPatientUserName;
+  private EditText editTextPatientUserName;
   private EditText editTextCountry;
   private EditText editTextWeight;
   private EditText editTextDob;
@@ -26,6 +27,7 @@ public class PatientProfileForm extends AppCompatActivity {
   private String weight;
   private String dob;
   private String gender;
+  private String userName;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +41,9 @@ public class PatientProfileForm extends AppCompatActivity {
     weight = bundle.getString("weight");
     dob = bundle.getString("dob");
     gender = bundle.getString("gender");
+    userName = bundle.getString("userName");
 
-    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-    final String userPrefferedName = preferences.getString(RegistrationActivity.USERNAME_KEY, "");
-
-    EdditTextPatientUserName = findViewById(R.id.user_name);
-    EdditTextPatientUserName.setText(userPrefferedName);
-
+    editTextPatientUserName = findViewById(R.id.user_name);
     editTextFirstName = findViewById(R.id.first_name);
     editTextLastName = findViewById(R.id.last_name);
     editTextCountry = findViewById(R.id.country);
@@ -54,6 +52,7 @@ public class PatientProfileForm extends AppCompatActivity {
     editTextGender = findViewById(R.id.gender);
     saveButton = findViewById(R.id.save_button);
 
+    editTextPatientUserName.setText(userName);
     editTextFirstName.setText(firstName);
     editTextLastName.setText(lastName);
     editTextCountry.setText(country);
@@ -65,20 +64,20 @@ public class PatientProfileForm extends AppCompatActivity {
       @Override
       public void onClick(View v) {
 
-        String name = editTextFirstName.getText()
-          .toString();
-        String surname = editTextLastName.getText()
-          .toString();
-        String countryOrigin = editTextCountry.getText()
-          .toString();
-        String patientWeight = editTextWeight.getText()
-          .toString();
-        String dateOfBirth = editTextDob.getText()
-          .toString();
-        String sex = editTextGender.getText()
-          .toString();
+        String name = editTextFirstName.getText().toString();
+        String surname = editTextLastName.getText().toString();
+        String countryOrigin = editTextCountry.getText().toString();
+        String patientWeight = editTextWeight.getText().toString();
+        String dateOfBirth = editTextDob.getText().toString();
+        String sex = editTextGender.getText().toString();
+        String patientUsername = editTextPatientUserName.getText().toString();
 
-        Patient patient = new Patient(name, surname, countryOrigin, patientWeight, dateOfBirth, sex, userPrefferedName);
+        SharedPreferences preferences = getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(RegistrationActivity.USERNAME_KEY, patientUsername);
+        editor.apply();
+
+        Patient patient = new Patient(name, surname, countryOrigin, patientWeight, dateOfBirth, sex, patientUsername);
         Database.savePatient(patient);
         finish();
       }

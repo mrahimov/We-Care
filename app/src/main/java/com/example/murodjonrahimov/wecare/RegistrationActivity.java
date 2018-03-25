@@ -1,6 +1,7 @@
 package com.example.murodjonrahimov.wecare;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -32,6 +33,7 @@ public class RegistrationActivity extends AppCompatActivity {
   public final static String EMAIL_KEY = "email";
   public final static String PASSWORD_KEY = "password";
   public static String USERNAME_KEY = "userKey";
+  public static String WE_CARE_SHARED_PREFS_KEY = "weCareSharedPrefsKey";
   private Button registerButton;
   private CheckBox doctorCheckbox;
   private EditText licenceId;
@@ -102,7 +104,7 @@ public class RegistrationActivity extends AppCompatActivity {
               return;
             }
 
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            SharedPreferences preferences = getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString(USERNAME_KEY, username);
             editor.apply();

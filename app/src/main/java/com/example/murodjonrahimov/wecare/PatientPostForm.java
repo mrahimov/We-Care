@@ -1,5 +1,6 @@
 package com.example.murodjonrahimov.wecare;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -24,15 +25,15 @@ public class PatientPostForm extends AppCompatActivity {
     saveButton = findViewById(R.id.save_button);
     messageED = findViewById(R.id.message_ed);
 
-    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-    final String postedByUserName = preferences.getString(RegistrationActivity.USERNAME_KEY, "");
-
     saveButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
 
         String message = messageED.getText()
           .toString();
+
+        SharedPreferences preferences = getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
+        final String postedByUserName = preferences.getString(RegistrationActivity.USERNAME_KEY, "");
 
         long date = System.currentTimeMillis();
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm a");
