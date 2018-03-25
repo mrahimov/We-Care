@@ -20,8 +20,6 @@ public class PatientActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.patient_activity);
 
-
-
     toolbar = getSupportActionBar();
     loadFragment(new ListOfDoctorsFragment());
 
