@@ -67,8 +67,7 @@ public class AllPostsAdapter extends RecyclerView.Adapter<AllPostsAdapter.AllPos
         public void onClick(View v) {
           Intent intent = new Intent(itemView.getContext(), PostWithComments.class);
           intent.putExtra(POST_KEY, post);
-          itemView.getContext()
-            .startActivity(intent);
+          itemView.getContext().startActivity(intent);
         }
       });
     }

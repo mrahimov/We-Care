@@ -36,8 +36,7 @@ public class AllPatientsPostsFragment extends Fragment {
     adapter = new AllPostsAdapter();
     recyclerView.setAdapter(adapter);
 
-    DatabaseReference ref1 = FirebaseDatabase.getInstance()
-      .getReference();
+    DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference();
     DatabaseReference ref2 = ref1.child("posts");
 
     ref2.addValueEventListener(new ValueEventListener() {

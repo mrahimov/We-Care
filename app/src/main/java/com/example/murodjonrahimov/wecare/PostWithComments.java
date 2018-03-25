@@ -66,8 +66,7 @@ public class PostWithComments extends AppCompatActivity {
           allComments = new ArrayList<>();
 
           for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-            Object postIdWrapper = dataSnapshot1.child("postId")
-              .getValue();
+            Object postIdWrapper = dataSnapshot1.child("postId").getValue();
             if (postIdWrapper != null) {
               String retrievedPostId = postIdWrapper.toString();
               if (retrievedPostId.equals(postKey)) {
@@ -107,8 +106,7 @@ public class PostWithComments extends AppCompatActivity {
         post.setCountOfComments(count);
         Database.updatePost(post.getKey(), count);
 
-        addedComment.getText()
-          .clear();
+        addedComment.getText().clear();
       }
     });
   }

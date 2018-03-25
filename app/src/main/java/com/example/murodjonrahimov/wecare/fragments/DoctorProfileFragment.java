@@ -32,6 +32,7 @@ public class DoctorProfileFragment extends Fragment {
   private TextView majorED;
   private TextView yearsOfExperienceED;
   private TextView type;
+  private TextView numberOfDoctorsComments;
   private FloatingActionButton fab;
 
   public DoctorProfileFragment() {
@@ -49,6 +50,7 @@ public class DoctorProfileFragment extends Fragment {
     majorED = rootView.findViewById(R.id.major);
     yearsOfExperienceED = rootView.findViewById(R.id.years_of_experience);
     type = rootView.findViewById(R.id.type_doctor);
+    numberOfDoctorsComments = rootView.findViewById(R.id.number_of_doctors_comments);
     fab = rootView.findViewById(R.id.add_fab);
 
     fab.setOnClickListener(new View.OnClickListener() {
@@ -81,11 +83,11 @@ public class DoctorProfileFragment extends Fragment {
             if (dataSnapshot2.getKey()
               .equals(userID)) {
               Doctor doctor = dataSnapshot2.getValue(Doctor.class);
-              firstNameED.setText(doctor.getFirstName());
-              lastNameED.setText(doctor.getLastName());
-              countryED.setText(doctor.getCountryOfPractice());
-              majorED.setText(doctor.getMajor());
-              yearsOfExperienceED.setText(doctor.getYearsOfExperience());
+              firstNameED.setText("First Name: " + doctor.getFirstName());
+              lastNameED.setText("Last Name: " + doctor.getLastName());
+              countryED.setText("Country of Practice: " + doctor.getCountryOfPractice());
+              majorED.setText("Specialty: " + doctor.getMajor());
+              yearsOfExperienceED.setText("Years of Experience: " + doctor.getYearsOfExperience());
               type.setText(doctor.getType());
             }
           }
@@ -110,7 +112,8 @@ public class DoctorProfileFragment extends Fragment {
     switch (item.getItemId()) {
       case R.id.log_out:
         FirebaseAuth.getInstance().signOut();
-        Intent intent = new Intent(getContext(), LoginActivity.class);
+          getActivity().finishAffinity();
+          Intent intent = new Intent(getContext(), LoginActivity.class);
         startActivity(intent);
         return true;
       case R.id.language:
