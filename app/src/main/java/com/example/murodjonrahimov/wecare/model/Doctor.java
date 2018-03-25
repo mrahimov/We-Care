@@ -8,6 +8,7 @@ public class Doctor {
   private String major;
   private String yearsOfExperience;
   private String type;
+//  private String numberOfDoctorsComments;
 
   public Doctor() {
   }
@@ -21,7 +22,16 @@ public class Doctor {
     this.major = major;
     this.yearsOfExperience = yearsOfExperience;
     this.type = type;
+//    this.numberOfDoctorsComments = numberOfDoctorsComments;
   }
+
+//  public String getNumberOfDoctorsComments() {
+//    return numberOfDoctorsComments;
+//  }
+
+//  public void setNumberOfDoctorsComments(String numberOfDoctorsComments) {
+//    this.numberOfDoctorsComments = numberOfDoctorsComments;
+//  }
 
   public String getFirstName() {
     return firstName;
