@@ -83,11 +83,11 @@ public class DoctorProfileFragment extends Fragment {
             if (dataSnapshot2.getKey()
               .equals(userID)) {
               Doctor doctor = dataSnapshot2.getValue(Doctor.class);
-              firstNameED.setText("First Name: " + doctor.getFirstName());
-              lastNameED.setText("Last Name: " + doctor.getLastName());
-              countryED.setText("Country of Practice: " + doctor.getCountryOfPractice());
-              majorED.setText("Specialty: " + doctor.getMajor());
-              yearsOfExperienceED.setText("Years of Experience: " + doctor.getYearsOfExperience());
+              firstNameED.setText(doctor.getFirstName());
+              lastNameED.setText(doctor.getLastName());
+              countryED.setText(doctor.getCountryOfPractice());
+              majorED.setText(doctor.getMajor());
+              yearsOfExperienceED.setText(doctor.getYearsOfExperience());
               type.setText(doctor.getType());
             }
           }
