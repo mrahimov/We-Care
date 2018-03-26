@@ -27,6 +27,7 @@
         <activity android:name=".DoctorProfileForm"/>
         <activity android:name=".PostWithComments"/>
         <activity android:name=".PostDoctorComments"/>
+        <activity android:name=".OnBoarding"/>
 
         <service android:name=".service.MyFirebaseMessagingService">
             <intent-filter>
