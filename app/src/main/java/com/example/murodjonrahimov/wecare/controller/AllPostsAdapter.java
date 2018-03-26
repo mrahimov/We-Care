@@ -55,6 +55,7 @@ public class AllPostsAdapter extends RecyclerView.Adapter<AllPostsAdapter.AllPos
     private TextView textViewMessage;
     private TextView textViewTimeStamp;
     private TextView textViewComments;
+    private TextView textViewNeedDoceor;
     private LinearLayout linearLayoutComits;
 
     public AllPostsViewHolder(final View itemView) {
@@ -63,6 +64,7 @@ public class AllPostsAdapter extends RecyclerView.Adapter<AllPostsAdapter.AllPos
       textViewMessage = itemView.findViewById(R.id.message_ed);
       textViewTimeStamp = itemView.findViewById(R.id.timestamp_ed);
       textViewComments = itemView.findViewById(R.id.comments);
+      textViewNeedDoceor = itemView.findViewById(R.id.need_docroe_textview);
       linearLayoutComits = itemView.findViewById(R.id.linear_layout_comments);
 
       linearLayoutComits.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +80,7 @@ public class AllPostsAdapter extends RecyclerView.Adapter<AllPostsAdapter.AllPos
 
     public void onBind(Post post) {
       this.post = post;
+      textViewNeedDoceor.setText(post.getDoctorINeed());
       textViewMessage.setText(post.getMessage());
       textViewAddedBy.setText("Posted By: " + post.getPostedByUserName());
       textViewTimeStamp.setText(post.getTimeStamp());
