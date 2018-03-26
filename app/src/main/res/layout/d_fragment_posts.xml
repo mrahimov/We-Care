@@ -7,12 +7,27 @@
   tools:context="com.example.murodjonrahimov.wecare.fragments.AllPatientsPostsFragment">
 
     <android.support.v7.widget.RecyclerView
-      android:id="@+id/recyclerview_allposts"
+      android:id="@+id/recyclerview_navigation_pills"
+      android:layout_width="match_parent"
+      android:layout_height="60dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintLeft_toLeftOf="parent"
-      app:layout_constraintRight_toRightOf="parent"
-      app:layout_constraintTop_toTopOf="parent"/>
+      android:layout_marginTop="60dp"
+      android:orientation="horizontal">
+
+        <android.support.v7.widget.RecyclerView
+          android:id="@+id/recyclerview_allposts"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintRight_toRightOf="parent"
+          app:layout_constraintTop_toTopOf="parent"/>
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

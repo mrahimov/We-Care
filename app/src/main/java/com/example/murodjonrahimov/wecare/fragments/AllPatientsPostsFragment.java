@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.controller.AllPostsAdapter;
+import com.example.murodjonrahimov.wecare.controller.NavigationAdapter;
 import com.example.murodjonrahimov.wecare.model.Post;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,10 +20,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AllPatientsPostsFragment extends Fragment {
+
   private View rootView;
   private AllPostsAdapter adapter;
-  private List<Post> postList;
+  private NavigationAdapter navigationAdapter;
+  private RecyclerView navigationRecyclerview;
   private RecyclerView recyclerView;
+  private List<Post> postList;
+  private List<String> catigoryList = new ArrayList<>();
+
 
   public AllPatientsPostsFragment() {
   }
@@ -35,6 +41,13 @@ public class AllPatientsPostsFragment extends Fragment {
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     adapter = new AllPostsAdapter();
     recyclerView.setAdapter(adapter);
+
+
+    navigationRecyclerview = rootView.findViewById(R.id.recyclerview_navigation_pills);
+    navigationRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(),
+      LinearLayoutManager.HORIZONTAL, false));
+    navigationAdapter = new NavigationAdapter();
+    navigationRecyclerview.setAdapter(navigationAdapter);
 
     DatabaseReference ref1 = FirebaseDatabase.getInstance()
       .getReference();
@@ -63,6 +76,24 @@ public class AllPatientsPostsFragment extends Fragment {
 
       }
     });
+
+    catigoryList.add("GP");
+    catigoryList.add("Allergist");
+    catigoryList.add("Cardiologist");
+    catigoryList.add("Dermatologist");
+    catigoryList.add("Nephrologist");
+    catigoryList.add("Neurologist");
+    catigoryList.add("Obstetrician");
+    catigoryList.add("Ophthalmologist");
+    catigoryList.add("Otolaryngologist");
+    catigoryList.add("Pediatrician");
+    catigoryList.add("Psychiatrist");
+    catigoryList.add("Rheumatologist");
+    catigoryList.add("Urologist");
+    catigoryList.add("Gastroenterologist");
+    catigoryList.add("Other");
+
+    navigationAdapter.setCategoryList(catigoryList);
 
     return rootView;
   }
