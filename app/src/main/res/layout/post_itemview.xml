@@ -18,6 +18,14 @@
           android:padding="15dp">
 
             <TextView
+              android:id="@+id/need_docroe_textview"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="@string/others"
+              android:textColor="#000"
+              android:textSize="18sp"/>
+
+            <TextView
               android:id="@+id/message_ed"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
