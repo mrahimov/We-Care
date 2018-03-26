@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 import com.example.murodjonrahimov.wecare.R;
-import com.example.murodjonrahimov.wecare.model.Post;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,8 +13,8 @@ import java.util.List;
 
 public class NavigationViewHolder extends RecyclerView.ViewHolder {
 
-  private TextView navigationPills;
-  private List<String> categoryList;
+  public TextView navigationPills;
+  private List<String> categoryList = new ArrayList<>();
 
   public NavigationViewHolder(View itemView) {
     super(itemView);
@@ -23,7 +23,8 @@ public class NavigationViewHolder extends RecyclerView.ViewHolder {
 
   }
   public void onBind(List<String> categoryList, int position) {
-    this.categoryList = categoryList;
+    this.categoryList.clear();
+    this.categoryList.addAll(categoryList);
     navigationPills.setText(categoryList.get(position));
 
   }

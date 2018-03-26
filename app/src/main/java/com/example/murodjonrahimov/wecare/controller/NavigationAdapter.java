@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.murodjonrahimov.wecare.R;
+import com.example.murodjonrahimov.wecare.listeners.CategoryPills;
 import com.example.murodjonrahimov.wecare.view.NavigationViewHolder;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +16,18 @@ import java.util.List;
 
 public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder> {
 
+  private String currentCategory;
+  private CategoryPills listener;
   private List<String> categoryList = new ArrayList<>();
 
   public NavigationAdapter() {
   }
 
-  public NavigationAdapter(List<String> categoryList) {
+  public NavigationAdapter(CategoryPills listener) {
+    this.listener = listener;
+  }
+
+  public void setCategoryList(List<String> categoryList) {
     this.categoryList.clear();
     this.categoryList.addAll(categoryList);
   }
@@ -28,23 +35,28 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder
   @Override
   public NavigationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     View view = LayoutInflater.from(parent.getContext())
-      .inflate(R.layout.item_view_navigation_pills, parent,false);
+      .inflate(R.layout.item_view_navigation_pills, parent, false);
 
     return new NavigationViewHolder(view);
   }
 
   @Override
-  public void onBindViewHolder(NavigationViewHolder holder, int position) {
+  public void onBindViewHolder(NavigationViewHolder holder, final int position) {
     holder.onBind(categoryList, position);
+
+    holder.navigationPills.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+
+        currentCategory = categoryList.get(position);
+
+        listener.onCategoryListener(currentCategory);
+      }
+    });
   }
 
   @Override
   public int getItemCount() {
     return categoryList.size();
-  }
-
-  public void setCategoryList(List<String> categoryList) {
-    this.categoryList.clear();
-    this.categoryList.addAll(categoryList);
   }
 }
