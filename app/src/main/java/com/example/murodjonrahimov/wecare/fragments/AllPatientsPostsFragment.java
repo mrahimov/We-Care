@@ -76,6 +76,7 @@ public class AllPatientsPostsFragment extends Fragment implements CategoryPills{
       }
     });
 
+    catigoryList.add("All Post's");
     catigoryList.add("GP");
     catigoryList.add("Allergist");
     catigoryList.add("Cardiologist");
@@ -121,15 +122,22 @@ public class AllPatientsPostsFragment extends Fragment implements CategoryPills{
           }
         }
 
-        for (int i = 0; i < postList.size(); i++) {
-          String doctorNeed = postList.get(i).getDoctorINeed();
-          if (doctorNeed.equals(category)) {
-            newPostList.add(postList.get(i));
+        if (category.equals("All Post's")) {
+          adapter.setPostList(postList);
+          adapter.notifyDataSetChanged();
+        } else {
+
+          for (int i = 0; i < postList.size(); i++) {
+            String doctorNeed = postList.get(i)
+              .getDoctorINeed();
+            if (doctorNeed.equals(category)) {
+              newPostList.add(postList.get(i));
+            }
           }
-        }
 
         adapter.setPostList(newPostList);
         adapter.notifyDataSetChanged();
+      }
       }
 
       @Override

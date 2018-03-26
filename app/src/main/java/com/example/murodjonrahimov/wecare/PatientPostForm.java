@@ -81,6 +81,7 @@ public class PatientPostForm extends AppCompatActivity {
           textViewGastroenterologist.setVisibility(View.VISIBLE);
           textViewNeurologist.setVisibility(View.VISIBLE);
           textViewOther.setVisibility(View.VISIBLE);
+          textViewGP.setVisibility(View.VISIBLE);
         } else {
 
           textViewAllergist.setVisibility(View.GONE);
@@ -97,6 +98,7 @@ public class PatientPostForm extends AppCompatActivity {
           textViewGastroenterologist.setVisibility(View.GONE);
           textViewNeurologist.setVisibility(View.GONE);
           textViewOther.setVisibility(View.GONE);
+          textViewGP.setVisibility(View.GONE);
         }
       }
     });
@@ -120,6 +122,7 @@ public class PatientPostForm extends AppCompatActivity {
         textViewGastroenterologist.setVisibility(View.GONE);
         textViewNeurologist.setVisibility(View.GONE);
         textViewOther.setVisibility(View.GONE);
+        textViewGP.setVisibility(View.GONE);
       }
     });
 
@@ -142,6 +145,7 @@ public class PatientPostForm extends AppCompatActivity {
         textViewGastroenterologist.setVisibility(View.GONE);
         textViewNeurologist.setVisibility(View.GONE);
         textViewOther.setVisibility(View.GONE);
+        textViewGP.setVisibility(View.GONE);
       }
     });
 
@@ -164,6 +168,7 @@ public class PatientPostForm extends AppCompatActivity {
         textViewGastroenterologist.setVisibility(View.GONE);
         textViewNeurologist.setVisibility(View.GONE);
         textViewOther.setVisibility(View.GONE);
+        textViewGP.setVisibility(View.GONE);
       }
     });
 
@@ -186,6 +191,7 @@ public class PatientPostForm extends AppCompatActivity {
         textViewGastroenterologist.setVisibility(View.GONE);
         textViewNeurologist.setVisibility(View.GONE);
         textViewOther.setVisibility(View.GONE);
+        textViewGP.setVisibility(View.GONE);
       }
     });
 
@@ -208,6 +214,7 @@ public class PatientPostForm extends AppCompatActivity {
         textViewGastroenterologist.setVisibility(View.GONE);
         textViewNeurologist.setVisibility(View.GONE);
         textViewOther.setVisibility(View.GONE);
+        textViewGP.setVisibility(View.GONE);
       }
     });
 
@@ -230,6 +237,7 @@ public class PatientPostForm extends AppCompatActivity {
         textViewGastroenterologist.setVisibility(View.GONE);
         textViewNeurologist.setVisibility(View.GONE);
         textViewOther.setVisibility(View.GONE);
+        textViewGP.setVisibility(View.GONE);
       }
     });
 
@@ -252,6 +260,7 @@ public class PatientPostForm extends AppCompatActivity {
         textViewGastroenterologist.setVisibility(View.GONE);
         textViewNeurologist.setVisibility(View.GONE);
         textViewOther.setVisibility(View.GONE);
+        textViewGP.setVisibility(View.GONE);
       }
     });
 
@@ -274,6 +283,7 @@ public class PatientPostForm extends AppCompatActivity {
         textViewGastroenterologist.setVisibility(View.GONE);
         textViewNeurologist.setVisibility(View.GONE);
         textViewOther.setVisibility(View.GONE);
+        textViewGP.setVisibility(View.GONE);
       }
     });
 
@@ -296,6 +306,7 @@ public class PatientPostForm extends AppCompatActivity {
         textViewGastroenterologist.setVisibility(View.GONE);
         textViewNeurologist.setVisibility(View.GONE);
         textViewOther.setVisibility(View.GONE);
+        textViewGP.setVisibility(View.GONE);
       }
     });
 
@@ -318,6 +329,7 @@ public class PatientPostForm extends AppCompatActivity {
         textViewGastroenterologist.setVisibility(View.GONE);
         textViewNeurologist.setVisibility(View.GONE);
         textViewOther.setVisibility(View.GONE);
+        textViewGP.setVisibility(View.GONE);
       }
     });
 
@@ -340,6 +352,7 @@ public class PatientPostForm extends AppCompatActivity {
         textViewGastroenterologist.setVisibility(View.GONE);
         textViewNeurologist.setVisibility(View.GONE);
         textViewOther.setVisibility(View.GONE);
+        textViewGP.setVisibility(View.GONE);
       }
     });
 
@@ -362,6 +375,7 @@ public class PatientPostForm extends AppCompatActivity {
         textViewGastroenterologist.setVisibility(View.GONE);
         textViewNeurologist.setVisibility(View.GONE);
         textViewOther.setVisibility(View.GONE);
+        textViewGP.setVisibility(View.GONE);
       }
     });
 
@@ -384,6 +398,7 @@ public class PatientPostForm extends AppCompatActivity {
         textViewGastroenterologist.setVisibility(View.GONE);
         textViewNeurologist.setVisibility(View.GONE);
         textViewOther.setVisibility(View.GONE);
+        textViewGP.setVisibility(View.GONE);
       }
     });
 
@@ -406,6 +421,7 @@ public class PatientPostForm extends AppCompatActivity {
         textViewGastroenterologist.setVisibility(View.GONE);
         textViewNeurologist.setVisibility(View.GONE);
         textViewOther.setVisibility(View.GONE);
+        textViewGP.setVisibility(View.GONE);
       }
     });
 
@@ -428,6 +444,7 @@ public class PatientPostForm extends AppCompatActivity {
         textViewGastroenterologist.setVisibility(View.GONE);
         textViewNeurologist.setVisibility(View.GONE);
         textViewOther.setVisibility(View.GONE);
+        textViewGP.setVisibility(View.GONE);
       }
     });
 
@@ -445,9 +462,12 @@ public class PatientPostForm extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm a");
         String dateString = sdf.format(date);
 
-        Post post = new Post(message, dateString, postedByUserName, doctorINeed);
-        Database.savePost(post);
-        finish();
+        if (doctorINeed == null) {
+          doctorINeed = "Others";
+        }
+          Post post = new Post(message, dateString, postedByUserName, doctorINeed);
+          Database.savePost(post);
+          finish();
       }
     });
   }
