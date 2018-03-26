@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.controller.AllPostsAdapter;
 import com.example.murodjonrahimov.wecare.controller.NavigationAdapter;
+import com.example.murodjonrahimov.wecare.listeners.CategoryPills;
 import com.example.murodjonrahimov.wecare.model.Post;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AllPatientsPostsFragment extends Fragment {
+public class AllPatientsPostsFragment extends Fragment implements CategoryPills{
 
   private View rootView;
   private AllPostsAdapter adapter;
@@ -28,7 +29,7 @@ public class AllPatientsPostsFragment extends Fragment {
   private RecyclerView recyclerView;
   private List<Post> postList;
   private List<String> catigoryList = new ArrayList<>();
-
+  private String category;
 
   public AllPatientsPostsFragment() {
   }
@@ -42,11 +43,9 @@ public class AllPatientsPostsFragment extends Fragment {
     adapter = new AllPostsAdapter();
     recyclerView.setAdapter(adapter);
 
-
     navigationRecyclerview = rootView.findViewById(R.id.recyclerview_navigation_pills);
-    navigationRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(),
-      LinearLayoutManager.HORIZONTAL, false));
-    navigationAdapter = new NavigationAdapter();
+    navigationRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+    navigationAdapter = new NavigationAdapter(this);
     navigationRecyclerview.setAdapter(navigationAdapter);
 
     DatabaseReference ref1 = FirebaseDatabase.getInstance()
@@ -96,5 +95,47 @@ public class AllPatientsPostsFragment extends Fragment {
     navigationAdapter.setCategoryList(catigoryList);
 
     return rootView;
+  }
+
+  @Override
+  public void onCategoryListener(final String category) {
+   this.category = category;
+
+   DatabaseReference ref1 = FirebaseDatabase.getInstance()
+      .getReference();
+    DatabaseReference ref2 = ref1.child("posts");
+
+    ref2.addValueEventListener(new ValueEventListener() {
+      @Override
+      public void onDataChange(DataSnapshot dataSnapshot) {
+        postList = new ArrayList<>();
+
+        List<Post> newPostList = new ArrayList<>();
+
+        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+          if (dataSnapshot1 != null) {
+            Post post = dataSnapshot1.getValue(Post.class);
+            String postKey = dataSnapshot1.getKey();
+            post.setKey(postKey);
+            postList.add(post);
+          }
+        }
+
+        for (int i = 0; i < postList.size(); i++) {
+          String doctorNeed = postList.get(i).getDoctorINeed();
+          if (doctorNeed.equals(category)) {
+            newPostList.add(postList.get(i));
+          }
+        }
+
+        adapter.setPostList(newPostList);
+        adapter.notifyDataSetChanged();
+      }
+
+      @Override
+      public void onCancelled(DatabaseError databaseError) {
+
+      }
+    });
   }
 }
