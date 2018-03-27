@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.murodjonrahimov.wecare.LoginActivity;
 import com.example.murodjonrahimov.wecare.database.Database;
@@ -22,9 +23,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class DoctorProfileFragment extends Fragment {
 
+  private static final int DOCTOR_IMAGE = 7;
   private TextView firstNameED;
   private TextView lastNameED;
   private TextView countryED;
@@ -33,6 +37,8 @@ public class DoctorProfileFragment extends Fragment {
   private TextView type;
   private TextView numberOfDoctorsComments;
   private FloatingActionButton fab;
+  private ImageView doctorImage;
+  private StorageReference storageReference;
 
   public DoctorProfileFragment() {
   }
@@ -51,6 +57,20 @@ public class DoctorProfileFragment extends Fragment {
     type = rootView.findViewById(R.id.type_doctor);
     numberOfDoctorsComments = rootView.findViewById(R.id.number_of_doctors_comments);
     fab = rootView.findViewById(R.id.add_fab);
+
+    storageReference = FirebaseStorage.getInstance().getReference();
+    doctorImage = rootView.findViewById(R.id.imageview_doctor_profile);
+
+    doctorImage.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+
+        startActivityForResult(intent, DOCTOR_IMAGE);
+      }
+    });
 
     fab.setOnClickListener(new View.OnClickListener() {
       @Override
