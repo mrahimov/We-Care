@@ -34,19 +34,19 @@ public class LoginActivity extends AppCompatActivity {
   private EditText signInEmail;
   private EditText signInPassword;
   private String type;
-  private Button buttonGuide;
+  private Button registerButton;
+  private Button signInButton;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.login_activity);
 
-    Button registerButton = findViewById(R.id.register_button);
-    Button signInButton = findViewById(R.id.sign_in_button);
+    registerButton = findViewById(R.id.register_button);
+    signInButton = findViewById(R.id.sign_in_button);
     signInEmail = findViewById(R.id.email_login_edit_text);
     signInPassword = findViewById(R.id.password_login_edit_text);
 
-    buttonGuide = findViewById(R.id.guide);
 
     final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
@@ -143,13 +143,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
       }
     });
-    buttonGuide.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        Intent intent = new Intent(LoginActivity.this, GuideActivity.class);
-        startActivity(intent);
-      }
-    });
+
   }
 
   private void updateLocalUsernameValue(final String userID) {
