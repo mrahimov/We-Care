@@ -1,6 +1,7 @@
 package com.example.murodjonrahimov.wecare.fragments;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -13,11 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.example.murodjonrahimov.wecare.LoginActivity;
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.DoctorProfileForm;
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.model.Doctor;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,6 +28,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import static android.app.Activity.RESULT_OK;
 
 public class DoctorProfileFragment extends Fragment {
 
@@ -86,6 +92,28 @@ public class DoctorProfileFragment extends Fragment {
       }
     });
     return rootView;
+  }
+
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+
+    if (requestCode == DOCTOR_IMAGE && resultCode == RESULT_OK) {
+
+      Uri uri = data.getData();
+
+      assert uri != null;
+      StorageReference docImage = storageReference.child("photos").child(uri.getAuthority());
+
+      docImage.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        @Override
+        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+          Toast.makeText(getContext(), "upload done", Toast.LENGTH_LONG).show();
+        }
+      });
+
+    }
   }
 
   @Override
