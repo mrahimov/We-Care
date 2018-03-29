@@ -12,107 +12,128 @@
       android:orientation="vertical"
       tools:context="com.example.murodjonrahimov.wecare.fragments.DoctorProfileFragment">
 
-        <ImageView
-          android:id="@+id/imageview_doctor_profile"
-          android:layout_width="200dp"
-          android:layout_height="200dp"
-          android:layout_gravity="center"
-          android:background="@drawable/add_male_user"/>
-
         <LinearLayout
-          android:orientation="horizontal"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content">
-
-        <TextView
-          android:id="@+id/first_name_tv"
-          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="@string/first_name"/>
+          android:orientation="horizontal"
+          tools:context="com.example.murodjonrahimov.wecare.fragments.DoctorProfileFragment">
 
-        <TextView
-          android:id="@+id/first_name"
-          android:layout_marginLeft="20sp"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"/>
+            <Button
+              android:id="@+id/button_doctor_image"
+              android:layout_width="40dp"
+              android:layout_height="40dp"
+              android:background="@drawable/add_male_user"/>
+
+            <ImageView
+              android:id="@+id/imageview_doctor_profile"
+              android:layout_width="wrap_content"
+              android:layout_height="200dp"
+              android:layout_gravity="center">
+
+            </ImageView>
 
         </LinearLayout>
 
         <LinearLayout
-          android:orientation="horizontal"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content">
-
-        <TextView
-          android:id="@+id/last_name_tv"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="@string/last_name"/>
+          android:layout_marginTop="8dp"
+          android:orientation="horizontal">
 
-        <TextView
-          android:id="@+id/last_name"
-          android:layout_marginLeft="20sp"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"/>
+            <TextView
+              android:id="@+id/first_name_tv"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/first_name"/>
 
-    </LinearLayout>
+            <TextView
+              android:id="@+id/first_name"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="@string/first_name"
+              android:layout_marginLeft="20sp"/>
 
-    <LinearLayout
-      android:orientation="horizontal"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+        </LinearLayout>
 
-        <TextView
-          android:id="@+id/country_tv"
-          android:layout_width="wrap_content"
+        <LinearLayout
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="@string/country_of_work"/>
+          android:orientation="horizontal">
 
-        <TextView
-          android:id="@+id/country"
-          android:layout_marginLeft="20sp"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"/>
+            <TextView
+              android:id="@+id/last_name_tv"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/last_name"/>
 
-    </LinearLayout>
+            <TextView
+              android:id="@+id/last_name"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:hint="@string/last_name"
+              android:layout_marginLeft="20sp"/>
 
-    <LinearLayout
-      android:orientation="horizontal"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+        </LinearLayout>
 
-        <TextView
-          android:id="@+id/major_tv"
-          android:layout_width="wrap_content"
+        <LinearLayout
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="@string/major_speciality"/>
+          android:orientation="horizontal">
 
-        <TextView
-          android:id="@+id/major"
-          android:layout_marginLeft="20sp"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"/>
+            <TextView
+              android:id="@+id/country_tv"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/country_of_work"/>
 
-    </LinearLayout>
+            <TextView
+              android:id="@+id/country"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:hint="@string/country_of_work"
+              android:layout_marginLeft="20sp"/>
 
-    <LinearLayout
-      android:orientation="horizontal"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+        </LinearLayout>
 
-        <TextView
-          android:id="@+id/years_of_experience_tv"
-          android:layout_width="wrap_content"
+        <LinearLayout
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="@string/years_of_experience"/>
+          android:orientation="horizontal">
 
-        <TextView
-          android:id="@+id/years_of_experience"
-          android:layout_marginLeft="20sp"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"/>
+            <TextView
+              android:id="@+id/major_tv"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/major_speciality"/>
 
-    </LinearLayout>
+            <TextView
+              android:id="@+id/major"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:hint="@string/major_speciality"
+              android:layout_marginLeft="20sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+
+            <TextView
+              android:id="@+id/years_of_experience_tv"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/years_of_experience"/>
+
+            <TextView
+              android:id="@+id/years_of_experience"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:hint="@string/years_of_experience"
+              android:layout_marginLeft="20sp"/>
+
+        </LinearLayout>
 
         <TextView
           android:id="@+id/type_doctor"

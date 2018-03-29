@@ -1,5 +1,6 @@
 package com.example.murodjonrahimov.wecare.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,7 +13,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.murodjonrahimov.wecare.LoginActivity;
@@ -29,12 +32,15 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import static android.app.Activity.RESULT_OK;
 
 public class DoctorProfileFragment extends Fragment {
 
   private static final int DOCTOR_IMAGE = 7;
+
+  private String userID;
   private TextView firstNameED;
   private TextView lastNameED;
   private TextView countryED;
@@ -45,6 +51,8 @@ public class DoctorProfileFragment extends Fragment {
   private FloatingActionButton fab;
   private ImageView doctorImage;
   private StorageReference storageReference;
+  private ProgressDialog progressDialog;
+  private Button buttonDoctorImage;
 
   public DoctorProfileFragment() {
   }
@@ -62,12 +70,18 @@ public class DoctorProfileFragment extends Fragment {
     yearsOfExperienceED = rootView.findViewById(R.id.years_of_experience);
     type = rootView.findViewById(R.id.type_doctor);
     numberOfDoctorsComments = rootView.findViewById(R.id.number_of_doctors_comments);
+    buttonDoctorImage = rootView.findViewById(R.id.button_doctor_image);
     fab = rootView.findViewById(R.id.add_fab);
+
 
     storageReference = FirebaseStorage.getInstance().getReference();
     doctorImage = rootView.findViewById(R.id.imageview_doctor_profile);
+    progressDialog = new ProgressDialog(getContext());
 
-    doctorImage.setOnClickListener(new View.OnClickListener() {
+
+
+
+    buttonDoctorImage.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
 
@@ -100,16 +114,26 @@ public class DoctorProfileFragment extends Fragment {
 
     if (requestCode == DOCTOR_IMAGE && resultCode == RESULT_OK) {
 
+      progressDialog.setMessage("Uploading image...");
+      progressDialog.show();
+
       Uri uri = data.getData();
 
       assert uri != null;
-      StorageReference docImage = storageReference.child("photos").child(uri.getAuthority());
+      StorageReference docImage = storageReference.child(userID).child(uri.getAuthority());
 
       docImage.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
         @Override
         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-          Toast.makeText(getContext(), "upload done", Toast.LENGTH_LONG).show();
+          progressDialog.dismiss();
+
+          Uri downloadUri = taskSnapshot.getDownloadUrl();
+
+          Picasso.get().load(downloadUri).into(doctorImage);
+
+
+            Toast.makeText(getContext(), "upload done", Toast.LENGTH_LONG).show();
         }
       });
 
@@ -120,7 +144,7 @@ public class DoctorProfileFragment extends Fragment {
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     DatabaseReference db = Database.getDatabase();
-    final String userID = Database.getUserId();
+    userID = Database.getUserId();
 
     db.child("doctors")
       .addValueEventListener(new ValueEventListener() {
