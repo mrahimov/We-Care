@@ -47,7 +47,6 @@ public class LoginActivity extends AppCompatActivity {
     signInEmail = findViewById(R.id.email_login_edit_text);
     signInPassword = findViewById(R.id.password_login_edit_text);
 
-
     final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     signInButton.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +142,6 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
       }
     });
-
   }
 
   private void updateLocalUsernameValue(final String userID) {

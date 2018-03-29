@@ -465,10 +465,28 @@ public class PatientPostForm extends AppCompatActivity {
         if (doctorINeed == null) {
           doctorINeed = "Others";
         }
-          Post post = new Post(message, dateString, postedByUserName, doctorINeed);
-          Database.savePost(post);
-          finish();
+        Post post = new Post(message, dateString, postedByUserName, doctorINeed);
+        Database.savePost(post);
+        finish();
       }
     });
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

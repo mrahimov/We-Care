@@ -74,7 +74,6 @@ public class RegistrationActivity extends AppCompatActivity {
           licenseTextview.setVisibility(View.VISIBLE);
           userNameRegistration.setVisibility(View.GONE);
           usernameText.setVisibility(View.GONE);
-
         } else {
           licenceId.setVisibility(View.INVISIBLE);
           licenseTextview.setVisibility(View.INVISIBLE);
