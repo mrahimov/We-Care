@@ -16,8 +16,8 @@
           android:id="@+id/choose_doctor_textview"
           android:layout_width="wrap_content"
           android:layout_height="match_parent"
-          android:textSize="18sp"
-          android:text="@string/choose_kind_of_doctor"/>
+          android:text="@string/choose_kind_of_doctor"
+          android:textSize="18sp"/>
 
         <ImageView
           android:layout_width="40dp"

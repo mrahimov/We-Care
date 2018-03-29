@@ -1,7 +1,5 @@
 package com.example.murodjonrahimov.wecare.listeners;
 
-import java.util.List;
-
 /**
  * Created by murodjon.rahimov on 3/25/18.
  */

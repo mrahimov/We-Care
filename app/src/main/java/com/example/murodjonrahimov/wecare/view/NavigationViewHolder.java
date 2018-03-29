@@ -20,12 +20,11 @@ public class NavigationViewHolder extends RecyclerView.ViewHolder {
     super(itemView);
 
     navigationPills = itemView.findViewById(R.id.navigation_pills);
-
   }
+
   public void onBind(List<String> categoryList, int position) {
     this.categoryList.clear();
     this.categoryList.addAll(categoryList);
     navigationPills.setText(categoryList.get(position));
-
   }
 }

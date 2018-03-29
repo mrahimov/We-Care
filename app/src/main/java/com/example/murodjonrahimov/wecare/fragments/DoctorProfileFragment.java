@@ -162,28 +162,29 @@ public class DoctorProfileFragment extends Fragment {
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-     db = Database.getDatabase();
+    db = Database.getDatabase();
     userID = Database.getUserId();
 
-    db.child("doctors").addValueEventListener(new ValueEventListener() {
+    db.child("doctors")
+      .addValueEventListener(new ValueEventListener() {
 
-      @Override
-      public void onDataChange(DataSnapshot dataSnapshot) {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
 
-        for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
+          for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
 
-          if (dataSnapshot2.getKey().equals(userID)) {
-            Doctor doctor = dataSnapshot2.getValue(Doctor.class);
-            firstNameED.setText(doctor.getFirstName());
-            lastNameED.setText(doctor.getLastName());
-            countryED.setText(doctor.getCountryOfPractice());
-            majorED.setText(doctor.getMajor());
-            yearsOfExperienceED.setText(doctor.getYearsOfExperience());
-            type.setText(doctor.getType());
+            if (dataSnapshot2.getKey()
+              .equals(userID)) {
+              Doctor doctor = dataSnapshot2.getValue(Doctor.class);
+              firstNameED.setText(doctor.getFirstName());
+              lastNameED.setText(doctor.getLastName());
+              countryED.setText(doctor.getCountryOfPractice());
+              majorED.setText(doctor.getMajor());
+              yearsOfExperienceED.setText(doctor.getYearsOfExperience());
+              type.setText(doctor.getType());
+            }
           }
         }
-
-      }
 
         @Override
         public void onCancelled(DatabaseError databaseError) {
@@ -207,7 +208,6 @@ public class DoctorProfileFragment extends Fragment {
     //}
 
     countDoctorsCommentsToPatientsPosts();
-
   }
 
   @Override
@@ -235,28 +235,26 @@ public class DoctorProfileFragment extends Fragment {
 
   public void countDoctorsCommentsToPatientsPosts() {
 
-    db.child("comments").addValueEventListener(new ValueEventListener() {
-      @Override
-      public void onDataChange(DataSnapshot dataSnapshot) {
-        for (DataSnapshot comment : dataSnapshot.getChildren()) {
-          Comment comment1 = comment.getValue(Comment.class);
-          String commentPostedBy = comment1.getCommentPostedByUserName();
-          if (commentPostedBy != null && commentPostedBy.equals(firstNameED.getText() + " " + lastNameED.getText())) {
-            count += 1;
+    db.child("comments")
+      .addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+          for (DataSnapshot comment : dataSnapshot.getChildren()) {
+            Comment comment1 = comment.getValue(Comment.class);
+            String commentPostedBy = comment1.getCommentPostedByUserName();
+            if (commentPostedBy != null && commentPostedBy.equals(firstNameED.getText() + " " + lastNameED.getText())) {
+              count += 1;
+            }
           }
+          numberOfDoctorsComments.setText(String.valueOf(count));
         }
-        numberOfDoctorsComments.setText(String.valueOf(count));
 
-      }
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
 
-      @Override
-      public void onCancelled(DatabaseError databaseError) {
-
-      }
-    });
+        }
+      });
   }
-
-
 
   @Override
   public void onResume() {
@@ -280,5 +278,4 @@ public class DoctorProfileFragment extends Fragment {
       .into(doctorImage);
     progressDialog.dismiss();
   }
-
 }

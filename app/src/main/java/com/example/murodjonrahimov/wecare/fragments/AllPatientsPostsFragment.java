@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AllPatientsPostsFragment extends Fragment implements CategoryPills{
+public class AllPatientsPostsFragment extends Fragment implements CategoryPills {
 
   private View rootView;
   private AllPostsAdapter adapter;
@@ -100,9 +100,9 @@ public class AllPatientsPostsFragment extends Fragment implements CategoryPills{
 
   @Override
   public void onCategoryListener(final String category) {
-   this.category = category;
+    this.category = category;
 
-   DatabaseReference ref1 = FirebaseDatabase.getInstance()
+    DatabaseReference ref1 = FirebaseDatabase.getInstance()
       .getReference();
     DatabaseReference ref2 = ref1.child("posts");
 
@@ -135,9 +135,9 @@ public class AllPatientsPostsFragment extends Fragment implements CategoryPills{
             }
           }
 
-        adapter.setPostList(newPostList);
-        adapter.notifyDataSetChanged();
-      }
+          adapter.setPostList(newPostList);
+          adapter.notifyDataSetChanged();
+        }
       }
 
       @Override
