@@ -135,8 +135,6 @@ public class RegistrationActivity extends AppCompatActivity {
                       if (doctorCheckbox.isChecked()) {
                         Doctor doctor = new Doctor();
                         doctor.setType("doctor");
-                        doctor.setFirstName("amar");
-                        doctor.setLastName("youngling");
                         Database.saveDoctor(doctor);
                         finish();
                         Intent intent = new Intent(RegistrationActivity.this, DoctorActivity.class);
