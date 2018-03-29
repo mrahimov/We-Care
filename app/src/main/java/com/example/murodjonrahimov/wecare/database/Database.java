@@ -40,9 +40,8 @@ public class Database {
   }
 
   public static void saveDoctorPost(DoctorPost doctorPost) {
-    getDatabase().child("DoctorPost")
-      .push()
-      .setValue(doctorPost);
+
+    getDatabase().child("DoctorPost").push().setValue(doctorPost);
   }
 
   public static void saveDoctor(Doctor doctor) {
