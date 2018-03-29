@@ -78,6 +78,10 @@ public class Post implements Parcelable {
     this.timeStamp = timeStamp;
   }
 
+  public static Creator<Post> getCREATOR() {
+    return CREATOR;
+  }
+
   @Override
   public int describeContents() {
     return 0;

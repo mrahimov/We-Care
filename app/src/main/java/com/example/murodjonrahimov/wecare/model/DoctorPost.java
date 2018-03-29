@@ -1,5 +1,6 @@
 package com.example.murodjonrahimov.wecare.model;
 
+
 /**
  * Created by mohammadnaz on 3/19/18.
  */
@@ -22,10 +23,12 @@ public class DoctorPost {
     this.message = message;
     this.addedBy = addedBy;
     this.timeStamp = timeStamp;
+
   }
 
   public DoctorPost() {
   }
+
 
   public String getKey() {
     return key;
@@ -58,4 +61,7 @@ public class DoctorPost {
   public void setTimeStamp(String timeStamp) {
     this.timeStamp = timeStamp;
   }
+
+
+
 }

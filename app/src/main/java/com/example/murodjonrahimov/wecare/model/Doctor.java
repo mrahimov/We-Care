@@ -8,9 +8,21 @@ public class Doctor {
   private String major;
   private String yearsOfExperience;
   private String type;
-//  private String numberOfDoctorsComments;
+  private String numberOfDoctorsComments;
 
   public Doctor() {
+  }
+
+  public Doctor(String firstName, String lastName, String countryOfPractice, String major, String yearsOfExperience,
+                String type, String numberOfDoctorsComments) {
+
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.countryOfPractice = countryOfPractice;
+    this.major = major;
+    this.yearsOfExperience = yearsOfExperience;
+    this.type = type;
+    this.numberOfDoctorsComments = numberOfDoctorsComments;
   }
 
   public Doctor(String firstName, String lastName, String countryOfPractice, String major, String yearsOfExperience,
@@ -22,16 +34,15 @@ public class Doctor {
     this.major = major;
     this.yearsOfExperience = yearsOfExperience;
     this.type = type;
-//    this.numberOfDoctorsComments = numberOfDoctorsComments;
   }
 
-//  public String getNumberOfDoctorsComments() {
-//    return numberOfDoctorsComments;
-//  }
+    public String getNumberOfDoctorsComments() {
+      return numberOfDoctorsComments;
+    }
 
-//  public void setNumberOfDoctorsComments(String numberOfDoctorsComments) {
-//    this.numberOfDoctorsComments = numberOfDoctorsComments;
-//  }
+    public void setNumberOfDoctorsComments(String numberOfDoctorsComments) {
+      this.numberOfDoctorsComments = numberOfDoctorsComments;
+    }
 
   public String getFirstName() {
     return firstName;

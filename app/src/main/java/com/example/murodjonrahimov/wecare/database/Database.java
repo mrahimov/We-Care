@@ -40,16 +40,22 @@ public class Database {
   }
 
   public static void saveDoctorPost(DoctorPost doctorPost) {
-    getDatabase().child("DoctorPost").push().setValue(doctorPost);
+    getDatabase().child("DoctorPost")
+      .push()
+      .setValue(doctorPost);
   }
 
   public static void saveDoctor(Doctor doctor) {
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    getDatabase().child("doctors").child(user.getUid()).setValue(doctor);
+    FirebaseUser user = FirebaseAuth.getInstance()
+      .getCurrentUser();
+    getDatabase().child("doctors")
+      .child(user.getUid())
+      .setValue(doctor);
   }
 
   public static String getUserId() {
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseUser user = FirebaseAuth.getInstance()
+      .getCurrentUser();
     return user.getUid();
   }
 
@@ -63,7 +69,7 @@ public class Database {
     getDatabase().child("posts").child(postID).child("countOfComments").setValue(commentCount);
   }
 
-  public static void updateDoctor(Doctor doctor) {
-    getDatabase().child("doctors").setValue(doctor);
+  public static void updateDoctor(Doctor doctor, int commentsCount) {
+    getDatabase().child("doctors").child("numberOfDoctorsComments").setValue(commentsCount);
   }
 }
