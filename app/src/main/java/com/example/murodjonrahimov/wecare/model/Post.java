@@ -103,7 +103,7 @@ public class Post implements Parcelable {
     dest.writeString(this.addedBy);
     dest.writeString(this.timeStamp);
     dest.writeString(this.key);
-    dest.writeString(this.doctorINeed);
+    //dest.writeString(this.doctorINeed);
     dest.writeString(this.postedByUserName);
     dest.writeInt(this.countOfComments);
   }
@@ -111,7 +111,7 @@ public class Post implements Parcelable {
   protected Post(Parcel in) {
     this.message = in.readString();
     this.addedBy = in.readString();
-    this.doctorINeed = in.readString();
+    //this.doctorINeed = in.readString();
     this.timeStamp = in.readString();
     this.key = in.readString();
     this.postedByUserName = in.readString();

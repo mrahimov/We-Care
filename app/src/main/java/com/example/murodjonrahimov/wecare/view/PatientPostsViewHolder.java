@@ -17,6 +17,7 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder {
   private TextView addedBy;
   private TextView timestamp;
   private TextView comments;
+  private TextView needDocroeTextview;
   private LinearLayout layoutComments;
   private Post post;
 
@@ -28,6 +29,7 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder {
     timestamp = itemView.findViewById(R.id.timestamp_ed);
     comments = itemView.findViewById(R.id.comments);
     layoutComments = itemView.findViewById(R.id.linear_layout_comments);
+    needDocroeTextview = itemView.findViewById(R.id.need_docroe_textview);
 
     layoutComments.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -45,6 +47,7 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder {
     message.setText("Message: " + post.getMessage());
     addedBy.setText("Posted by: " + post.getPostedByUserName());
     timestamp.setText("Date: " + post.getTimeStamp());
+    needDocroeTextview.setText(post.getDoctorINeed());
 
     int countOfComments = post.getCountOfComments();
     Database.updatePost(post.getKey(), countOfComments);

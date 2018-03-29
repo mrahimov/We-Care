@@ -135,8 +135,8 @@ public class RegistrationActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                      SharedPreferences preferences =
-                        getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
+
+                      SharedPreferences preferences = getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
                       SharedPreferences.Editor editor = preferences.edit();
                       editor.putString(USERNAME_KEY, username);
                       editor.apply();

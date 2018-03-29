@@ -24,6 +24,7 @@ import com.example.murodjonrahimov.wecare.RegistrationActivity;
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.DoctorProfileForm;
 import com.example.murodjonrahimov.wecare.R;
+import com.example.murodjonrahimov.wecare.model.Comment;
 import com.example.murodjonrahimov.wecare.model.Doctor;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -58,6 +59,8 @@ public class DoctorProfileFragment extends Fragment {
   private Uri uri;
   private SharedPreferences preferences;
   private SharedPreferences.Editor myPrefsEdit;
+  private DatabaseReference db;
+  private int count;
 
   public DoctorProfileFragment() {
   }
@@ -67,6 +70,8 @@ public class DoctorProfileFragment extends Fragment {
 
     View rootView = inflater.inflate(R.layout.d_fragment_profile, container, false);
     setHasOptionsMenu(true);
+
+    db = Database.getDatabase();
 
     preferences = getActivity().getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
 
@@ -78,7 +83,7 @@ public class DoctorProfileFragment extends Fragment {
     type = rootView.findViewById(R.id.type_doctor);
     numberOfDoctorsComments = rootView.findViewById(R.id.number_of_doctors_comments);
     buttonDoctorImage = rootView.findViewById(R.id.button_doctor_image);
-    fab = rootView.findViewById(R.id.add_fab);
+    fab = rootView.findViewById(R.id.add_fab_doctor);
     doctorImage = rootView.findViewById(R.id.imageview_doctor_profile);
     progressDialog = new ProgressDialog(getContext());
 
@@ -157,48 +162,52 @@ public class DoctorProfileFragment extends Fragment {
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    DatabaseReference db = Database.getDatabase();
+     db = Database.getDatabase();
     userID = Database.getUserId();
 
-    db.child("doctors")
-      .addValueEventListener(new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-          for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
-            if (dataSnapshot2.getKey()
-              .equals(userID)) {
-              Doctor doctor = dataSnapshot2.getValue(Doctor.class);
-              firstNameED.setText(doctor.getFirstName());
-              lastNameED.setText(doctor.getLastName());
-              countryED.setText(doctor.getCountryOfPractice());
-              majorED.setText(doctor.getMajor());
-              yearsOfExperienceED.setText(doctor.getYearsOfExperience());
-              type.setText(doctor.getType());
-            }
+    db.child("doctors").addValueEventListener(new ValueEventListener() {
+
+      @Override
+      public void onDataChange(DataSnapshot dataSnapshot) {
+
+        for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
+
+          if (dataSnapshot2.getKey().equals(userID)) {
+            Doctor doctor = dataSnapshot2.getValue(Doctor.class);
+            firstNameED.setText(doctor.getFirstName());
+            lastNameED.setText(doctor.getLastName());
+            countryED.setText(doctor.getCountryOfPractice());
+            majorED.setText(doctor.getMajor());
+            yearsOfExperienceED.setText(doctor.getYearsOfExperience());
+            type.setText(doctor.getType());
           }
         }
+
+      }
 
         @Override
         public void onCancelled(DatabaseError databaseError) {
 
         }
       });
-    Log.d("userID= ", "onViewCreated: " + userID);
 
-    try {
-      Uri url = Uri.parse(preferences.getString(userID, ""));
-      Log.d("url", "onViewCreated:onViewCreated " + url.toString());
+    //try {
+    //  Uri url = Uri.parse(preferences.getString(userID, ""));
+    //  Log.d("url", "onViewCreated:onViewCreated " + url.toString());
+    //
+    //  if (url.toString()
+    //    .length() > 0) {
+    //    loadingProfileImage(url, "onViewCreated");
+    //  }
+    //} catch (IllegalArgumentException e) {
+    //  e.printStackTrace();
+    //}
+    //if (uri != null) {
+    //  loadingProfileImage(uri, "onViewCreated");
+    //}
 
-      if (url.toString()
-        .length() > 0) {
-        loadingProfileImage(url, "onViewCreated");
-      }
-    } catch (IllegalArgumentException e) {
-      e.printStackTrace();
-    }
-    if (uri != null) {
-      loadingProfileImage(uri, "onViewCreated");
-    }
+    countDoctorsCommentsToPatientsPosts();
+
   }
 
   @Override
@@ -224,6 +233,31 @@ public class DoctorProfileFragment extends Fragment {
     return super.onOptionsItemSelected(item);
   }
 
+  public void countDoctorsCommentsToPatientsPosts() {
+
+    db.child("comments").addValueEventListener(new ValueEventListener() {
+      @Override
+      public void onDataChange(DataSnapshot dataSnapshot) {
+        for (DataSnapshot comment : dataSnapshot.getChildren()) {
+          Comment comment1 = comment.getValue(Comment.class);
+          String commentPostedBy = comment1.getCommentPostedByUserName();
+          if (commentPostedBy != null && commentPostedBy.equals(firstNameED.getText() + " " + lastNameED.getText())) {
+            count += 1;
+          }
+        }
+        numberOfDoctorsComments.setText(String.valueOf(count));
+
+      }
+
+      @Override
+      public void onCancelled(DatabaseError databaseError) {
+
+      }
+    });
+  }
+
+
+
   @Override
   public void onResume() {
     super.onResume();
@@ -246,4 +280,5 @@ public class DoctorProfileFragment extends Fragment {
       .into(doctorImage);
     progressDialog.dismiss();
   }
+
 }
