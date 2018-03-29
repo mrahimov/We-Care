@@ -1,12 +1,15 @@
 package com.example.murodjonrahimov.wecare.fragments;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,10 +18,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.example.murodjonrahimov.wecare.LoginActivity;
+import com.example.murodjonrahimov.wecare.RegistrationActivity;
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.DoctorProfileForm;
 import com.example.murodjonrahimov.wecare.R;
@@ -53,6 +55,9 @@ public class DoctorProfileFragment extends Fragment {
   private StorageReference storageReference;
   private ProgressDialog progressDialog;
   private Button buttonDoctorImage;
+  private Uri uri;
+  private SharedPreferences preferences;
+  private SharedPreferences.Editor myPrefsEdit;
 
   public DoctorProfileFragment() {
   }
@@ -63,6 +68,8 @@ public class DoctorProfileFragment extends Fragment {
     View rootView = inflater.inflate(R.layout.d_fragment_profile, container, false);
     setHasOptionsMenu(true);
 
+    preferences = getActivity().getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
+
     firstNameED = rootView.findViewById(R.id.first_name);
     lastNameED = rootView.findViewById(R.id.last_name);
     countryED = rootView.findViewById(R.id.country);
@@ -72,14 +79,11 @@ public class DoctorProfileFragment extends Fragment {
     numberOfDoctorsComments = rootView.findViewById(R.id.number_of_doctors_comments);
     buttonDoctorImage = rootView.findViewById(R.id.button_doctor_image);
     fab = rootView.findViewById(R.id.add_fab);
-
-
-    storageReference = FirebaseStorage.getInstance().getReference();
     doctorImage = rootView.findViewById(R.id.imageview_doctor_profile);
     progressDialog = new ProgressDialog(getContext());
 
-
-
+    storageReference = FirebaseStorage.getInstance()
+      .getReference();
 
     buttonDoctorImage.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -87,12 +91,12 @@ public class DoctorProfileFragment extends Fragment {
 
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
-
         startActivityForResult(intent, DOCTOR_IMAGE);
       }
     });
 
     fab.setOnClickListener(new View.OnClickListener() {
+
       @Override
       public void onClick(View v) {
         Intent intent = new Intent(getActivity(), DoctorProfileForm.class);
@@ -105,44 +109,54 @@ public class DoctorProfileFragment extends Fragment {
         startActivity(intent);
       }
     });
+
     return rootView;
   }
 
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
     super.onActivityResult(requestCode, resultCode, data);
 
     if (requestCode == DOCTOR_IMAGE && resultCode == RESULT_OK) {
 
       progressDialog.setMessage("Uploading image...");
       progressDialog.show();
-
-      Uri uri = data.getData();
+      uri = data.getData();
 
       assert uri != null;
-      StorageReference docImage = storageReference.child(userID).child(uri.getAuthority());
+      //myPrefsEdit = preferences.edit();
+      //myPrefsEdit.putString(userID, uri.toString());
+      //myPrefsEdit.commit();
+      loadingProfileImage(uri, "onActivityResult");
+      //Log.d("userID= ", "onActivityResult: " + userID);
+      //Uri url = Uri.parse(preferences.getString(userID, ""));
+      //if (url != null) {
+      //  loadingProfileImage(url);
+      //} else {
+      //  loadingProfileImage(uri);
+      //}
+      StorageReference docImage = storageReference.child(userID)
+        .child(uri.getAuthority());
 
-      docImage.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-        @Override
-        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+      docImage.putFile(uri)
+        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+          @Override
+          public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-          progressDialog.dismiss();
-
-          Uri downloadUri = taskSnapshot.getDownloadUrl();
-
-          Picasso.get().load(downloadUri).into(doctorImage);
-
-
-            Toast.makeText(getContext(), "upload done", Toast.LENGTH_LONG).show();
-        }
-      });
-
+            Uri downloadUri = taskSnapshot.getDownloadUrl();
+            myPrefsEdit = preferences.edit();
+            myPrefsEdit.putString(userID, downloadUri.toString());
+            myPrefsEdit.commit();
+          }
+        });
     }
   }
 
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+
     DatabaseReference db = Database.getDatabase();
     userID = Database.getUserId();
 
@@ -169,6 +183,22 @@ public class DoctorProfileFragment extends Fragment {
 
         }
       });
+    Log.d("userID= ", "onViewCreated: " + userID);
+
+    try {
+      Uri url = Uri.parse(preferences.getString(userID, ""));
+      Log.d("url", "onViewCreated:onViewCreated " + url.toString());
+
+      if (url.toString()
+        .length() > 0) {
+        loadingProfileImage(url, "onViewCreated");
+      }
+    } catch (IllegalArgumentException e) {
+      e.printStackTrace();
+    }
+    if (uri != null) {
+      loadingProfileImage(uri, "onViewCreated");
+    }
   }
 
   @Override
@@ -192,5 +222,28 @@ public class DoctorProfileFragment extends Fragment {
         return true;
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+
+    try {
+      Uri url = Uri.parse(preferences.getString(userID, ""));
+      if (url.toString()
+        .length() > 0) {
+        loadingProfileImage(url, "onResume");
+      }
+    } catch (IllegalArgumentException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void loadingProfileImage(Uri downloadUri, String Lf) {
+    Log.d("url", "loadingProfileImage: " + Lf + downloadUri);
+    Picasso.get()
+      .load(downloadUri)
+      .into(doctorImage);
+    progressDialog.dismiss();
   }
 }
