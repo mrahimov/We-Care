@@ -14,9 +14,11 @@ import android.widget.TextView;
 import com.example.murodjonrahimov.wecare.controller.CommentsAdapter;
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Comment;
+import com.example.murodjonrahimov.wecare.model.Doctor;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
@@ -27,14 +29,17 @@ public class PostDoctorComments extends AppCompatActivity {
 
   private String doctorMessage;
   private String doctorTimeStamp;
-  private String doctorAddedBy;
+  private String name;
   private EditText addedComment;
   private List<Comment> allComments;
+
+  String commentname;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_post_doctor_comments);
+
 
     TextView message = findViewById(R.id.message_d);
     TextView addedBy = findViewById(R.id.added_by_d);
@@ -44,14 +49,14 @@ public class PostDoctorComments extends AppCompatActivity {
     Intent intent = getIntent();
     final String Key = intent.getStringExtra("key");
     doctorTimeStamp = intent.getStringExtra("timestamp");
-    doctorAddedBy = intent.getStringExtra("addedby");
+    name = intent.getStringExtra("addedby");
     doctorMessage = intent.getStringExtra("message");
 
     ImageView sendComment = findViewById(R.id.send_imageview);
 
     addedComment = findViewById(R.id.addingcomment);
     message.setText(doctorMessage);
-    addedBy.setText(doctorAddedBy);
+    addedBy.setText(name);
     timestamp.setText(doctorTimeStamp);
 
     RecyclerView recyclerView = findViewById(R.id.commentsrecyclerview);
@@ -59,6 +64,32 @@ public class PostDoctorComments extends AppCompatActivity {
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
     recyclerView.setAdapter(commentsAdapter);
     recyclerView.setLayoutManager(linearLayoutManager);
+      DatabaseReference database10;
+      String user = Database.getUserId();
+      database10 = FirebaseDatabase.getInstance().getReference().child("Doctor").child(user);
+
+
+
+      database10.getRef().addValueEventListener(new ValueEventListener() {
+          @Override
+          public void onDataChange(DataSnapshot dataSnapshot) {
+              if (dataSnapshot.exists()) {
+                  Doctor doctor= dataSnapshot.getValue(Doctor.class);
+                  commentname= doctor.getFirstName()+" "+doctor.getLastName();
+
+
+              } else {
+                  commentname = "doctor";
+              }
+              ///commentname= dataSnapshot.getValue(String.class);
+          }
+
+          @Override
+          public void onCancelled(DatabaseError databaseError) {
+
+          }
+      });
+
 
     DatabaseReference db = Database.getDatabase();
 
@@ -97,14 +128,13 @@ public class PostDoctorComments extends AppCompatActivity {
         String receivedComment = addedComment.getText()
           .toString();
 
-        SharedPreferences preferences = getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
-        final String postedByUserName = preferences.getString(RegistrationActivity.USERNAME_KEY, "");
+
 
         long date = System.currentTimeMillis();
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm a");
         String dateString = sdf.format(date);
 
-        Comment comment = new Comment(receivedComment, Key, dateString, postedByUserName);
+        Comment comment = new Comment(receivedComment, Key, dateString, commentname);
         Database.saveComment(comment);
         //                int count = post.getCountOfComments() + 1;
         //                post.setCountOfComments(count);
@@ -115,4 +145,10 @@ public class PostDoctorComments extends AppCompatActivity {
       }
     });
   }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
 }
