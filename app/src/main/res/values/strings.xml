@@ -5,7 +5,7 @@
     <string name="register_sign_in">Please sign or register</string>
     <string name="registration">Registration</string>
     <string name="sign_in">Log in</string>
-    <string name="licence_id">Licence id:</string>
+    <string name="enter_Licence_ID">enter Licence ID:</string>
     <string name="i_am_a_doctor">I\'am a Doctor</string>
     <string name="register">Register</string>
     <string name="password">Password:</string>
