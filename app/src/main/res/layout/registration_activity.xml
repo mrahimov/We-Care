@@ -1,68 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:orientation="vertical"
-  android:padding="10dp">
-
-    <EditText
-      android:id="@+id/email_edit_text"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="@string/email_address"/>
-
-    <EditText
-      android:id="@+id/password_edit_text"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="@string/password"/>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="40dp"
-      android:orientation="horizontal">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <EditText
-          android:id="@+id/username_edit_text"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:hint="@string/user_name"
-          android:visibility="visible"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/background_gradient" />
 
-        <EditText
-          android:id="@+id/licence_edit_text"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:hint="@string/licence_id"
-          android:visibility="gone"/>
-
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="80dp"
-      android:orientation="horizontal">
+        android:id="@+id/layoutInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/background_white"
+        android:orientation="vertical"
+        android:padding="20dp">
 
-        <Button
-          android:id="@+id/register_account"
-          android:layout_width="160dp"
-          android:layout_height="wrap_content"
-          android:layout_marginRight="60dp"
-          android:layout_marginTop="10dp"
-          android:text="@string/register"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email" />
+
+        <EditText
+            android:id="@+id/email_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="20dp"
+            android:drawableRight="@drawable/ic_envelope"
+            android:hint="enter email" />
+
+        <TextView
+            android:id="@+id/username_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Username" />
+
+        <EditText
+            android:id="@+id/username_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="20dp"
+            android:drawableRight="@drawable/ic_avatar"
+            android:hint="enter username" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Password" />
+
+        <EditText
+            android:id="@+id/password_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="20dp"
+            android:drawableRight="@drawable/ic_lock"
+            android:hint="******" />
+        <TextView
+            android:id="@+id/license_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Medical License Number"
+            android:visibility="gone"/>
+        <EditText
+            android:id="@+id/licence_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_Licence_ID"
+            android:visibility="gone"
+            android:drawableRight="@drawable/ic_certification"
+            />
 
         <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="5dp">
 
             <CheckBox
-              android:id="@+id/checkbox_doctor"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="20dp"
-              android:text="@string/i_am_a_doctor"/>
-
+                android:id="@+id/checkbox_doctor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:background="@drawable/rec_gradient_fb"
+                android:text="Check here for Doctor"
+                android:textAllCaps="false"
+                android:textColor="#FFF"
+                />
         </LinearLayout>
+
+        <Button
+            android:id="@+id/register_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rec_gradient"
+            android:text="Register"
+            android:textAllCaps="false"
+            android:textColor="#FFF" />
     </LinearLayout>
-</LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageVIew"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/background_white"
+        android:padding="5dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageVIew"
+        android:layout_centerHorizontal="true"
+        android:text="Welcome To WeCare"
+        android:textColor="#FFF"
+        android:textSize="20sp" />
+</RelativeLayout>

@@ -41,6 +41,8 @@ public class RegistrationActivity extends AppCompatActivity {
   private String password;
   private String username;
   private String licence;
+  private TextView usernameText;
+  private TextView licenseTextview;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,8 @@ public class RegistrationActivity extends AppCompatActivity {
     doctorCheckbox = findViewById(R.id.checkbox_doctor);
     licenceId = findViewById(R.id.licence_edit_text);
     registerButton = findViewById(R.id.register_account);
+    usernameText = findViewById(R.id.username_textview);
+    licenseTextview = findViewById(R.id.license_textview);
 
     final EditText emailRegistration = findViewById(R.id.email_edit_text);
     final EditText passwordRegistration = findViewById(R.id.password_edit_text);
@@ -67,10 +71,15 @@ public class RegistrationActivity extends AppCompatActivity {
       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
           licenceId.setVisibility(View.VISIBLE);
+          licenseTextview.setVisibility(View.VISIBLE);
           userNameRegistration.setVisibility(View.GONE);
+          usernameText.setVisibility(View.GONE);
+
         } else {
           licenceId.setVisibility(View.INVISIBLE);
+          licenseTextview.setVisibility(View.INVISIBLE);
           userNameRegistration.setVisibility(View.VISIBLE);
+          usernameText.setVisibility(View.VISIBLE);
         }
       }
     });
