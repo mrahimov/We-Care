@@ -40,10 +40,9 @@ public class DoctorsForumFragment extends Fragment {
   private FloatingActionButton floatingActionButton;
   private DatabaseReference database;
   private DatabaseReference database2;
-  Doctor doctor2;
-  Doctor doctor3;
-  String user;
-  String name;
+  private Doctor doctor2;
+  private String user;
+  private String name;
 
   private RecyclerView recyclerView;
   private onClickListenerDoctor listenerDoc;
@@ -74,19 +73,6 @@ public class DoctorsForumFragment extends Fragment {
             .child("Doctor")
             .child(user);
 
-    database2.getRef()
-            .addValueEventListener(new ValueEventListener() {
-              @Override
-              public void onDataChange(DataSnapshot dataSnapshot) {
-                doctor3 = dataSnapshot.getValue(Doctor.class);
-                ///commentname= doctor3.getFirstName()+doctor3.getLastName();
-              }
-
-              @Override
-              public void onCancelled(DatabaseError databaseError) {
-
-              }
-            });
 
     database.keepSynced(true);
     FirebaseMessaging.getInstance()
