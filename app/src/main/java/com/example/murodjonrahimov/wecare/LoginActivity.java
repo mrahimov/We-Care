@@ -15,10 +15,13 @@ import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.guide.GuideActivity;
 import com.example.murodjonrahimov.wecare.model.Doctor;
 import com.example.murodjonrahimov.wecare.model.Patient;
+import com.example.murodjonrahimov.wecare.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.ProviderQueryResult;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
   private EditText signInEmail;
   private EditText signInPassword;
   private String type;
+  private FirebaseAuth firebaseAuth;
   private Button registerButton;
   private Button signInButton;
 
@@ -134,15 +138,31 @@ public class LoginActivity extends AppCompatActivity {
     registerButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
-        intent.putExtra(EMAIL_KEY, signInEmail.getText()
-          .toString());
-        intent.putExtra(PASSWORD_KEY, signInPassword.getText()
-          .toString());
-        startActivity(intent);
-      }
-    });
-  }
+
+       String retrievedUser = signInEmail.getText().toString();
+        firebaseAuth.fetchProvidersForEmail(retrievedUser).addOnCompleteListener(new OnCompleteListener<ProviderQueryResult>() {
+          @Override
+          public void onComplete(@NonNull Task<ProviderQueryResult> task) {
+            boolean check = !task.getResult().getProviders().isEmpty();
+            if(check){
+              Toast.makeText(LoginActivity.this, "It looks like you already have a WeCare account for this email address. Please try login in.", Toast.LENGTH_LONG)
+                      .show();
+              return;
+            }
+            else {
+              Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+              intent.putExtra(EMAIL_KEY, signInEmail.getText().toString());
+              intent.putExtra(PASSWORD_KEY, signInPassword.getText().toString());
+              startActivity(intent);
+            }
+          }
+        });
+
+        }
+
+      });
+    }
+
 
   private void updateLocalUsernameValue(final String userID) {
     Database.getDatabase()
