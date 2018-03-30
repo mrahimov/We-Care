@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -39,11 +40,9 @@ public class DoctorsForumFragment extends Fragment {
   private FloatingActionButton floatingActionButton;
   private DatabaseReference database;
   private DatabaseReference database2;
-  Doctor doctor2;
-  Doctor doctor3;
-  String user;
-  String name;
-  String commentname;
+  private Doctor doctor2;
+  private String user;
+  private String name;
 
   private RecyclerView recyclerView;
   private onClickListenerDoctor listenerDoc;
@@ -66,31 +65,18 @@ public class DoctorsForumFragment extends Fragment {
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     database = FirebaseDatabase.getInstance()
-      .getReference()
-      .child("DoctorPost");
+            .getReference()
+            .child("DoctorPost");
     user = Database.getUserId();
     database2 = FirebaseDatabase.getInstance()
-      .getReference()
-      .child("Doctor")
-      .child(user);
+            .getReference()
+            .child("Doctor")
+            .child(user);
 
-    database2.getRef()
-      .addValueEventListener(new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-          doctor3 = dataSnapshot.getValue(Doctor.class);
-          ///commentname= doctor3.getFirstName()+doctor3.getLastName();
-        }
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-
-        }
-      });
 
     database.keepSynced(true);
     FirebaseMessaging.getInstance()
-      .subscribeToTopic("notifications");
+            .subscribeToTopic("notifications");
   }
 
   @Override
@@ -109,8 +95,8 @@ public class DoctorsForumFragment extends Fragment {
     floatingActionButton = view.findViewById(R.id.fab);
 
     FirebaseRecyclerOptions<DoctorPost> options =
-      new FirebaseRecyclerOptions.Builder<DoctorPost>().setQuery(database, DoctorPost.class)
-        .build();
+            new FirebaseRecyclerOptions.Builder<DoctorPost>().setQuery(database, DoctorPost.class)
+                    .build();
 
     fireBaseRecyclerAdapter = new FirebaseRecyclerAdapter<DoctorPost, DoctorPosts>(options) {
 
@@ -118,9 +104,9 @@ public class DoctorsForumFragment extends Fragment {
       public DoctorsForumFragment.DoctorPosts onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext())
-          .inflate(R.layout.listdoctorpost_itemview, parent, false);
+                .inflate(R.layout.listdoctorpost_itemview, parent, false);
 
-        return new DoctorsForumFragment.DoctorPosts(view);
+        return new DoctorsForumFragment.DoctorPosts(view, fireBaseRecyclerAdapter);
       }
 
       @Override
@@ -128,29 +114,29 @@ public class DoctorsForumFragment extends Fragment {
                                       @NonNull final DoctorPost doctor) {
 
         database2 = FirebaseDatabase.getInstance()
-          .getReference()
-          .child("doctors")
-          .child(doctor.getAddedBy());
+                .getReference()
+                .child("doctors")
+                .child(doctor.getAddedBy());
 
         database2.getRef()
-          .addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-              doctor2 = dataSnapshot.getValue(Doctor.class);
-              name = doctor2.getFirstName() + " " + doctor2.getLastName();
-              holder.doctorName.setText(name);
-              holder.message.setText(doctor.getMessage());
-              holder.time.setText(doctor.getTimeStamp());
-            }
+                .addValueEventListener(new ValueEventListener() {
+                  @Override
+                  public void onDataChange(DataSnapshot dataSnapshot) {
+                    doctor2 = dataSnapshot.getValue(Doctor.class);
+                    name = doctor2.getFirstName() + " " + doctor2.getLastName();
+                    holder.doctorName.setText(name);
+                    holder.message.setText(doctor.getMessage());
+                    holder.time.setText(doctor.getTimeStamp());
+                  }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                  @Override
+                  public void onCancelled(DatabaseError databaseError) {
 
-            }
-          });
+                  }
+                });
 
         final String key = fireBaseRecyclerAdapter.getRef(position)
-          .getKey();
+                .getKey();
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
           @Override
@@ -169,7 +155,7 @@ public class DoctorsForumFragment extends Fragment {
         builder.setTitle("Add post");
 
         View viewInflated = LayoutInflater.from(getContext())
-          .inflate(R.layout.alertbox, (ViewGroup) getView(), false);
+                .inflate(R.layout.alertbox, (ViewGroup) getView(), false);
         final EditText input1 = viewInflated.findViewById(R.id.input1);
 
         builder.setView(viewInflated);
@@ -181,7 +167,7 @@ public class DoctorsForumFragment extends Fragment {
           @Override
           public void onClick(DialogInterface dialog, int which) {
             final DoctorPost doctorPost = new DoctorPost(input1.getText()
-              .toString(), user, format);
+                    .toString(), user, format);
             Database.saveDoctorPost(doctorPost);
             dialog.dismiss();
           }
@@ -209,20 +195,70 @@ public class DoctorsForumFragment extends Fragment {
     fireBaseRecyclerAdapter.stopListening();
   }
 
-  public static class DoctorPosts extends RecyclerView.ViewHolder {
+  public static class DoctorPosts extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
     TextView message;
     TextView time;
     TextView doctorName;
+    Button button;
+    DatabaseReference databaseReference;
+    FirebaseRecyclerAdapter<DoctorPost, DoctorsForumFragment.DoctorPosts> fireBaseRecyclerAdapter;
+    String name;
 
-    public DoctorPosts(View itemView) {
+    public DoctorPosts(View itemView, FirebaseRecyclerAdapter<DoctorPost, DoctorsForumFragment.DoctorPosts> fireBaseRecyclerAdapter) {
       super(itemView);
       message = itemView.findViewById(R.id.message1);
       time = itemView.findViewById(R.id.time1);
       doctorName = itemView.findViewById(R.id.posted_by);
+      button = itemView.findViewById(R.id.Del1);
+      button.setVisibility(View.GONE);
+      this.fireBaseRecyclerAdapter = fireBaseRecyclerAdapter;
+      button.setOnClickListener(this);
+      itemView.setOnLongClickListener(this);
+      String user = Database.getUserId();
+      databaseReference = FirebaseDatabase.getInstance()
+              .getReference()
+              .child("doctors").child(user);
+
+      databaseReference.getRef()
+              .addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                  Doctor doctor2 = dataSnapshot.getValue(Doctor.class);
+                  name = doctor2.getFirstName() + " " + doctor2.getLastName();
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+              });
+    }
+
+
+    @Override
+    public void onClick(View v) {
+
+        if (v.getId() == button.getId()) {
+          if (name.equals(doctorName.getText().toString())) {
+            fireBaseRecyclerAdapter.getRef(getAdapterPosition()).removeValue();
+          }
+        }
+      }
+
+    @Override
+    public boolean onLongClick(View v) {
+      if (v.getId() == itemView.getId()) {
+        if (name.equals(doctorName.getText().toString())) {
+          button.setVisibility(View.VISIBLE);
+          return true;
+        }
+      }
+      return false;
     }
   }
 
-  public interface onClickListenerDoctor {
-    void onclick(String key, String message, String timestamp, String addedBy, String name);
+    public interface onClickListenerDoctor {
+      void onclick(String key, String message, String timestamp, String addedBy, String name);
+    }
   }
-}
