@@ -1,6 +1,7 @@
 package com.example.murodjonrahimov.wecare.fragments;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,6 +23,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.ValueEventListener;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GridLabelRenderer;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 public class ListOfDoctorsFragment extends Fragment {
   private View view;
@@ -114,8 +119,10 @@ public class ListOfDoctorsFragment extends Fragment {
     TextView major;
     TextView numberOfComments;
     private int count;
+    GraphView graph;
     DatabaseReference databaseReference =FirebaseDatabase.getInstance()
             .getReference().child("comments");
+
 
     private DoctorsListViewHolder(View itemView) {
       super(itemView);
@@ -124,6 +131,7 @@ public class ListOfDoctorsFragment extends Fragment {
       country = itemView.findViewById(R.id.country);
       major = itemView.findViewById(R.id.major);
       numberOfComments = itemView.findViewById(R.id.number_of_doctors_comments1);
+      graph = itemView.findViewById(R.id.graph);
     }
 
     private void setNumberOfComments( final String firstName, final String lastName) {
@@ -139,6 +147,25 @@ public class ListOfDoctorsFragment extends Fragment {
             }
           }
           numberOfComments.setText(String.valueOf(count));
+          LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
+                  new DataPoint(0, 1),
+                  new DataPoint(1, 5),
+                  new DataPoint(2, 3),
+                  new DataPoint(3, 2),
+                  new DataPoint(4, count)
+          });
+          series.setDrawBackground(true);
+
+          series.setColor(Color.argb(255, 255, 60, 60));
+          series.setBackgroundColor(Color.argb(100, 64, 224, 208));
+          series.setDrawDataPoints(true);
+
+          graph.setTitle("Doctor Activity");
+          graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.NONE);
+          graph.getViewport().setDrawBorder(true);
+          graph.addSeries(series);
+
+
         }
 
         @Override
@@ -146,6 +173,8 @@ public class ListOfDoctorsFragment extends Fragment {
 
         }
       });
+
+
     }
 
     @Override

@@ -94,15 +94,27 @@ public class LoginActivity extends AppCompatActivity {
                             .equals(userID)) {
                             Doctor doctor = dataSnapshot2.getValue(Doctor.class);
                             type = doctor.getType();
+                            String firstName =doctor.getFirstName();
+                            String lastName =doctor.getLastName();
 
                             if (type != null) {
                               Toast.makeText(LoginActivity.this, "Doctor Login Successful", Toast.LENGTH_LONG)
                                 .show();
+                              if(firstName ==null && lastName ==null){
+                                Toast.makeText(LoginActivity.this, "please set first and last name", Toast.LENGTH_LONG)
+                                        .show();
 
-                              Intent intent = new Intent(LoginActivity.this, DoctorActivity.class);
-                              intent.putExtra(EMAIL_KEY, firebaseAuth.getCurrentUser()
-                                .getEmail());
-                              startActivity(intent);
+                                Intent intent = new Intent(LoginActivity.this, TwoAuthActivityDoctorReg.class);
+                                intent.putExtra(EMAIL_KEY, firebaseAuth.getCurrentUser()
+                                        .getEmail());
+                                startActivity(intent);
+                              }
+                              else {
+                                Intent intent = new Intent(LoginActivity.this, DoctorActivity.class);
+                                intent.putExtra(EMAIL_KEY, firebaseAuth.getCurrentUser()
+                                        .getEmail());
+                                startActivity(intent);
+                              }
                             }
                           }
                         }
