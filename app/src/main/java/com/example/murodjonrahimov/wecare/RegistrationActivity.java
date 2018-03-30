@@ -151,7 +151,7 @@ public class RegistrationActivity extends AppCompatActivity {
                       doctor.setType("doctor");
                       Database.saveDoctor(doctor);
                       finish();
-                      Intent intent = new Intent(RegistrationActivity.this, DoctorActivity.class);
+                      Intent intent = new Intent(RegistrationActivity.this, TwoAuthActivityDoctorReg.class);
                       startActivity(intent);
                     }
                     if (!doctorCheckbox.isChecked()) {
