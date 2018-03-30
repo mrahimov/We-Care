@@ -117,57 +117,53 @@ public class RegistrationActivity extends AppCompatActivity {
               public void onComplete(@NonNull final Task<AuthResult> task) {
                 progressDialog.dismiss();
 
-                if (task.isSuccessful()) {
-                  Toast.makeText(RegistrationActivity.this, "Registration successful", Toast.LENGTH_LONG)
-                    .show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(RegistrationActivity.this);
+                builder.setTitle("Terms and Conditions");
 
-                  AlertDialog.Builder builder = new AlertDialog.Builder(RegistrationActivity.this);
-                  builder.setTitle("Terms and Conditions");
+                View viewInflated = LayoutInflater.from(RegistrationActivity.this)
+                        .inflate(R.layout.terms_layout, viewGroup, false);
+                final TextView textViewTerms = viewInflated.findViewById(R.id.terms_and_condition);
+                textViewTerms.setText(terms);
 
-                  View viewInflated = LayoutInflater.from(RegistrationActivity.this)
-                    .inflate(R.layout.terms_layout, viewGroup, false);
-                  final TextView textViewTerms = viewInflated.findViewById(R.id.terms_and_condition);
-                  textViewTerms.setText(terms);
+                builder.setView(viewInflated);
 
-                  builder.setView(viewInflated);
-                  builder.setPositiveButton("Accept ", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                  @Override
+                  public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                  }
+                });
 
-                      SharedPreferences preferences =
-                        getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
-                      SharedPreferences.Editor editor = preferences.edit();
-                      editor.putString(USERNAME_KEY, username);
-                      editor.apply();
+                builder.setPositiveButton("Accept ", new DialogInterface.OnClickListener() {
+                  @Override
+                  public void onClick(DialogInterface dialog, int which) {
 
-                      if (doctorCheckbox.isChecked()) {
-                        Doctor doctor = new Doctor();
-                        doctor.setType("doctor");
-                        Database.saveDoctor(doctor);
-                        finish();
-                        Intent intent = new Intent(RegistrationActivity.this, DoctorActivity.class);
-                        startActivity(intent);
-                      }
-                      if (!doctorCheckbox.isChecked()) {
-                        Intent intent = new Intent(RegistrationActivity.this, PatientActivity.class);
-                        startActivity(intent);
-                      }
+                    Toast.makeText(RegistrationActivity.this, "Registration successful", Toast.LENGTH_LONG)
+                            .show();
 
-                      dialog.dismiss();
+                    SharedPreferences preferences = getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString(USERNAME_KEY, username);
+                    editor.apply();
+
+                    if (doctorCheckbox.isChecked()) {
+                      Doctor doctor = new Doctor();
+                      doctor.setType("doctor");
+                      Database.saveDoctor(doctor);
+                      finish();
+                      Intent intent = new Intent(RegistrationActivity.this, DoctorActivity.class);
+                      startActivity(intent);
                     }
-                  });
-                  builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                      dialog.cancel();
+                    if (!doctorCheckbox.isChecked()) {
+                      Intent intent = new Intent(RegistrationActivity.this, PatientActivity.class);
+                      startActivity(intent);
                     }
-                  });
-                  builder.show();
-                } else {
-                  Toast.makeText(RegistrationActivity.this, task.getException()
-                    .getMessage(), Toast.LENGTH_LONG)
-                    .show();
-                }
+
+                    dialog.dismiss();
+                  }
+                });
+                builder.show();
+
               }
             });
         }

@@ -53,8 +53,7 @@ public class Database {
   }
 
   public static String getUserId() {
-    FirebaseUser user = FirebaseAuth.getInstance()
-      .getCurrentUser();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     return user.getUid();
   }
 

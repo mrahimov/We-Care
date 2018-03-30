@@ -48,7 +48,8 @@ public class PostWithComments extends AppCompatActivity {
 
     message.setText("Message:" + post.getMessage());
     timestamp.setText("Date: " + post.getTimeStamp());
-    postedBy.setText("Posted by: " + post.getPostedByUserName());
+    userName = post.getPostedByUserName();
+    postedBy.setText("Posted by: " + userName);
 
     addedComment = findViewById(R.id.adding_comment);
     ImageView sendComment = findViewById(R.id.send_image_view);
@@ -90,12 +91,14 @@ public class PostWithComments extends AppCompatActivity {
         }
       });
 
+
     sendComment.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
 
         String receivedComment = addedComment.getText()
           .toString();
+
 
         long date = System.currentTimeMillis();
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm a");
