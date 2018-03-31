@@ -18,9 +18,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.murodjonrahimov.wecare.R;
+import com.example.murodjonrahimov.wecare.controller.AllPostsAdapter;
+import com.example.murodjonrahimov.wecare.controller.NavigationAdapter;
+import com.example.murodjonrahimov.wecare.controller.NavigationDoctorAdapter;
 import com.example.murodjonrahimov.wecare.database.Database;
+import com.example.murodjonrahimov.wecare.listeners.CategoryPills;
 import com.example.murodjonrahimov.wecare.model.Doctor;
 import com.example.murodjonrahimov.wecare.model.DoctorPost;
+import com.example.murodjonrahimov.wecare.model.Post;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,9 +37,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class DoctorsForumFragment extends Fragment {
+public class DoctorsForumFragment extends Fragment implements CategoryPills {
 
     private View view;
     private FloatingActionButton floatingActionButton;
@@ -43,6 +50,10 @@ public class DoctorsForumFragment extends Fragment {
     private Doctor doctor2;
     private String user;
     private String name;
+    private List<String> catigoryList = new ArrayList<>();
+    private RecyclerView recyclerViewPills;
+    private NavigationDoctorAdapter adapterPills;
+
 
     private RecyclerView recyclerView;
     private onClickListenerDoctor listenerDoc;
@@ -82,6 +93,33 @@ public class DoctorsForumFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.d_fragment_doctors, container, false);
+
+        recyclerViewPills = view.findViewById(R.id.doctors_navigation_pills);
+        recyclerViewPills.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        adapterPills = new NavigationDoctorAdapter(this);
+        recyclerViewPills.setAdapter(adapterPills);
+
+
+        catigoryList.add("All Post's");
+        catigoryList.add("Allergist");
+        catigoryList.add("Cardiologist");
+        catigoryList.add("Dermatologist");
+        catigoryList.add("GP");
+        catigoryList.add("Gastroenterologist");
+        catigoryList.add("Nephrologist");
+        catigoryList.add("Neurologist");
+        catigoryList.add("Obstetrician");
+        catigoryList.add("Ophthalmologist");
+        catigoryList.add("Other");
+        catigoryList.add("Otolaryngologist");
+        catigoryList.add("Pediatrician");
+        catigoryList.add("Psychiatrist");
+        catigoryList.add("Rheumatologist");
+        catigoryList.add("Urologist");
+
+        adapterPills.setCategoryList(catigoryList);
+
+
         return view;
     }
 
@@ -193,6 +231,11 @@ public class DoctorsForumFragment extends Fragment {
     public void onStop() {
         super.onStop();
         fireBaseRecyclerAdapter.stopListening();
+    }
+
+    @Override
+    public void onCategoryListener(String category) {
+
     }
 
     public static class DoctorPosts extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {

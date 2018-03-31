@@ -77,21 +77,21 @@ public class AllPatientsPostsFragment extends Fragment implements CategoryPills 
     });
 
     catigoryList.add("All Post's");
-    catigoryList.add("GP");
     catigoryList.add("Allergist");
     catigoryList.add("Cardiologist");
     catigoryList.add("Dermatologist");
+    catigoryList.add("GP");
+    catigoryList.add("Gastroenterologist");
     catigoryList.add("Nephrologist");
     catigoryList.add("Neurologist");
     catigoryList.add("Obstetrician");
     catigoryList.add("Ophthalmologist");
+    catigoryList.add("Other");
     catigoryList.add("Otolaryngologist");
     catigoryList.add("Pediatrician");
     catigoryList.add("Psychiatrist");
     catigoryList.add("Rheumatologist");
     catigoryList.add("Urologist");
-    catigoryList.add("Gastroenterologist");
-    catigoryList.add("Other");
 
     navigationAdapter.setCategoryList(catigoryList);
 

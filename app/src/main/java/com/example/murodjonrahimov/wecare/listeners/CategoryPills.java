@@ -9,6 +9,4 @@ public interface CategoryPills {
   void onCategoryListener(String category);
 
 
-
-
 }
