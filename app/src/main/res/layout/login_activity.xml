@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
   android:id="@+id/activity_main"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"
->
+  android:layout_height="match_parent">
 
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:orientation="vertical">
+
         <ImageView
           android:layout_width="match_parent"
           android:layout_height="0dp"
           android:layout_weight="1"
           android:background="@drawable/background_gradient"/>
+
         <ImageView
           android:layout_width="match_parent"
           android:layout_height="0dp"
           android:layout_weight="1"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -38,6 +40,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="5dp"
           android:text="Email"/>
+
         <EditText
           android:id="@+id/email_login_edit_text"
           android:layout_width="match_parent"
@@ -45,11 +48,13 @@
           android:drawablePadding="20dp"
           android:drawableRight="@drawable/ic_envelope"
           android:hint="Enter Your Email"/>
+
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="5dp"
           android:text="Password"/>
+
         <EditText
           android:id="@+id/password_login_edit_text"
           android:layout_width="match_parent"
@@ -57,6 +62,7 @@
           android:drawablePadding="20dp"
           android:drawableRight="@drawable/ic_lock"
           android:hint="******"/>
+
         <Button
           android:id="@+id/sign_in_button"
           android:layout_width="match_parent"
@@ -66,6 +72,7 @@
           android:text="Log In"
           android:textAllCaps="false"
           android:textColor="#FFF"/>
+
         <Button
           android:id="@+id/register_button"
           android:layout_width="match_parent"
@@ -75,6 +82,7 @@
           android:text="New User Sign Up"
           android:textAllCaps="false"
           android:textColor="#FFF"/>
+
     </LinearLayout>
 
     <ImageView
