@@ -1,16 +1,19 @@
 package com.example.murodjonrahimov.wecare.view;
 
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.Button;
 import android.widget.TextView;
-import com.example.murodjonrahimov.wecare.PostWithComments;
+
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.database.Database;
-import com.example.murodjonrahimov.wecare.model.Post;
+import com.example.murodjonrahimov.wecare.listeners.ViewHolderCallback;
 
-public class PatientPostsViewHolder extends RecyclerView.ViewHolder {
+import com.example.murodjonrahimov.wecare.model.Post;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+public class PatientPostsViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener{
 
   public final static String POST_KEY = "post";
   private TextView message;
@@ -18,8 +21,10 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder {
   private TextView timestamp;
   private TextView comments;
   private TextView needDocroeTextview;
-  private LinearLayout layoutComments;
   private Post post;
+  private Button delete;
+  ViewHolderCallback viewHolderCallback;
+  private DatabaseReference databaseReference;
 
   public PatientPostsViewHolder(final View itemView) {
     super(itemView);
@@ -28,29 +33,46 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder {
     addedBy = itemView.findViewById(R.id.posted_by_ed);
     timestamp = itemView.findViewById(R.id.timestamp_ed);
     comments = itemView.findViewById(R.id.comments);
-    layoutComments = itemView.findViewById(R.id.linear_layout_comments);
     needDocroeTextview = itemView.findViewById(R.id.need_docroe_textview);
+    delete= itemView.findViewById(R.id.del2);
+    delete.setVisibility(View.GONE);
 
-    layoutComments.setOnClickListener(new View.OnClickListener() {
+    itemView.setOnLongClickListener(this);
+    databaseReference = FirebaseDatabase.getInstance()
+            .getReference()
+            .child("posts");
+
+
+    delete.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Intent intent = new Intent(itemView.getContext(), PostWithComments.class);
-        intent.putExtra(POST_KEY, post);
-        itemView.getContext()
-          .startActivity(intent);
+        viewHolderCallback.itemWasClicked(getAdapterPosition());
+        databaseReference.child(post.getKey()).removeValue();
       }
     });
   }
 
-  public void onBind(Post post) {
+  public void onBind(Post post, ViewHolderCallback viewHolderCallback) {
     this.post = post;
+    this.viewHolderCallback=viewHolderCallback;
     message.setText("Message: " + post.getMessage());
     addedBy.setText("Posted by: " + post.getPostedByUserName());
     timestamp.setText("Date: " + post.getTimeStamp());
     needDocroeTextview.setText(post.getDoctorINeed());
-
     int countOfComments = post.getCountOfComments();
     Database.updatePost(post.getKey(), countOfComments);
     comments.setText(countOfComments + " comments");
+
   }
+
+  @Override
+  public boolean onLongClick(View v) {
+    if (v.getId() == itemView.getId()) {
+        delete.setVisibility(View.VISIBLE);
+        return true;
+    }
+    return false;
+  }
+
+
 }

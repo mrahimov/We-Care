@@ -7,4 +7,8 @@ package com.example.murodjonrahimov.wecare.listeners;
 public interface CategoryPills {
 
   void onCategoryListener(String category);
+
+
+
+
 }

@@ -1,6 +1,7 @@
 package com.example.murodjonrahimov.wecare.fragments;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,12 +12,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.example.murodjonrahimov.wecare.R;
+import com.example.murodjonrahimov.wecare.model.Comment;
 import com.example.murodjonrahimov.wecare.model.Doctor;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.ValueEventListener;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.GridLabelRenderer;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 public class ListOfDoctorsFragment extends Fragment {
   private View view;
@@ -29,6 +39,7 @@ public class ListOfDoctorsFragment extends Fragment {
     super.onAttach(context);
   }
 
+
   public ListOfDoctorsFragment() {
     // Required empty public constructor
   }
@@ -37,10 +48,11 @@ public class ListOfDoctorsFragment extends Fragment {
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     Database = FirebaseDatabase.getInstance()
-      .getReference()
-      .child("doctors");
+            .getReference()
+            .child("doctors");
     Database.keepSynced(true);
   }
+
 
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,30 +67,36 @@ public class ListOfDoctorsFragment extends Fragment {
     recyclerview.setHasFixedSize(true);
     recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-    FirebaseRecyclerOptions<Doctor> options = new FirebaseRecyclerOptions.Builder<Doctor>().setQuery(Database, Doctor.class)
-      .build();
+    FirebaseRecyclerOptions<Doctor> options = new
+            FirebaseRecyclerOptions.Builder<Doctor>()
+            .setQuery(Database, Doctor.class)
+            .build();
 
-    fireBaseRecyclerAdapter = new FirebaseRecyclerAdapter<Doctor, ListOfDoctorsFragment.DoctorsListViewHolder>(options) {
+    fireBaseRecyclerAdapter = new
+            FirebaseRecyclerAdapter<Doctor, ListOfDoctorsFragment.DoctorsListViewHolder>(options) {
 
-      @Override
-      public DoctorsListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+              @Override
+              public DoctorsListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext())
-          .inflate(R.layout.listofdocs, parent, false);
+                View view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.listofdocs, parent, false);
 
-        return new DoctorsListViewHolder(view);
-      }
+                return new DoctorsListViewHolder(view);
+              }
 
-      @Override
-      protected void onBindViewHolder(@NonNull ListOfDoctorsFragment.DoctorsListViewHolder holder, int position,
-                                      @NonNull Doctor doctor) {
+              @Override
+              protected void onBindViewHolder(@NonNull ListOfDoctorsFragment.DoctorsListViewHolder holder,
+                                              int position,
+                                              @NonNull final Doctor doctor) {
 
-        holder.name.setText(doctor.getFirstName() + " " + doctor.getLastName());
-        holder.yearsOfExp.setText(doctor.getYearsOfExperience());
-        holder.country.setText(doctor.getCountryOfPractice());
-        holder.major.setText(doctor.getMajor());
-      }
-    };
+
+                holder.setNumberOfComments(doctor.getFirstName(), doctor.getLastName());
+                holder.name.setText(doctor.getFirstName() + " " + doctor.getLastName());
+                holder.yearsOfExp.setText(doctor.getYearsOfExperience());
+                holder.country.setText(doctor.getCountryOfPractice());
+                holder.major.setText(doctor.getMajor());
+              }
+            };
     recyclerview.setAdapter(fireBaseRecyclerAdapter);
   }
 
@@ -99,13 +117,64 @@ public class ListOfDoctorsFragment extends Fragment {
     TextView yearsOfExp;
     TextView country;
     TextView major;
+    TextView numberOfComments;
+    private int count;
+    GraphView graph;
+    DatabaseReference databaseReference =FirebaseDatabase.getInstance()
+            .getReference().child("comments");
 
-    public DoctorsListViewHolder(View itemView) {
+
+    private DoctorsListViewHolder(View itemView) {
       super(itemView);
       name = itemView.findViewById(R.id.DocName1);
       yearsOfExp = itemView.findViewById(R.id.years_of_experience);
       country = itemView.findViewById(R.id.country);
       major = itemView.findViewById(R.id.major);
+      numberOfComments = itemView.findViewById(R.id.number_of_doctors_comments1);
+      graph = itemView.findViewById(R.id.graph);
+    }
+
+    private void setNumberOfComments( final String firstName, final String lastName) {
+
+      databaseReference.addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+          for (DataSnapshot comment : dataSnapshot.getChildren()) {
+            Comment comment1 = comment.getValue(Comment.class);
+            String commentPostedBy = comment1.getCommentPostedByUserName();
+            if (commentPostedBy != null && commentPostedBy.equals(firstName + " " + lastName)) {
+              count++;
+            }
+          }
+          numberOfComments.setText(String.valueOf(count));
+          LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
+                  new DataPoint(0, 1),
+                  new DataPoint(1, 5),
+                  new DataPoint(2, 3),
+                  new DataPoint(3, 2),
+                  new DataPoint(4, count)
+          });
+          series.setDrawBackground(true);
+
+          series.setColor(Color.argb(255, 255, 60, 60));
+          series.setBackgroundColor(Color.argb(100, 64, 224, 208));
+          series.setDrawDataPoints(true);
+
+          graph.setTitle("Doctor Activity");
+          graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.NONE);
+          graph.getViewport().setDrawBorder(true);
+          graph.addSeries(series);
+
+
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+      });
+
+
     }
 
     @Override

@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.guide.GuideActivity;
 import com.example.murodjonrahimov.wecare.model.Doctor;
@@ -38,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText signInEmail;
     private EditText signInPassword;
     private String type;
+    private FirebaseAuth firebaseAuth;
     private Button registerButton;
     private Button signInButton;
 
@@ -94,15 +94,26 @@ public class LoginActivity extends AppCompatActivity {
                                                                     .equals(userID)) {
                                                                 Doctor doctor = dataSnapshot2.getValue(Doctor.class);
                                                                 type = doctor.getType();
+                                                                String firstName = doctor.getFirstName();
+                                                                String lastName = doctor.getLastName();
 
                                                                 if (type != null) {
                                                                     Toast.makeText(LoginActivity.this, "Doctor Login Successful", Toast.LENGTH_LONG)
                                                                             .show();
+                                                                    if (firstName == null && lastName == null) {
+                                                                        Toast.makeText(LoginActivity.this, "please set first and last name", Toast.LENGTH_LONG)
+                                                                                .show();
 
-                                                                    Intent intent = new Intent(LoginActivity.this, DoctorActivity.class);
-                                                                    intent.putExtra(EMAIL_KEY, firebaseAuth.getCurrentUser()
-                                                                            .getEmail());
-                                                                    startActivity(intent);
+                                                                        Intent intent = new Intent(LoginActivity.this, TwoAuthActivityDoctorReg.class);
+                                                                        intent.putExtra(EMAIL_KEY, firebaseAuth.getCurrentUser()
+                                                                                .getEmail());
+                                                                        startActivity(intent);
+                                                                    } else {
+                                                                        Intent intent = new Intent(LoginActivity.this, DoctorActivity.class);
+                                                                        intent.putExtra(EMAIL_KEY, firebaseAuth.getCurrentUser()
+                                                                                .getEmail());
+                                                                        startActivity(intent);
+                                                                    }
                                                                 }
                                                             }
                                                         }
@@ -135,34 +146,51 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                String retrievedUser = signInEmail.getText()
+                        .toString();
+                String retrievedPassword = signInPassword.getText()
+                        .toString();
 
-                    firebaseAuth.fetchProvidersForEmail(signInEmail.getText().toString()).addOnCompleteListener(new OnCompleteListener<ProviderQueryResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<ProviderQueryResult> task) {
+                if (retrievedUser.equals("") || retrievedPassword.equals("")) {
 
-                            boolean check = !task.getResult().getProviders().isEmpty();
-                            if (check) {
-                                Toast.makeText(LoginActivity.this, "It looks like you already have a WeCare account for this email address. Please try login in.", Toast.LENGTH_LONG)
-                                        .show();
-                                return;
-                            } else {
-                                Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
-                                intent.putExtra(EMAIL_KEY, signInEmail.getText().toString());
-                                intent.putExtra(PASSWORD_KEY, signInPassword.getText().toString());
-                                startActivity(intent);
-                            }
-                        }
-                    });
+                    Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+                    startActivity(intent);
+                } else {
+
+                    firebaseAuth.fetchProvidersForEmail(retrievedUser)
+                            .addOnCompleteListener(new OnCompleteListener<ProviderQueryResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<ProviderQueryResult> task) {
+                                    //boolean check = !task.getResult()
+                                    //  .getProviders()
+                                    //  .isEmpty();
+
+
+                                    if (task.isSuccessful()) {
+
+                                        Toast.makeText(LoginActivity.this,
+                                                "It looks like you already have a WeCare account for this email address. Please try login in.",
+                                                Toast.LENGTH_LONG)
+                                                .show();
+                                        return;
+                                    } else {
+                                        Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+                                        intent.putExtra(EMAIL_KEY, signInEmail.getText()
+                                                .toString());
+                                        intent.putExtra(PASSWORD_KEY, signInPassword.getText()
+                                                .toString());
+                                        startActivity(intent);
+                                    }
+                                }
+                            });
                 }
-
+            }
         });
     }
-
 
     private void updateLocalUsernameValue(final String userID) {
         Database.getDatabase()
