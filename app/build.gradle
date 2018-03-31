@@ -39,6 +39,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:11.4.2'
     implementation 'com.airbnb.android:lottie:2.0.0'
     implementation 'com.jjoe64:graphview:4.2.1'
+
     apply plugin: 'com.google.gms.google-services'
 
 }

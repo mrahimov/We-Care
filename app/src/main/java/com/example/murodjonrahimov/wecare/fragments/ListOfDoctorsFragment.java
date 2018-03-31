@@ -88,7 +88,8 @@ public class ListOfDoctorsFragment extends Fragment {
               protected void onBindViewHolder(@NonNull ListOfDoctorsFragment.DoctorsListViewHolder holder,
                                               int position,
                                               @NonNull final Doctor doctor) {
-
+///////// in here
+                String id= doctor.getUid();
 
                 holder.setNumberOfComments(doctor.getFirstName(), doctor.getLastName());
                 holder.name.setText(doctor.getFirstName() + " " + doctor.getLastName());
