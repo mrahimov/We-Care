@@ -122,11 +122,11 @@ public class DoctorsForumFragment extends Fragment {
                         .addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                doctor2 = dataSnapshot.getValue(Doctor.class);
-                                name = doctor2.getFirstName() + " " + doctor2.getLastName();
-                                holder.doctorName.setText(name);
-                                holder.message.setText(doctor.getMessage());
-                                holder.time.setText(doctor.getTimeStamp());
+                                //doctor2 = dataSnapshot.getValue(Doctor.class);
+                                //name = doctor2.getFirstName() + " " + doctor2.getLastName();
+                                //holder.doctorName.setText(name);
+                                //holder.message.setText(doctor.getMessage());
+                                //holder.time.setText(doctor.getTimeStamp());
                             }
 
                             @Override
