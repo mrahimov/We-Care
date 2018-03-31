@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.murodjonrahimov.wecare.PostWithComments;
@@ -46,7 +47,7 @@ public class AllPostsAdapter extends RecyclerView.Adapter<AllPostsAdapter.AllPos
     this.postList.addAll(postList);
   }
 
-  public class AllPostsViewHolder extends RecyclerView.ViewHolder {
+  public static class AllPostsViewHolder extends RecyclerView.ViewHolder {
 
     public final static String POST_KEY = "post";
     private Post post;
@@ -57,6 +58,7 @@ public class AllPostsAdapter extends RecyclerView.Adapter<AllPostsAdapter.AllPos
     private TextView textViewComments;
     private TextView textViewNeedDoceor;
     private LinearLayout linearLayoutComits;
+    private Button button;
 
     public AllPostsViewHolder(final View itemView) {
       super(itemView);
@@ -66,6 +68,8 @@ public class AllPostsAdapter extends RecyclerView.Adapter<AllPostsAdapter.AllPos
       textViewComments = itemView.findViewById(R.id.comments);
       textViewNeedDoceor = itemView.findViewById(R.id.need_docroe_textview);
       linearLayoutComits = itemView.findViewById(R.id.linear_layout_comments);
+      button = itemView.findViewById(R.id.del2);
+      button.setVisibility(View.GONE);
 
       linearLayoutComits.setOnClickListener(new View.OnClickListener() {
         @Override
