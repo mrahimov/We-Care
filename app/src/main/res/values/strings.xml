@@ -28,6 +28,7 @@
     <string name="allergist">Allergist</string>
     <string name="gp">GP</string>
     <string name="choose_kind_of_doctor">Choose kind of doctor</string>
+    <string name="question_related">Question Related</string>
     <string name="nephrologist">Nephrologist</string>
     <string name="posted_by">Posted by</string>
     <string name="date">Date</string>
