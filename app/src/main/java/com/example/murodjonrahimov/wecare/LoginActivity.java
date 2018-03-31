@@ -12,16 +12,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.murodjonrahimov.wecare.database.Database;
-import com.example.murodjonrahimov.wecare.guide.GuideActivity;
 import com.example.murodjonrahimov.wecare.model.Doctor;
 import com.example.murodjonrahimov.wecare.model.Patient;
-import com.example.murodjonrahimov.wecare.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.ProviderQueryResult;
-import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -159,25 +156,9 @@ public class LoginActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
                     startActivity(intent);
-                } else {
+                }
 
-                    firebaseAuth.fetchProvidersForEmail(retrievedUser)
-                            .addOnCompleteListener(new OnCompleteListener<ProviderQueryResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<ProviderQueryResult> task) {
-                                    //boolean check = !task.getResult()
-                                    //  .getProviders()
-                                    //  .isEmpty();
-
-
-                                    if (task.isSuccessful()) {
-
-                                        Toast.makeText(LoginActivity.this,
-                                                "It looks like you already have a WeCare account for this email address. Please try login in.",
-                                                Toast.LENGTH_LONG)
-                                                .show();
-                                        return;
-                                    } else {
+                else {
                                         Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
                                         intent.putExtra(EMAIL_KEY, signInEmail.getText()
                                                 .toString());
@@ -188,9 +169,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             });
                 }
-            }
-        });
-    }
+
 
     private void updateLocalUsernameValue(final String userID) {
         Database.getDatabase()
