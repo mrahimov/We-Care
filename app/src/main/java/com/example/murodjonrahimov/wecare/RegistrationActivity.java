@@ -150,7 +150,7 @@ public class RegistrationActivity extends AppCompatActivity {
                       Doctor doctor = new Doctor();
                       doctor.setType("doctor");
                       Database.saveDoctor(doctor);
-                      finish();
+                      //finish();
                       Intent intent = new Intent(RegistrationActivity.this, TwoAuthActivityDoctorReg.class);
                       startActivity(intent);
                     }
