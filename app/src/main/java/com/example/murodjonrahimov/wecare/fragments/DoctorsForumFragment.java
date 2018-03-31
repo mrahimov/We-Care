@@ -189,7 +189,7 @@ public class DoctorsForumFragment extends Fragment implements CategoryPills {
             }
           });
 
-         key = fireBaseRecyclerAdapter.getRef(position)
+        key = fireBaseRecyclerAdapter.getRef(position)
           .getKey();
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -230,7 +230,6 @@ public class DoctorsForumFragment extends Fragment implements CategoryPills {
         textViewOther = viewInflated.findViewById(R.id.doctor_post_other);
         textviewChooseDoctor = viewInflated.findViewById(R.id.choose_doctor_textview);
 
-
         chooseDoctor.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
@@ -252,15 +251,12 @@ public class DoctorsForumFragment extends Fragment implements CategoryPills {
               textViewNeurologist.setVisibility(View.VISIBLE);
               textViewOther.setVisibility(View.VISIBLE);
               textViewGP.setVisibility(View.VISIBLE);
-
             } else {
 
               makeTextGone();
-
             }
           }
         });
-
 
         textViewGP.setOnClickListener(new View.OnClickListener() {
           @Override
@@ -396,7 +392,6 @@ public class DoctorsForumFragment extends Fragment implements CategoryPills {
           }
         });
 
-
         builder.setView(viewInflated);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, yyyy h:mm a");
@@ -462,6 +457,7 @@ public class DoctorsForumFragment extends Fragment implements CategoryPills {
     DatabaseReference databaseReference;
     FirebaseRecyclerAdapter<DoctorPost, DoctorsForumFragment.DoctorPosts> fireBaseRecyclerAdapter;
     String name;
+    Boolean vis = true;
 
     public DoctorPosts(View itemView,
                        FirebaseRecyclerAdapter<DoctorPost, DoctorsForumFragment.DoctorPosts> fireBaseRecyclerAdapter) {
@@ -508,12 +504,17 @@ public class DoctorsForumFragment extends Fragment implements CategoryPills {
 
     @Override
     public boolean onLongClick(View v) {
-      if (v.getId() == itemView.getId()) {
+      if (v.getId() == itemView.getId() && vis) {
         if (name.equals(doctorName.getText()
           .toString())) {
           button.setVisibility(View.VISIBLE);
+          vis = false;
           return true;
         }
+      } else {
+        button.setVisibility(View.GONE);
+        vis = true;
+        return true;
       }
       return false;
     }

@@ -25,6 +25,7 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder implements V
   private Button delete;
   ViewHolderCallback viewHolderCallback;
   private DatabaseReference databaseReference;
+  Boolean vis=true;
 
   public PatientPostsViewHolder(final View itemView) {
     super(itemView);
@@ -67,12 +68,15 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder implements V
 
   @Override
   public boolean onLongClick(View v) {
-    if (v.getId() == itemView.getId()) {
+    if (v.getId() == itemView.getId() && vis) {
         delete.setVisibility(View.VISIBLE);
+        vis=false;
         return true;
     }
-    return false;
+    else {
+      delete.setVisibility(View.GONE);
+      vis=true;
+      return true;
+    }
   }
-
-
 }
