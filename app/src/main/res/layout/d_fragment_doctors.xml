@@ -5,11 +5,26 @@
   tools:context="com.example.murodjonrahimov.wecare.fragments.DoctorsForumFragment">
 
     <android.support.v7.widget.RecyclerView
+      android:id="@+id/doctors_navigation_pills"
+      android:layout_width="match_parent"
+      android:layout_height="60dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginTop="60dp"
+      android:orientation="horizontal">
+
+    <android.support.v7.widget.RecyclerView
       android:id="@+id/doctorForum"
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
       android:id="@+id/fab"
