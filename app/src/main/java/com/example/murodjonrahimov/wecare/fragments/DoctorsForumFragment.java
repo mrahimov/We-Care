@@ -70,6 +70,7 @@ public class DoctorsForumFragment extends Fragment {
 
 
 
+
         database.keepSynced(true);
         FirebaseMessaging.getInstance()
                 .subscribeToTopic("notifications");

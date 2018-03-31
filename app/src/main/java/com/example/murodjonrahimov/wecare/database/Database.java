@@ -47,8 +47,10 @@ public class Database {
   public static void saveDoctor(Doctor doctor) {
     FirebaseUser user = FirebaseAuth.getInstance()
       .getCurrentUser();
+    String user1= Database.getUserId();
+    doctor.setUid(user1);
     getDatabase().child("doctors")
-      .child(user.getUid())
+            .child(user.getUid())
       .setValue(doctor);
   }
 
