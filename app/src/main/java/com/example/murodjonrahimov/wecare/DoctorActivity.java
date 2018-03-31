@@ -3,6 +3,7 @@ package com.example.murodjonrahimov.wecare;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -38,8 +39,18 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
         switch (item.getItemId()) {
           case R.id.navigation_doctors:
             toolbar.setTitle("Doctors");
-            fragment = new DoctorsForumFragment();
-            loadFragment(fragment);
+            DoctorsForumFragment doctorsForumFragment = (DoctorsForumFragment) getSupportFragmentManager().findFragmentByTag("hi");
+            if(doctorsForumFragment==null) {
+              DoctorsForumFragment fragment2 = new DoctorsForumFragment();
+
+              FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+              transaction.replace(R.id.frame_container, fragment2, "hi");
+              transaction.addToBackStack(null);
+              transaction.commit();
+            }
+            else {
+              reInsertFragment(doctorsForumFragment);
+            }
             return true;
           case R.id.navigation_my_profile:
             toolbar.setTitle("Doctor Profile");
@@ -59,6 +70,12 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
 
   private void loadFragment(android.support.v4.app.Fragment fragment) {
 
+    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+    transaction.replace(R.id.frame_container, fragment,"");
+    transaction.addToBackStack(null);
+    transaction.commit();
+  }
+  public void reInsertFragment(Fragment fragment){
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
     transaction.replace(R.id.frame_container, fragment);
     transaction.addToBackStack(null);
