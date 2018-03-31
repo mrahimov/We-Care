@@ -40,7 +40,6 @@ public class DoctorsForumFragment extends Fragment {
     private FloatingActionButton floatingActionButton;
     private DatabaseReference database;
     private DatabaseReference database2;
-    private Doctor doctor2;
     private String user;
     private String name;
 
@@ -68,10 +67,7 @@ public class DoctorsForumFragment extends Fragment {
                 .getReference()
                 .child("DoctorPost");
         user = Database.getUserId();
-        database2 = FirebaseDatabase.getInstance()
-                .getReference()
-                .child("Doctor")
-                .child(user);
+
 
 
         database.keepSynced(true);
@@ -122,8 +118,8 @@ public class DoctorsForumFragment extends Fragment {
                         .addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                doctor2 = dataSnapshot.getValue(Doctor.class);
-                                name = doctor2.getFirstName() + " " + doctor2.getLastName();
+                                Doctor doctors = dataSnapshot.getValue(Doctor.class);
+                                name = doctors.getFirstName() + " " + doctors.getLastName();
                                 holder.doctorName.setText(name);
                                 holder.message.setText(doctor.getMessage());
                                 holder.time.setText(doctor.getTimeStamp());

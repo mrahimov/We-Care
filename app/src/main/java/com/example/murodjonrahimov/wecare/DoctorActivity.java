@@ -39,12 +39,12 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
         switch (item.getItemId()) {
           case R.id.navigation_doctors:
             toolbar.setTitle("Doctors");
-            DoctorsForumFragment doctorsForumFragment = (DoctorsForumFragment) getSupportFragmentManager().findFragmentByTag("hi");
+            DoctorsForumFragment doctorsForumFragment = (DoctorsForumFragment) getSupportFragmentManager().findFragmentByTag("docFrag");
             if(doctorsForumFragment==null) {
               DoctorsForumFragment fragment2 = new DoctorsForumFragment();
 
               FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-              transaction.replace(R.id.frame_container, fragment2, "hi");
+              transaction.replace(R.id.frame_container, fragment2, "docFrag");
               transaction.addToBackStack(null);
               transaction.commit();
             }
@@ -71,13 +71,13 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
   private void loadFragment(android.support.v4.app.Fragment fragment) {
 
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-    transaction.replace(R.id.frame_container, fragment,"");
+    transaction.replace(R.id.frame_container, fragment);
     transaction.addToBackStack(null);
     transaction.commit();
   }
   public void reInsertFragment(Fragment fragment){
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-    transaction.replace(R.id.frame_container, fragment);
+    transaction.replace(R.id.frame_container, fragment,"docFrag");
     transaction.addToBackStack(null);
     transaction.commit();
   }
