@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.guide.GuideActivity;
 import com.example.murodjonrahimov.wecare.model.Doctor;
@@ -31,163 +32,162 @@ import static com.example.murodjonrahimov.wecare.RegistrationActivity.USERNAME_K
 
 public class LoginActivity extends AppCompatActivity {
 
-  public final static String EMAIL_KEY = "email";
-  public final static String PASSWORD_KEY = "password";
+    public final static String EMAIL_KEY = "email";
+    public final static String PASSWORD_KEY = "password";
 
-  private EditText signInEmail;
-  private EditText signInPassword;
-  private String type;
-  private FirebaseAuth firebaseAuth;
-  private Button registerButton;
-  private Button signInButton;
+    private EditText signInEmail;
+    private EditText signInPassword;
+    private String type;
+    private Button registerButton;
+    private Button signInButton;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.login_activity);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.login_activity);
 
-    registerButton = findViewById(R.id.register_button);
-    signInButton = findViewById(R.id.sign_in_button);
-    signInEmail = findViewById(R.id.email_login_edit_text);
-    signInPassword = findViewById(R.id.password_login_edit_text);
+        registerButton = findViewById(R.id.register_button);
+        signInButton = findViewById(R.id.sign_in_button);
+        signInEmail = findViewById(R.id.email_login_edit_text);
+        signInPassword = findViewById(R.id.password_login_edit_text);
 
-    final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-    signInButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        type = null;
+                type = null;
 
-        if (signInEmail.getText()
-          .toString()
-          .equals("") || signInPassword.getText()
-          .toString()
-          .equals("")) {
-          Toast.makeText(LoginActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG)
-            .show();
-        } else {
-
-          final ProgressDialog progressDialog = ProgressDialog.show(LoginActivity.this, "Please wait... ", "Processing...", true);
-
-          (firebaseAuth.signInWithEmailAndPassword(signInEmail.getText()
-            .toString(), signInPassword.getText()
-            .toString())).
-            addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-              @Override
-              public void onComplete(@NonNull Task<AuthResult> task) {
-                progressDialog.dismiss();
-
-                if (task.isSuccessful()) {
-
-                  final String userEmail = firebaseAuth.getCurrentUser()
-                    .getEmail();
-                  final DatabaseReference db = Database.getDatabase();
-                  final String userID = Database.getUserId();
-
-                  db.child("doctors")
-                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                      @Override
-                      public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
-                          if (dataSnapshot2.getKey()
-                            .equals(userID)) {
-                            Doctor doctor = dataSnapshot2.getValue(Doctor.class);
-                            type = doctor.getType();
-
-                            if (type != null) {
-                              Toast.makeText(LoginActivity.this, "Doctor Login Successful", Toast.LENGTH_LONG)
-                                .show();
-
-                              Intent intent = new Intent(LoginActivity.this, DoctorActivity.class);
-                              intent.putExtra(EMAIL_KEY, firebaseAuth.getCurrentUser()
-                                .getEmail());
-                              startActivity(intent);
-                            }
-                          }
-                        }
-                        if (type == null) {
-                          updateLocalUsernameValue(userID);
-
-                          Toast.makeText(LoginActivity.this, userEmail, Toast.LENGTH_LONG)
+                if (signInEmail.getText()
+                        .toString()
+                        .equals("") || signInPassword.getText()
+                        .toString()
+                        .equals("")) {
+                    Toast.makeText(LoginActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG)
                             .show();
-
-                          Intent intent = new Intent(LoginActivity.this, PatientActivity.class);
-                          intent.putExtra(EMAIL_KEY, firebaseAuth.getCurrentUser()
-                            .getEmail());
-                          startActivity(intent);
-                        }
-                      }
-
-                      @Override
-                      public void onCancelled(DatabaseError databaseError) {
-
-                      }
-                    });
                 } else {
-                  Toast.makeText(LoginActivity.this, task.getException()
-                    .getMessage(), Toast.LENGTH_LONG)
-                    .show();
+
+                    final ProgressDialog progressDialog = ProgressDialog.show(LoginActivity.this, "Please wait... ", "Processing...", true);
+
+                    (firebaseAuth.signInWithEmailAndPassword(signInEmail.getText()
+                            .toString(), signInPassword.getText()
+                            .toString())).
+                            addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    progressDialog.dismiss();
+
+                                    if (task.isSuccessful()) {
+
+                                        final String userEmail = firebaseAuth.getCurrentUser()
+                                                .getEmail();
+                                        final DatabaseReference db = Database.getDatabase();
+                                        final String userID = Database.getUserId();
+
+                                        db.child("doctors")
+                                                .addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                                        for (DataSnapshot dataSnapshot2 : dataSnapshot.getChildren()) {
+                                                            if (dataSnapshot2.getKey()
+                                                                    .equals(userID)) {
+                                                                Doctor doctor = dataSnapshot2.getValue(Doctor.class);
+                                                                type = doctor.getType();
+
+                                                                if (type != null) {
+                                                                    Toast.makeText(LoginActivity.this, "Doctor Login Successful", Toast.LENGTH_LONG)
+                                                                            .show();
+
+                                                                    Intent intent = new Intent(LoginActivity.this, DoctorActivity.class);
+                                                                    intent.putExtra(EMAIL_KEY, firebaseAuth.getCurrentUser()
+                                                                            .getEmail());
+                                                                    startActivity(intent);
+                                                                }
+                                                            }
+                                                        }
+                                                        if (type == null) {
+                                                            updateLocalUsernameValue(userID);
+
+                                                            Toast.makeText(LoginActivity.this, userEmail, Toast.LENGTH_LONG)
+                                                                    .show();
+
+                                                            Intent intent = new Intent(LoginActivity.this, PatientActivity.class);
+                                                            intent.putExtra(EMAIL_KEY, firebaseAuth.getCurrentUser()
+                                                                    .getEmail());
+                                                            startActivity(intent);
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(DatabaseError databaseError) {
+
+                                                    }
+                                                });
+                                    } else {
+                                        Toast.makeText(LoginActivity.this, task.getException()
+                                                .getMessage(), Toast.LENGTH_LONG)
+                                                .show();
+                                    }
+                                }
+                            });
                 }
-              }
-            });
-        }
-      }
-    });
-
-    registerButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-
-       String retrievedUser = signInEmail.getText().toString();
-        firebaseAuth.fetchProvidersForEmail(retrievedUser).addOnCompleteListener(new OnCompleteListener<ProviderQueryResult>() {
-          @Override
-          public void onComplete(@NonNull Task<ProviderQueryResult> task) {
-            boolean check = !task.getResult().getProviders().isEmpty();
-            if(check){
-              Toast.makeText(LoginActivity.this, "It looks like you already have a WeCare account for this email address. Please try login in.", Toast.LENGTH_LONG)
-                      .show();
-              return;
             }
-            else {
-              Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
-              intent.putExtra(EMAIL_KEY, signInEmail.getText().toString());
-              intent.putExtra(PASSWORD_KEY, signInPassword.getText().toString());
-              startActivity(intent);
-            }
-          }
         });
 
-        }
 
-      });
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                    firebaseAuth.fetchProvidersForEmail(signInEmail.getText().toString()).addOnCompleteListener(new OnCompleteListener<ProviderQueryResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<ProviderQueryResult> task) {
+
+                            boolean check = !task.getResult().getProviders().isEmpty();
+                            if (check) {
+                                Toast.makeText(LoginActivity.this, "It looks like you already have a WeCare account for this email address. Please try login in.", Toast.LENGTH_LONG)
+                                        .show();
+                                return;
+                            } else {
+                                Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+                                intent.putExtra(EMAIL_KEY, signInEmail.getText().toString());
+                                intent.putExtra(PASSWORD_KEY, signInPassword.getText().toString());
+                                startActivity(intent);
+                            }
+                        }
+                    });
+                }
+
+        });
     }
 
 
-  private void updateLocalUsernameValue(final String userID) {
-    Database.getDatabase()
-      .child("patients")
-      .addListenerForSingleValueEvent(new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-          for (DataSnapshot dataSnapshot3 : dataSnapshot.getChildren()) {
-            if (dataSnapshot3.getKey()
-              .equals(userID)) {
-              Patient patient = dataSnapshot3.getValue(Patient.class);
-              String retrievedFromDBUserName = patient.getUserName();
-              SharedPreferences preferences =
-                getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
-              SharedPreferences.Editor editor = preferences.edit();
-              editor.putString(USERNAME_KEY, retrievedFromDBUserName);
-              editor.apply();
-            }
-          }
-        }
+    private void updateLocalUsernameValue(final String userID) {
+        Database.getDatabase()
+                .child("patients")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot dataSnapshot3 : dataSnapshot.getChildren()) {
+                            if (dataSnapshot3.getKey()
+                                    .equals(userID)) {
+                                Patient patient = dataSnapshot3.getValue(Patient.class);
+                                String retrievedFromDBUserName = patient.getUserName();
+                                SharedPreferences preferences =
+                                        getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putString(USERNAME_KEY, retrievedFromDBUserName);
+                                editor.apply();
+                            }
+                        }
+                    }
 
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-        }
-      });
-  }
+                    }
+                });
+    }
 }
