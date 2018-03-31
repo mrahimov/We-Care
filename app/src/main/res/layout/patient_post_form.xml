@@ -3,6 +3,7 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:padding="16dp"
   android:orientation="vertical">
 
     <LinearLayout
@@ -17,12 +18,12 @@
           android:layout_width="wrap_content"
           android:layout_height="match_parent"
           android:text="@string/choose_kind_of_doctor"
-          android:textSize="18sp"/>
+          android:textSize="20sp"/>
 
         <ImageView
           android:layout_width="40dp"
           android:layout_height="40dp"
-          android:layout_marginLeft="160dp"
+          android:layout_marginLeft="60dp"
           android:background="@drawable/arrow"/>
 
     </LinearLayout>
@@ -132,6 +133,8 @@
       android:text="@string/other"
       android:visibility="gone"/>
 
+
+
     <EditText
       android:id="@+id/message_ed"
       android:layout_width="match_parent"
@@ -143,6 +146,11 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/save"/>
+
+    <ImageButton
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"/>
+
 
 </LinearLayout>
 
