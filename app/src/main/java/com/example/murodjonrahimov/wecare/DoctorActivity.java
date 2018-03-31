@@ -37,7 +37,7 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
 
         switch (item.getItemId()) {
           case R.id.navigation_doctors:
-            toolbar.setTitle("Doctors");
+            toolbar.setTitle("Doctors Post");
             fragment = new DoctorsForumFragment();
             loadFragment(fragment);
             return true;
@@ -47,7 +47,7 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
             loadFragment(fragment);
             return true;
           case R.id.navigation_posts:
-            toolbar.setTitle("Posts");
+            toolbar.setTitle("Patient Posts");
             fragment = new AllPatientsPostsFragment();
             loadFragment(fragment);
             return true;

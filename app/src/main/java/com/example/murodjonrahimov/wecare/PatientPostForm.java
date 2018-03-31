@@ -84,21 +84,7 @@ public class PatientPostForm extends AppCompatActivity {
           textViewGP.setVisibility(View.VISIBLE);
         } else {
 
-          textViewAllergist.setVisibility(View.GONE);
-          textViewCardiologist.setVisibility(View.GONE);
-          textViewDermatologist.setVisibility(View.GONE);
-          textViewNephrologist.setVisibility(View.GONE);
-          textViewObstetrician.setVisibility(View.GONE);
-          textViewOphthalmologist.setVisibility(View.GONE);
-          textViewOtolaryngologist.setVisibility(View.GONE);
-          textViewPediatrician.setVisibility(View.GONE);
-          textViewPsychiatrist.setVisibility(View.GONE);
-          textViewRheumatologist.setVisibility(View.GONE);
-          textViewUrologist.setVisibility(View.GONE);
-          textViewGastroenterologist.setVisibility(View.GONE);
-          textViewNeurologist.setVisibility(View.GONE);
-          textViewOther.setVisibility(View.GONE);
-          textViewGP.setVisibility(View.GONE);
+          makeTextGone();
         }
       }
     });
@@ -108,21 +94,7 @@ public class PatientPostForm extends AppCompatActivity {
       public void onClick(View v) {
         doctorINeed = "GP";
         textviewChooseDoctor.setText(R.string.gp);
-        textViewAllergist.setVisibility(View.GONE);
-        textViewCardiologist.setVisibility(View.GONE);
-        textViewDermatologist.setVisibility(View.GONE);
-        textViewNephrologist.setVisibility(View.GONE);
-        textViewObstetrician.setVisibility(View.GONE);
-        textViewOphthalmologist.setVisibility(View.GONE);
-        textViewOtolaryngologist.setVisibility(View.GONE);
-        textViewPediatrician.setVisibility(View.GONE);
-        textViewPsychiatrist.setVisibility(View.GONE);
-        textViewRheumatologist.setVisibility(View.GONE);
-        textViewUrologist.setVisibility(View.GONE);
-        textViewGastroenterologist.setVisibility(View.GONE);
-        textViewNeurologist.setVisibility(View.GONE);
-        textViewOther.setVisibility(View.GONE);
-        textViewGP.setVisibility(View.GONE);
+        makeTextGone();
       }
     });
 
@@ -131,21 +103,7 @@ public class PatientPostForm extends AppCompatActivity {
       public void onClick(View v) {
         doctorINeed = "Allergist";
         textviewChooseDoctor.setText(R.string.allergist);
-        textViewAllergist.setVisibility(View.GONE);
-        textViewCardiologist.setVisibility(View.GONE);
-        textViewDermatologist.setVisibility(View.GONE);
-        textViewNephrologist.setVisibility(View.GONE);
-        textViewObstetrician.setVisibility(View.GONE);
-        textViewOphthalmologist.setVisibility(View.GONE);
-        textViewOtolaryngologist.setVisibility(View.GONE);
-        textViewPediatrician.setVisibility(View.GONE);
-        textViewPsychiatrist.setVisibility(View.GONE);
-        textViewRheumatologist.setVisibility(View.GONE);
-        textViewUrologist.setVisibility(View.GONE);
-        textViewGastroenterologist.setVisibility(View.GONE);
-        textViewNeurologist.setVisibility(View.GONE);
-        textViewOther.setVisibility(View.GONE);
-        textViewGP.setVisibility(View.GONE);
+        makeTextGone();
       }
     });
 
@@ -153,22 +111,7 @@ public class PatientPostForm extends AppCompatActivity {
       @Override
       public void onClick(View v) {
         doctorINeed = "Cardiologist";
-        textviewChooseDoctor.setText(R.string.cardiologist);
-        textViewAllergist.setVisibility(View.GONE);
-        textViewCardiologist.setVisibility(View.GONE);
-        textViewDermatologist.setVisibility(View.GONE);
-        textViewNephrologist.setVisibility(View.GONE);
-        textViewObstetrician.setVisibility(View.GONE);
-        textViewOphthalmologist.setVisibility(View.GONE);
-        textViewOtolaryngologist.setVisibility(View.GONE);
-        textViewPediatrician.setVisibility(View.GONE);
-        textViewPsychiatrist.setVisibility(View.GONE);
-        textViewRheumatologist.setVisibility(View.GONE);
-        textViewUrologist.setVisibility(View.GONE);
-        textViewGastroenterologist.setVisibility(View.GONE);
-        textViewNeurologist.setVisibility(View.GONE);
-        textViewOther.setVisibility(View.GONE);
-        textViewGP.setVisibility(View.GONE);
+        makeTextGone();
       }
     });
 
@@ -177,21 +120,7 @@ public class PatientPostForm extends AppCompatActivity {
       public void onClick(View v) {
         doctorINeed = "Dermatologist";
         textviewChooseDoctor.setText(R.string.dermatologist);
-        textViewAllergist.setVisibility(View.GONE);
-        textViewCardiologist.setVisibility(View.GONE);
-        textViewDermatologist.setVisibility(View.GONE);
-        textViewNephrologist.setVisibility(View.GONE);
-        textViewObstetrician.setVisibility(View.GONE);
-        textViewOphthalmologist.setVisibility(View.GONE);
-        textViewOtolaryngologist.setVisibility(View.GONE);
-        textViewPediatrician.setVisibility(View.GONE);
-        textViewPsychiatrist.setVisibility(View.GONE);
-        textViewRheumatologist.setVisibility(View.GONE);
-        textViewUrologist.setVisibility(View.GONE);
-        textViewGastroenterologist.setVisibility(View.GONE);
-        textViewNeurologist.setVisibility(View.GONE);
-        textViewOther.setVisibility(View.GONE);
-        textViewGP.setVisibility(View.GONE);
+        makeTextGone();
       }
     });
 
@@ -200,21 +129,7 @@ public class PatientPostForm extends AppCompatActivity {
       public void onClick(View v) {
         doctorINeed = "Nephrologist";
         textviewChooseDoctor.setText(R.string.nephrologist);
-        textViewAllergist.setVisibility(View.GONE);
-        textViewCardiologist.setVisibility(View.GONE);
-        textViewDermatologist.setVisibility(View.GONE);
-        textViewNephrologist.setVisibility(View.GONE);
-        textViewObstetrician.setVisibility(View.GONE);
-        textViewOphthalmologist.setVisibility(View.GONE);
-        textViewOtolaryngologist.setVisibility(View.GONE);
-        textViewPediatrician.setVisibility(View.GONE);
-        textViewPsychiatrist.setVisibility(View.GONE);
-        textViewRheumatologist.setVisibility(View.GONE);
-        textViewUrologist.setVisibility(View.GONE);
-        textViewGastroenterologist.setVisibility(View.GONE);
-        textViewNeurologist.setVisibility(View.GONE);
-        textViewOther.setVisibility(View.GONE);
-        textViewGP.setVisibility(View.GONE);
+        makeTextGone();
       }
     });
 
@@ -223,21 +138,7 @@ public class PatientPostForm extends AppCompatActivity {
       public void onClick(View v) {
         doctorINeed = "Obstetrician/Gynecologist";
         textviewChooseDoctor.setText(R.string.obstetrician_gynecologist);
-        textViewAllergist.setVisibility(View.GONE);
-        textViewCardiologist.setVisibility(View.GONE);
-        textViewDermatologist.setVisibility(View.GONE);
-        textViewNephrologist.setVisibility(View.GONE);
-        textViewObstetrician.setVisibility(View.GONE);
-        textViewOphthalmologist.setVisibility(View.GONE);
-        textViewOtolaryngologist.setVisibility(View.GONE);
-        textViewPediatrician.setVisibility(View.GONE);
-        textViewPsychiatrist.setVisibility(View.GONE);
-        textViewRheumatologist.setVisibility(View.GONE);
-        textViewUrologist.setVisibility(View.GONE);
-        textViewGastroenterologist.setVisibility(View.GONE);
-        textViewNeurologist.setVisibility(View.GONE);
-        textViewOther.setVisibility(View.GONE);
-        textViewGP.setVisibility(View.GONE);
+        makeTextGone();
       }
     });
 
@@ -246,21 +147,7 @@ public class PatientPostForm extends AppCompatActivity {
       public void onClick(View v) {
         doctorINeed = "Ophthalmologist";
         textviewChooseDoctor.setText(R.string.ophthalmologist);
-        textViewAllergist.setVisibility(View.GONE);
-        textViewCardiologist.setVisibility(View.GONE);
-        textViewDermatologist.setVisibility(View.GONE);
-        textViewNephrologist.setVisibility(View.GONE);
-        textViewObstetrician.setVisibility(View.GONE);
-        textViewOphthalmologist.setVisibility(View.GONE);
-        textViewOtolaryngologist.setVisibility(View.GONE);
-        textViewPediatrician.setVisibility(View.GONE);
-        textViewPsychiatrist.setVisibility(View.GONE);
-        textViewRheumatologist.setVisibility(View.GONE);
-        textViewUrologist.setVisibility(View.GONE);
-        textViewGastroenterologist.setVisibility(View.GONE);
-        textViewNeurologist.setVisibility(View.GONE);
-        textViewOther.setVisibility(View.GONE);
-        textViewGP.setVisibility(View.GONE);
+        makeTextGone();
       }
     });
 
@@ -269,21 +156,7 @@ public class PatientPostForm extends AppCompatActivity {
       public void onClick(View v) {
         doctorINeed = "Otolaryngologist";
         textviewChooseDoctor.setText(R.string.otolaryngologist);
-        textViewAllergist.setVisibility(View.GONE);
-        textViewCardiologist.setVisibility(View.GONE);
-        textViewDermatologist.setVisibility(View.GONE);
-        textViewNephrologist.setVisibility(View.GONE);
-        textViewObstetrician.setVisibility(View.GONE);
-        textViewOphthalmologist.setVisibility(View.GONE);
-        textViewOtolaryngologist.setVisibility(View.GONE);
-        textViewPediatrician.setVisibility(View.GONE);
-        textViewPsychiatrist.setVisibility(View.GONE);
-        textViewRheumatologist.setVisibility(View.GONE);
-        textViewUrologist.setVisibility(View.GONE);
-        textViewGastroenterologist.setVisibility(View.GONE);
-        textViewNeurologist.setVisibility(View.GONE);
-        textViewOther.setVisibility(View.GONE);
-        textViewGP.setVisibility(View.GONE);
+        makeTextGone();
       }
     });
 
@@ -292,21 +165,7 @@ public class PatientPostForm extends AppCompatActivity {
       public void onClick(View v) {
         doctorINeed = "Pediatrician";
         textviewChooseDoctor.setText(R.string.pediatrician);
-        textViewAllergist.setVisibility(View.GONE);
-        textViewCardiologist.setVisibility(View.GONE);
-        textViewDermatologist.setVisibility(View.GONE);
-        textViewNephrologist.setVisibility(View.GONE);
-        textViewObstetrician.setVisibility(View.GONE);
-        textViewOphthalmologist.setVisibility(View.GONE);
-        textViewOtolaryngologist.setVisibility(View.GONE);
-        textViewPediatrician.setVisibility(View.GONE);
-        textViewPsychiatrist.setVisibility(View.GONE);
-        textViewRheumatologist.setVisibility(View.GONE);
-        textViewUrologist.setVisibility(View.GONE);
-        textViewGastroenterologist.setVisibility(View.GONE);
-        textViewNeurologist.setVisibility(View.GONE);
-        textViewOther.setVisibility(View.GONE);
-        textViewGP.setVisibility(View.GONE);
+        makeTextGone();
       }
     });
 
@@ -315,21 +174,7 @@ public class PatientPostForm extends AppCompatActivity {
       public void onClick(View v) {
         doctorINeed = "Psychiatrist";
         textviewChooseDoctor.setText(R.string.psychiatrist);
-        textViewAllergist.setVisibility(View.GONE);
-        textViewCardiologist.setVisibility(View.GONE);
-        textViewDermatologist.setVisibility(View.GONE);
-        textViewNephrologist.setVisibility(View.GONE);
-        textViewObstetrician.setVisibility(View.GONE);
-        textViewOphthalmologist.setVisibility(View.GONE);
-        textViewOtolaryngologist.setVisibility(View.GONE);
-        textViewPediatrician.setVisibility(View.GONE);
-        textViewPsychiatrist.setVisibility(View.GONE);
-        textViewRheumatologist.setVisibility(View.GONE);
-        textViewUrologist.setVisibility(View.GONE);
-        textViewGastroenterologist.setVisibility(View.GONE);
-        textViewNeurologist.setVisibility(View.GONE);
-        textViewOther.setVisibility(View.GONE);
-        textViewGP.setVisibility(View.GONE);
+        makeTextGone();
       }
     });
 
@@ -338,21 +183,7 @@ public class PatientPostForm extends AppCompatActivity {
       public void onClick(View v) {
         doctorINeed = "Rheumatologist";
         textviewChooseDoctor.setText(R.string.rheumatologist);
-        textViewAllergist.setVisibility(View.GONE);
-        textViewCardiologist.setVisibility(View.GONE);
-        textViewDermatologist.setVisibility(View.GONE);
-        textViewNephrologist.setVisibility(View.GONE);
-        textViewObstetrician.setVisibility(View.GONE);
-        textViewOphthalmologist.setVisibility(View.GONE);
-        textViewOtolaryngologist.setVisibility(View.GONE);
-        textViewPediatrician.setVisibility(View.GONE);
-        textViewPsychiatrist.setVisibility(View.GONE);
-        textViewRheumatologist.setVisibility(View.GONE);
-        textViewUrologist.setVisibility(View.GONE);
-        textViewGastroenterologist.setVisibility(View.GONE);
-        textViewNeurologist.setVisibility(View.GONE);
-        textViewOther.setVisibility(View.GONE);
-        textViewGP.setVisibility(View.GONE);
+        makeTextGone();
       }
     });
 
@@ -361,21 +192,7 @@ public class PatientPostForm extends AppCompatActivity {
       public void onClick(View v) {
         doctorINeed = "Urologist";
         textviewChooseDoctor.setText(R.string.urologist);
-        textViewAllergist.setVisibility(View.GONE);
-        textViewCardiologist.setVisibility(View.GONE);
-        textViewDermatologist.setVisibility(View.GONE);
-        textViewNephrologist.setVisibility(View.GONE);
-        textViewObstetrician.setVisibility(View.GONE);
-        textViewOphthalmologist.setVisibility(View.GONE);
-        textViewOtolaryngologist.setVisibility(View.GONE);
-        textViewPediatrician.setVisibility(View.GONE);
-        textViewPsychiatrist.setVisibility(View.GONE);
-        textViewRheumatologist.setVisibility(View.GONE);
-        textViewUrologist.setVisibility(View.GONE);
-        textViewGastroenterologist.setVisibility(View.GONE);
-        textViewNeurologist.setVisibility(View.GONE);
-        textViewOther.setVisibility(View.GONE);
-        textViewGP.setVisibility(View.GONE);
+        makeTextGone();
       }
     });
 
@@ -384,21 +201,7 @@ public class PatientPostForm extends AppCompatActivity {
       public void onClick(View v) {
         doctorINeed = "Gastroenterologist";
         textviewChooseDoctor.setText(R.string.gastroenterologist);
-        textViewAllergist.setVisibility(View.GONE);
-        textViewCardiologist.setVisibility(View.GONE);
-        textViewDermatologist.setVisibility(View.GONE);
-        textViewNephrologist.setVisibility(View.GONE);
-        textViewObstetrician.setVisibility(View.GONE);
-        textViewOphthalmologist.setVisibility(View.GONE);
-        textViewOtolaryngologist.setVisibility(View.GONE);
-        textViewPediatrician.setVisibility(View.GONE);
-        textViewPsychiatrist.setVisibility(View.GONE);
-        textViewRheumatologist.setVisibility(View.GONE);
-        textViewUrologist.setVisibility(View.GONE);
-        textViewGastroenterologist.setVisibility(View.GONE);
-        textViewNeurologist.setVisibility(View.GONE);
-        textViewOther.setVisibility(View.GONE);
-        textViewGP.setVisibility(View.GONE);
+        makeTextGone();
       }
     });
 
@@ -407,21 +210,7 @@ public class PatientPostForm extends AppCompatActivity {
       public void onClick(View v) {
         doctorINeed = "Neurologist";
         textviewChooseDoctor.setText(R.string.neurologist);
-        textViewAllergist.setVisibility(View.GONE);
-        textViewCardiologist.setVisibility(View.GONE);
-        textViewDermatologist.setVisibility(View.GONE);
-        textViewNephrologist.setVisibility(View.GONE);
-        textViewObstetrician.setVisibility(View.GONE);
-        textViewOphthalmologist.setVisibility(View.GONE);
-        textViewOtolaryngologist.setVisibility(View.GONE);
-        textViewPediatrician.setVisibility(View.GONE);
-        textViewPsychiatrist.setVisibility(View.GONE);
-        textViewRheumatologist.setVisibility(View.GONE);
-        textViewUrologist.setVisibility(View.GONE);
-        textViewGastroenterologist.setVisibility(View.GONE);
-        textViewNeurologist.setVisibility(View.GONE);
-        textViewOther.setVisibility(View.GONE);
-        textViewGP.setVisibility(View.GONE);
+        makeTextGone();
       }
     });
 
@@ -430,21 +219,7 @@ public class PatientPostForm extends AppCompatActivity {
       public void onClick(View v) {
         doctorINeed = "Other";
         textviewChooseDoctor.setText(R.string.other);
-        textViewAllergist.setVisibility(View.GONE);
-        textViewCardiologist.setVisibility(View.GONE);
-        textViewDermatologist.setVisibility(View.GONE);
-        textViewNephrologist.setVisibility(View.GONE);
-        textViewObstetrician.setVisibility(View.GONE);
-        textViewOphthalmologist.setVisibility(View.GONE);
-        textViewOtolaryngologist.setVisibility(View.GONE);
-        textViewPediatrician.setVisibility(View.GONE);
-        textViewPsychiatrist.setVisibility(View.GONE);
-        textViewRheumatologist.setVisibility(View.GONE);
-        textViewUrologist.setVisibility(View.GONE);
-        textViewGastroenterologist.setVisibility(View.GONE);
-        textViewNeurologist.setVisibility(View.GONE);
-        textViewOther.setVisibility(View.GONE);
-        textViewGP.setVisibility(View.GONE);
+        makeTextGone();
       }
     });
 
@@ -470,6 +245,24 @@ public class PatientPostForm extends AppCompatActivity {
         finish();
       }
     });
+  }
+
+  public void makeTextGone() {
+    textViewAllergist.setVisibility(View.GONE);
+    textViewCardiologist.setVisibility(View.GONE);
+    textViewDermatologist.setVisibility(View.GONE);
+    textViewNephrologist.setVisibility(View.GONE);
+    textViewObstetrician.setVisibility(View.GONE);
+    textViewOphthalmologist.setVisibility(View.GONE);
+    textViewOtolaryngologist.setVisibility(View.GONE);
+    textViewPediatrician.setVisibility(View.GONE);
+    textViewPsychiatrist.setVisibility(View.GONE);
+    textViewRheumatologist.setVisibility(View.GONE);
+    textViewUrologist.setVisibility(View.GONE);
+    textViewGastroenterologist.setVisibility(View.GONE);
+    textViewNeurologist.setVisibility(View.GONE);
+    textViewOther.setVisibility(View.GONE);
+    textViewGP.setVisibility(View.GONE);
   }
 }
 
