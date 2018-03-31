@@ -37,7 +37,6 @@ public class LoginActivity extends AppCompatActivity {
   private EditText signInEmail;
   private EditText signInPassword;
   private String type;
-  private FirebaseAuth firebaseAuth;
   private Button registerButton;
   private Button signInButton;
 
