@@ -203,6 +203,7 @@ public class DoctorsForumFragment extends Fragment {
         DatabaseReference databaseReference;
         FirebaseRecyclerAdapter<DoctorPost, DoctorsForumFragment.DoctorPosts> fireBaseRecyclerAdapter;
         String name;
+        Boolean vis=true;
 
         public DoctorPosts(View itemView, FirebaseRecyclerAdapter<DoctorPost, DoctorsForumFragment.DoctorPosts> fireBaseRecyclerAdapter) {
             super(itemView);
@@ -245,11 +246,16 @@ public class DoctorsForumFragment extends Fragment {
 
         @Override
         public boolean onLongClick(View v) {
-            if (v.getId() == itemView.getId()) {
+            if (v.getId() == itemView.getId() && vis) {
                 if (name.equals(doctorName.getText().toString())) {
                     button.setVisibility(View.VISIBLE);
+                    vis=false;
                     return true;
                 }
+            } else{
+                button.setVisibility(View.GONE);
+                vis=true;
+                return true;
             }
             return false;
         }
