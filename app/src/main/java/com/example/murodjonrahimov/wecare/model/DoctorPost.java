@@ -10,21 +10,12 @@ public class DoctorPost {
   private String addedBy;
   private String timeStamp;
   private String key;
-  private String doctorINeed;
 
-  public DoctorPost(String message, String addedBy, String timeStamp, String doctorINeed) {
-    this.message = message;
-    this.addedBy = addedBy;
-    this.timeStamp = timeStamp;
-    this.doctorINeed = doctorINeed;
-  }
-
-  public DoctorPost(String message, String addedBy, String timeStamp, String key, String doctorINeed) {
+  public DoctorPost(String message, String addedBy, String timeStamp, String key) {
     this.message = message;
     this.addedBy = addedBy;
     this.timeStamp = timeStamp;
     this.key = key;
-    this.doctorINeed = doctorINeed;
   }
 
   public DoctorPost(String message, String addedBy, String timeStamp) {
@@ -66,13 +57,5 @@ public class DoctorPost {
 
   public void setTimeStamp(String timeStamp) {
     this.timeStamp = timeStamp;
-  }
-
-  public String getDoctorINeed() {
-    return doctorINeed;
-  }
-
-  public void setDoctorINeed(String doctorINeed) {
-    this.doctorINeed = doctorINeed;
   }
 }
