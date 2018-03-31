@@ -109,7 +109,7 @@ public class DoctorsForumFragment extends Fragment {
             @Override
             protected void onBindViewHolder(@NonNull final DoctorsForumFragment.DoctorPosts holder, int position,
                                             @NonNull final DoctorPost doctor) {
-                final String[] name2 = {null};
+
                 database2 = FirebaseDatabase.getInstance()
                         .getReference()
                         .child("doctors")
@@ -120,8 +120,8 @@ public class DoctorsForumFragment extends Fragment {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 Doctor doctors = dataSnapshot.getValue(Doctor.class);
-                                name2[0] = doctors.getFirstName() + " " + doctors.getLastName();
-                                holder.doctorName.setText(name2[0]);
+                                name = doctors.getFirstName() + " " + doctors.getLastName();
+                                holder.doctorName.setText(name);
                                 holder.message.setText(doctor.getMessage());
                                 holder.time.setText(doctor.getTimeStamp());
                             }
@@ -139,7 +139,7 @@ public class DoctorsForumFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
 
-                        listenerDoc.onclick(key, doctor.getMessage(), doctor.getTimeStamp(), doctor.getAddedBy(), name2[0]);
+                        listenerDoc.onclick(key, doctor.getMessage(), doctor.getTimeStamp(), doctor.getAddedBy(), name);
                     }
                 });
             }
