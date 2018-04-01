@@ -48,6 +48,9 @@ public class Database {
   public static void saveDoctorURI(String uri, String key){
     getDatabase().child("DoctorPost").child(key).child("uri").setValue(uri);
   }
+  public static void saveURIDoctor(String uri){
+    getDatabase().child("doctors").child(Database.getUserId()).child("uri").setValue(uri);
+  }
 
   public static void saveDoctor(Doctor doctor) {
     FirebaseUser user = FirebaseAuth.getInstance()

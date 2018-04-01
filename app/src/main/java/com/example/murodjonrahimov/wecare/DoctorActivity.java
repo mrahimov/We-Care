@@ -23,128 +23,128 @@ import com.google.firebase.storage.UploadTask;
 
 public class DoctorActivity extends AppCompatActivity implements DoctorsForumFragment.onClickListenerDoctor {
 
-  private ActionBar toolbar;
-  DoctorsForumFragment fragment2;
-  DoctorsForumFragment.DoctorPosts doctorPosts;
-  Uri uri;
-   String key;
-  private StorageReference storageReference;
+    private ActionBar toolbar;
+    DoctorsForumFragment fragment2;
+    DoctorsForumFragment.DoctorPosts doctorPosts;
+    Uri uri;
+    String key;
+    private StorageReference storageReference;
 
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.doctor_activity);
-    FirebaseMessaging.getInstance()
-      .subscribeToTopic("notifications");
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.doctor_activity);
+        FirebaseMessaging.getInstance()
+                .subscribeToTopic("notifications");
 
-    toolbar = getSupportActionBar();
-    loadFragment(new DoctorsForumFragment());
+        toolbar = getSupportActionBar();
+        loadFragment(new DoctorsForumFragment());
 
-    BottomNavigationView navigation = findViewById(R.id.navigation);
-    storageReference = FirebaseStorage.getInstance()
-            .getReference();
+        BottomNavigationView navigation = findViewById(R.id.navigation);
+        storageReference = FirebaseStorage.getInstance()
+                .getReference();
 
-    navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-      @Override
-      public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        android.support.v4.app.Fragment fragment;
+                android.support.v4.app.Fragment fragment;
 
-        switch (item.getItemId()) {
-          case R.id.navigation_doctors:
-            toolbar.setTitle("Doctors");
-            DoctorsForumFragment doctorsForumFragment = (DoctorsForumFragment) getSupportFragmentManager().findFragmentByTag("docFrag");
-            if(doctorsForumFragment==null) {
-               fragment2 = new DoctorsForumFragment();
+                switch (item.getItemId()) {
+                    case R.id.navigation_doctors:
+                        toolbar.setTitle("Doctors");
+                        DoctorsForumFragment doctorsForumFragment = (DoctorsForumFragment) getSupportFragmentManager().findFragmentByTag("docFrag");
+                        if (doctorsForumFragment == null) {
+                            fragment2 = new DoctorsForumFragment();
 
-              FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-              transaction.replace(R.id.frame_container, fragment2, "docFrag");
-              transaction.addToBackStack(null);
-              transaction.commit();
+                            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                            transaction.replace(R.id.frame_container, fragment2, "docFrag");
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+                        } else {
+                            reInsertFragment(doctorsForumFragment);
+                        }
+                        return true;
+                    case R.id.navigation_my_profile:
+                        toolbar.setTitle("Doctor Profile");
+                        fragment = new DoctorProfileFragment();
+                        loadFragment(fragment);
+                        return true;
+                    case R.id.navigation_posts:
+                        toolbar.setTitle("Posts");
+                        fragment = new AllPatientsPostsFragment();
+                        loadFragment(fragment);
+                        return true;
+                }
+                return false;
             }
-            else {
-              reInsertFragment(doctorsForumFragment);
-            }
-            return true;
-          case R.id.navigation_my_profile:
-            toolbar.setTitle("Doctor Profile");
-            fragment = new DoctorProfileFragment();
-            loadFragment(fragment);
-            return true;
-          case R.id.navigation_posts:
-            toolbar.setTitle("Posts");
-            fragment = new AllPatientsPostsFragment();
-            loadFragment(fragment);
-            return true;
-        }
-        return false;
-      }
-    });
-  }
+        });
+    }
 
-  private void loadFragment(android.support.v4.app.Fragment fragment) {
+    private void loadFragment(android.support.v4.app.Fragment fragment) {
 
-    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-    transaction.replace(R.id.frame_container, fragment);
-    transaction.addToBackStack(null);
-    transaction.commit();
-  }
-  public void reInsertFragment(Fragment fragment){
-    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-    transaction.replace(R.id.frame_container, fragment,"docFrag");
-    transaction.addToBackStack(null);
-    transaction.commit();
-  }
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void reInsertFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_container, fragment, "docFrag");
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 
 
-  @Override
-  public void onclick(String key, String message, String timestamp, String addedBy, String name) {
-    Intent intent = new Intent(DoctorActivity.this, PostDoctorComments.class);
-    intent.putExtra("key", key);
-    intent.putExtra("message", message);
-    intent.putExtra("timestamp", timestamp);
-    intent.putExtra("addedby", name);
-    startActivity(intent);
-  }
+    @Override
+    public void onclick(String key, String message, String timestamp, String addedBy, String name) {
+        Intent intent = new Intent(DoctorActivity.this, PostDoctorComments.class);
+        intent.putExtra("key", key);
+        intent.putExtra("message", message);
+        intent.putExtra("timestamp", timestamp);
+        intent.putExtra("addedby", name);
+        startActivity(intent);
+    }
 
-  @Override
-  public void Uri(DoctorsForumFragment.DoctorPosts doctorPosts, String key) {
-    Intent intent = new Intent(Intent.ACTION_PICK);
-    intent.setType("image/*");
-    startActivityForResult(intent,7);
-    this.doctorPosts=doctorPosts;
-    this.key=key;
+    @Override
+    public void Uri(DoctorsForumFragment.DoctorPosts doctorPosts, String key) {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, 7);
+        this.doctorPosts = doctorPosts;
+        this.key = key;
 
-  }
+    }
 
-  @Override
-  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-    super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
 
-    if (requestCode == 7 && resultCode == RESULT_OK) {
-      this.uri = data.getData();
-      doctorPosts.loadingProfileImage(uri,"onActivityResult");
-          String user= Database.getUserId();
+        if (requestCode == 7 && resultCode == RESULT_OK) {
+            this.uri = data.getData();
+            doctorPosts.loadingProfileImage(uri, "onActivityResult");
+            String user = Database.getUserId();
 
             assert uri != null;
             StorageReference docImage = storageReference.child(user)
                     .child(uri.getAuthority());
-                    docImage.putFile(uri)
+            docImage.putFile(uri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                             Uri downloadUri = taskSnapshot.getDownloadUrl();
 
-                            Database.saveDoctorURI(downloadUri.toString(),key);
+                            Database.saveDoctorURI(downloadUri.toString(), key);
 
                         }
                     });
 
+        }
     }
-  }
 }
 
 
