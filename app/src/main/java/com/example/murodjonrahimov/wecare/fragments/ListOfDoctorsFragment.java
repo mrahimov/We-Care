@@ -93,10 +93,10 @@ public class ListOfDoctorsFragment extends Fragment {
 
                 Picasso.get().load(doctor.getUri()).into(holder.imageView);
                 holder.setNumberOfComments(doctor.getFirstName(), doctor.getLastName());
-                holder.name.setText(doctor.getFirstName() + " " + doctor.getLastName());
-                holder.yearsOfExp.setText(doctor.getYearsOfExperience());
-                holder.country.setText(doctor.getCountryOfPractice());
-                holder.major.setText(doctor.getMajor());
+                holder.name.setText("Name: "+doctor.getFirstName() + " " + doctor.getLastName());
+                holder.yearsOfExp.setText("years of exp: "+doctor.getYearsOfExperience());
+                holder.country.setText("Country: "+doctor.getCountryOfPractice());
+                holder.major.setText("Major: "+doctor.getMajor());
               }
             };
     recyclerview.setAdapter(fireBaseRecyclerAdapter);
@@ -150,7 +150,7 @@ public class ListOfDoctorsFragment extends Fragment {
               count++;
             }
           }
-          numberOfComments.setText(String.valueOf(count));
+          numberOfComments.setText("Number of comments: "+String.valueOf(count));
           LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
                   new DataPoint(0, 1),
                   new DataPoint(1, 5),
@@ -166,7 +166,9 @@ public class ListOfDoctorsFragment extends Fragment {
 
           graph.setTitle("Doctor Activity");
           graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.NONE);
-          graph.getViewport().setDrawBorder(true);
+          graph.getGridLabelRenderer().setVerticalLabelsVisible( false );
+          graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+
           graph.addSeries(series);
 
 
