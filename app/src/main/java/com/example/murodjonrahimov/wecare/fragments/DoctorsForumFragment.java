@@ -225,7 +225,7 @@ public class DoctorsForumFragment extends Fragment {
             String user = Database.getUserId();
             imageView1= itemView.findViewById(R.id.image2);
             button1 = itemView.findViewById(R.id.upload);
-            //button1.setVisibility(View.GONE);
+            button1.setVisibility(View.GONE);
             databaseReference = FirebaseDatabase.getInstance()
                     .getReference()
                     .child("doctors").child(user);
