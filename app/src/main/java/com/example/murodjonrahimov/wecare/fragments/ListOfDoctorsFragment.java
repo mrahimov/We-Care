@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.murodjonrahimov.wecare.R;
@@ -27,6 +28,7 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.squareup.picasso.Picasso;
 
 public class ListOfDoctorsFragment extends Fragment {
   private View view;
@@ -88,14 +90,13 @@ public class ListOfDoctorsFragment extends Fragment {
               protected void onBindViewHolder(@NonNull ListOfDoctorsFragment.DoctorsListViewHolder holder,
                                               int position,
                                               @NonNull final Doctor doctor) {
-///////// in here
-                String id= doctor.getUid();
 
+                Picasso.get().load(doctor.getUri()).into(holder.imageView);
                 holder.setNumberOfComments(doctor.getFirstName(), doctor.getLastName());
-                holder.name.setText(doctor.getFirstName() + " " + doctor.getLastName());
-                holder.yearsOfExp.setText(doctor.getYearsOfExperience());
-                holder.country.setText(doctor.getCountryOfPractice());
-                holder.major.setText(doctor.getMajor());
+                holder.name.setText("Name: "+doctor.getFirstName() + " " + doctor.getLastName());
+                holder.yearsOfExp.setText("years of exp: "+doctor.getYearsOfExperience());
+                holder.country.setText("Country: "+doctor.getCountryOfPractice());
+                holder.major.setText("Major: "+doctor.getMajor());
               }
             };
     recyclerview.setAdapter(fireBaseRecyclerAdapter);
@@ -121,6 +122,7 @@ public class ListOfDoctorsFragment extends Fragment {
     TextView numberOfComments;
     private int count;
     GraphView graph;
+    ImageView imageView;
     DatabaseReference databaseReference =FirebaseDatabase.getInstance()
             .getReference().child("comments");
 
@@ -133,6 +135,7 @@ public class ListOfDoctorsFragment extends Fragment {
       major = itemView.findViewById(R.id.major);
       numberOfComments = itemView.findViewById(R.id.number_of_doctors_comments1);
       graph = itemView.findViewById(R.id.graph);
+      imageView = itemView.findViewById(R.id.image1);
     }
 
     private void setNumberOfComments( final String firstName, final String lastName) {
@@ -147,7 +150,7 @@ public class ListOfDoctorsFragment extends Fragment {
               count++;
             }
           }
-          numberOfComments.setText(String.valueOf(count));
+          numberOfComments.setText("Number of comments: "+String.valueOf(count));
           LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
                   new DataPoint(0, 1),
                   new DataPoint(1, 5),
@@ -163,7 +166,9 @@ public class ListOfDoctorsFragment extends Fragment {
 
           graph.setTitle("Doctor Activity");
           graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.NONE);
-          graph.getViewport().setDrawBorder(true);
+          graph.getGridLabelRenderer().setVerticalLabelsVisible( false );
+          graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+
           graph.addSeries(series);
 
 
