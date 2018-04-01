@@ -3,8 +3,8 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:padding="16dp"
-  android:orientation="vertical">
+  android:orientation="vertical"
+  android:padding="16dp">
 
     <LinearLayout
       android:id="@+id/doctor_need_linearlayout"
@@ -134,22 +134,79 @@
       android:visibility="gone"/>
 
 
-
     <EditText
       android:id="@+id/message_ed"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:hint="@string/message"/>
 
-    <Button
-      android:id="@+id/save_button"
-      android:layout_width="wrap_content"
+    <LinearLayout
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="@string/save"/>
+      android:layout_marginTop="20dp"
+      android:orientation="horizontal">
 
-    <ImageButton
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"/>
+        <Button
+          android:id="@+id/save_button"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/save"/>
+
+        <ImageButton
+          android:id="@+id/add_image_patient_post"
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          android:layout_gravity="center"
+          android:layout_marginLeft="170dp"
+          android:background="@drawable/camera"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="100dp"
+      android:layout_marginTop="20dp"
+      android:orientation="horizontal">
+
+        <ImageView
+          android:id="@+id/image_patient_post01"
+          android:layout_width="100dp"
+          android:layout_height="match_parent"/>
+
+        <ImageView
+          android:id="@+id/image_patient_post02"
+          android:layout_width="100dp"
+          android:layout_height="match_parent"/>
+
+        <ImageView
+          android:id="@+id/image_patient_post03"
+          android:layout_width="100dp"
+          android:layout_height="match_parent"/>
+
+</LinearLayout>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="100dp"
+      android:layout_marginTop="20dp"
+      android:orientation="horizontal">
+
+        <ImageView
+          android:id="@+id/image_patient_post04"
+          android:layout_width="100dp"
+          android:layout_height="match_parent"/>
+
+        <ImageView
+          android:id="@+id/image_patient_post05"
+          android:layout_width="100dp"
+          android:layout_height="match_parent"/>
+
+        <ImageView
+          android:id="@+id/image_patient_post06"
+          android:layout_width="100dp"
+          android:layout_height="match_parent"/>
+
+    </LinearLayout>
 
 
 </LinearLayout>

@@ -62,5 +62,6 @@
     <string name="doctor_label">Give back to communities in need</string>
     <string name="welcome_label">The app that everyone is talking about</string>
     <string name="next_label">WeCare is here to give a helping hand, Yay!</string>
+    <string name="title_activity_pop_camera">PopCameraActivity</string>
 
 </resources>
