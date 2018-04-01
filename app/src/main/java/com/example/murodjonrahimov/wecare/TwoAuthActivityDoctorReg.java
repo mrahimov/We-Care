@@ -11,6 +11,8 @@ import android.widget.Toast;
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Doctor;
 
+import es.dmoral.toasty.Toasty;
+
 public class TwoAuthActivityDoctorReg extends AppCompatActivity {
     private EditText firstName;
     private EditText lastName;
@@ -28,8 +30,8 @@ public class TwoAuthActivityDoctorReg extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(lastName.getText().toString().matches("") && firstName.getText().toString().matches("")) {
-                    Toast.makeText(getApplicationContext(),"information invalid",
-                            Toast.LENGTH_LONG).show();
+                    Toasty.error(getApplicationContext(),"information invalid",
+                            Toast.LENGTH_LONG,true).show();
                 }
                 else{
                     Doctor doctor = new Doctor();

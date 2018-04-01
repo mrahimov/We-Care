@@ -27,6 +27,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.ProviderQueryResult;
 
+import es.dmoral.toasty.Toasty;
+
 import static com.example.murodjonrahimov.wecare.model.TermsAndConditions.terms;
 
 public class RegistrationActivity extends AppCompatActivity {
@@ -101,14 +103,14 @@ public class RegistrationActivity extends AppCompatActivity {
                 username = userNameRegistration.getText().toString();
 
                 if (email.equals("") || password.equals("") || licence.equals("") && username.equals("")) {
-                    Toast.makeText(RegistrationActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG)
-                            .show();
+
+                    Toasty.error(RegistrationActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG, true).show();
                     return;
                 }
 
                 if (doctorCheckbox.isChecked() && licence.equals("")) {
-                    Toast.makeText(RegistrationActivity.this, "Please enter a valid licence id", Toast.LENGTH_LONG)
-                            .show();
+
+                    Toasty.error(RegistrationActivity.this, "Please enter a valid licence id", Toast.LENGTH_LONG, true).show();
                 }
 
                 final ProgressDialog progressDialog = ProgressDialog.show(RegistrationActivity.this, "Please wait ...", "Processing...", true);
@@ -124,10 +126,9 @@ public class RegistrationActivity extends AppCompatActivity {
 
                                 if (check) {
 
-                                    Toast.makeText(RegistrationActivity.this,
-                                            "It looks like you already have a WeCare account for this email address. Please try login in.",
-                                            Toast.LENGTH_LONG)
-                                            .show();
+
+                                    Toasty.info(RegistrationActivity.this, "It looks like you already have a WeCare account for this email address. Please try login in.", Toast.LENGTH_LONG, true).show();
+
                                     return;
                                 }
 
@@ -159,7 +160,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                                         @Override
                                                         public void onComplete(@NonNull final Task<AuthResult> task) {
                                                             progressDialog.dismiss();
-                                                            Toast.makeText(RegistrationActivity.this, "Registration successful", Toast.LENGTH_LONG)
+                                                            Toasty.success(RegistrationActivity.this, "Registration successful", Toast.LENGTH_LONG,true)
                                                                     .show();
 
                                                             SharedPreferences preferences =
