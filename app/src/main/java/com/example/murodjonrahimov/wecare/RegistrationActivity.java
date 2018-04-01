@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.ProviderQueryResult;
 
 import static com.example.murodjonrahimov.wecare.model.TermsAndConditions.terms;
 
@@ -61,16 +62,14 @@ public class RegistrationActivity extends AppCompatActivity {
     final EditText userNameRegistration = findViewById(R.id.username_edit_text);
     final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-
     Intent intent = getIntent();
 
     String savedEmail = intent.getStringExtra(EMAIL_KEY);
     String savedPassword = intent.getStringExtra(PASSWORD_KEY);
 
-    if (savedEmail!= null || savedPassword != null) {
+    if (savedEmail != null || savedPassword != null) {
       emailRegistration.setText(savedEmail);
       passwordRegistration.setText(savedPassword);
-
     }
     doctorCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
       @Override
@@ -97,10 +96,8 @@ public class RegistrationActivity extends AppCompatActivity {
           .toString();
         password = passwordRegistration.getText()
           .toString();
-
         licence = licenceId.getText()
           .toString();
-
         username = userNameRegistration.getText()
           .toString();
 
@@ -113,16 +110,28 @@ public class RegistrationActivity extends AppCompatActivity {
         if (doctorCheckbox.isChecked() && licence.equals("")) {
           Toast.makeText(RegistrationActivity.this, "Please enter a valid licence id", Toast.LENGTH_LONG)
             .show();
-        } else {
+        }
 
-          final ProgressDialog progressDialog =
-            ProgressDialog.show(RegistrationActivity.this, "Please wait ...", "Processing...", true);
-          (firebaseAuth.createUserWithEmailAndPassword(email, password)).addOnCompleteListener(
-            new OnCompleteListener<AuthResult>() {
-              @Override
-              public void onComplete(@NonNull final Task<AuthResult> task) {
-                progressDialog.dismiss();
+        final ProgressDialog progressDialog =
+          ProgressDialog.show(RegistrationActivity.this, "Please wait ...", "Processing...", true);
 
+        firebaseAuth.fetchProvidersForEmail(email)
+          .addOnCompleteListener(new OnCompleteListener<ProviderQueryResult>() {
+            @Override
+            public void onComplete(@NonNull Task<ProviderQueryResult> task) {
+              progressDialog.dismiss();
+              boolean check = !task.getResult()
+                .getProviders()
+                .isEmpty();
+
+              if (check) {
+
+                Toast.makeText(RegistrationActivity.this,
+                  "It looks like you already have a WeCare account for this email address. Please try login in.",
+                  Toast.LENGTH_LONG)
+                  .show();
+                return;
+              } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(RegistrationActivity.this);
                 builder.setTitle("Terms and Conditions");
 
@@ -137,6 +146,7 @@ public class RegistrationActivity extends AppCompatActivity {
                   @Override
                   public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
+                    return;
                   }
                 });
 
@@ -144,14 +154,21 @@ public class RegistrationActivity extends AppCompatActivity {
                   @Override
                   public void onClick(DialogInterface dialog, int which) {
 
-                    Toast.makeText(RegistrationActivity.this, "Registration successful", Toast.LENGTH_LONG)
-                      .show();
+                    (firebaseAuth.createUserWithEmailAndPassword(email, password)).addOnCompleteListener(
+                      new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull final Task<AuthResult> task) {
+                          progressDialog.dismiss();
+                          Toast.makeText(RegistrationActivity.this, "Registration successful", Toast.LENGTH_LONG)
+                            .show();
 
-                    SharedPreferences preferences =
-                      getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString(USERNAME_KEY, username);
-                    editor.apply();
+                          SharedPreferences preferences =
+                            getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
+                          SharedPreferences.Editor editor = preferences.edit();
+                          editor.putString(USERNAME_KEY, username);
+                          editor.apply();
+                        }
+                      });
 
                     if (doctorCheckbox.isChecked()) {
                       Doctor doctor = new Doctor();
@@ -171,8 +188,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 });
                 builder.show();
               }
-            });
-        }
+            }
+          });
       }
     });
   }
