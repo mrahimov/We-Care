@@ -71,9 +71,16 @@ public class Database {
       .child("countOfComments")
       .setValue(commentCount);
   }
+  public static void updateStatusOfPost(String postID, boolean isResolved) {
+    getDatabase().child("posts")
+            .child(postID)
+            .child("resolved")
+            .setValue(isResolved);
+  }
 
   public static void updateDoctor(Doctor doctor) {
     getDatabase().child("doctors")
       .setValue(doctor);
   }
+
 }

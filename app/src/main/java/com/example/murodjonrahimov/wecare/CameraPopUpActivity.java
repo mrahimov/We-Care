@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import com.example.murodjonrahimov.wecare.database.Database;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.FirebaseStorage;
@@ -19,7 +21,7 @@ import com.google.firebase.storage.UploadTask;
 
 public class CameraPopUpActivity extends AppCompatActivity {
 
-  public static final int CAMERA_REQUEST_CODE = 5;
+  public static final int CAMERA_REQUEST_CODE = 1;
   private ImageButton imageButtonGallery;
   private ImageButton imageButtonCamera;
   private StorageReference mStorage;
@@ -35,6 +37,7 @@ public class CameraPopUpActivity extends AppCompatActivity {
 
     db = Database.getDatabase();
     userID = Database.getUserId();
+    mStorage = FirebaseStorage.getInstance().getReference();
 
 
     imageButtonCamera = findViewById(R.id.image_button_camera);
@@ -74,12 +77,8 @@ public class CameraPopUpActivity extends AppCompatActivity {
        uri = data.getData();
 
 
-      mStorage = FirebaseStorage.getInstance()
-        .getReference();
 
-      assert uri != null;
-      StorageReference docImage = mStorage.child(userID)
-        .child(uri.getAuthority());
+      StorageReference docImage = mStorage.child("Photos").child(uri.getLastPathSegment());
 
       docImage.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
         @Override
@@ -87,6 +86,12 @@ public class CameraPopUpActivity extends AppCompatActivity {
 
           progressDialog.dismiss();
           Toast.makeText(CameraPopUpActivity.this, "Uploading finished", Toast.LENGTH_SHORT).show();
+
+        }
+      }).addOnFailureListener(new OnFailureListener() {
+        @Override
+        public void onFailure(@NonNull Exception e) {
+          Toast.makeText(CameraPopUpActivity.this, "WeCare don't have permission to camera...", Toast.LENGTH_SHORT).show();
 
         }
       });

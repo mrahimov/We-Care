@@ -5,128 +5,141 @@ import android.os.Parcelable;
 
 public class Post implements Parcelable {
 
-  private String message;
-  private String addedBy;
-  private String timeStamp;
-  private String key;
-  private String postedByUserName;
-  private int countOfComments;
-  private String doctorINeed;
+    private String message;
+    private String addedBy;
+    private String timeStamp;
+    private String key;
+    private String postedByUserName;
+    private int countOfComments;
+    private String doctorINeed;
+    private boolean resolved;
 
-  public Post(String message, String addedBy, String timeStamp, String key, String postedByUserName, int countOfComments) {
-    this.message = message;
-    this.addedBy = addedBy;
-    this.timeStamp = timeStamp;
-    this.key = key;
-    this.postedByUserName = postedByUserName;
-    this.countOfComments = countOfComments;
-  }
+    public Post(String message, String addedBy, String timeStamp, String key, String postedByUserName, int countOfComments, boolean resolved) {
+        this.message = message;
+        this.addedBy = addedBy;
+        this.timeStamp = timeStamp;
+        this.key = key;
+        this.postedByUserName = postedByUserName;
+        this.countOfComments = countOfComments;
+        this.resolved = resolved;
+    }
 
-  public Post(String message, String timeStamp, String postedByUserName, String doctorINeed) {
-    this.message = message;
-    this.timeStamp = timeStamp;
-    this.postedByUserName = postedByUserName;
-    this.doctorINeed = doctorINeed;
-  }
+    public Post(String message, String timeStamp, String postedByUserName, String doctorINeed) {
+        this.message = message;
+        this.timeStamp = timeStamp;
+        this.postedByUserName = postedByUserName;
+        this.doctorINeed = doctorINeed;
+    }
 
-  public Post() {
-  }
+    public Post() {
+    }
 
-  public String getPostedByUserName() {
-    return postedByUserName;
-  }
+    public boolean isResolved() {
+        return resolved;
+    }
 
-  public void setPostedByUserName(String postedByUserName) {
-    this.postedByUserName = postedByUserName;
-  }
+    public void setResolved(boolean resolved) {
+        this.resolved = resolved;
+    }
 
-  public int getCountOfComments() {
-    return countOfComments;
-  }
+    public String getPostedByUserName() {
+        return postedByUserName;
+    }
 
-  public void setCountOfComments(int countOfComments) {
-    this.countOfComments = countOfComments;
-  }
+    public void setPostedByUserName(String postedByUserName) {
+        this.postedByUserName = postedByUserName;
+    }
 
-  public String getKey() {
-    return key;
-  }
+    public int getCountOfComments() {
+        return countOfComments;
+    }
 
-  public void setKey(String key) {
-    this.key = key;
-  }
+    public void setCountOfComments(int countOfComments) {
+        this.countOfComments = countOfComments;
+    }
 
-  public String getMessage() {
-    return message;
-  }
+    public String getKey() {
+        return key;
+    }
 
-  public void setMessage(String message) {
-    this.message = message;
-  }
+    public void setKey(String key) {
+        this.key = key;
+    }
 
-  public String getAddedBy() {
-    return addedBy;
-  }
+    public String getMessage() {
+        return message;
+    }
 
-  public void setAddedBy(String addedBy) {
-    this.addedBy = addedBy;
-  }
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-  public String getTimeStamp() {
-    return timeStamp;
-  }
+    public String getAddedBy() {
+        return addedBy;
+    }
 
-  public void setTimeStamp(String timeStamp) {
-    this.timeStamp = timeStamp;
-  }
+    public void setAddedBy(String addedBy) {
+        this.addedBy = addedBy;
+    }
 
-  public static Creator<Post> getCREATOR() {
-    return CREATOR;
-  }
+    public String getTimeStamp() {
+        return timeStamp;
+    }
 
-  public String getDoctorINeed() {
-    return doctorINeed;
-  }
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
+    }
 
-  public void setDoctorINeed(String doctorINeed) {
-    this.doctorINeed = doctorINeed;
-  }
+    public static Creator<Post> getCREATOR() {
+        return CREATOR;
+    }
 
-  @Override
-  public int describeContents() {
-    return 0;
-  }
+    public String getDoctorINeed() {
+        return doctorINeed;
+    }
 
-  @Override
-  public void writeToParcel(Parcel dest, int flags) {
-    dest.writeString(this.message);
-    dest.writeString(this.addedBy);
-    dest.writeString(this.timeStamp);
-    dest.writeString(this.key);
-    //dest.writeString(this.doctorINeed);
-    dest.writeString(this.postedByUserName);
-    dest.writeInt(this.countOfComments);
-  }
+    public void setDoctorINeed(String doctorINeed) {
+        this.doctorINeed = doctorINeed;
+    }
 
-  protected Post(Parcel in) {
-    this.message = in.readString();
-    this.addedBy = in.readString();
-    //this.doctorINeed = in.readString();
-    this.timeStamp = in.readString();
-    this.key = in.readString();
-    this.postedByUserName = in.readString();
-    this.countOfComments = in.readInt();
-  }
 
-  public static final Creator<Post> CREATOR = new Creator<Post>() {
     @Override
-    public Post createFromParcel(Parcel source) {
-      return new Post(source);
+    public int describeContents() {
+        return 0;
     }
 
     @Override
-    public Post[] newArray(int size) {
-      return new Post[size];
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.message);
+        dest.writeString(this.addedBy);
+        dest.writeString(this.timeStamp);
+        dest.writeString(this.key);
+        dest.writeString(this.postedByUserName);
+        dest.writeInt(this.countOfComments);
+        dest.writeString(this.doctorINeed);
+        dest.writeByte(this.resolved ? (byte) 1 : (byte) 0);
     }
-  };
+
+    protected Post(Parcel in) {
+        this.message = in.readString();
+        this.addedBy = in.readString();
+        this.timeStamp = in.readString();
+        this.key = in.readString();
+        this.postedByUserName = in.readString();
+        this.countOfComments = in.readInt();
+        this.doctorINeed = in.readString();
+        this.resolved = in.readByte() != 0;
+    }
+
+    public static final Creator<Post> CREATOR = new Creator<Post>() {
+        @Override
+        public Post createFromParcel(Parcel source) {
+            return new Post(source);
+        }
+
+        @Override
+        public Post[] newArray(int size) {
+            return new Post[size];
+        }
+    };
 }
