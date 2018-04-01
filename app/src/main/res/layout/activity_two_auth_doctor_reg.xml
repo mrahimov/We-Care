@@ -17,6 +17,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="LastName" />
+    <EditText
+        android:id="@+id/country1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Country" />
+    <EditText
+        android:id="@+id/medical1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Medical Speciality" />
+    <EditText
+        android:id="@+id/years_of_experience10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="years of Experience" />
     <Button
         android:id="@+id/savefirstlastname"
         android:layout_width="match_parent"
