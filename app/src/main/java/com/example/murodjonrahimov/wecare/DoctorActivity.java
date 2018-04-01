@@ -21,6 +21,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.UUID;
+
 public class DoctorActivity extends AppCompatActivity implements DoctorsForumFragment.onClickListenerDoctor {
 
     private ActionBar toolbar;
@@ -29,6 +31,8 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
     Uri uri;
     String key;
     private StorageReference storageReference;
+    DoctorProfileFragment doctorProfileFragment;
+    AllPatientsPostsFragment allPatientsPostsFragment;
 
 
     @Override
@@ -49,7 +53,6 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                android.support.v4.app.Fragment fragment;
 
                 switch (item.getItemId()) {
                     case R.id.navigation_doctors:
@@ -68,13 +71,13 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
                         return true;
                     case R.id.navigation_my_profile:
                         toolbar.setTitle("Doctor Profile");
-                        fragment = new DoctorProfileFragment();
-                        loadFragment(fragment);
+                         doctorProfileFragment = new DoctorProfileFragment();
+                        loadFragment(doctorProfileFragment);
                         return true;
                     case R.id.navigation_posts:
                         toolbar.setTitle("Posts");
-                        fragment = new AllPatientsPostsFragment();
-                        loadFragment(fragment);
+                         allPatientsPostsFragment = new AllPatientsPostsFragment();
+                        loadFragment(allPatientsPostsFragment);
                         return true;
                 }
                 return false;
@@ -110,7 +113,7 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
     }
 
     @Override
-    public void Uri(DoctorsForumFragment.DoctorPosts doctorPosts, String key) {
+    public void Uri(final DoctorsForumFragment.DoctorPosts doctorPosts, String key) {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, 7);
@@ -127,10 +130,12 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
         if (requestCode == 7 && resultCode == RESULT_OK) {
             this.uri = data.getData();
             doctorPosts.loadingProfileImage(uri, "onActivityResult");
-            String user = Database.getUserId();
+            doctorPosts=null;
+            String uniqueID = UUID.randomUUID().toString();
+
 
             assert uri != null;
-            StorageReference docImage = storageReference.child(user)
+            StorageReference docImage = storageReference.child(uniqueID)
                     .child(uri.getAuthority());
             docImage.putFile(uri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -144,6 +149,18 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
                         }
                     });
 
+        }
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(fragment2.isVisible() || doctorProfileFragment.isVisible() || allPatientsPostsFragment.isVisible() ){
+            //**//Do Nothing - DOES NOT CLOSE THE APP**
+        }
+        else{
+            super.onBackPressed();
         }
     }
 }

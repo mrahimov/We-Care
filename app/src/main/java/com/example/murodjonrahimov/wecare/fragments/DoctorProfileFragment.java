@@ -279,4 +279,5 @@ public class DoctorProfileFragment extends Fragment {
       .into(doctorImage);
     progressDialog.dismiss();
   }
+
 }

@@ -56,7 +56,12 @@ public class PostDoctorComments extends AppCompatActivity {
     doctorMessage = intent.getStringExtra("message");
     String url = intent.getStringExtra("uri");
 
-    Picasso.get().load(url).into(imageView);
+   if(url==null){
+      imageView.setVisibility(View.GONE);
+    }
+    else {
+      Picasso.get().load(url).into(imageView);
+    }
 
     ImageView sendComment = findViewById(R.id.send_imageview);
 

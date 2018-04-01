@@ -20,6 +20,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
+import com.bumptech.glide.Glide;
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Doctor;
@@ -122,7 +124,9 @@ public class DoctorsForumFragment extends Fragment {
                 final String key = fireBaseRecyclerAdapter.getRef(position)
                         .getKey();
                 holder.setKey(key);
-                Picasso.get().load(doctor.getUri()).into(holder.imageView1);
+               Glide.with(holder.imageView1.getContext())
+                       .load(doctor.getUri()).into(holder.imageView1);
+                //Picasso.get().load(doctor.getUri()).into(holder.imageView1);
                 holder.doctorName.setText(doctor.getFirstname()+" "+doctor.getLastname());
                 holder.message.setText(doctor.getMessage());
                 holder.time.setText(doctor.getTimeStamp());
@@ -134,6 +138,10 @@ public class DoctorsForumFragment extends Fragment {
                     }
                 });
             }
+            public void happyfeet(){
+
+            }
+
         };
         recyclerView.setAdapter(fireBaseRecyclerAdapter);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -225,6 +233,7 @@ public class DoctorsForumFragment extends Fragment {
             imageView1= itemView.findViewById(R.id.image2);
             button1 = itemView.findViewById(R.id.upload);
             button1.setVisibility(View.GONE);
+
             databaseReference = FirebaseDatabase.getInstance()
                     .getReference()
                     .child("doctors").child(user);
@@ -283,6 +292,9 @@ public class DoctorsForumFragment extends Fragment {
             Picasso.get()
                     .load(downloadUri)
                     .into(imageView1);
+            button1.setVisibility(View.GONE);
+            button.setVisibility(View.GONE);
+            fireBaseRecyclerAdapter.notifyDataSetChanged();
         }
     }
     public interface onClickListenerDoctor {
