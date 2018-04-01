@@ -117,10 +117,6 @@ public class DoctorsForumFragment extends Fragment {
             protected void onBindViewHolder(@NonNull final DoctorsForumFragment.DoctorPosts holder, int position,
                                             @NonNull final DoctorPost doctor) {
 
-
-
-
-
                 final String key = fireBaseRecyclerAdapter.getRef(position)
                         .getKey();
                 holder.setKey(key);
