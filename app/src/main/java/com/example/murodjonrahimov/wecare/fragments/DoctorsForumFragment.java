@@ -20,6 +20,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
+import com.bumptech.glide.Glide;
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Doctor;
@@ -114,11 +116,13 @@ public class DoctorsForumFragment extends Fragment {
             @Override
             protected void onBindViewHolder(@NonNull final DoctorsForumFragment.DoctorPosts holder, int position,
                                             @NonNull final DoctorPost doctor) {
-              
+
                 final String key = fireBaseRecyclerAdapter.getRef(position)
                         .getKey();
                 holder.setKey(key);
-                Picasso.get().load(doctor.getUri()).into(holder.imageView1);
+               Glide.with(holder.imageView1.getContext())
+                       .load(doctor.getUri()).into(holder.imageView1);
+                //Picasso.get().load(doctor.getUri()).into(holder.imageView1);
                 holder.doctorName.setText(doctor.getFirstname()+" "+doctor.getLastname());
                 holder.message.setText(doctor.getMessage());
                 holder.time.setText(doctor.getTimeStamp());
@@ -126,10 +130,14 @@ public class DoctorsForumFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
 
-                        listenerDoc.onclick(key, doctor.getMessage(), doctor.getTimeStamp(), doctor.getAddedBy(), doctor.getFirstname()+" "+doctor.getLastname());
+                        listenerDoc.onclick(key, doctor.getMessage(), doctor.getTimeStamp(), doctor.getAddedBy(), doctor.getFirstname()+" "+doctor.getLastname(),doctor.getUri());
                     }
                 });
             }
+            public void happyfeet(){
+
+            }
+
         };
         recyclerView.setAdapter(fireBaseRecyclerAdapter);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -157,7 +165,6 @@ public class DoctorsForumFragment extends Fragment {
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 if(dataSnapshot.exists()) {
                                     Doctor doctor = dataSnapshot.getValue(Doctor.class);
-
                                     final DoctorPost doctorPost = new DoctorPost(input1.getText()
                                             .toString(), user, format, doctor.getFirstName(), doctor.getLastName());
                                     Database.saveDoctorPost(doctorPost);
@@ -221,7 +228,8 @@ public class DoctorsForumFragment extends Fragment {
             String user = Database.getUserId();
             imageView1= itemView.findViewById(R.id.image2);
             button1 = itemView.findViewById(R.id.upload);
-            //button1.setVisibility(View.GONE);
+            button1.setVisibility(View.GONE);
+
             databaseReference = FirebaseDatabase.getInstance()
                     .getReference()
                     .child("doctors").child(user);
@@ -280,10 +288,13 @@ public class DoctorsForumFragment extends Fragment {
             Picasso.get()
                     .load(downloadUri)
                     .into(imageView1);
+            button1.setVisibility(View.GONE);
+            button.setVisibility(View.GONE);
+            fireBaseRecyclerAdapter.notifyDataSetChanged();
         }
     }
     public interface onClickListenerDoctor {
-        void onclick(String key, String message, String timestamp, String addedBy, String name);
+        void onclick(String key, String message, String timestamp, String addedBy, String name, String Uri);
         void Uri(DoctorPosts doctorPosts,String key);
     }
 

@@ -1,8 +1,10 @@
 package com.example.murodjonrahimov.wecare.view;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.murodjonrahimov.wecare.R;
@@ -21,6 +23,8 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder implements V
   private TextView timestamp;
   private TextView comments;
   private TextView needDocroeTextview;
+  private ImageView statusOfPost;
+  private View lineStatus;
   private Post post;
   private Button delete;
   ViewHolderCallback viewHolderCallback;
@@ -35,6 +39,8 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder implements V
     timestamp = itemView.findViewById(R.id.timestamp_ed);
     comments = itemView.findViewById(R.id.comments);
     needDocroeTextview = itemView.findViewById(R.id.need_docroe_textview);
+    statusOfPost = itemView.findViewById(R.id.resolve_unresolved_case);
+    lineStatus = itemView.findViewById(R.id.line_status);
     delete= itemView.findViewById(R.id.del2);
     delete.setVisibility(View.GONE);
 
@@ -53,7 +59,7 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder implements V
     });
   }
 
-  public void onBind(Post post, ViewHolderCallback viewHolderCallback) {
+  public void onBind(final Post post, ViewHolderCallback viewHolderCallback) {
     this.post = post;
     this.viewHolderCallback=viewHolderCallback;
     message.setText("Message: " + post.getMessage());
@@ -61,8 +67,16 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder implements V
     timestamp.setText("Date: " + post.getTimeStamp());
     needDocroeTextview.setText(post.getDoctorINeed());
     int countOfComments = post.getCountOfComments();
+    setStatusImage(post.isResolved());
     Database.updatePost(post.getKey(), countOfComments);
     comments.setText(countOfComments + " comments");
+
+    statusOfPost.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Database.updateStatusOfPost(post.getKey(), !post.isResolved());
+        }
+    });
 
   }
 
@@ -78,5 +92,17 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder implements V
       vis=true;
       return true;
     }
+  }
+
+  private void setStatusImage(boolean isResolved) {
+      if(isResolved) {
+          statusOfPost.setImageResource(R.drawable.resolved_case);
+          lineStatus.setBackgroundResource(R.color.color_green);
+      }
+      else {
+          statusOfPost.setImageResource(R.drawable.unresolved_case);
+          lineStatus.setBackgroundResource(R.color.color_white);
+
+      }
   }
 }
