@@ -1,19 +1,27 @@
 package com.example.murodjonrahimov.wecare;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.murodjonrahimov.wecare.database.Database;
+import com.example.murodjonrahimov.wecare.model.Patient;
 import com.example.murodjonrahimov.wecare.model.Post;
+import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 
 public class PatientPostForm extends AppCompatActivity {
@@ -39,13 +47,32 @@ public class PatientPostForm extends AppCompatActivity {
   private TextView textViewOther;
   private ImageButton imageButton;
   private String doctorINeed;
+  private ImageView patientPostImage01;
+  private Dialog progressDialog;
+  private SharedPreferences preferences;
+  private String userID;
+  private String uriFromBundle;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.patient_post_form);
 
+    preferences = PatientPostForm.this.getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
+    Bundle bundle = getIntent().getExtras();
+    String downloadUriBundle = bundle.getString("downloadUri");
+    String userIdBundle = bundle.getString("userId");
+
+    if(downloadUriBundle != null && userIdBundle != null) {
+      userID = userIdBundle;
+      uriFromBundle = userIdBundle;
+
+    }
+
     onBind();
+
+    preferences = PatientPostForm.this.getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
+
 
     chooseDoctor.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -242,6 +269,14 @@ public class PatientPostForm extends AppCompatActivity {
     });
   }
 
+  private void loadingProfileImage(Uri downloadUri, String Lf) {
+    Log.d("url", "loadingProfileImage: " + Lf + downloadUri);
+    Picasso.get()
+      .load(downloadUri)
+      .into(patientPostImage01);
+    //progressDialog.dismiss();
+  }
+
   public void makeTextGone() {
     textViewAllergist.setVisibility(View.GONE);
     textViewCardiologist.setVisibility(View.GONE);
@@ -281,7 +316,25 @@ public class PatientPostForm extends AppCompatActivity {
     textViewOther = findViewById(R.id.doctor_other);
     textviewChooseDoctor = findViewById(R.id.choose_doctor_textview);
     imageButton = findViewById(R.id.add_image_patient_post);
+    patientPostImage01 = findViewById(R.id.image_patient_post01);
+
   }
+
+  //@Override
+  //public View onCreateView(String name, Context context, AttributeSet attrs) {
+  //  return super.onCreateView(name, context, attrs);
+  //
+  //  try {
+  //    Uri url = Uri.parse(preferences.getString(userID, ""));
+  //    if (url.toString()
+  //      .length() > 0) {
+  //      loadingProfileImage(url, "onResume");
+  //    }
+  //  } catch (IllegalArgumentException e) {
+  //    e.printStackTrace();
+  //  }
+
+//  }
 }
 
 
