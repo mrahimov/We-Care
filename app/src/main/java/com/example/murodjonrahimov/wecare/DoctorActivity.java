@@ -1,6 +1,7 @@
 package com.example.murodjonrahimov.wecare;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -9,14 +10,26 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+
+import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.fragments.DoctorsForumFragment;
 import com.example.murodjonrahimov.wecare.fragments.AllPatientsPostsFragment;
 import com.example.murodjonrahimov.wecare.fragments.DoctorProfileFragment;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class DoctorActivity extends AppCompatActivity implements DoctorsForumFragment.onClickListenerDoctor {
 
   private ActionBar toolbar;
+  DoctorsForumFragment fragment2;
+  DoctorsForumFragment.DoctorPosts doctorPosts;
+  Uri uri;
+   String key;
+  private StorageReference storageReference;
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +42,8 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
     loadFragment(new DoctorsForumFragment());
 
     BottomNavigationView navigation = findViewById(R.id.navigation);
+    storageReference = FirebaseStorage.getInstance()
+            .getReference();
 
     navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
       @Override
@@ -41,7 +56,7 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
             toolbar.setTitle("Doctors");
             DoctorsForumFragment doctorsForumFragment = (DoctorsForumFragment) getSupportFragmentManager().findFragmentByTag("docFrag");
             if(doctorsForumFragment==null) {
-              DoctorsForumFragment fragment2 = new DoctorsForumFragment();
+               fragment2 = new DoctorsForumFragment();
 
               FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
               transaction.replace(R.id.frame_container, fragment2, "docFrag");
@@ -82,6 +97,7 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
     transaction.commit();
   }
 
+
   @Override
   public void onclick(String key, String message, String timestamp, String addedBy, String name) {
     Intent intent = new Intent(DoctorActivity.this, PostDoctorComments.class);
@@ -90,6 +106,44 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
     intent.putExtra("timestamp", timestamp);
     intent.putExtra("addedby", name);
     startActivity(intent);
+  }
+
+  @Override
+  public void Uri(DoctorsForumFragment.DoctorPosts doctorPosts, String key) {
+    Intent intent = new Intent(Intent.ACTION_PICK);
+    intent.setType("image/*");
+    startActivityForResult(intent,7);
+    this.doctorPosts=doctorPosts;
+    this.key=key;
+
+  }
+
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+    super.onActivityResult(requestCode, resultCode, data);
+
+    if (requestCode == 7 && resultCode == RESULT_OK) {
+      this.uri = data.getData();
+      doctorPosts.loadingProfileImage(uri,"onActivityResult");
+          String user= Database.getUserId();
+
+            assert uri != null;
+            StorageReference docImage = storageReference.child(user)
+                    .child(uri.getAuthority());
+                    docImage.putFile(uri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            Uri downloadUri = taskSnapshot.getDownloadUrl();
+
+                            Database.saveDoctorURI(downloadUri.toString(),key);
+
+                        }
+                    });
+
+    }
   }
 }
 
