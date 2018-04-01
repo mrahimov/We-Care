@@ -130,7 +130,7 @@ public class DoctorsForumFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
 
-                        listenerDoc.onclick(key, doctor.getMessage(), doctor.getTimeStamp(), doctor.getAddedBy(), doctor.getFirstname()+" "+doctor.getLastname());
+                        listenerDoc.onclick(key, doctor.getMessage(), doctor.getTimeStamp(), doctor.getAddedBy(), doctor.getFirstname()+" "+doctor.getLastname(),doctor.getUri());
                     }
                 });
             }
@@ -161,7 +161,6 @@ public class DoctorsForumFragment extends Fragment {
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 if(dataSnapshot.exists()) {
                                     Doctor doctor = dataSnapshot.getValue(Doctor.class);
-
                                     final DoctorPost doctorPost = new DoctorPost(input1.getText()
                                             .toString(), user, format, doctor.getFirstName(), doctor.getLastName());
                                     Database.saveDoctorPost(doctorPost);
@@ -287,7 +286,7 @@ public class DoctorsForumFragment extends Fragment {
         }
     }
     public interface onClickListenerDoctor {
-        void onclick(String key, String message, String timestamp, String addedBy, String name);
+        void onclick(String key, String message, String timestamp, String addedBy, String name, String Uri);
         void Uri(DoctorPosts doctorPosts,String key);
     }
 

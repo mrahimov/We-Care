@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class PostDoctorComments extends AppCompatActivity {
   private EditText addedComment;
   private List<Comment> allComments;
   private DatabaseReference database10;
+  private ImageView imageView;
 
   private String commentname;
 
@@ -45,12 +47,16 @@ public class PostDoctorComments extends AppCompatActivity {
     TextView message = findViewById(R.id.message_d);
     TextView addedBy = findViewById(R.id.added_by_d);
     TextView timestamp = findViewById(R.id.timestamp_d);
+    imageView = findViewById(R.id.image3);
 
     Intent intent = getIntent();
     final String Key = intent.getStringExtra("key");
     doctorTimeStamp = intent.getStringExtra("timestamp");
     name = intent.getStringExtra("addedby");
     doctorMessage = intent.getStringExtra("message");
+    String url = intent.getStringExtra("uri");
+
+    Picasso.get().load(url).into(imageView);
 
     ImageView sendComment = findViewById(R.id.send_imageview);
 

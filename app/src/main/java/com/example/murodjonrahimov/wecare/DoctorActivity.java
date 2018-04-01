@@ -99,12 +99,13 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
 
 
     @Override
-    public void onclick(String key, String message, String timestamp, String addedBy, String name) {
+    public void onclick(String key, String message, String timestamp, String addedBy, String name, String uri) {
         Intent intent = new Intent(DoctorActivity.this, PostDoctorComments.class);
         intent.putExtra("key", key);
         intent.putExtra("message", message);
         intent.putExtra("timestamp", timestamp);
         intent.putExtra("addedby", name);
+        intent.putExtra("uri", uri);
         startActivity(intent);
     }
 
