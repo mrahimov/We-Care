@@ -1,5 +1,6 @@
 package com.example.murodjonrahimov.wecare.view;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,7 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder implements V
   private TextView comments;
   private TextView needDocroeTextview;
   private ImageView statusOfPost;
+  private View lineStatus;
   private Post post;
   private Button delete;
   ViewHolderCallback viewHolderCallback;
@@ -38,6 +40,7 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder implements V
     comments = itemView.findViewById(R.id.comments);
     needDocroeTextview = itemView.findViewById(R.id.need_docroe_textview);
     statusOfPost = itemView.findViewById(R.id.resolve_unresolved_case);
+    lineStatus = itemView.findViewById(R.id.line_status);
     delete= itemView.findViewById(R.id.del2);
     delete.setVisibility(View.GONE);
 
@@ -94,9 +97,12 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder implements V
   private void setStatusImage(boolean isResolved) {
       if(isResolved) {
           statusOfPost.setImageResource(R.drawable.resolved_case);
+          lineStatus.setBackgroundResource(R.color.color_green);
       }
       else {
           statusOfPost.setImageResource(R.drawable.unresolved_case);
+          lineStatus.setBackgroundResource(R.color.color_white);
+
       }
   }
 }
