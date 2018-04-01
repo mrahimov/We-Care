@@ -2,6 +2,7 @@ package com.example.murodjonrahimov.wecare.fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,38 +11,45 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+
+import com.bumptech.glide.Glide;
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Doctor;
 import com.example.murodjonrahimov.wecare.model.DoctorPost;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 public class DoctorsForumFragment extends Fragment {
 
     private View view;
     private FloatingActionButton floatingActionButton;
     private DatabaseReference database;
-    private DatabaseReference database2;
     private String user;
-    private String name;
+    DatabaseReference database2;
+    StorageReference storageReference;
+
 
     private RecyclerView recyclerView;
     private onClickListenerDoctor listenerDoc;
@@ -67,13 +75,12 @@ public class DoctorsForumFragment extends Fragment {
                 .getReference()
                 .child("DoctorPost");
         user = Database.getUserId();
-
-
-
-
+        database2 = FirebaseDatabase.getInstance()
+                .getReference()
+                .child("doctors").child(user);
+        storageReference = FirebaseStorage.getInstance()
+                .getReference();
         database.keepSynced(true);
-        FirebaseMessaging.getInstance()
-                .subscribeToTopic("notifications");
     }
 
     @Override
@@ -110,39 +117,31 @@ public class DoctorsForumFragment extends Fragment {
             protected void onBindViewHolder(@NonNull final DoctorsForumFragment.DoctorPosts holder, int position,
                                             @NonNull final DoctorPost doctor) {
 
-                database2 = FirebaseDatabase.getInstance()
-                        .getReference()
-                        .child("doctors")
-                        .child(doctor.getAddedBy());
 
-                database2.getRef()
-                        .addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                Doctor doctors = dataSnapshot.getValue(Doctor.class);
-                                //name = doctors.getFirstName() + " " + doctors.getLastName();
-                                holder.doctorName.setText(name);
-                                holder.message.setText(doctor.getMessage());
-                                holder.time.setText(doctor.getTimeStamp());
-                            }
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
 
-                            }
-                        });
 
                 final String key = fireBaseRecyclerAdapter.getRef(position)
                         .getKey();
-
+                holder.setKey(key);
+               Glide.with(holder.imageView1.getContext())
+                       .load(doctor.getUri()).into(holder.imageView1);
+                //Picasso.get().load(doctor.getUri()).into(holder.imageView1);
+                holder.doctorName.setText(doctor.getFirstname()+" "+doctor.getLastname());
+                holder.message.setText(doctor.getMessage());
+                holder.time.setText(doctor.getTimeStamp());
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
-                        listenerDoc.onclick(key, doctor.getMessage(), doctor.getTimeStamp(), doctor.getAddedBy(), name);
+                        listenerDoc.onclick(key, doctor.getMessage(), doctor.getTimeStamp(), doctor.getAddedBy(), doctor.getFirstname()+" "+doctor.getLastname(),doctor.getUri());
                     }
                 });
             }
+            public void happyfeet(){
+
+            }
+
         };
         recyclerView.setAdapter(fireBaseRecyclerAdapter);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -160,13 +159,27 @@ public class DoctorsForumFragment extends Fragment {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, yyyy h:mm a");
                 final String format = simpleDateFormat.format(new Date());
 
+
                 builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        final DoctorPost doctorPost = new DoctorPost(input1.getText()
-                                .toString(), user, format);
-                        Database.saveDoctorPost(doctorPost);
-                        dialog.dismiss();
+                    public void onClick(final DialogInterface dialog, int which) {
+
+                        database2.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()) {
+                                    Doctor doctor = dataSnapshot.getValue(Doctor.class);
+                                    final DoctorPost doctorPost = new DoctorPost(input1.getText()
+                                            .toString(), user, format, doctor.getFirstName(), doctor.getLastName());
+                                    Database.saveDoctorPost(doctorPost);
+                                    dialog.dismiss();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
+                        });
                     }
                 });
                 builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -180,6 +193,8 @@ public class DoctorsForumFragment extends Fragment {
         });
     }
 
+
+
     @Override
     public void onStart() {
         super.onStart();
@@ -191,8 +206,7 @@ public class DoctorsForumFragment extends Fragment {
         super.onStop();
         fireBaseRecyclerAdapter.stopListening();
     }
-
-    public static class DoctorPosts extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+    public class DoctorPosts extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         TextView message;
         TextView time;
         TextView doctorName;
@@ -201,6 +215,9 @@ public class DoctorsForumFragment extends Fragment {
         FirebaseRecyclerAdapter<DoctorPost, DoctorsForumFragment.DoctorPosts> fireBaseRecyclerAdapter;
         String name;
         Boolean vis=true;
+        ImageView imageView1;
+        Button button1;
+        String key1;
 
         public DoctorPosts(View itemView, FirebaseRecyclerAdapter<DoctorPost, DoctorsForumFragment.DoctorPosts> fireBaseRecyclerAdapter) {
             super(itemView);
@@ -213,6 +230,10 @@ public class DoctorsForumFragment extends Fragment {
             button.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
             String user = Database.getUserId();
+            imageView1= itemView.findViewById(R.id.image2);
+            button1 = itemView.findViewById(R.id.upload);
+            button1.setVisibility(View.GONE);
+
             databaseReference = FirebaseDatabase.getInstance()
                     .getReference()
                     .child("doctors").child(user);
@@ -224,13 +245,21 @@ public class DoctorsForumFragment extends Fragment {
                             Doctor doctor2 = dataSnapshot.getValue(Doctor.class);
                             name = doctor2.getFirstName() + " " + doctor2.getLastName();
                         }
-
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
                         }
                     });
-        }
 
+            button1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                   listenerDoc.Uri(DoctorPosts.this, key1);
+                }
+            });
+        }
+        public void setKey(String key1){
+            this.key1=key1;
+        }
 
         @Override
         public void onClick(View v) {
@@ -246,19 +275,33 @@ public class DoctorsForumFragment extends Fragment {
             if (v.getId() == itemView.getId() && vis) {
                 if (name.equals(doctorName.getText().toString())) {
                     button.setVisibility(View.VISIBLE);
+                    button1.setVisibility(View.VISIBLE);
                     vis=false;
                     return true;
                 }
             } else{
                 button.setVisibility(View.GONE);
+                button1.setVisibility(View.GONE);
                 vis=true;
                 return true;
             }
             return false;
         }
+        public void loadingProfileImage(Uri downloadUri, String Lf) {
+            Log.d("url", "loadingProfileImage: " + Lf + downloadUri);
+            Picasso.get()
+                    .load(downloadUri)
+                    .into(imageView1);
+            button1.setVisibility(View.GONE);
+            button.setVisibility(View.GONE);
+            fireBaseRecyclerAdapter.notifyDataSetChanged();
+        }
+    }
+    public interface onClickListenerDoctor {
+        void onclick(String key, String message, String timestamp, String addedBy, String name, String Uri);
+        void Uri(DoctorPosts doctorPosts,String key);
     }
 
-    public interface onClickListenerDoctor {
-        void onclick(String key, String message, String timestamp, String addedBy, String name);
-    }
+
+
 }
