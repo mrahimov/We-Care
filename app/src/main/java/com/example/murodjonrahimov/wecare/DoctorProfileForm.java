@@ -11,8 +11,8 @@ import com.example.murodjonrahimov.wecare.model.Doctor;
 
 public class DoctorProfileForm extends AppCompatActivity {
 
-  private EditText editTextFirstName;
-  private EditText editTextLastName;
+  private TextView editTextFirstName;
+  private TextView editTextLastName;
   private EditText editTextCountryOfWork;
   private EditText editTextMajor;
   private EditText editTextYearsOfExperience;

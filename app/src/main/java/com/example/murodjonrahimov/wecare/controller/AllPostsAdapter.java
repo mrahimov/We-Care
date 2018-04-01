@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.murodjonrahimov.wecare.PostWithComments;
@@ -58,6 +59,9 @@ public class AllPostsAdapter extends RecyclerView.Adapter<AllPostsAdapter.AllPos
     private TextView textViewComments;
     private TextView textViewNeedDoceor;
     private LinearLayout linearLayoutComits;
+    private ImageView statusOfPost;
+
+
     private Button button;
 
     public AllPostsViewHolder(final View itemView) {
@@ -68,8 +72,11 @@ public class AllPostsAdapter extends RecyclerView.Adapter<AllPostsAdapter.AllPos
       textViewComments = itemView.findViewById(R.id.comments);
       textViewNeedDoceor = itemView.findViewById(R.id.need_docroe_textview);
       linearLayoutComits = itemView.findViewById(R.id.linear_layout_comments);
-      button = itemView.findViewById(R.id.del2);
+        statusOfPost = itemView.findViewById(R.id.resolve_unresolved_case);
+
+        button = itemView.findViewById(R.id.del2);
       button.setVisibility(View.GONE);
+
 
       linearLayoutComits.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -89,6 +96,16 @@ public class AllPostsAdapter extends RecyclerView.Adapter<AllPostsAdapter.AllPos
       textViewAddedBy.setText("Posted By: " + post.getPostedByUserName());
       textViewTimeStamp.setText(post.getTimeStamp());
       textViewComments.setText(post.getCountOfComments() + " comments");
+      setStatusImage(post.isResolved());
     }
+
+      private void setStatusImage(boolean isResolved) {
+          if(isResolved) {
+              statusOfPost.setImageResource(R.drawable.resolved_case);
+          }
+          else {
+              statusOfPost.setImageResource(R.drawable.unresolved_case);
+          }
+      }
   }
 }
