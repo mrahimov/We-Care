@@ -95,12 +95,18 @@ public class LoginActivity extends AppCompatActivity {
                                                                 type = doctor.getType();
                                                                 String firstName = doctor.getFirstName();
                                                                 String lastName = doctor.getLastName();
+                                                                String country= doctor.getCountryOfPractice();
+                                                                String years = doctor.getYearsOfExperience();
+                                                                String major = doctor.getMajor();
 
                                                                 if (type != null) {
                                                                     Toasty.success(LoginActivity.this, "Doctor Login Successful", Toast.LENGTH_LONG,true)
                                                                             .show();
-                                                                    if (firstName == null && lastName == null) {
+
+
+                                                                    if (firstName == null && lastName == null&& country==null && years==null && major==null) {
                                                                         Toasty.info(LoginActivity.this, "please set first and last name", Toast.LENGTH_LONG,true)
+
                                                                                 .show();
 
                                                                         Intent intent = new Intent(LoginActivity.this, TwoAuthActivityDoctorReg.class);
