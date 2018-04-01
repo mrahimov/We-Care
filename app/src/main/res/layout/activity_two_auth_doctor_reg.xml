@@ -10,12 +10,13 @@
         android:id="@+id/first_name1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Username"/>
+        android:hint="First Name" />
 
     <EditText
         android:id="@+id/last_name1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:hint="LastName" />
     <EditText
         android:id="@+id/country1"
@@ -32,6 +33,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="years of Experience" />
+
+       
+
     <Button
         android:id="@+id/savefirstlastname"
         android:layout_width="match_parent"

@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+
+import es.dmoral.toasty.Toasty;
 
 import static com.example.murodjonrahimov.wecare.RegistrationActivity.USERNAME_KEY;
 
@@ -61,8 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                         .equals("") || signInPassword.getText()
                         .toString()
                         .equals("")) {
-                    Toast.makeText(LoginActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG)
-                            .show();
+                    Toasty.error(LoginActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG, true).show();
                 } else {
 
                     final ProgressDialog progressDialog = ProgressDialog.show(LoginActivity.this, "Please wait... ", "Processing...", true);
@@ -98,10 +100,13 @@ public class LoginActivity extends AppCompatActivity {
                                                                 String major = doctor.getMajor();
 
                                                                 if (type != null) {
-                                                                    Toast.makeText(LoginActivity.this, "Doctor Login Successful", Toast.LENGTH_LONG)
+                                                                    Toasty.success(LoginActivity.this, "Doctor Login Successful", Toast.LENGTH_LONG,true)
                                                                             .show();
-                                                                    if (firstName == null && lastName == null && country==null && years==null && major==null) {
-                                                                        Toast.makeText(LoginActivity.this, "please set first and last name", Toast.LENGTH_LONG)
+
+
+                                                                    if (firstName == null && lastName == null&& country==null && years==null && major==null) {
+                                                                        Toasty.info(LoginActivity.this, "please set first and last name", Toast.LENGTH_LONG,true)
+
                                                                                 .show();
 
                                                                         Intent intent = new Intent(LoginActivity.this, TwoAuthActivityDoctorReg.class);
@@ -120,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
                                                         if (type == null) {
                                                             updateLocalUsernameValue(userID);
 
-                                                            Toast.makeText(LoginActivity.this, userEmail, Toast.LENGTH_LONG)
+                                                            Toasty.info(LoginActivity.this, userEmail, Toast.LENGTH_LONG,true)
                                                                     .show();
 
                                                             Intent intent = new Intent(LoginActivity.this, PatientActivity.class);
@@ -136,8 +141,8 @@ public class LoginActivity extends AppCompatActivity {
                                                     }
                                                 });
                                     } else {
-                                        Toast.makeText(LoginActivity.this, task.getException()
-                                                .getMessage(), Toast.LENGTH_LONG)
+                                        Toasty.error(LoginActivity.this, task.getException()
+                                                .getMessage(), Toast.LENGTH_LONG,true)
                                                 .show();
                                     }
                                 }
@@ -167,6 +172,26 @@ public class LoginActivity extends AppCompatActivity {
                             .toString());
                     startActivity(intent);
                 }
+            }
+        });
+
+        signInPassword.setOnKeyListener(new View.OnKeyListener()
+        {
+            public boolean onKey(View v, int keyCode, KeyEvent event)
+            {
+                if (event.getAction() == KeyEvent.ACTION_DOWN)
+                {
+                    switch (keyCode)
+                    {
+                        case KeyEvent.KEYCODE_DPAD_CENTER:
+                        case KeyEvent.KEYCODE_ENTER:
+
+                            return true;
+                        default:
+                            break;
+                    }
+                }
+                return false;
             }
         });
     }
