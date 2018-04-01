@@ -150,6 +150,7 @@ public class DoctorProfileFragment extends Fragment {
           public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
             Uri downloadUri = taskSnapshot.getDownloadUrl();
+            Database.saveURIDoctor(downloadUri.toString());
             myPrefsEdit = preferences.edit();
             myPrefsEdit.putString(userID, downloadUri.toString());
             myPrefsEdit.commit();
@@ -278,4 +279,5 @@ public class DoctorProfileFragment extends Fragment {
       .into(doctorImage);
     progressDialog.dismiss();
   }
+
 }

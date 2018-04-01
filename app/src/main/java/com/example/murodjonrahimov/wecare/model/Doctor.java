@@ -9,6 +9,7 @@ public class Doctor {
   private String yearsOfExperience;
   private String type;
   private String Uid;
+  private String uri;
   //  private String numberOfDoctorsComments;
 
   public Doctor() {
@@ -33,6 +34,14 @@ public class Doctor {
   //  public void setNumberOfDoctorsComments(String numberOfDoctorsComments) {
   //    this.numberOfDoctorsComments = numberOfDoctorsComments;
   //  }
+
+  public void setUri(String uri) {
+    this.uri = uri;
+  }
+
+  public String getUri() {
+    return uri;
+  }
 
   public String getFirstName() {
     return firstName;

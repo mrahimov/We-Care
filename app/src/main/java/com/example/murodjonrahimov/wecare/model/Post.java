@@ -13,6 +13,7 @@ public class Post implements Parcelable {
     private int countOfComments;
     private String doctorINeed;
     private boolean resolved;
+    private String uri;
 
     public Post(String message, String addedBy, String timeStamp, String key, String postedByUserName, int countOfComments, boolean resolved) {
         this.message = message;
@@ -24,11 +25,12 @@ public class Post implements Parcelable {
         this.resolved = resolved;
     }
 
-    public Post(String message, String timeStamp, String postedByUserName, String doctorINeed) {
+    public Post(String message, String timeStamp, String postedByUserName, String doctorINeed, String uri) {
         this.message = message;
         this.timeStamp = timeStamp;
         this.postedByUserName = postedByUserName;
         this.doctorINeed = doctorINeed;
+        this.uri = uri;
     }
 
     public Post() {
@@ -102,6 +104,13 @@ public class Post implements Parcelable {
         this.doctorINeed = doctorINeed;
     }
 
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
 
     @Override
     public int describeContents() {

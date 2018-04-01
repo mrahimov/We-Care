@@ -51,24 +51,25 @@ public class PatientPostForm extends AppCompatActivity {
   private Dialog progressDialog;
   private SharedPreferences preferences;
   private String userID;
-  private String uriFromBundle;
+  private Uri uriFromBundle;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.patient_post_form);
 
-    preferences = PatientPostForm.this.getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
-    Bundle bundle = getIntent().getExtras();
-    String downloadUriBundle = bundle.getString("downloadUri");
-    String userIdBundle = bundle.getString("userId");
+      preferences = PatientPostForm.this.getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
 
-    if(downloadUriBundle != null && userIdBundle != null) {
-      userID = userIdBundle;
-      uriFromBundle = userIdBundle;
+      Bundle bundle = getIntent().getExtras();
+      try {
 
-    }
-
+        Uri downloadUriBundle = Uri.parse(preferences.getString("uriPatientPost", ""));
+        if (downloadUriBundle != null) {
+          uriFromBundle = downloadUriBundle;
+        }
+      } catch (IllegalArgumentException e) {
+        e.printStackTrace();
+      }
     onBind();
 
     preferences = PatientPostForm.this.getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
@@ -249,6 +250,11 @@ public class PatientPostForm extends AppCompatActivity {
       @Override
       public void onClick(View v) {
 
+        loadingProfileImage(uriFromBundle, "");
+
+        String uri = uriFromBundle.toString();
+
+
         String message = messageED.getText()
           .toString();
 
@@ -262,7 +268,7 @@ public class PatientPostForm extends AppCompatActivity {
         if (doctorINeed == null) {
           doctorINeed = "Others";
         }
-        Post post = new Post(message, dateString, postedByUserName, doctorINeed);
+        Post post = new Post(message, dateString, postedByUserName, doctorINeed, uri);
         Database.savePost(post);
         finish();
       }
