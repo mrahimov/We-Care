@@ -82,11 +82,9 @@
             </ImageView>
             <Button
                 android:id="@+id/del2"
-                android:layout_width="wrap_content"
+                android:layout_width="45dp"
                 android:layout_height="wrap_content"
-                android:text="Delete"/>
-
-
+                android:background="@drawable/ic_rubbish_bin" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

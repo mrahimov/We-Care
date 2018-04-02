@@ -92,6 +92,7 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder implements V
       vis=true;
       return true;
     }
+
   }
 
   private void setStatusImage(boolean isResolved) {
