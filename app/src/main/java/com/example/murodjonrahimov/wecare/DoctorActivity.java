@@ -131,11 +131,11 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
             //Intent intent=getIntent();
            //final String key= intent.getStringExtra("key");
 
-            String uniqueID = UUID.randomUUID().toString();
+            //String uniqueID = UUID.randomUUID().toString();
 
 
             assert uri != null;
-            StorageReference docImage = storageReference.child(uniqueID)
+            StorageReference docImage = storageReference.child(key)
                     .child(uri.getAuthority());
             docImage.putFile(uri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
