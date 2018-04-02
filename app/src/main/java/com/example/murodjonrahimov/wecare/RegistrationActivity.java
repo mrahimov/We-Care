@@ -18,6 +18,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Doctor;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,6 +26,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.ProviderQueryResult;
+
+import es.dmoral.toasty.Toasty;
 
 import static com.example.murodjonrahimov.wecare.model.TermsAndConditions.terms;
 
@@ -62,6 +65,7 @@ public class RegistrationActivity extends AppCompatActivity {
     final EditText userNameRegistration = findViewById(R.id.username_edit_text);
     final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
+
     Intent intent = getIntent();
 
     String savedEmail = intent.getStringExtra(EMAIL_KEY);
@@ -70,6 +74,7 @@ public class RegistrationActivity extends AppCompatActivity {
     if (savedEmail != null || savedPassword != null) {
       emailRegistration.setText(savedEmail);
       passwordRegistration.setText(savedPassword);
+
     }
     doctorCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
       @Override
@@ -92,28 +97,23 @@ public class RegistrationActivity extends AppCompatActivity {
       @Override
       public void onClick(View v) {
 
-        email = emailRegistration.getText()
-          .toString();
-        password = passwordRegistration.getText()
-          .toString();
-        licence = licenceId.getText()
-          .toString();
-        username = userNameRegistration.getText()
-          .toString();
+        email = emailRegistration.getText().toString();
+        password = passwordRegistration.getText().toString();
+        licence = licenceId.getText().toString();
+        username = userNameRegistration.getText().toString();
 
         if (email.equals("") || password.equals("") || licence.equals("") && username.equals("")) {
-          Toast.makeText(RegistrationActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG)
-            .show();
+
+          Toasty.error(RegistrationActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG, true).show();
           return;
         }
 
         if (doctorCheckbox.isChecked() && licence.equals("")) {
-          Toast.makeText(RegistrationActivity.this, "Please enter a valid licence id", Toast.LENGTH_LONG)
-            .show();
+
+          Toasty.error(RegistrationActivity.this, "Please enter a valid licence id", Toast.LENGTH_LONG, true).show();
         }
 
-        final ProgressDialog progressDialog =
-          ProgressDialog.show(RegistrationActivity.this, "Please wait ...", "Processing...", true);
+        final ProgressDialog progressDialog = ProgressDialog.show(RegistrationActivity.this, "Please wait ...", "Processing...", true);
 
         firebaseAuth.fetchProvidersForEmail(email)
           .addOnCompleteListener(new OnCompleteListener<ProviderQueryResult>() {
@@ -126,12 +126,13 @@ public class RegistrationActivity extends AppCompatActivity {
 
               if (check) {
 
-                Toast.makeText(RegistrationActivity.this,
-                  "It looks like you already have a WeCare account for this email address. Please try login in.",
-                  Toast.LENGTH_LONG)
-                  .show();
+
+                Toasty.info(RegistrationActivity.this, "It looks like you already have a WeCare account for this email address. Please try login in.", Toast.LENGTH_LONG, true).show();
+
                 return;
-              } else {
+              }
+
+              else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(RegistrationActivity.this);
                 builder.setTitle("Terms and Conditions");
 
@@ -159,7 +160,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull final Task<AuthResult> task) {
                           progressDialog.dismiss();
-                          Toast.makeText(RegistrationActivity.this, "Registration successful", Toast.LENGTH_LONG)
+                          Toasty.success(RegistrationActivity.this, "Registration successful", Toast.LENGTH_LONG,true)
                             .show();
 
                           SharedPreferences preferences =
@@ -187,8 +188,10 @@ public class RegistrationActivity extends AppCompatActivity {
                   }
                 });
                 builder.show();
+
               }
             }
+
           });
       }
     });

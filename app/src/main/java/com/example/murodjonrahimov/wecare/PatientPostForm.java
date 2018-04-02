@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -19,12 +20,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.example.murodjonrahimov.wecare.database.Database;
+import com.example.murodjonrahimov.wecare.fragments.CameraPopUpFragment;
 import com.example.murodjonrahimov.wecare.model.Patient;
 import com.example.murodjonrahimov.wecare.model.Post;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+import java.net.URI;
 import java.text.SimpleDateFormat;
+import java.util.UUID;
 
-public class PatientPostForm extends AppCompatActivity {
+public class PatientPostForm extends AppCompatActivity implements CameraPopUpFragment.UriSender {
 
   private EditText messageED;
   private Button saveButton;
@@ -52,27 +60,36 @@ public class PatientPostForm extends AppCompatActivity {
   private SharedPreferences preferences;
   private String userID;
   private Uri uriFromBundle;
+  Uri urionClick;
+  private StorageReference storageReference;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.patient_post_form);
+    storageReference = FirebaseStorage.getInstance()
+      .getReference();
 
-      preferences = PatientPostForm.this.getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
-
-      Bundle bundle = getIntent().getExtras();
-      try {
-
-        Uri downloadUriBundle = Uri.parse(preferences.getString("uriPatientPost", ""));
-        if (downloadUriBundle != null) {
-          uriFromBundle = downloadUriBundle;
-        }
-      } catch (IllegalArgumentException e) {
-        e.printStackTrace();
-      }
     onBind();
 
-    preferences = PatientPostForm.this.getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
+
+
+
+    //  preferences = PatientPostForm.this.getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
+    //
+    //  Bundle bundle = getIntent().getExtras();
+    //  try {
+    //
+    //    Uri downloadUriBundle = Uri.parse(preferences.getString("uriPatientPost", ""));
+    //    if (downloadUriBundle != null) {
+    //      uriFromBundle = downloadUriBundle;
+    //    }
+    //  } catch (IllegalArgumentException e) {
+    //    e.printStackTrace();
+    //  }
+    //onBind();
+    //
+    //preferences = PatientPostForm.this.getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
 
 
     chooseDoctor.setOnClickListener(new View.OnClickListener() {
@@ -106,8 +123,14 @@ public class PatientPostForm extends AppCompatActivity {
     imageButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Intent intent = new Intent(PatientPostForm.this, CameraPopUpActivity.class);
-        startActivity(intent);
+
+        CameraPopUpFragment fragment2 = new CameraPopUpFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.containerPostCamera, fragment2);
+        transaction.addToBackStack(null);
+        transaction.commit();
+
+
       }
     });
 
@@ -250,27 +273,41 @@ public class PatientPostForm extends AppCompatActivity {
       @Override
       public void onClick(View v) {
 
-        loadingProfileImage(uriFromBundle, "");
-
-        String uri = uriFromBundle.toString();
-
-
-        String message = messageED.getText()
+        String uniqueID = UUID.randomUUID().toString();
+        final String message = messageED.getText()
           .toString();
 
         SharedPreferences preferences = getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
         final String postedByUserName = preferences.getString(RegistrationActivity.USERNAME_KEY, "");
 
         long date = System.currentTimeMillis();
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm a");
-        String dateString = sdf.format(date);
+        final SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm a");
+        final String dateString = sdf.format(date);
+
+        assert urionClick != null;
+        StorageReference docImage = storageReference.child(uniqueID)
+          .child(urionClick.getAuthority());
+        docImage.putFile(urionClick)
+          .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+              Uri downloadUri = taskSnapshot.getDownloadUrl();
+              Post post = new Post(message, dateString, postedByUserName, doctorINeed, downloadUri.toString());
+              Database.savePost(post);
+              finish();
+
+            }
+          });
+
+
 
         if (doctorINeed == null) {
           doctorINeed = "Others";
         }
-        Post post = new Post(message, dateString, postedByUserName, doctorINeed, uri);
-        Database.savePost(post);
-        finish();
+        //Post post = new Post(message, dateString, postedByUserName, doctorINeed, uri);
+        //Database.savePost(post);
+        //finish();
       }
     });
   }
@@ -324,6 +361,13 @@ public class PatientPostForm extends AppCompatActivity {
     imageButton = findViewById(R.id.add_image_patient_post);
     patientPostImage01 = findViewById(R.id.image_patient_post01);
 
+  }
+
+  @Override
+  public void sendURI(Uri uri) {
+    this.urionClick = uri;
+
+    loadingProfileImage(uri,"");
   }
 
   //@Override
