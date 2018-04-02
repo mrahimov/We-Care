@@ -122,7 +122,6 @@ public class DoctorsForumFragment extends Fragment {
                 holder.setKey(key);
                Glide.with(holder.imageView1.getContext())
                        .load(doctor.getUri()).into(holder.imageView1);
-                //Picasso.get().load(doctor.getUri()).into(holder.imageView1);
                 holder.doctorName.setText(doctor.getFirstname()+" "+doctor.getLastname());
                 holder.message.setText(doctor.getMessage());
                 holder.time.setText(doctor.getTimeStamp());
@@ -134,9 +133,7 @@ public class DoctorsForumFragment extends Fragment {
                     }
                 });
             }
-            public void happyfeet(){
 
-            }
 
         };
         recyclerView.setAdapter(fireBaseRecyclerAdapter);
@@ -210,7 +207,7 @@ public class DoctorsForumFragment extends Fragment {
         DatabaseReference databaseReference;
         FirebaseRecyclerAdapter<DoctorPost, DoctorsForumFragment.DoctorPosts> fireBaseRecyclerAdapter;
         String name;
-        Boolean vis=true;
+       // Boolean vis=true;
         ImageView imageView1;
         Button button1;
         String key1;
@@ -230,6 +227,7 @@ public class DoctorsForumFragment extends Fragment {
             button1 = itemView.findViewById(R.id.upload);
             button1.setVisibility(View.GONE);
 
+
             databaseReference = FirebaseDatabase.getInstance()
                     .getReference()
                     .child("doctors").child(user);
@@ -240,6 +238,7 @@ public class DoctorsForumFragment extends Fragment {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Doctor doctor2 = dataSnapshot.getValue(Doctor.class);
                             name = doctor2.getFirstName() + " " + doctor2.getLastName();
+                            setDelete();
                         }
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
@@ -252,6 +251,14 @@ public class DoctorsForumFragment extends Fragment {
                    listenerDoc.Uri(DoctorPosts.this, key1);
                 }
             });
+
+
+        }
+        public void setDelete(){
+            if(name.equals(doctorName.getText().toString())){
+                button1.setVisibility(View.VISIBLE);
+                button.setVisibility(View.VISIBLE);
+            }
         }
         public void setKey(String key1){
             this.key1=key1;
@@ -268,19 +275,19 @@ public class DoctorsForumFragment extends Fragment {
 
         @Override
         public boolean onLongClick(View v) {
-            if (v.getId() == itemView.getId() && vis) {
-                if (name.equals(doctorName.getText().toString())) {
-                    button.setVisibility(View.VISIBLE);
-                    button1.setVisibility(View.VISIBLE);
-                    vis=false;
-                    return true;
-                }
-            } else{
-                button.setVisibility(View.GONE);
-                button1.setVisibility(View.GONE);
-                vis=true;
-                return true;
-            }
+//            if (v.getId() == itemView.getId() && vis) {
+//                if (name.equals(doctorName.getText().toString())) {
+//                    button.setVisibility(View.VISIBLE);
+//                    button1.setVisibility(View.VISIBLE);
+//                    vis=false;
+//                    return true;
+//                }
+//            } else{
+//                button.setVisibility(View.GONE);
+//                button1.setVisibility(View.GONE);
+//                vis=true;
+//                return true;
+//            }
             return false;
         }
         public void loadingProfileImage(Uri downloadUri, String Lf) {
@@ -288,8 +295,8 @@ public class DoctorsForumFragment extends Fragment {
             Picasso.get()
                     .load(downloadUri)
                     .into(imageView1);
-            button1.setVisibility(View.GONE);
-            button.setVisibility(View.GONE);
+//            button1.setVisibility(View.GONE);
+//            button.setVisibility(View.GONE);
             fireBaseRecyclerAdapter.notifyDataSetChanged();
         }
     }
