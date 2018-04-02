@@ -27,12 +27,10 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
 
     private ActionBar toolbar;
     DoctorsForumFragment fragment2;
-    DoctorsForumFragment.DoctorPosts doctorPosts;
-    Uri uri;
-    String key;
     private StorageReference storageReference;
     DoctorProfileFragment doctorProfileFragment;
     AllPatientsPostsFragment allPatientsPostsFragment;
+    private String key;
 
 
     @Override
@@ -113,12 +111,13 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
     }
 
     @Override
-    public void Uri(final DoctorsForumFragment.DoctorPosts doctorPosts, String key) {
+    public void Uri( String key) {
+        this.key=key;
         Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.putExtra("key", key);
         intent.setType("image/*");
         startActivityForResult(intent, 7);
-        this.doctorPosts = doctorPosts;
-        this.key = key;
+
 
     }
 
@@ -128,9 +127,10 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 7 && resultCode == RESULT_OK) {
-            this.uri = data.getData();
-            doctorPosts.loadingProfileImage(uri, "onActivityResult");
-            doctorPosts=null;
+            Uri uri = data.getData();
+            //Intent intent=getIntent();
+           //final String key= intent.getStringExtra("key");
+
             String uniqueID = UUID.randomUUID().toString();
 
 
@@ -148,10 +148,7 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
 
                         }
                     });
-
         }
-
-
     }
 
     @Override
