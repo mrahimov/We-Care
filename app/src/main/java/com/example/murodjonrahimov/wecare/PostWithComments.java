@@ -71,7 +71,7 @@ public class PostWithComments extends AppCompatActivity {
     addedComment = findViewById(R.id.adding_commentt);
     ImageView sendComment = findViewById(R.id.send_image_view);
 
-    RecyclerView recyclerView = findViewById(R.id.comments_recyclerview);
+    final RecyclerView recyclerView = findViewById(R.id.comments_recyclerview);
     final CommentsAdapter commentsAdapter = new CommentsAdapter();
     LinearLayoutManager linearLayoutManager =
       new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
@@ -126,9 +126,12 @@ public class PostWithComments extends AppCompatActivity {
         int count = post.getCountOfComments() + 1;
         post.setCountOfComments(count);
         Database.updatePost(post.getKey(), count);
-
         addedComment.getText()
-          .clear();
+                .clear();
+        recyclerView.scrollToPosition(commentsAdapter.getItemCount()-1);
+
+
+
       }
     });
   }
