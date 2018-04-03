@@ -105,6 +105,7 @@ public class PostWithComments extends AppCompatActivity {
         String dateString = sdf.format(date);
 
         Comment comment = new Comment(receivedComment, postKey, dateString, userName);
+        comment.setUid(Database.getUserId());
         Database.saveComment(comment);
 
         int count = post.getCountOfComments() + 1;

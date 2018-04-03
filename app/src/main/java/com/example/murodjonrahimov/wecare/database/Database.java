@@ -1,6 +1,5 @@
 package com.example.murodjonrahimov.wecare.database;
 
-import android.net.Uri;
 
 import com.example.murodjonrahimov.wecare.model.Comment;
 import com.example.murodjonrahimov.wecare.model.Doctor;
@@ -42,7 +41,6 @@ public class Database {
   }
 
   public static void saveDoctorPost(DoctorPost doctorPost) {
-
     getDatabase().child("DoctorPost").push().setValue(doctorPost);
   }
   public static void saveDoctorURI(String uri, String key){
