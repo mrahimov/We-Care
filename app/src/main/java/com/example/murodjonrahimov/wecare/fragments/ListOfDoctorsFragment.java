@@ -30,6 +30,8 @@ import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.squareup.picasso.Picasso;
 
+import java.util.Random;
+
 public class ListOfDoctorsFragment extends Fragment {
   private View view;
   private DatabaseReference Database;
@@ -151,13 +153,14 @@ public class ListOfDoctorsFragment extends Fragment {
             }
           }
           numberOfComments.setText("Number of comments: "+String.valueOf(count));
-          LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
-                  new DataPoint(0, 1),
-                  new DataPoint(1, 5),
-                  new DataPoint(2, 3),
-                  new DataPoint(3, 2),
-                  new DataPoint(4, count)
-          });
+          LineGraphSeries<DataPoint> series = new LineGraphSeries<>(generateData());
+          //new DataPoint[] {
+//                  new DataPoint(0, 1),
+//                  new DataPoint(1, 5),
+//                  new DataPoint(2, 3),
+//                  new DataPoint(3, 2),
+//                  new DataPoint(4, count)
+         // });
           series.setDrawBackground(true);
 
           series.setColor(Color.argb(255, 255, 60, 60));
@@ -187,5 +190,20 @@ public class ListOfDoctorsFragment extends Fragment {
     public void onClick(View v) {
 
     }
+    private DataPoint[] generateData() {
+      int count1 = 5;
+      Random mRand = new Random();
+      DataPoint[] values = new DataPoint[count1];
+      for (int i=0; i<count1; i++) {
+        double x = i;
+        double f = mRand.nextDouble()*0.15+0.3;
+        double y = Math.sin(i*f+2) + mRand.nextDouble()*0.3;
+        DataPoint v = new DataPoint(x, y);
+        values[i] = v;
+      }
+      values[4]= new DataPoint(4,count);
+      return values;
+    }
   }
+
 }

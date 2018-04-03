@@ -144,7 +144,7 @@ public class DoctorsForumFragment extends Fragment {
                     public void onClick(View v) {
                         if (user.equals(doctor.getAddedBy())) {
                             fireBaseRecyclerAdapter.getRef(position).removeValue();
-                            Toasty.custom(holder.itemView.getContext(), "deleted",
+                            Toasty.custom(holder.itemView.getContext(), "Post Deleted",
                                     ContextCompat.getDrawable(holder.itemView.getContext(),
                                             R.drawable.ic_rubbish_bin),
                                     1000, true).show();
