@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
@@ -40,6 +42,8 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import es.dmoral.toasty.Toasty;
+
 
 public class DoctorsForumFragment extends Fragment {
 
@@ -49,7 +53,6 @@ public class DoctorsForumFragment extends Fragment {
     private String user;
     DatabaseReference database2;
     StorageReference storageReference;
-    Boolean bottomView = false;
 
 
     private RecyclerView recyclerView;
@@ -116,7 +119,7 @@ public class DoctorsForumFragment extends Fragment {
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull final DoctorsForumFragment.DoctorPosts holder, int position,
+            protected void onBindViewHolder(@NonNull final DoctorsForumFragment.DoctorPosts holder, final int position,
                                             @NonNull final DoctorPost doctor) {
 
                 final String key = fireBaseRecyclerAdapter.getRef(position)
@@ -136,6 +139,20 @@ public class DoctorsForumFragment extends Fragment {
                 holder.message.setText(doctor.getMessage());
                 holder.time.setText(doctor.getTimeStamp());
 
+                holder.button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (user.equals(doctor.getAddedBy())) {
+                            fireBaseRecyclerAdapter.getRef(position).removeValue();
+                            Toasty.custom(holder.itemView.getContext(), "deleted",
+                                    ContextCompat.getDrawable(holder.itemView.getContext(),
+                                            R.drawable.ic_rubbish_bin),
+                                    1000, true).show();
+
+                        }
+                    }
+                });
+
                 holder.button1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -152,22 +169,7 @@ public class DoctorsForumFragment extends Fragment {
             }
         };
         recyclerView.setAdapter(fireBaseRecyclerAdapter);
-        fireBaseRecyclerAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-            @Override
-            public void onItemRangeInserted(int positionStart, int itemCount) {
-                super.onItemRangeInserted(positionStart, itemCount);
-                int friendlyMessageCount = fireBaseRecyclerAdapter.getItemCount();
-                int lastVisiblePosition = linearLayoutManager.findLastCompletelyVisibleItemPosition();
 
-                // If the recycler view is initially being loaded or the user is at the bottom of the list, scroll
-                // to the bottom of the list to show the newly added message.
-                if (lastVisiblePosition == -1 && bottomView ||
-                        (positionStart >= (friendlyMessageCount - 1) && lastVisiblePosition == (positionStart - 1) && bottomView)) {
-                    linearLayoutManager.scrollToPosition(positionStart);
-                    bottomView = false;
-                }
-            }
-        });
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -196,8 +198,23 @@ public class DoctorsForumFragment extends Fragment {
                                     final DoctorPost doctorPost = new DoctorPost(input1.getText()
                                             .toString(), user, format, doctor.getFirstName(), doctor.getLastName());
                                     Database.saveDoctorPost(doctorPost);
+                                    fireBaseRecyclerAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+                                        @Override
+                                        public void onItemRangeInserted(int positionStart, int itemCount) {
+                                            super.onItemRangeInserted(positionStart, itemCount);
+                                            int friendlyMessageCount = fireBaseRecyclerAdapter.getItemCount();
+                                            int lastVisiblePosition = linearLayoutManager.findLastCompletelyVisibleItemPosition();
+
+                                            // If the recycler view is initially being loaded or the user is at the bottom of the list, scroll
+                                            // to the bottom of the list to show the newly added message.
+                                            if (lastVisiblePosition == -1 ||
+                                                    (positionStart >= (friendlyMessageCount - 1) && lastVisiblePosition == (positionStart - 1))) {
+                                                linearLayoutManager.scrollToPosition(positionStart);
+                                            }
+                                        }
+                                    });
                                     dialog.dismiss();
-                                    bottomView = true;
+
                                 }
                             }
 
@@ -237,9 +254,10 @@ public class DoctorsForumFragment extends Fragment {
         TextView doctorName;
         Button button;
         FirebaseRecyclerAdapter<DoctorPost, DoctorsForumFragment.DoctorPosts> fireBaseRecyclerAdapter;
-        String name;
+
         ImageView imageView1;
         Button button1;
+        String currentUser=Database.getUserId();
 
 
         public DoctorPosts(View itemView, FirebaseRecyclerAdapter<DoctorPost, DoctorsForumFragment.DoctorPosts> fireBaseRecyclerAdapter) {
@@ -253,17 +271,17 @@ public class DoctorsForumFragment extends Fragment {
             imageView1 = itemView.findViewById(R.id.image2);
             button1 = itemView.findViewById(R.id.upload);
 
+
         }
         @Override
         public void onClick(View v) {
             if (v.getId() == button.getId()) {
-                if (name.equals(doctorName.getText().toString())) {
-                    fireBaseRecyclerAdapter.getRef(getAdapterPosition()).removeValue();
+
 
                 }
             }
         }
-    }
+
 
     public interface onClickListenerDoctor {
         void onclick(String key, String message, String timestamp, String addedBy, String name, String Uri);
