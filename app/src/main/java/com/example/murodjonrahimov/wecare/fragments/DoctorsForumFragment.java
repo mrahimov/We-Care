@@ -119,6 +119,15 @@ public class DoctorsForumFragment extends Fragment {
 
         final String key = fireBaseRecyclerAdapter.getRef(position)
           .getKey();
+
+        if (doctor.getAddedBy()
+          .equals(user)) {
+          holder.button1.setVisibility(View.VISIBLE);
+          holder.button.setVisibility(View.VISIBLE);
+        } else {
+          holder.button1.setVisibility(View.GONE);
+          holder.button.setVisibility(View.GONE);
+        }
         Glide.with(holder.imageView1.getContext())
           .load(doctor.getUri())
           .into(holder.imageView1);
@@ -221,7 +230,7 @@ public class DoctorsForumFragment extends Fragment {
     fireBaseRecyclerAdapter.stopListening();
   }
 
-  public class DoctorPosts extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+  public class DoctorPosts extends RecyclerView.ViewHolder implements View.OnClickListener {
     TextView message;
     TextView time;
     TextView doctorName;
@@ -241,39 +250,18 @@ public class DoctorsForumFragment extends Fragment {
     public DoctorPosts(View itemView,
                        FirebaseRecyclerAdapter<DoctorPost, DoctorsForumFragment.DoctorPosts> fireBaseRecyclerAdapter) {
       super(itemView);
+
       message = itemView.findViewById(R.id.message1);
       time = itemView.findViewById(R.id.time1);
       doctorName = itemView.findViewById(R.id.posted_by);
       button = itemView.findViewById(R.id.Del1);
       button.setVisibility(View.GONE);
+
       this.fireBaseRecyclerAdapter = fireBaseRecyclerAdapter;
       button.setOnClickListener(this);
-      itemView.setOnLongClickListener(this);
       imageView1 = itemView.findViewById(R.id.image2);
       button1 = itemView.findViewById(R.id.upload);
-      button1.setVisibility(View.GONE);
-      databaseReference.getRef()
-        .addValueEventListener(new ValueEventListener() {
-          @Override
-          public void onDataChange(DataSnapshot dataSnapshot) {
-            Doctor doctor2 = dataSnapshot.getValue(Doctor.class);
-            name = doctor2.getFirstName() + " " + doctor2.getLastName();
-            // setDelete();
-
-          }
-
-          @Override
-          public void onCancelled(DatabaseError databaseError) {
-          }
-        });
     }
-
-    //        public void setDelete(){
-    //            if(name.equals(doctorName.getText().toString())){
-    //                button1.setVisibility(View.VISIBLE);
-    //                button.setVisibility(View.VISIBLE);
-    //            }
-    //        }
 
     @Override
     public void onClick(View v) {
@@ -284,25 +272,6 @@ public class DoctorsForumFragment extends Fragment {
             .removeValue();
         }
       }
-    }
-
-    @Override
-    public boolean onLongClick(View v) {
-      if (v.getId() == itemView.getId() && vis) {
-        if (name.equals(doctorName.getText()
-          .toString())) {
-          button.setVisibility(View.VISIBLE);
-          button1.setVisibility(View.VISIBLE);
-          vis = false;
-          return true;
-        }
-      } else {
-        button.setVisibility(View.GONE);
-        button1.setVisibility(View.GONE);
-        vis = true;
-        return true;
-      }
-      return false;
     }
   }
 
