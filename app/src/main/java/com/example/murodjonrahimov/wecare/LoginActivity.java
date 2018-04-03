@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                                         final DatabaseReference db = Database.getDatabase();
                                         final String userID = Database.getUserId();
 
-                                        db.child("doctors")
+                                        db.child("doctors").child(userID)
                                                 .addListenerForSingleValueEvent(new ValueEventListener() {
                                                     @Override
                                                     public void onDataChange(DataSnapshot dataSnapshot) {
