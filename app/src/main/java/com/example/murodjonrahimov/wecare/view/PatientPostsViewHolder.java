@@ -15,7 +15,7 @@ import com.example.murodjonrahimov.wecare.model.Post;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class PatientPostsViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener{
+public class PatientPostsViewHolder extends RecyclerView.ViewHolder{
 
   public final static String POST_KEY = "post";
   private TextView message;
@@ -29,7 +29,6 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder implements V
   private Button delete;
   ViewHolderCallback viewHolderCallback;
   private DatabaseReference databaseReference;
-  Boolean vis=true;
 
   public PatientPostsViewHolder(final View itemView) {
     super(itemView);
@@ -42,9 +41,7 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder implements V
     statusOfPost = itemView.findViewById(R.id.resolve_unresolved_case);
     lineStatus = itemView.findViewById(R.id.line_status);
     delete= itemView.findViewById(R.id.del2);
-    delete.setVisibility(View.GONE);
 
-    itemView.setOnLongClickListener(this);
     databaseReference = FirebaseDatabase.getInstance()
             .getReference()
             .child("posts");
@@ -77,21 +74,6 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder implements V
             Database.updateStatusOfPost(post.getKey(), !post.isResolved());
         }
     });
-
-  }
-
-  @Override
-  public boolean onLongClick(View v) {
-    if (v.getId() == itemView.getId() && vis) {
-        delete.setVisibility(View.VISIBLE);
-        vis=false;
-        return true;
-    }
-    else {
-      delete.setVisibility(View.GONE);
-      vis=true;
-      return true;
-    }
 
   }
 

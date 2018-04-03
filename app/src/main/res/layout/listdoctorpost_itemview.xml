@@ -13,12 +13,32 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/Del1"
+                    android:layout_width="40dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/ic_rubbish_bin" />
+
+                <Button
+                    android:id="@+id/upload"
+                    android:layout_width="45dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="end"
+                    android:background="@drawable/ic_upload" />
+
+            </RelativeLayout>
 
             <LinearLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="vertical"
               android:padding="16dp">
+
                 <ImageView
                     android:id="@+id/image2"
                     android:layout_width="match_parent"
@@ -53,25 +73,7 @@
 
             </LinearLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <Button
-                    android:id="@+id/Del1"
-                    android:layout_width="40dp"
-                    android:layout_height="35dp"
-                    android:background="@drawable/ic_rubbish_bin" />
 
-                <Button
-                    android:id="@+id/upload"
-                    android:layout_width="45dp"
-                    android:layout_height="35dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_gravity="end"
-                    android:background="@drawable/ic_upload" />
-
-            </RelativeLayout>
 
         </LinearLayout>
 
