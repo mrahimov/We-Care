@@ -57,7 +57,8 @@ public class CommentsViewHolder extends RecyclerView.ViewHolder {
 
             Drawable mDrawable =itemView.getResources().getDrawable(R.drawable.shape);
 
-            mDrawable.setColorFilter(new PorterDuffColorFilter(
+            mDrawable.setColorFilter(new PorterDuffColorFilter
+                    (
                     itemView.getResources()
                             .getColor(R.color.guide_color),
                     PorterDuff.Mode.MULTIPLY)
