@@ -259,6 +259,7 @@ public class DoctorsForumFragment extends Fragment {
             if (v.getId() == button.getId()) {
                 if (name.equals(doctorName.getText().toString())) {
                     fireBaseRecyclerAdapter.getRef(getAdapterPosition()).removeValue();
+
                 }
             }
         }

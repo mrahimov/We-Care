@@ -72,9 +72,9 @@ public class PostDoctorComments extends AppCompatActivity {
     addedBy.setText(name);
     timestamp.setText(doctorTimeStamp);
 
-    RecyclerView recyclerView = findViewById(R.id.commentsrecyclerview);
+    final RecyclerView recyclerView = findViewById(R.id.commentsrecyclerview);
     final CommentsAdapter commentsAdapter = new CommentsAdapter();
-    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+    final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
     recyclerView.setAdapter(commentsAdapter);
     recyclerView.setLayoutManager(linearLayoutManager);
     String user = Database.getUserId();
@@ -148,8 +148,11 @@ public class PostDoctorComments extends AppCompatActivity {
         //                post.setCountOfComments(count);
         //                Database.updatePost(post.getKey(), count);
         //
-        addedComment.getText()
-          .clear();
+          addedComment.getText()
+                  .clear();
+          recyclerView.scrollToPosition(commentsAdapter.getItemCount()-1);
+
+
       }
     });
   }
