@@ -161,6 +161,11 @@
           android:background="@drawable/camera"/>
 
     </LinearLayout>
+    <FrameLayout
+      android:id="@+id/containerPostCamera"
+      android:layout_gravity="center"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"/>
 
     <LinearLayout
       android:layout_width="match_parent"
@@ -183,7 +188,7 @@
           android:layout_width="100dp"
           android:layout_height="match_parent"/>
 
-</LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
       android:layout_width="match_parent"
@@ -207,14 +212,6 @@
           android:layout_height="match_parent"/>
 
     </LinearLayout>
-
-    <FrameLayout
-      android:id="@+id/containerPostCamera"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"/>
-
-
-
 
 </LinearLayout>
 

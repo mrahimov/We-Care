@@ -4,21 +4,21 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="180dp"
   android:layout_height="60dp"
-  android:orientation="horizontal"
   android:layout_gravity="center"
+  android:orientation="horizontal"
   tools:context=".CameraPopUpActivity">
 
     <!--<ImageButton-->
-      <!--android:id="@+id/image_button_gallery"-->
-      <!--android:layout_width="60dp"-->
-      <!--android:layout_height="match_parent"-->
-      <!--android:background="@drawable/gallery"/>-->
+    <!--android:id="@+id/image_button_gallery"-->
+    <!--android:layout_width="60dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@drawable/gallery"/>-->
 
     <!--<ImageButton-->
-      <!--android:id="@+id/image_button_camera"-->
-      <!--android:layout_width="60dp"-->
-      <!--android:layout_marginLeft="40dp"-->
-      <!--android:layout_height="match_parent"-->
-      <!--android:background="@drawable/camera"/>-->
+    <!--android:id="@+id/image_button_camera"-->
+    <!--android:layout_width="60dp"-->
+    <!--android:layout_marginLeft="40dp"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="@drawable/camera"/>-->
 
 </LinearLayout>

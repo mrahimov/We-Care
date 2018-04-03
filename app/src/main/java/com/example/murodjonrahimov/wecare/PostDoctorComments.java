@@ -142,6 +142,7 @@ public class PostDoctorComments extends AppCompatActivity {
         String dateString = sdf.format(date);
 
         Comment comment = new Comment(receivedComment, Key, dateString, commentname);
+        comment.setUid(Database.getUserId());
         Database.saveComment(comment);
         //                int count = post.getCountOfComments() + 1;
         //                post.setCountOfComments(count);

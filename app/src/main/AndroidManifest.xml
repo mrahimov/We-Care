@@ -44,7 +44,7 @@
         <activity android:name=".guide.GuidePatientActivity"/>
         <activity android:name=".TwoAuthActivityDoctorReg"/>
         <activity android:name=".CameraPopUpActivity"
-        android:theme="@style/AppTheme.CustomTheme">
+          android:theme="@style/AppTheme.CustomTheme">
 
         </activity>
     </application>
