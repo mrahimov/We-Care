@@ -33,7 +33,8 @@
               android:layout_height="wrap_content"
               android:hint="@string/posted_by"
               android:textColor="#000"
-              android:textSize="8sp"/>
+              android:textSize="8sp"
+                android:gravity="right"/>
 
             <TextView
               android:id="@+id/timestamp_ed"
@@ -41,7 +42,8 @@
               android:layout_height="wrap_content"
               android:hint="@string/date"
               android:textColor="#000"
-              android:textSize="8sp"/>
+              android:textSize="8sp"
+                android:gravity="right"/>
 
 
         </LinearLayout>

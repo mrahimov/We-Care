@@ -27,7 +27,7 @@
     <string name="cardiologist">Cardiologist</string>
     <string name="allergist">Allergist</string>
     <string name="gp">GP</string>
-    <string name="choose_kind_of_doctor">Choose kind of doctor</string>
+    <string name="choose_kind_of_doctor">Choose Doctor By Speciality</string>
     <string name="nephrologist">Nephrologist</string>
     <string name="posted_by">Posted by</string>
     <string name="date">Date</string>
@@ -35,7 +35,7 @@
     <string name="weight">Weight</string>
     <string name="dob">DOB</string>
     <string name="country">Country</string>
-    <string name="message">Message</string>
+    <string name="message">Write a Message ...</string>
     <string name="save">Save</string>
     <string name="last_name_plus">Last Name:</string>
     <string name="user_name_plus">User Name:</string>
