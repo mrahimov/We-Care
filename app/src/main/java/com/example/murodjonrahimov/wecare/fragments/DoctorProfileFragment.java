@@ -51,11 +51,11 @@ public class DoctorProfileFragment extends Fragment {
   private TextView yearsOfExperienceED;
   private TextView type;
   private TextView numberOfDoctorsComments;
-  private FloatingActionButton fab;
+  private Button fab;
   private ImageView doctorImage;
   private StorageReference storageReference;
   private ProgressDialog progressDialog;
-  private Button buttonDoctorImage;
+  private FloatingActionButton buttonDoctorImage;
   private Uri uri;
   private SharedPreferences preferences;
   private SharedPreferences.Editor myPrefsEdit;
