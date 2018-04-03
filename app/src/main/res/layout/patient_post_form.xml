@@ -25,7 +25,7 @@
           android:layout_gravity="end"
            android:layout_margin="20dp"
             android:scaleType="centerInside"
-          android:background="@drawable/arrowDown"/>
+          android:background="@drawable/arrowdown"/>
 
     </LinearLayout>
 
