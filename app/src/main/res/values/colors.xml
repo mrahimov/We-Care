@@ -7,5 +7,8 @@
     <color name="color_white">#FFFFFF</color>
     <color name="color_trasparentwhite">#cccccc</color>
     <color name="color_green">#57D900</color>
+    <color name="bluish">#448aff</color>
+
+
 
 </resources>
