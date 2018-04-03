@@ -274,6 +274,7 @@ public class PatientPostForm extends AppCompatActivity implements CameraPopUpFra
       public void onClick(View v) {
 
         String uniqueID = UUID.randomUUID().toString();
+
         final String message = messageED.getText()
           .toString();
 
@@ -287,8 +288,9 @@ public class PatientPostForm extends AppCompatActivity implements CameraPopUpFra
         assert urionClick != null;
         StorageReference docImage = storageReference.child(uniqueID)
           .child(urionClick.getAuthority());
-        docImage.putFile(urionClick)
-          .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+        docImage.putFile(urionClick).
+          addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
@@ -383,8 +385,8 @@ public class PatientPostForm extends AppCompatActivity implements CameraPopUpFra
   //  } catch (IllegalArgumentException e) {
   //    e.printStackTrace();
   //  }
-
-//  }
+  //
+  //}
 }
 
 

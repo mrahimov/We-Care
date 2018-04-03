@@ -20,7 +20,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.bumptech.glide.Glide;
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.database.Database;
@@ -40,264 +39,276 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 public class DoctorsForumFragment extends Fragment {
 
-    private View view;
-    private FloatingActionButton floatingActionButton;
-    private DatabaseReference database;
-    private String user;
-    DatabaseReference database2;
-    StorageReference storageReference;
+  private View view;
+  private FloatingActionButton floatingActionButton;
+  private DatabaseReference database;
+  private String user;
+  DatabaseReference database2;
+  StorageReference storageReference;
+  Boolean bottomView = false;
 
+  private RecyclerView recyclerView;
+  private onClickListenerDoctor listenerDoc;
+  private FirebaseRecyclerAdapter<DoctorPost, DoctorsForumFragment.DoctorPosts> fireBaseRecyclerAdapter;
 
-    private RecyclerView recyclerView;
-    private onClickListenerDoctor listenerDoc;
-    private FirebaseRecyclerAdapter<DoctorPost, DoctorsForumFragment.DoctorPosts> fireBaseRecyclerAdapter;
+  @Override
+  public void onAttach(Context context) {
+    super.onAttach(context);
+    try {
+      listenerDoc = (onClickListenerDoctor) context;
+    } catch (ClassCastException e) {
+      throw new ClassCastException(context.toString() + " must implement listener");
+    }
+  }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            listenerDoc = (onClickListenerDoctor) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement listener");
+  public DoctorsForumFragment() {
+  }
+
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    database = FirebaseDatabase.getInstance()
+      .getReference()
+      .child("DoctorPost");
+    user = Database.getUserId();
+    database2 = FirebaseDatabase.getInstance()
+      .getReference()
+      .child("doctors")
+      .child(user);
+    storageReference = FirebaseStorage.getInstance()
+      .getReference();
+    database.keepSynced(true);
+  }
+
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    view = inflater.inflate(R.layout.d_fragment_doctors, container, false);
+    return view;
+  }
+
+  @Override
+  public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+
+    recyclerView = view.findViewById(R.id.doctorForum);
+    recyclerView.setHasFixedSize(true);
+    final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+    recyclerView.setLayoutManager(linearLayoutManager);
+    floatingActionButton = view.findViewById(R.id.fab);
+
+    FirebaseRecyclerOptions<DoctorPost> options =
+      new FirebaseRecyclerOptions.Builder<DoctorPost>().setQuery(database, DoctorPost.class)
+        .build();
+
+    fireBaseRecyclerAdapter = new FirebaseRecyclerAdapter<DoctorPost, DoctorPosts>(options) {
+
+      @Override
+      public DoctorsForumFragment.DoctorPosts onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        View view = LayoutInflater.from(parent.getContext())
+          .inflate(R.layout.listdoctorpost_itemview, parent, false);
+
+        return new DoctorsForumFragment.DoctorPosts(view, fireBaseRecyclerAdapter);
+      }
+
+      @Override
+      protected void onBindViewHolder(@NonNull final DoctorsForumFragment.DoctorPosts holder, int position,
+                                      @NonNull final DoctorPost doctor) {
+
+        final String key = fireBaseRecyclerAdapter.getRef(position)
+          .getKey();
+        Glide.with(holder.imageView1.getContext())
+          .load(doctor.getUri())
+          .into(holder.imageView1);
+        holder.doctorName.setText(doctor.getFirstname() + " " + doctor.getLastname());
+        holder.message.setText(doctor.getMessage());
+        holder.time.setText(doctor.getTimeStamp());
+
+        holder.button1.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            listenerDoc.Uri(key);
+          }
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+
+            listenerDoc.onclick(key, doctor.getMessage(), doctor.getTimeStamp(), doctor.getAddedBy(),
+              doctor.getFirstname() + " " + doctor.getLastname(), doctor.getUri());
+          }
+        });
+      }
+    };
+    recyclerView.setAdapter(fireBaseRecyclerAdapter);
+    fireBaseRecyclerAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+      @Override
+      public void onItemRangeInserted(int positionStart, int itemCount) {
+        super.onItemRangeInserted(positionStart, itemCount);
+        int friendlyMessageCount = fireBaseRecyclerAdapter.getItemCount();
+        int lastVisiblePosition = linearLayoutManager.findLastCompletelyVisibleItemPosition();
+
+        // If the recycler view is initially being loaded or the user is at the bottom of the list, scroll
+        // to the bottom of the list to show the newly added message.
+        if (lastVisiblePosition == -1 && bottomView || (positionStart >= (friendlyMessageCount - 1) && lastVisiblePosition == (
+          positionStart
+            - 1) && bottomView)) {
+          linearLayoutManager.scrollToPosition(positionStart);
+          bottomView = false;
         }
-    }
+      }
+    });
+    floatingActionButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Add post");
 
-    public DoctorsForumFragment() {
-    }
+        View viewInflated = LayoutInflater.from(getContext())
+          .inflate(R.layout.alertbox, (ViewGroup) getView(), false);
+        final EditText input1 = viewInflated.findViewById(R.id.input1);
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        database = FirebaseDatabase.getInstance()
-                .getReference()
-                .child("DoctorPost");
-        user = Database.getUserId();
-        database2 = FirebaseDatabase.getInstance()
-                .getReference()
-                .child("doctors").child(user);
-        storageReference = FirebaseStorage.getInstance()
-                .getReference();
-        database.keepSynced(true);
-    }
+        builder.setView(viewInflated);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.d_fragment_doctors, container, false);
-        return view;
-    }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, yyyy h:mm a");
+        final String format = simpleDateFormat.format(new Date());
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(final DialogInterface dialog, int which) {
 
-        recyclerView = view.findViewById(R.id.doctorForum);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        floatingActionButton = view.findViewById(R.id.fab);
+            database2.addValueEventListener(new ValueEventListener() {
+              @Override
+              public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                  Doctor doctor = dataSnapshot.getValue(Doctor.class);
+                  final DoctorPost doctorPost = new DoctorPost(input1.getText()
+                    .toString(), user, format, doctor.getFirstName(), doctor.getLastName());
+                  Database.saveDoctorPost(doctorPost);
+                  dialog.dismiss();
+                  bottomView = true;
+                }
+              }
 
-        FirebaseRecyclerOptions<DoctorPost> options =
-                new FirebaseRecyclerOptions.Builder<DoctorPost>().setQuery(database, DoctorPost.class)
-                        .build();
+              @Override
+              public void onCancelled(DatabaseError databaseError) {
+              }
+            });
+          }
+        });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+            dialog.cancel();
+          }
+        });
+        builder.show();
+      }
+    });
+  }
 
-        fireBaseRecyclerAdapter = new FirebaseRecyclerAdapter<DoctorPost, DoctorPosts>(options) {
+  @Override
+  public void onStart() {
+    super.onStart();
+    fireBaseRecyclerAdapter.startListening();
+  }
 
-            @Override
-            public DoctorsForumFragment.DoctorPosts onCreateViewHolder(ViewGroup parent, int viewType) {
+  @Override
+  public void onStop() {
+    super.onStop();
+    fireBaseRecyclerAdapter.stopListening();
+  }
 
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.listdoctorpost_itemview, parent, false);
+  public class DoctorPosts extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+    TextView message;
+    TextView time;
+    TextView doctorName;
+    Button button;
+    //DatabaseReference databaseReference;
+    FirebaseRecyclerAdapter<DoctorPost, DoctorsForumFragment.DoctorPosts> fireBaseRecyclerAdapter;
+    String name;
+    Boolean vis = true;
+    ImageView imageView1;
+    Button button1;
+    String user = Database.getUserId();
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance()
+      .getReference()
+      .child("doctors")
+      .child(user);
 
-                return new DoctorsForumFragment.DoctorPosts(view, fireBaseRecyclerAdapter);
-            }
+    public DoctorPosts(View itemView,
+                       FirebaseRecyclerAdapter<DoctorPost, DoctorsForumFragment.DoctorPosts> fireBaseRecyclerAdapter) {
+      super(itemView);
+      message = itemView.findViewById(R.id.message1);
+      time = itemView.findViewById(R.id.time1);
+      doctorName = itemView.findViewById(R.id.posted_by);
+      button = itemView.findViewById(R.id.Del1);
+      button.setVisibility(View.GONE);
+      this.fireBaseRecyclerAdapter = fireBaseRecyclerAdapter;
+      button.setOnClickListener(this);
+      itemView.setOnLongClickListener(this);
+      imageView1 = itemView.findViewById(R.id.image2);
+      button1 = itemView.findViewById(R.id.upload);
+      button1.setVisibility(View.GONE);
+      databaseReference.getRef()
+        .addValueEventListener(new ValueEventListener() {
+          @Override
+          public void onDataChange(DataSnapshot dataSnapshot) {
+            Doctor doctor2 = dataSnapshot.getValue(Doctor.class);
+            name = doctor2.getFirstName() + " " + doctor2.getLastName();
+            // setDelete();
 
-            @Override
-            protected void onBindViewHolder(@NonNull final DoctorsForumFragment.DoctorPosts holder, int position,
-                                            @NonNull final DoctorPost doctor) {
+          }
 
-                final String key = fireBaseRecyclerAdapter.getRef(position)
-                        .getKey();
-                holder.setKey(key);
-               Glide.with(holder.imageView1.getContext())
-                       .load(doctor.getUri()).into(holder.imageView1);
-                //Picasso.get().load(doctor.getUri()).into(holder.imageView1);
-                holder.doctorName.setText(doctor.getFirstname()+" "+doctor.getLastname());
-                holder.message.setText(doctor.getMessage());
-                holder.time.setText(doctor.getTimeStamp());
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        listenerDoc.onclick(key, doctor.getMessage(), doctor.getTimeStamp(), doctor.getAddedBy(), doctor.getFirstname()+" "+doctor.getLastname(),doctor.getUri());
-                    }
-                });
-            }
-            public void happyfeet(){
-
-            }
-
-        };
-        recyclerView.setAdapter(fireBaseRecyclerAdapter);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("Add post");
-
-                View viewInflated = LayoutInflater.from(getContext())
-                        .inflate(R.layout.alertbox, (ViewGroup) getView(), false);
-                final EditText input1 = viewInflated.findViewById(R.id.input1);
-
-                builder.setView(viewInflated);
-
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, yyyy h:mm a");
-                final String format = simpleDateFormat.format(new Date());
-
-
-                builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(final DialogInterface dialog, int which) {
-
-                        database2.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.exists()) {
-                                    Doctor doctor = dataSnapshot.getValue(Doctor.class);
-                                    final DoctorPost doctorPost = new DoctorPost(input1.getText()
-                                            .toString(), user, format, doctor.getFirstName(), doctor.getLastName());
-                                    Database.saveDoctorPost(doctorPost);
-                                    dialog.dismiss();
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                            }
-                        });
-                    }
-                });
-                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                builder.show();
-            }
+          @Override
+          public void onCancelled(DatabaseError databaseError) {
+          }
         });
     }
 
-
+    //        public void setDelete(){
+    //            if(name.equals(doctorName.getText().toString())){
+    //                button1.setVisibility(View.VISIBLE);
+    //                button.setVisibility(View.VISIBLE);
+    //            }
+    //        }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        fireBaseRecyclerAdapter.startListening();
+    public void onClick(View v) {
+      if (v.getId() == button.getId()) {
+        if (name.equals(doctorName.getText()
+          .toString())) {
+          fireBaseRecyclerAdapter.getRef(getAdapterPosition())
+            .removeValue();
+        }
+      }
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        fireBaseRecyclerAdapter.stopListening();
+    public boolean onLongClick(View v) {
+      if (v.getId() == itemView.getId() && vis) {
+        if (name.equals(doctorName.getText()
+          .toString())) {
+          button.setVisibility(View.VISIBLE);
+          button1.setVisibility(View.VISIBLE);
+          vis = false;
+          return true;
+        }
+      } else {
+        button.setVisibility(View.GONE);
+        button1.setVisibility(View.GONE);
+        vis = true;
+        return true;
+      }
+      return false;
     }
-    public class DoctorPosts extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        TextView message;
-        TextView time;
-        TextView doctorName;
-        Button button;
-        DatabaseReference databaseReference;
-        FirebaseRecyclerAdapter<DoctorPost, DoctorsForumFragment.DoctorPosts> fireBaseRecyclerAdapter;
-        String name;
-        Boolean vis=true;
-        ImageView imageView1;
-        Button button1;
-        String key1;
+  }
 
-        public DoctorPosts(View itemView, FirebaseRecyclerAdapter<DoctorPost, DoctorsForumFragment.DoctorPosts> fireBaseRecyclerAdapter) {
-            super(itemView);
-            message = itemView.findViewById(R.id.message1);
-            time = itemView.findViewById(R.id.time1);
-            doctorName = itemView.findViewById(R.id.posted_by);
-            button = itemView.findViewById(R.id.Del1);
-            button.setVisibility(View.GONE);
-            this.fireBaseRecyclerAdapter = fireBaseRecyclerAdapter;
-            button.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
-            String user = Database.getUserId();
-            imageView1= itemView.findViewById(R.id.image2);
-            button1 = itemView.findViewById(R.id.upload);
-            button1.setVisibility(View.GONE);
+  public interface onClickListenerDoctor {
+    void onclick(String key, String message, String timestamp, String addedBy, String name, String Uri);
 
-            databaseReference = FirebaseDatabase.getInstance()
-                    .getReference()
-                    .child("doctors").child(user);
-
-            databaseReference.getRef()
-                    .addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            Doctor doctor2 = dataSnapshot.getValue(Doctor.class);
-                            name = doctor2.getFirstName() + " " + doctor2.getLastName();
-                        }
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                        }
-                    });
-
-            button1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                   listenerDoc.Uri(DoctorPosts.this, key1);
-                }
-            });
-        }
-        public void setKey(String key1){
-            this.key1=key1;
-        }
-
-        @Override
-        public void onClick(View v) {
-            if (v.getId() == button.getId()) {
-                if (name.equals(doctorName.getText().toString())) {
-                    fireBaseRecyclerAdapter.getRef(getAdapterPosition()).removeValue();
-                }
-            }
-        }
-
-        @Override
-        public boolean onLongClick(View v) {
-            if (v.getId() == itemView.getId() && vis) {
-                if (name.equals(doctorName.getText().toString())) {
-                    button.setVisibility(View.VISIBLE);
-                    button1.setVisibility(View.VISIBLE);
-                    vis=false;
-                    return true;
-                }
-            } else{
-                button.setVisibility(View.GONE);
-                button1.setVisibility(View.GONE);
-                vis=true;
-                return true;
-            }
-            return false;
-        }
-        public void loadingProfileImage(Uri downloadUri, String Lf) {
-            Log.d("url", "loadingProfileImage: " + Lf + downloadUri);
-            Picasso.get()
-                    .load(downloadUri)
-                    .into(imageView1);
-            button1.setVisibility(View.GONE);
-            button.setVisibility(View.GONE);
-            fireBaseRecyclerAdapter.notifyDataSetChanged();
-        }
-    }
-    public interface onClickListenerDoctor {
-        void onclick(String key, String message, String timestamp, String addedBy, String name, String Uri);
-        void Uri(DoctorPosts doctorPosts,String key);
-    }
-
-
-
+    void Uri(String key);
+  }
 }

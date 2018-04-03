@@ -43,33 +43,45 @@ public class Database {
 
   public static void saveDoctorPost(DoctorPost doctorPost) {
 
-    getDatabase().child("DoctorPost").push().setValue(doctorPost);
+    getDatabase().child("DoctorPost")
+      .push()
+      .setValue(doctorPost);
   }
 
-  public static void saveDoctorURI(String uri, String key){
-    getDatabase().child("DoctorPost").child(key).child("uri").setValue(uri);
+  public static void saveDoctorURI(String uri, String key) {
+    getDatabase().child("DoctorPost")
+      .child(key)
+      .child("uri")
+      .setValue(uri);
   }
 
-  public static void savePatientURI(String uri, String userId){
-    getDatabase().child("posts").child(userId).child("uri").setValue(uri);
+  public static void savePatientURI(String uri, String userId) {
+    getDatabase().child("posts")
+      .child(userId)
+      .child("uri")
+      .setValue(uri);
   }
 
-  public static void saveURIDoctor(String uri){
-    getDatabase().child("doctors").child(Database.getUserId()).child("uri").setValue(uri);
+  public static void saveURIDoctor(String uri) {
+    getDatabase().child("doctors")
+      .child(Database.getUserId())
+      .child("uri")
+      .setValue(uri);
   }
 
   public static void saveDoctor(Doctor doctor) {
     FirebaseUser user = FirebaseAuth.getInstance()
       .getCurrentUser();
-    String user1= Database.getUserId();
+    String user1 = Database.getUserId();
     doctor.setUid(user1);
     getDatabase().child("doctors")
-            .child(user.getUid())
+      .child(user.getUid())
       .setValue(doctor);
   }
 
   public static String getUserId() {
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseUser user = FirebaseAuth.getInstance()
+      .getCurrentUser();
     return user.getUid();
   }
 
@@ -85,16 +97,16 @@ public class Database {
       .child("countOfComments")
       .setValue(commentCount);
   }
+
   public static void updateStatusOfPost(String postID, boolean isResolved) {
     getDatabase().child("posts")
-            .child(postID)
-            .child("resolved")
-            .setValue(isResolved);
+      .child(postID)
+      .child("resolved")
+      .setValue(isResolved);
   }
 
   public static void updateDoctor(Doctor doctor) {
     getDatabase().child("doctors")
       .setValue(doctor);
   }
-
 }

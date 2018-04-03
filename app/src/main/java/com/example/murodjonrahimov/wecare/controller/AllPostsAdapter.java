@@ -60,8 +60,7 @@ public class AllPostsAdapter extends RecyclerView.Adapter<AllPostsAdapter.AllPos
     private TextView textViewNeedDoceor;
     private View lineStatus;
     private LinearLayout linearLayoutComits;
-      private ImageView statusOfPost;
-
+    private ImageView statusOfPost;
 
     private Button button;
 
@@ -73,13 +72,12 @@ public class AllPostsAdapter extends RecyclerView.Adapter<AllPostsAdapter.AllPos
       textViewComments = itemView.findViewById(R.id.comments);
       textViewNeedDoceor = itemView.findViewById(R.id.need_docroe_textview);
       linearLayoutComits = itemView.findViewById(R.id.linear_layout_comments);
-        lineStatus = itemView.findViewById(R.id.line_status);
+      lineStatus = itemView.findViewById(R.id.line_status);
 
-        statusOfPost = itemView.findViewById(R.id.resolve_unresolved_case);
+      statusOfPost = itemView.findViewById(R.id.resolve_unresolved_case);
 
-        button = itemView.findViewById(R.id.del2);
+      button = itemView.findViewById(R.id.del2);
       button.setVisibility(View.GONE);
-
 
       linearLayoutComits.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -102,17 +100,14 @@ public class AllPostsAdapter extends RecyclerView.Adapter<AllPostsAdapter.AllPos
       setStatusImage(post.isResolved());
     }
 
-      private void setStatusImage(boolean isResolved) {
-          if(isResolved) {
-              statusOfPost.setImageResource(R.drawable.resolved_case);
-              lineStatus.setBackgroundResource(R.color.color_green);
-
-          }
-          else {
-              statusOfPost.setImageResource(R.drawable.unresolved_case);
-              lineStatus.setBackgroundResource(R.color.color_white);
-
-          }
+    private void setStatusImage(boolean isResolved) {
+      if (isResolved) {
+        statusOfPost.setImageResource(R.drawable.resolved_case);
+        lineStatus.setBackgroundResource(R.color.color_green);
+      } else {
+        statusOfPost.setImageResource(R.drawable.unresolved_case);
+        lineStatus.setBackgroundResource(R.color.color_white);
       }
+    }
   }
 }

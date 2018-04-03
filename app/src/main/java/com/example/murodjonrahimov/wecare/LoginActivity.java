@@ -64,7 +64,8 @@ public class LoginActivity extends AppCompatActivity {
           .equals("") || signInPassword.getText()
           .toString()
           .equals("")) {
-          Toasty.error(LoginActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG, true).show();
+          Toasty.error(LoginActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG, true)
+            .show();
         } else {
 
           final ProgressDialog progressDialog = ProgressDialog.show(LoginActivity.this, "Please wait... ", "Processing...", true);
@@ -95,17 +96,16 @@ public class LoginActivity extends AppCompatActivity {
                             type = doctor.getType();
                             String firstName = doctor.getFirstName();
                             String lastName = doctor.getLastName();
-                            String country= doctor.getCountryOfPractice();
+                            String country = doctor.getCountryOfPractice();
                             String years = doctor.getYearsOfExperience();
                             String major = doctor.getMajor();
 
                             if (type != null) {
-                              Toasty.success(LoginActivity.this, "Doctor Login Successful", Toast.LENGTH_LONG,true)
+                              Toasty.success(LoginActivity.this, "Doctor Login Successful", Toast.LENGTH_LONG, true)
                                 .show();
 
-
-                              if (firstName == null && lastName == null&& country==null && years==null && major==null) {
-                                Toasty.info(LoginActivity.this, "please set first and last name", Toast.LENGTH_LONG,true)
+                              if (firstName == null && lastName == null && country == null && years == null && major == null) {
+                                Toasty.info(LoginActivity.this, "please set first and last name", Toast.LENGTH_LONG, true)
 
                                   .show();
 
@@ -125,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (type == null) {
                           updateLocalUsernameValue(userID);
 
-                          Toasty.info(LoginActivity.this, userEmail, Toast.LENGTH_LONG,true)
+                          Toasty.info(LoginActivity.this, userEmail, Toast.LENGTH_LONG, true)
                             .show();
 
                           Intent intent = new Intent(LoginActivity.this, PatientActivity.class);
@@ -142,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
                     });
                 } else {
                   Toasty.error(LoginActivity.this, task.getException()
-                    .getMessage(), Toast.LENGTH_LONG,true)
+                    .getMessage(), Toast.LENGTH_LONG, true)
                     .show();
                 }
               }
@@ -175,14 +175,10 @@ public class LoginActivity extends AppCompatActivity {
       }
     });
 
-    signInPassword.setOnKeyListener(new View.OnKeyListener()
-    {
-      public boolean onKey(View v, int keyCode, KeyEvent event)
-      {
-        if (event.getAction() == KeyEvent.ACTION_DOWN)
-        {
-          switch (keyCode)
-          {
+    signInPassword.setOnKeyListener(new View.OnKeyListener() {
+      public boolean onKey(View v, int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+          switch (keyCode) {
             case KeyEvent.KEYCODE_DPAD_CENTER:
             case KeyEvent.KEYCODE_ENTER:
 

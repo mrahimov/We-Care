@@ -84,7 +84,8 @@ public class CameraPopUpActivity extends AppCompatActivity {
       Intent intent1 = new Intent(CameraPopUpActivity.this, PatientPostForm.class);
       intent1.putExtra("uriPatientPost", uri.toString());
       progressDialog.dismiss();
-      Toast.makeText(CameraPopUpActivity.this, "Uploading finished", Toast.LENGTH_SHORT).show();
+      Toast.makeText(CameraPopUpActivity.this, "Uploading finished", Toast.LENGTH_SHORT)
+        .show();
       startActivity(intent1);
     }
 
@@ -97,7 +98,8 @@ public class CameraPopUpActivity extends AppCompatActivity {
       Intent intent1 = new Intent(CameraPopUpActivity.this, PatientPostForm.class);
       intent1.putExtra("uriPatientPost", uri.toString());
       progressDialog.dismiss();
-      Toast.makeText(CameraPopUpActivity.this, "Uploading finished", Toast.LENGTH_SHORT).show();
+      Toast.makeText(CameraPopUpActivity.this, "Uploading finished", Toast.LENGTH_SHORT)
+        .show();
       startActivity(intent1);
     }
   }

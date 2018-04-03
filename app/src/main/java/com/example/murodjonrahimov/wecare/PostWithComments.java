@@ -44,8 +44,8 @@ public class PostWithComments extends AppCompatActivity {
     TextView message = findViewById(R.id.message_ed);
     TextView postedBy = findViewById(R.id.posted_by_ed);
     final TextView timestamp = findViewById(R.id.timestamp_ed);
-    patientImage01 = findViewById(R.id.image_patient_post01);
-    patientImage02 = findViewById(R.id.image_patient_post02);
+    patientImage01 = findViewById(R.id.patient_post_image01);
+    patientImage02 = findViewById(R.id.patient_post_image02);
 
     checkUserProfile();
 
@@ -58,14 +58,17 @@ public class PostWithComments extends AppCompatActivity {
     userName = post.getPostedByUserName();
     postedBy.setText("Posted by: " + userName);
 
+    Log.d("HERERERE", "onCreate: " + post.getUri());
+    Log.d("HEREREtt", "onCreate: " + post.getAddedBy());
+
     if (post.getUri() != null) {
-        Uri uri = Uri.parse(post.getUri());
+      Uri uri = Uri.parse(post.getUri());
 
-        loadingProfileImage(uri, "");
-      }
+      loadingProfileImage(uri, "");
+      patientImage01.setVisibility(View.VISIBLE);
+    }
 
-
-    addedComment = findViewById(R.id.adding_comment);
+    addedComment = findViewById(R.id.adding_commentt);
     ImageView sendComment = findViewById(R.id.send_image_view);
 
     RecyclerView recyclerView = findViewById(R.id.comments_recyclerview);
