@@ -16,7 +16,8 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:orientation="vertical"
-          android:padding="15dp">
+          android:padding="15dp"
+            android:background="#e0f7fa">
 
             <TextView
               android:id="@+id/message_ed"
@@ -32,7 +33,7 @@
               android:layout_height="wrap_content"
               android:hint="@string/posted_by"
               android:textColor="#000"
-              android:textSize="18sp"/>
+              android:textSize="8sp"/>
 
             <TextView
               android:id="@+id/timestamp_ed"
@@ -40,7 +41,7 @@
               android:layout_height="wrap_content"
               android:hint="@string/date"
               android:textColor="#000"
-              android:textSize="18sp"/>
+              android:textSize="8sp"/>
 
 
         </LinearLayout>
@@ -51,7 +52,10 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_above="@+id/adding_comment"
-      android:layout_below="@+id/cardview"/>
+      android:layout_below="@+id/cardview"
+        android:layout_marginTop="10dp"
+        android:padding="15dp"
+        android:background="#ECEFF1"/>
 
     <EditText
       android:id="@+id/adding_comment"
@@ -63,14 +67,13 @@
       android:hint="@string/write_a_comment"/>
 
     <ImageView
-      android:id="@+id/send_image_view"
-      android:layout_width="30dp"
-      android:layout_height="30dp"
-      android:layout_alignParentBottom="true"
-      android:layout_alignRight="@+id/adding_comment"
-      android:layout_marginBottom="8dp"
-      android:layout_marginRight="8dp"
-      android:gravity="bottom"
-      app:srcCompat="@drawable/send"/>
+        android:id="@+id/send_image_view"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/comments_recyclerview"
+        android:layout_marginTop="9dp"
+        android:gravity="bottom"
+        app:srcCompat="@drawable/ic_tosend" />
 
 </RelativeLayout>
