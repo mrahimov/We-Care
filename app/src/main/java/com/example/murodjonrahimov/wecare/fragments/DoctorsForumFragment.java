@@ -115,7 +115,7 @@ public class DoctorsForumFragment extends Fragment {
                 View view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.listdoctorpost_itemview, parent, false);
 
-                return new DoctorsForumFragment.DoctorPosts(view, fireBaseRecyclerAdapter);
+                return new DoctorsForumFragment.DoctorPosts(view);
             }
 
             @Override
@@ -260,7 +260,7 @@ public class DoctorsForumFragment extends Fragment {
         String currentUser=Database.getUserId();
 
 
-        public DoctorPosts(View itemView, FirebaseRecyclerAdapter<DoctorPost, DoctorsForumFragment.DoctorPosts> fireBaseRecyclerAdapter) {
+        public DoctorPosts(View itemView) {
             super(itemView);
             message = itemView.findViewById(R.id.message1);
             time = itemView.findViewById(R.id.time1);

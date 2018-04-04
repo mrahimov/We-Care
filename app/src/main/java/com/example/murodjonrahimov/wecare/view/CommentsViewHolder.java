@@ -26,8 +26,8 @@ public class CommentsViewHolder extends RecyclerView.ViewHolder {
     private TextView commentTimestamp;
     private TextView postedBy;
     private String uid;
-    DatabaseReference databaseReference;
-    CardView cardView;
+    private DatabaseReference databaseReference;
+    private CardView cardView;
 
     public CommentsViewHolder(View itemView) {
         super(itemView);
