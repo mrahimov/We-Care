@@ -33,12 +33,12 @@ public class PatientActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
           case R.id.navigation_doctors:
-            toolbar.setTitle("Doctors");
+            toolbar.setTitle("List of Doctors");
             fragment = new ListOfDoctorsFragment();
             loadFragment(fragment);
             return true;
           case R.id.navigation_my_profile:
-            toolbar.setTitle("Profile");
+            toolbar.setTitle("Patient Profile");
             fragment = new PatientProfileFragment();
             loadFragment(fragment);
             return true;
