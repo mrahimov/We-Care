@@ -47,7 +47,7 @@ public class CommentsViewHolder extends RecyclerView.ViewHolder {
     public void onBind(final Comment comment) {
 
         if (uid.equals(comment.getUid())) {
-            cardView.setCardBackgroundColor(itemView.getResources().getColor(R.color.guide_color));
+            cardView.setCardBackgroundColor(itemView.getResources().getColor(R.color.oooooo));
             DrawableCompat.setTint(
                     itemView.getResources().getDrawable(R.drawable.shape),
                     ContextCompat.getColor(itemView.getContext(),
@@ -70,7 +70,7 @@ public class CommentsViewHolder extends RecyclerView.ViewHolder {
         } else {
             ///itemView..setBackgroundColor(Color.parseColor("#ffffff"));
 
-           cardView.setCardBackgroundColor(itemView.getResources().getColor(R.color.bluish));
+           cardView.setCardBackgroundColor(itemView.getResources().getColor(R.color.colorPrimary));
             commentTV.setText(comment.getComment());
             commentTimestamp.setText(comment.getTimeStamp());
             postedBy.setText("Posted by: " + comment.getCommentPostedByUserName());
