@@ -1,93 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:orientation="vertical"
-  android:padding="8dp">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <android.support.v7.widget.CardView
-      android:id="@+id/cardview"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+        android:id="@+id/cardview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="vertical"
-          android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp"
             android:background="#e0f7fa">
 
             <TextView
-              android:id="@+id/message_ed"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:hint="@string/message"
-              android:textColor="#000"
-              android:textSize="18sp"/>
+                android:id="@+id/message_ed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/message"
+                android:textColor="#000"
+                android:textSize="18sp"/>
 
             <TextView
-              android:id="@+id/posted_by_ed"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:hint="@string/posted_by"
-              android:textColor="#000"
-              android:textSize="8sp"/>
+                android:id="@+id/posted_by_ed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/posted_by"
+                android:textColor="#000"
+                android:textSize="8sp"/>
 
             <TextView
-              android:id="@+id/timestamp_ed"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:hint="@string/date"
-              android:textColor="#000"
-              android:textSize="8sp"/>
+                android:id="@+id/timestamp_ed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/date"
+                android:textColor="#000"
+                android:textSize="8sp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <ImageView
+                    android:id="@+id/patient_post_image01"
+                    android:layout_width="120dp"
+                    android:layout_marginRight="10dp"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:id="@+id/patient_post_image02"
+                    android:layout_width="120dp"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
 
 
         </LinearLayout>
-
     </android.support.v7.widget.CardView>
 
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="100dp"
-      android:orientation="horizontal"
-      android:padding="15dp">
-
-        <ImageView
-          android:id="@+id/patient_post_image01"
-          android:layout_width="120dp"
-          android:layout_marginRight="10dp"
-          android:visibility="gone"
-          android:layout_height="wrap_content"/>
-
-        <ImageView
-          android:id="@+id/patient_post_image02"
-          android:layout_width="120dp"
-          android:visibility="gone"
-          android:layout_height="wrap_content"/>
-
-
-    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
-      android:id="@+id/comments_recyclerview"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_above="@+id/adding_comment"
-      android:layout_below="@+id/cardview"
+        android:id="@+id/comments_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/adding_comment"
+        android:layout_below="@+id/cardview"
         android:layout_marginTop="10dp"
         android:padding="15dp"
         android:background="#ECEFF1"/>
 
     <EditText
-      android:id="@+id/adding_commentt"
-      android:layout_width="match_parent"
-      android:layout_height="50dp"
-      android:layout_alignParentBottom="true"
-      android:layout_marginBottom="8dp"
-      android:gravity="bottom"
-      android:hint="@string/write_a_comment"/>
+        android:id="@+id/adding_comment"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp"
+        android:gravity="bottom"
+        android:hint="@string/write_a_comment"/>
 
     <ImageView
         android:id="@+id/send_image_view"
@@ -99,4 +98,6 @@
         android:gravity="bottom"
         app:srcCompat="@drawable/ic_tosend" />
 
-</LinearLayout>
+</RelativeLayout>
+
+
