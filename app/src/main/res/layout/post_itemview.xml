@@ -37,7 +37,8 @@
               android:layout_height="wrap_content"
               android:hint="@string/others"
               android:textColor="#000"
-              android:textSize="18sp"/>
+              android:textSize="18sp"
+                android:layout_marginBottom="5dp"/>
 
             <TextView
               android:id="@+id/message_ed"
@@ -45,7 +46,8 @@
               android:layout_height="wrap_content"
               android:hint="@string/message"
               android:textColor="#000"
-              android:textSize="18sp"/>
+              android:textSize="18sp"
+                android:layout_marginBottom="5dp"/>
 
             <TextView
               android:id="@+id/posted_by_ed"
@@ -53,7 +55,8 @@
               android:layout_height="wrap_content"
               android:hint="@string/posted_by"
               android:textColor="#000"
-              android:textSize="18sp"/>
+              android:textSize="12sp"
+                android:gravity="right"/>
 
             <TextView
               android:id="@+id/timestamp_ed"
@@ -61,7 +64,8 @@
               android:layout_height="wrap_content"
               android:hint="@string/date"
               android:textColor="#000"
-              android:textSize="18sp"/>
+              android:textSize="12sp"
+                android:gravity="right"/>
 
             <TextView
               android:id="@+id/comments"
@@ -70,7 +74,7 @@
               android:clickable="true"
               android:hint="@string/comments"
               android:textColor="#000"
-              android:textSize="18sp"/>
+              android:textSize="14sp"/>
 
 
             <ImageView

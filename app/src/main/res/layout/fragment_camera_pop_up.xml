@@ -20,16 +20,16 @@
 
         <ImageButton
           android:id="@+id/image_button_gallery"
-          android:layout_width="60dp"
+          android:layout_width="48dp"
           android:layout_height="match_parent"
-          android:background="@drawable/gallery"/>
+          android:background="@drawable/gallery_2"/>
 
         <ImageButton
           android:id="@+id/image_button_camera"
-          android:layout_width="60dp"
+          android:layout_width="48dp"
           android:layout_marginLeft="40dp"
           android:layout_height="match_parent"
-          android:background="@drawable/camera"/>
+          android:background="@drawable/cameraicon"/>
 
     </LinearLayout>
 

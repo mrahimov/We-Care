@@ -54,7 +54,7 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
 
                 switch (item.getItemId()) {
                     case R.id.navigation_doctors:
-                        toolbar.setTitle("Doctors");
+                        toolbar.setTitle("Doctor's Forum");
                         DoctorsForumFragment doctorsForumFragment = (DoctorsForumFragment) getSupportFragmentManager().findFragmentByTag("docFrag");
                         if (doctorsForumFragment == null) {
                             fragment2 = new DoctorsForumFragment();
