@@ -205,7 +205,6 @@ public class ListOfDoctorsFragment extends Fragment {
       values[4] = new DataPoint(4, count);
       return values;
     }
-
   }
 }
 
