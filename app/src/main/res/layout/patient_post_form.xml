@@ -148,15 +148,15 @@
 
 
         <Button
-            android:id="@+id/save_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginVertical="40dp"
-            android:background="@drawable/buttonstyle"
-            android:text="  Save  "
-            android:textColor="#fff"
-            />
+          android:id="@+id/save_button"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          android:layout_marginVertical="40dp"
+          android:background="@drawable/buttonstyle"
+          android:text="  Save  "
+          android:textColor="#fff"
+        />
 
         <ImageButton
           android:id="@+id/add_image_patient_post"
@@ -169,9 +169,9 @@
     </LinearLayout>
     <FrameLayout
       android:id="@+id/containerPostCamera"
-      android:layout_gravity="center"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"/>
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"/>
 
     <LinearLayout
       android:layout_width="match_parent"
