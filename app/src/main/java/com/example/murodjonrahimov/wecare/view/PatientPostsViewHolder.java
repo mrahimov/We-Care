@@ -43,8 +43,8 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder{
     delete= itemView.findViewById(R.id.del2);
 
     databaseReference = FirebaseDatabase.getInstance()
-            .getReference()
-            .child("posts");
+      .getReference()
+      .child("posts");
 
 
     delete.setOnClickListener(new View.OnClickListener() {
@@ -69,23 +69,23 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder{
     comments.setText(countOfComments + " comments");
 
     statusOfPost.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Database.updateStatusOfPost(post.getKey(), !post.isResolved());
-        }
+      @Override
+      public void onClick(View v) {
+        Database.updateStatusOfPost(post.getKey(), !post.isResolved());
+      }
     });
 
   }
 
   private void setStatusImage(boolean isResolved) {
-      if(isResolved) {
-          statusOfPost.setImageResource(R.drawable.resolved_case);
-          lineStatus.setBackgroundResource(R.color.color_green);
-      }
-      else {
-          statusOfPost.setImageResource(R.drawable.unresolved_case);
-          lineStatus.setBackgroundResource(R.color.color_white);
+    if(isResolved) {
+      statusOfPost.setImageResource(R.drawable.resolved_case);
+      lineStatus.setBackgroundResource(R.color.color_green);
+    }
+    else {
+      statusOfPost.setImageResource(R.drawable.unresolved_case);
+      lineStatus.setBackgroundResource(R.color.color_white);
 
-      }
+    }
   }
 }
