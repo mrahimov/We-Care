@@ -1,6 +1,7 @@
 package com.example.murodjonrahimov.wecare.controller;
 
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import com.example.murodjonrahimov.wecare.view.PatientPostsViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import es.dmoral.toasty.Toasty;
 
 public class PatientsPostsAdapter extends RecyclerView.Adapter<PatientPostsViewHolder> {
   public final static String POST_KEY = "post";
@@ -37,6 +40,10 @@ public class PatientsPostsAdapter extends RecyclerView.Adapter<PatientPostsViewH
       public void itemWasClicked(int position) {
         postsList.remove(position);
         notifyItemRemoved(position);
+        Toasty.custom(holder.itemView.getContext(), "Post Deleted",
+          ContextCompat.getDrawable(holder.itemView.getContext(),
+            R.drawable.ic_rubbish_bin),
+          1000, true).show();
       }
     });
 
@@ -60,4 +67,6 @@ public class PatientsPostsAdapter extends RecyclerView.Adapter<PatientPostsViewH
     this.postsList.clear();
     this.postsList.addAll(postsList);
   }
+
+
 }

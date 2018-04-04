@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -25,6 +26,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,8 @@ public class PostWithComments extends AppCompatActivity {
   private String userName;
   private View contentView;
   private CardView cardView;
+  private ImageView patientImage01;
+  private ImageView patientImage02;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +48,8 @@ public class PostWithComments extends AppCompatActivity {
 
     TextView message = findViewById(R.id.message_ed);
     TextView postedBy = findViewById(R.id.posted_by_ed);
+    patientImage01 = findViewById(R.id.patient_post_image01);
+    patientImage02 = findViewById(R.id.patient_post_image02);
     final TextView timestamp = findViewById(R.id.timestamp_ed);
     contentView=this.getWindow().getDecorView().findViewById(android.R.id.content);
     cardView= findViewById(R.id.cardview);
@@ -59,7 +65,16 @@ public class PostWithComments extends AppCompatActivity {
     userName = post.getPostedByUserName();
     postedBy.setText("Posted by: " + userName);
 
-    addedComment = findViewById(R.id.adding_comment);
+
+    if (post.getUri() != null) {
+      Uri uri = Uri.parse(post.getUri());
+
+      loadingProfileImage(uri, "");
+      patientImage01.setVisibility(View.VISIBLE);
+
+    }
+
+      addedComment = findViewById(R.id.adding_comment);
     ImageView sendComment = findViewById(R.id.send_image_view);
 
     final RecyclerView recyclerView = findViewById(R.id.comments_recyclerview);
@@ -207,6 +222,13 @@ public class PostWithComments extends AppCompatActivity {
         public void onCancelled(DatabaseError databaseError) {
         }
       });
+  }
+  private void loadingProfileImage(Uri downloadUri, String Lf) {
+    Log.d("url", "loadingProfileImage: " + Lf + downloadUri);
+    Picasso.get()
+      .load(downloadUri)
+      .into(patientImage01);
+    //progressDialog.dismiss();
   }
 }
 
