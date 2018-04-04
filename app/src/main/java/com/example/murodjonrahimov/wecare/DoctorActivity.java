@@ -26,10 +26,10 @@ import java.util.UUID;
 public class DoctorActivity extends AppCompatActivity implements DoctorsForumFragment.onClickListenerDoctor {
 
     private ActionBar toolbar;
-    DoctorsForumFragment fragment2;
+    private DoctorsForumFragment fragment2;
     private StorageReference storageReference;
-    DoctorProfileFragment doctorProfileFragment;
-    AllPatientsPostsFragment allPatientsPostsFragment;
+    private DoctorProfileFragment doctorProfileFragment;
+    private AllPatientsPostsFragment allPatientsPostsFragment;
     private String key;
 
 
@@ -128,6 +128,7 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
 
         if (requestCode == 7 && resultCode == RESULT_OK) {
             Uri uri = data.getData();
+           // final String localKey =data.getStringExtra("key");
             //Intent intent=getIntent();
            //final String key= intent.getStringExtra("key");
 

@@ -117,15 +117,15 @@ public class ListOfDoctorsFragment extends Fragment {
   }
 
   public static class DoctorsListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    TextView name;
-    TextView yearsOfExp;
-    TextView country;
-    TextView major;
-    TextView numberOfComments;
+    private TextView name;
+    private TextView yearsOfExp;
+    private TextView country;
+    private TextView major;
+    private TextView numberOfComments;
     private int count;
-    GraphView graph;
-    ImageView imageView;
-    DatabaseReference databaseReference =FirebaseDatabase.getInstance()
+    private GraphView graph;
+    private ImageView imageView;
+    private DatabaseReference databaseReference =FirebaseDatabase.getInstance()
             .getReference().child("comments");
 
 

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -66,7 +67,7 @@ public class DoctorProfileFragment extends Fragment {
   }
 
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+  public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
     View rootView = inflater.inflate(R.layout.d_fragment_profile, container, false);
     setHasOptionsMenu(true);
@@ -279,5 +280,7 @@ public class DoctorProfileFragment extends Fragment {
       .into(doctorImage);
     progressDialog.dismiss();
   }
+
+
 
 }

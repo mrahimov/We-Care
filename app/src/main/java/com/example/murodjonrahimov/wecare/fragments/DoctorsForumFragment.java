@@ -51,8 +51,8 @@ public class DoctorsForumFragment extends Fragment {
     private FloatingActionButton floatingActionButton;
     private DatabaseReference database;
     private String user;
-    DatabaseReference database2;
-    StorageReference storageReference;
+    private DatabaseReference database2;
+    private StorageReference storageReference;
 
 
     private RecyclerView recyclerView;
@@ -119,7 +119,7 @@ public class DoctorsForumFragment extends Fragment {
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull final DoctorsForumFragment.DoctorPosts holder, final int position,
+            protected void onBindViewHolder(@NonNull final DoctorsForumFragment.DoctorPosts holder, int position,
                                             @NonNull final DoctorPost doctor) {
 
                 final String key = fireBaseRecyclerAdapter.getRef(position)
@@ -143,7 +143,7 @@ public class DoctorsForumFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         if (user.equals(doctor.getAddedBy())) {
-                            fireBaseRecyclerAdapter.getRef(position).removeValue();
+                            fireBaseRecyclerAdapter.getRef(holder.getAdapterPosition()).removeValue();
                             Toasty.custom(holder.itemView.getContext(), "Post Deleted",
                                     ContextCompat.getDrawable(holder.itemView.getContext(),
                                             R.drawable.ic_rubbish_bin),

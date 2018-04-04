@@ -3,11 +3,14 @@ package com.example.murodjonrahimov.wecare;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -37,8 +40,10 @@ public class PostDoctorComments extends AppCompatActivity {
   private List<Comment> allComments;
   private DatabaseReference database10;
   private ImageView imageView;
+  private View contentView;
 
-  private String commentname;
+
+    private String commentname;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,7 @@ public class PostDoctorComments extends AppCompatActivity {
     TextView addedBy = findViewById(R.id.added_by_d);
     TextView timestamp = findViewById(R.id.timestamp_d);
     imageView = findViewById(R.id.image3);
+    //contentView = getcon
 
     Intent intent = getIntent();
     final String Key = intent.getStringExtra("key");
@@ -100,6 +106,29 @@ public class PostDoctorComments extends AppCompatActivity {
 
         }
       });
+
+//      contentView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//          @Override
+//          public void onGlobalLayout() {
+//
+//              Rect r = new Rect();
+//              contentView.getWindowVisibleDisplayFrame(r);
+//              int screenHeight = contentView.getRootView().getHeight();
+//
+//              // r.bottom is the position above soft keypad or device button.
+//              // if keypad is shown, the r.bottom is smaller than that before.
+//              int keypadHeight = screenHeight - r.bottom;
+//
+//              Log.d("DDDD", "keypadHeight = " + keypadHeight);
+//
+//              if (keypadHeight > screenHeight * 0.15) { // 0.15 ratio is perhaps enough to determine keypad height.
+//                  // keyboard is opened
+//              }
+//              else {
+//                  // keyboard is closed
+//              }
+//          }
+//      });
 
     DatabaseReference db = Database.getDatabase();
 
@@ -155,5 +184,8 @@ public class PostDoctorComments extends AppCompatActivity {
 
       }
     });
+    
+    
   }
+  
 }
