@@ -253,11 +253,8 @@ public class DoctorsForumFragment extends Fragment {
         TextView time;
         TextView doctorName;
         Button button;
-        FirebaseRecyclerAdapter<DoctorPost, DoctorsForumFragment.DoctorPosts> fireBaseRecyclerAdapter;
-
         ImageView imageView1;
         Button button1;
-        String currentUser=Database.getUserId();
 
 
         public DoctorPosts(View itemView) {
@@ -266,7 +263,6 @@ public class DoctorsForumFragment extends Fragment {
             time = itemView.findViewById(R.id.time1);
             doctorName = itemView.findViewById(R.id.posted_by);
             button = itemView.findViewById(R.id.Del1);
-            this.fireBaseRecyclerAdapter = fireBaseRecyclerAdapter;
             button.setOnClickListener(this);
             imageView1 = itemView.findViewById(R.id.image2);
             button1 = itemView.findViewById(R.id.upload);
