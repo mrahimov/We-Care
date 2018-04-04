@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="180dp"
+  android:layout_height="60dp"
+  android:layout_gravity="center"
+  tools:context=".fragments.CameraPopUpFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+      xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="horizontal"
+      android:layout_gravity="center"
+      tools:context=".CameraPopUpActivity">
+
+        <ImageButton
+          android:id="@+id/image_button_gallery"
+          android:layout_width="60dp"
+          android:layout_height="match_parent"
+          android:background="@drawable/gallery"/>
+
+        <ImageButton
+          android:id="@+id/image_button_camera"
+          android:layout_width="60dp"
+          android:layout_marginLeft="40dp"
+          android:layout_height="match_parent"
+          android:background="@drawable/camera"/>
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -61,6 +61,7 @@
     <string name="patient_label">Ask doctors around the world for any diagnotics needs</string>
     <string name="doctor_label">Give back to communities in need</string>
     <string name="welcome_label">The app that everyone is talking about</string>
+    <string name="title_activity_pop_camera">PopCameraActivity</string>
     <string name="next_label">WeCare is here to give a helping hand, connecting doctors around the world right to you. Yay!</string>
 
 </resources>

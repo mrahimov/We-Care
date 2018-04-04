@@ -43,7 +43,6 @@ public class DoctorProfileFragment extends Fragment {
 
   private static final int DOCTOR_IMAGE = 7;
 
-  private String userID;
   private TextView firstNameED;
   private TextView lastNameED;
   private TextView countryED;
@@ -58,6 +57,7 @@ public class DoctorProfileFragment extends Fragment {
   private FloatingActionButton buttonDoctorImage;
   private Uri uri;
   private SharedPreferences preferences;
+  private String userID;
   private SharedPreferences.Editor myPrefsEdit;
   private DatabaseReference db;
   private int count;
@@ -279,5 +279,4 @@ public class DoctorProfileFragment extends Fragment {
       .into(doctorImage);
     progressDialog.dismiss();
   }
-
 }

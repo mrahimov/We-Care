@@ -3,10 +3,12 @@ package com.example.murodjonrahimov.wecare;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +33,8 @@ public class PostWithComments extends AppCompatActivity {
   private EditText addedComment;
   private List<Comment> allComments;
   private String userName;
+  private ImageView patientImage01;
+  private ImageView patientImage02;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,8 @@ public class PostWithComments extends AppCompatActivity {
     TextView message = findViewById(R.id.message_ed);
     TextView postedBy = findViewById(R.id.posted_by_ed);
     final TextView timestamp = findViewById(R.id.timestamp_ed);
+    patientImage01 = findViewById(R.id.patient_post_image01);
+    patientImage02 = findViewById(R.id.patient_post_image02);
 
     checkUserProfile();
 
@@ -51,7 +58,17 @@ public class PostWithComments extends AppCompatActivity {
     userName = post.getPostedByUserName();
     postedBy.setText("Posted by: " + userName);
 
-    addedComment = findViewById(R.id.adding_comment);
+    Log.d("HERERERE", "onCreate: " + post.getUri());
+    Log.d("HEREREtt", "onCreate: " + post.getAddedBy());
+
+    if (post.getUri() != null) {
+      Uri uri = Uri.parse(post.getUri());
+
+      loadingProfileImage(uri, "");
+      patientImage01.setVisibility(View.VISIBLE);
+    }
+
+    addedComment = findViewById(R.id.adding_commentt);
     ImageView sendComment = findViewById(R.id.send_image_view);
 
     final RecyclerView recyclerView = findViewById(R.id.comments_recyclerview);
@@ -91,14 +108,12 @@ public class PostWithComments extends AppCompatActivity {
         }
       });
 
-
     sendComment.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
 
         String receivedComment = addedComment.getText()
           .toString();
-
 
         long date = System.currentTimeMillis();
         SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm a");
@@ -171,6 +186,14 @@ public class PostWithComments extends AppCompatActivity {
         public void onCancelled(DatabaseError databaseError) {
         }
       });
+  }
+
+  private void loadingProfileImage(Uri downloadUri, String Lf) {
+    Log.d("url", "loadingProfileImage: " + Lf + downloadUri);
+    Picasso.get()
+      .load(downloadUri)
+      .into(patientImage01);
+    //progressDialog.dismiss();
   }
 }
 
