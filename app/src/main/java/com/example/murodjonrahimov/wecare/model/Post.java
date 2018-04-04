@@ -33,6 +33,13 @@ public class Post implements Parcelable {
     this.doctorINeed = doctorINeed;
     this.uri = uri;
   }
+  public Post(String message, String timeStamp, String postedByUserName, String doctorINeed) {
+    this.message = message;
+    this.timeStamp = timeStamp;
+    this.postedByUserName = postedByUserName;
+    this.doctorINeed = doctorINeed;
+
+  }
 
   public Post() {
   }
