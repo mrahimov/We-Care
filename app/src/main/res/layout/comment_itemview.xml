@@ -1,53 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/tools"
-    android:orientation="vertical">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:card_view="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/cardviewcomments"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:cardCornerRadius="3dp"
-        android:layout_margin="5dp"
-        android:elevation="5dp">
+      android:id="@+id/cardviewcomments"
+      android:layout_width="match_parent"
+      android:layout_height="50dp"
+      android:layout_margin="5dp"
+      android:elevation="5dp"
+      app:cardCornerRadius="3dp">
 
 
-            <TextView
-                android:id="@+id/comment_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textColor="#ffffff"
-                android:paddingLeft="5dp"/>
+        <TextView
+          android:id="@+id/comment_textview"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor="#ffffff"
+          android:textSize="18sp"/>
 
-            <TextView
-                android:id="@+id/posted_by_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:paddingRight="3dp"
-                android:textSize="8sp"
-                android:textColor="#ffffff"/>
+        <TextView
+          android:id="@+id/posted_by_textview"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="right"
+          android:paddingRight="3dp"
+          android:textColor="#ffffff"
+          android:textSize="8sp"/>
 
-            <TextView
-                android:paddingRight="3dp"
-                android:id="@+id/comment_timestamp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|right"
-                android:textSize="8sp"
-                android:textColor="#ffffff"/>
-
-
-
+        <TextView
+          android:id="@+id/comment_timestamp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="bottom|right"
+          android:paddingRight="3dp"
+          android:textColor="#ffffff"
+          android:textSize="8sp"/>
 
 
     </android.support.v7.widget.CardView>
-
-
 
 
 </LinearLayout>
