@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -41,6 +42,7 @@ public class PostDoctorComments extends AppCompatActivity {
   private DatabaseReference database10;
   private ImageView imageView;
   private View contentView;
+  private CardView cardView;
 
 
     private String commentname;
@@ -55,9 +57,12 @@ public class PostDoctorComments extends AppCompatActivity {
     TextView addedBy = findViewById(R.id.added_by_d);
     TextView timestamp = findViewById(R.id.timestamp_d);
     imageView = findViewById(R.id.image3);
-    //contentView = getcon
+    contentView=this.getWindow().getDecorView().findViewById(android.R.id.content);
+    cardView= findViewById(R.id.cardview1);
 
-    Intent intent = getIntent();
+
+
+      Intent intent = getIntent();
     final String Key = intent.getStringExtra("key");
     doctorTimeStamp = intent.getStringExtra("timestamp");
     name = intent.getStringExtra("addedby");
@@ -81,7 +86,9 @@ public class PostDoctorComments extends AppCompatActivity {
     final RecyclerView recyclerView = findViewById(R.id.commentsrecyclerview);
     final CommentsAdapter commentsAdapter = new CommentsAdapter();
     final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-    recyclerView.setAdapter(commentsAdapter);
+     // linearLayoutManager.setStackFromEnd(true);
+
+      recyclerView.setAdapter(commentsAdapter);
     recyclerView.setLayoutManager(linearLayoutManager);
     String user = Database.getUserId();
     database10 = FirebaseDatabase.getInstance()
@@ -107,28 +114,29 @@ public class PostDoctorComments extends AppCompatActivity {
         }
       });
 
-//      contentView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//          @Override
-//          public void onGlobalLayout() {
-//
-//              Rect r = new Rect();
-//              contentView.getWindowVisibleDisplayFrame(r);
-//              int screenHeight = contentView.getRootView().getHeight();
-//
-//              // r.bottom is the position above soft keypad or device button.
-//              // if keypad is shown, the r.bottom is smaller than that before.
-//              int keypadHeight = screenHeight - r.bottom;
-//
-//              Log.d("DDDD", "keypadHeight = " + keypadHeight);
-//
-//              if (keypadHeight > screenHeight * 0.15) { // 0.15 ratio is perhaps enough to determine keypad height.
-//                  // keyboard is opened
-//              }
-//              else {
-//                  // keyboard is closed
-//              }
-//          }
-//      });
+      contentView.getRootView().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+          @Override
+          public void onGlobalLayout() {
+
+              Rect r = new Rect();
+              contentView.getWindowVisibleDisplayFrame(r);
+              int screenHeight = contentView.getRootView().getHeight();
+
+              // r.bottom is the position above soft keypad or device button.
+              // if keypad is shown, the r.bottom is smaller than that before.
+              int keypadHeight = screenHeight - r.bottom;
+
+              Log.d("DDDD", "keypadHeight = " + keypadHeight);
+
+              if (keypadHeight > screenHeight * 0.15) { // 0.15 ratio is perhaps enough to determine keypad height.
+                  // keyboard is opened
+                  cardView.setVisibility(View.GONE);
+              }
+              else {
+                  cardView.setVisibility(View.VISIBLE);
+              }
+          }
+      });
 
     DatabaseReference db = Database.getDatabase();
 
@@ -152,6 +160,8 @@ public class PostDoctorComments extends AppCompatActivity {
           }
           commentsAdapter.setData(allComments);
           commentsAdapter.notifyDataSetChanged();
+          recyclerView.scrollToPosition(commentsAdapter.getItemCount()-1);
+
         }
 
         @Override
@@ -179,7 +189,6 @@ public class PostDoctorComments extends AppCompatActivity {
         //
           addedComment.getText()
                   .clear();
-          recyclerView.scrollToPosition(commentsAdapter.getItemCount()-1);
 
 
       }
