@@ -286,21 +286,28 @@ public class PatientPostForm extends AppCompatActivity implements CameraPopUpFra
         final String dateString = sdf.format(date);
 
         assert urionClick != null;
-        StorageReference docImage = storageReference.child(uniqueID)
-          .child(urionClick.getAuthority());
+        if(urionClick!=null) {
+          StorageReference docImage = storageReference.child(uniqueID)
+                  .child(urionClick.getAuthority());
 
-        docImage.putFile(urionClick).
-          addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+          docImage.putFile(urionClick).
+                  addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-              Uri downloadUri = taskSnapshot.getDownloadUrl();
-              Post post = new Post(message, dateString, postedByUserName, doctorINeed, downloadUri.toString());
-              Database.savePost(post);
-              finish();
+                      Uri downloadUri = taskSnapshot.getDownloadUrl();
+                      Post post = new Post(message, dateString, postedByUserName, doctorINeed, downloadUri.toString());
+                      Database.savePost(post);
+                      finish();
 
-            }
-          });
+                    }
+                  });
+        }
+        else {
+          Post post = new Post(message, dateString, postedByUserName, doctorINeed);
+          Database.savePost(post);
+          finish();
+        }
 
 
 
