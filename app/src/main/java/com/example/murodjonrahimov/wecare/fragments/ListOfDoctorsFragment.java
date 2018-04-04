@@ -95,10 +95,10 @@ public class ListOfDoctorsFragment extends Fragment {
 
                 Picasso.get().load(doctor.getUri()).into(holder.imageView);
                 holder.setNumberOfComments(doctor.getFirstName(), doctor.getLastName());
-                holder.name.setText("Name: "+doctor.getFirstName() + " " + doctor.getLastName());
-                holder.yearsOfExp.setText("years of exp: "+doctor.getYearsOfExperience());
-                holder.country.setText("Country: "+doctor.getCountryOfPractice());
-                holder.major.setText("Major: "+doctor.getMajor());
+                holder.name.setText("Name: " + doctor.getFirstName() + " " + doctor.getLastName());
+                holder.yearsOfExp.setText("years of exp: " + doctor.getYearsOfExperience());
+                holder.country.setText("Country: " + doctor.getCountryOfPractice());
+                holder.major.setText("Major: " + doctor.getMajor());
               }
             };
     recyclerview.setAdapter(fireBaseRecyclerAdapter);
@@ -125,7 +125,7 @@ public class ListOfDoctorsFragment extends Fragment {
     private int count;
     private GraphView graph;
     private ImageView imageView;
-    private DatabaseReference databaseReference =FirebaseDatabase.getInstance()
+    private DatabaseReference databaseReference = FirebaseDatabase.getInstance()
             .getReference().child("comments");
 
 
@@ -140,7 +140,7 @@ public class ListOfDoctorsFragment extends Fragment {
       imageView = itemView.findViewById(R.id.image1);
     }
 
-    private void setNumberOfComments( final String firstName, final String lastName) {
+    private void setNumberOfComments(final String firstName, final String lastName) {
 
       databaseReference.addValueEventListener(new ValueEventListener() {
         @Override
@@ -152,7 +152,7 @@ public class ListOfDoctorsFragment extends Fragment {
               count++;
             }
           }
-          numberOfComments.setText("Number of comments: "+String.valueOf(count));
+          numberOfComments.setText("Number of comments: " + String.valueOf(count));
           LineGraphSeries<DataPoint> series = new LineGraphSeries<>(generateData());
           //new DataPoint[] {
 //                  new DataPoint(0, 1),
@@ -160,7 +160,7 @@ public class ListOfDoctorsFragment extends Fragment {
 //                  new DataPoint(2, 3),
 //                  new DataPoint(3, 2),
 //                  new DataPoint(4, count)
-         // });
+          // });
           series.setDrawBackground(true);
 
           series.setColor(Color.argb(255, 255, 60, 60));
@@ -169,7 +169,7 @@ public class ListOfDoctorsFragment extends Fragment {
 
           graph.setTitle("Doctor Activity");
           graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.NONE);
-          graph.getGridLabelRenderer().setVerticalLabelsVisible( false );
+          graph.getGridLabelRenderer().setVerticalLabelsVisible(false);
           graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
 
           graph.addSeries(series);
@@ -190,19 +190,21 @@ public class ListOfDoctorsFragment extends Fragment {
     public void onClick(View v) {
 
     }
+
     private DataPoint[] generateData() {
       int count1 = 5;
       Random mRand = new Random();
       DataPoint[] values = new DataPoint[count1];
-      for (int i=0; i<count1; i++) {
+      for (int i = 0; i < count1; i++) {
         double x = i;
-        double f = mRand.nextDouble()*0.15+0.3;
-        double y = Math.sin(i*f+2) + mRand.nextDouble()*0.3;
+        double f = mRand.nextDouble() * 0.15 + 0.3;
+        double y = Math.sin(i * f + 2) + mRand.nextDouble() * 0.3;
         DataPoint v = new DataPoint(x, y);
         values[i] = v;
       }
-      values[4]= new DataPoint(4,count);
+      values[4] = new DataPoint(4, count);
       return values;
     }
   }
+}
 
