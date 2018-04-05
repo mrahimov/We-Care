@@ -1,12 +1,18 @@
 package com.example.murodjonrahimov.wecare.fragments;
 
+import android.support.v4.app.Fragment;
+
+/**
+ * Created by mohammadnaz on 4/5/18.
+ */
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,7 +28,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.bumptech.glide.Glide;
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.database.Database;
@@ -34,6 +39,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
@@ -41,62 +47,51 @@ import java.util.Date;
 
 import es.dmoral.toasty.Toasty;
 
+/**
+ * Created by mohammadnaz on 4/5/18.
+ */
 
-public class DoctorsForumFragment extends Fragment {
-
+public class SearchQueryFragment extends Fragment {
+    private Query query;
     private View view;
     private FloatingActionButton floatingActionButton;
-    private DatabaseReference database;
     private String user;
     private DatabaseReference database2;
-    FirebaseRecyclerOptions<DoctorPost> options;
+    private FirebaseRecyclerOptions<DoctorPost> options;
     private RecyclerView recyclerView;
-    private onClickListenerDoctor listenerDoc;
-    private FirebaseRecyclerAdapter<DoctorPost, DoctorsForumFragment.DoctorPosts> fireBaseRecyclerAdapter;
-    private Button search;
-    private EditText searchText;
+    private DoctorsForumFragment.onClickListenerDoctor listenerDoc;
+    private FirebaseRecyclerAdapter<DoctorPost, SearchQueryFragment.SearchPost> fireBaseRecyclerAdapter;
+    private String search;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            listenerDoc = (onClickListenerDoctor) context;
+            listenerDoc = (DoctorsForumFragment.onClickListenerDoctor) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement listener");
         }
     }
 
-    public DoctorsForumFragment() {
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        user = Database.getUserId();
-        database = FirebaseDatabase.getInstance()
-                .getReference()
-                .child("DoctorPost");
+
+
         setHasOptionsMenu(true);
 
-
-//        query = FirebaseDatabase.getInstance()
-//                .getReference()
-//                .child("DoctorPost").orderByChild("addedBy").equalTo(user);
-        //        query = FirebaseDatabase.getInstance()
-//                .getReference()
-//                .child("DoctorPost").orderByChild("firstname").equalTo("g");
-
-//        database2 = FirebaseDatabase.getInstance()
-//                .getReference()
-//                .child("doctors").child(user);
-
-        database.keepSynced(true);
-
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.d_fragment_doctors, container, false);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            search = bundle.getString("search1");
+
+        }
+        query = FirebaseDatabase.getInstance()
+                .getReference()
+                .child("DoctorPost").orderByChild("firstname").equalTo(search);
         return view;
     }
 
@@ -113,47 +108,24 @@ public class DoctorsForumFragment extends Fragment {
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
         floatingActionButton = view.findViewById(R.id.fab);
-        search= view.findViewById(R.id.searchpost1);
-        searchText =view.findViewById(R.id.searchPost);
 
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(searchText.getText().toString().matches("")){
-                    Toasty.normal(getActivity().getApplicationContext(),
-                            "please enter search query",
-                            500)
-                            .show();
-                }
-                else {
-                    Toasty.normal(getActivity().getApplicationContext(),
-                            "searching for "+ searchText.getText().toString(),
-                            500)
-                            .show();
-                    listenerDoc.search(searchText.getText().toString());
 
-                }
-            }
-        });
-
-//         options = new FirebaseRecyclerOptions.Builder<DoctorPost>().setQuery(query, DoctorPost.class)
-//                        .build();
-        options = new FirebaseRecyclerOptions.Builder<DoctorPost>().setQuery(database, DoctorPost.class)
+        options = new FirebaseRecyclerOptions.Builder<DoctorPost>().setQuery(query, DoctorPost.class)
                 .build();
 
-        fireBaseRecyclerAdapter = new FirebaseRecyclerAdapter<DoctorPost, DoctorPosts>(options) {
+        fireBaseRecyclerAdapter = new FirebaseRecyclerAdapter<DoctorPost, SearchQueryFragment.SearchPost>(options) {
 
             @Override
-            public DoctorsForumFragment.DoctorPosts onCreateViewHolder(ViewGroup parent, int viewType) {
+            public SearchQueryFragment.SearchPost onCreateViewHolder(ViewGroup parent, int viewType) {
 
                 View view = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.listdoctorpost_itemview, parent, false);
 
-                return new DoctorsForumFragment.DoctorPosts(view);
+                return new SearchQueryFragment.SearchPost(view);
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull final DoctorsForumFragment.DoctorPosts holder, int position,
+            protected void onBindViewHolder(@NonNull final SearchQueryFragment.SearchPost holder, int position,
                                             @NonNull final DoctorPost doctor) {
 
                 final String key = fireBaseRecyclerAdapter.getRef(position)
@@ -287,7 +259,7 @@ public class DoctorsForumFragment extends Fragment {
         fireBaseRecyclerAdapter.stopListening();
     }
 
-    public class DoctorPosts extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class SearchPost extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView message;
         TextView time;
         TextView doctorName;
@@ -296,7 +268,7 @@ public class DoctorsForumFragment extends Fragment {
         Button button1;
 
 
-        public DoctorPosts(View itemView) {
+        public SearchPost(View itemView) {
             super(itemView);
             message = itemView.findViewById(R.id.message1);
             time = itemView.findViewById(R.id.time1);
@@ -313,32 +285,27 @@ public class DoctorsForumFragment extends Fragment {
             if (v.getId() == button.getId()) {
 
 
-                }
             }
         }
-
-
-    public interface onClickListenerDoctor {
-        void onclick(String key, String message, String timestamp, String addedBy, String name, String Uri);
-
-        void Uri(String key);
-        void yourPost();
-        void search(String search);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.yourpost, menu);
+        inflater.inflate(R.menu.allpost, menu);
 
     }
+
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.MyPost:
-                listenerDoc.yourPost();
-                Toasty.normal(getActivity(), "My Post").show();
-
+            case R.id.AllPost:
+                FragmentManager fm = getActivity()
+                        .getSupportFragmentManager();
+                fm.popBackStack ("search", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                Toasty.normal(getActivity(), "All Post").show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
