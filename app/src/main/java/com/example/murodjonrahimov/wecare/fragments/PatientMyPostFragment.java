@@ -52,7 +52,7 @@ public class PatientMyPostFragment extends Fragment {
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    Button fab = getActivity().findViewById(R.id.add_fab);
+    FloatingActionButton fab = getActivity().findViewById(R.id.add_fab);
     fab.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
