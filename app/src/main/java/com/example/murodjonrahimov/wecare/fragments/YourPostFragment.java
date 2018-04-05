@@ -295,6 +295,7 @@ public class YourPostFragment extends Fragment {
                 FragmentManager fm = getActivity()
                         .getSupportFragmentManager();
                 fm.popBackStack ("fragalldocs", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                Toasty.normal(getActivity(), "All Post").show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
