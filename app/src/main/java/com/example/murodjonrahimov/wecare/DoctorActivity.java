@@ -15,6 +15,7 @@ import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.fragments.DoctorsForumFragment;
 import com.example.murodjonrahimov.wecare.fragments.AllPatientsPostsFragment;
 import com.example.murodjonrahimov.wecare.fragments.DoctorProfileFragment;
+import com.example.murodjonrahimov.wecare.fragments.YourPostFragment;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
@@ -31,6 +32,7 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
     private DoctorProfileFragment doctorProfileFragment;
     private AllPatientsPostsFragment allPatientsPostsFragment;
     private String key;
+    YourPostFragment yourPostFragment;
 
 
     @Override
@@ -122,6 +124,15 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
     }
 
     @Override
+    public void yourPost() {
+        yourPostFragment = new YourPostFragment();
+        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
+        t.replace(R.id.frame_container, yourPostFragment);
+        t.addToBackStack("fragalldocs");
+        t.commit();
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -154,12 +165,12 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
 
     @Override
     public void onBackPressed() {
-        if(fragment2.isVisible() || doctorProfileFragment.isVisible() || allPatientsPostsFragment.isVisible() ){
-            //**//Do Nothing - DOES NOT CLOSE THE APP**
-        }
-        else{
-            super.onBackPressed();
-        }
+//        if(fragment2.isVisible() || doctorProfileFragment.isVisible() || allPatientsPostsFragment.isVisible() || yourPostFragment.isVisible() ){
+//            //**//Do Nothing - DOES NOT CLOSE THE APP**
+//        }
+//        else{
+//            super.onBackPressed();
+//        }
     }
 }
 
