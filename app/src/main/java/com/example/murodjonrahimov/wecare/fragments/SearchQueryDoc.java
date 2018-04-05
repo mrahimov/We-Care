@@ -52,7 +52,6 @@ public class SearchQueryDoc extends Fragment {
     private Button searchbutton;
     private ListOfDoctorsFragment.SearchDoctorslistener searchDoctorslistener;
     private Query query;
-    private String searchy;
 
     @Override
     public void onAttach(Context context) {
@@ -80,12 +79,11 @@ public class SearchQueryDoc extends Fragment {
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            searchy = bundle.getString("search1");
-
+            query = FirebaseDatabase.getInstance()
+                    .getReference()
+                    .child("doctors").orderByChild("firstName").equalTo(bundle.getString("search1"));
         }
-        query = FirebaseDatabase.getInstance()
-                .getReference()
-                .child("doctors").orderByChild("firstName").equalTo(searchy);
+
         query.keepSynced(true);
         return view;
     }
