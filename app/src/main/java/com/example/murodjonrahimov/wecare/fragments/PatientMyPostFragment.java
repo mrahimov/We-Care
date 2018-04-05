@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
 import com.example.murodjonrahimov.wecare.PatientPostForm;
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.controller.PatientsPostsAdapter;
@@ -50,7 +52,7 @@ public class PatientMyPostFragment extends Fragment {
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    FloatingActionButton fab = getActivity().findViewById(R.id.add_fab);
+    Button fab = getActivity().findViewById(R.id.add_fab);
     fab.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
