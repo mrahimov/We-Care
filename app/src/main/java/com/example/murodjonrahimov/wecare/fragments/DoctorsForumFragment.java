@@ -51,9 +51,6 @@ public class DoctorsForumFragment extends Fragment {
     private String user;
     private DatabaseReference database2;
     FirebaseRecyclerOptions<DoctorPost> options;
-
-
-
     private RecyclerView recyclerView;
     private onClickListenerDoctor listenerDoc;
     private FirebaseRecyclerAdapter<DoctorPost, DoctorsForumFragment.DoctorPosts> fireBaseRecyclerAdapter;
@@ -318,6 +315,8 @@ public class DoctorsForumFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.MyPost:
                 listenerDoc.yourPost();
+                Toasty.normal(getActivity(), "My Post").show();
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
