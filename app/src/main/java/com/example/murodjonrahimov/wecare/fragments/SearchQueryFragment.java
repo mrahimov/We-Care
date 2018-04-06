@@ -62,6 +62,8 @@ public class SearchQueryFragment extends Fragment {
     private DoctorsForumFragment.onClickListenerDoctor listenerDoc;
     private FirebaseRecyclerAdapter<DoctorPost, SearchQueryFragment.SearchPost> fireBaseRecyclerAdapter;
     private String search;
+    private Button search1;
+    private EditText searchText;
 
     @Override
     public void onAttach(Context context) {
@@ -93,9 +95,18 @@ public class SearchQueryFragment extends Fragment {
             search = bundle.getString("search1");
 
         }
+//        query = FirebaseDatabase.getInstance()
+//                .getReference()
+//                .child("DoctorPost").orderByChild("firstname").equalTo(search);
+
+
+
         query = FirebaseDatabase.getInstance()
                 .getReference()
                 .child("DoctorPost").orderByChild("firstname").equalTo(search);
+
+//        .startAt(queryText)
+//                .endAt(queryText+"\uf8ff")
         return view;
     }
 
@@ -112,6 +123,10 @@ public class SearchQueryFragment extends Fragment {
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
         floatingActionButton = view.findViewById(R.id.fab);
+        search1= view.findViewById(R.id.searchpost1);
+        searchText =view.findViewById(R.id.searchPost);
+        search1.setVisibility(View.GONE);
+        searchText.setVisibility(View.GONE);
 
 
         options = new FirebaseRecyclerOptions.Builder<DoctorPost>().setQuery(query, DoctorPost.class)
