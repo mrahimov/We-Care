@@ -86,9 +86,7 @@ public class DoctorsForumFragment extends Fragment {
 //                .getReference()
 //                .child("DoctorPost").orderByChild("firstname").equalTo("g");
 
-//        database2 = FirebaseDatabase.getInstance()
-//                .getReference()
-//                .child("doctors").child(user);
+
 
         database.keepSynced(true);
 
