@@ -17,7 +17,7 @@
                 android:id="@+id/searchTextP"
                 android:layout_width="267dp"
                 android:layout_height="wrap_content"
-                android:hint="Search Doctor Post"
+                android:hint="Seach for your doctor"
                 android:layout_weight="2"
                 />
             <Button
