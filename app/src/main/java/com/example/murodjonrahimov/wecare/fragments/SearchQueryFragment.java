@@ -76,6 +76,10 @@ public class SearchQueryFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        user=Database.getUserId();
+        database2 = FirebaseDatabase.getInstance()
+                .getReference()
+                .child("doctors").child(user);
 
 
         setHasOptionsMenu(true);

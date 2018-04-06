@@ -77,7 +77,9 @@ public class DoctorsForumFragment extends Fragment {
                 .getReference()
                 .child("DoctorPost");
         setHasOptionsMenu(true);
-
+        database2 = FirebaseDatabase.getInstance()
+                .getReference()
+                .child("doctors").child(user);
 
 //        query = FirebaseDatabase.getInstance()
 //                .getReference()

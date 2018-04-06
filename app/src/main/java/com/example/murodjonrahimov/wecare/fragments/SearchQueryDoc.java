@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.murodjonrahimov.wecare.R;
+import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Comment;
 import com.example.murodjonrahimov.wecare.model.Doctor;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -45,13 +46,14 @@ import es.dmoral.toasty.Toasty;
 
 public class SearchQueryDoc extends Fragment {
     private View view;
-    private DatabaseReference Database;
     private RecyclerView recyclerview;
     private FirebaseRecyclerAdapter<Doctor, SearchDoctorList> fireBaseRecyclerAdapter;
     private EditText search;
     private Button searchbutton;
     private ListOfDoctorsFragment.SearchDoctorslistener searchDoctorslistener;
     private Query query;
+    DatabaseReference database2;
+    String user;
 
     @Override
     public void onAttach(Context context) {
@@ -69,6 +71,10 @@ public class SearchQueryDoc extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+         user= Database.getUserId();
+         database2 = FirebaseDatabase.getInstance()
+                .getReference()
+                .child("doctors").child(user);
 
     }
 
