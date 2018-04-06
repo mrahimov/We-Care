@@ -36,7 +36,7 @@
               android:layout_gravity="right"
               android:paddingRight="3dp"
               android:textColor="#ffffff"
-              android:textSize="8sp"/>
+              android:textSize="10sp"/>
 
             <TextView
               android:id="@+id/comment_textview"

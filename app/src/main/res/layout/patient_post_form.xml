@@ -6,27 +6,25 @@
   android:orientation="vertical"
   android:padding="16dp">
 
-    <LinearLayout
+    <RelativeLayout
       android:id="@+id/doctor_need_linearlayout"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="8dp"
-      android:orientation="horizontal">
+      android:layout_height="40dp">
 
         <TextView
           android:id="@+id/choose_doctor_textview"
           android:layout_width="wrap_content"
           android:layout_height="match_parent"
-          android:text="Choose doctor you need"
+          android:text="1. Choose doctor you need"
           android:textSize="18sp"/>
 
         <ImageView
           android:layout_width="40dp"
           android:layout_height="40dp"
-          android:layout_marginLeft="120dp"
-          android:background="@drawable/arrow1"/>
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/arrow1"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <TextView
       android:id="@+id/doctor_gp"
@@ -138,7 +136,7 @@
       android:id="@+id/message_ed"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:hint="Type here..."/>
+      android:hint="2. Type your case here..."/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -149,40 +147,42 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Attach medical test, photo, diagnose:"
-            android:textSize="16dp"/>
+            android:text="3. Attach medical test, photo, diagnose:"
+            android:textSize="18dp"/>
 
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="20dp"
-      android:orientation="horizontal">
+      android:orientation="vertical">
 
         <ImageButton
             android:id="@+id/add_image_patient_post"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="90dp"
-            android:background="@drawable/camera"/>
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/attach"/>
+
+
+        <FrameLayout
+            android:id="@+id/containerPostCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
 
         <Button
-          android:id="@+id/save_button"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:background="@drawable/buttonstyle"
-          android:text="  Post  "
-            android:layout_marginLeft="130dp"
+            android:id="@+id/save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/buttonstyle"
+            android:text="  Post  "
+            android:layout_gravity="right"
             android:textColor="#fff"
             android:textStyle="bold"/>
+
     </LinearLayout>
 
 
 </LinearLayout>
-    <FrameLayout
-      android:id="@+id/containerPostCamera"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"/>
 
     <LinearLayout
       android:layout_width="match_parent"
