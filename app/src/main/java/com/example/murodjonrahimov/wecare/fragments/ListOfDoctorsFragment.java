@@ -11,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,15 +34,25 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Random;
 
+import es.dmoral.toasty.Toasty;
+
 public class ListOfDoctorsFragment extends Fragment {
   private View view;
   private DatabaseReference Database;
   private RecyclerView recyclerview;
   private FirebaseRecyclerAdapter<Doctor, ListOfDoctorsFragment.DoctorsListViewHolder> fireBaseRecyclerAdapter;
+  private EditText search;
+  private Button searchbutton;
+  private ListOfDoctorsFragment.SearchDoctorslistener searchDoctorslistener;
 
   @Override
   public void onAttach(Context context) {
     super.onAttach(context);
+    try {
+      searchDoctorslistener = (ListOfDoctorsFragment.SearchDoctorslistener) context;
+    } catch (ClassCastException e) {
+      throw new ClassCastException(context.toString() + " must implement listener");
+    }
   }
 
 
@@ -70,6 +82,28 @@ public class ListOfDoctorsFragment extends Fragment {
     recyclerview = view.findViewById(R.id.RVDoctors);
     recyclerview.setHasFixedSize(true);
     recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
+    searchbutton = view.findViewById(R.id.searchp);
+    search = view.findViewById(R.id.searchTextP);
+
+
+    searchbutton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        if(search.getText().toString().matches("")){
+          Toasty.normal(getActivity().getApplicationContext(),
+                  "please enter search query",
+                  500)
+                  .show();
+        }
+        else {
+          Toasty.normal(getActivity().getApplicationContext(),
+                  "searching for "+ search.getText().toString(),
+                  500)
+                  .show();
+        searchDoctorslistener.search(search.getText().toString());
+        }
+      }
+    });
 
     FirebaseRecyclerOptions<Doctor> options = new
             FirebaseRecyclerOptions.Builder<Doctor>()
@@ -205,6 +239,11 @@ public class ListOfDoctorsFragment extends Fragment {
       values[4] = new DataPoint(4, count);
       return values;
     }
+
+
+  }
+  public interface SearchDoctorslistener{
+    void search(String s);
   }
 }
 

@@ -15,6 +15,7 @@ import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.fragments.DoctorsForumFragment;
 import com.example.murodjonrahimov.wecare.fragments.AllPatientsPostsFragment;
 import com.example.murodjonrahimov.wecare.fragments.DoctorProfileFragment;
+import com.example.murodjonrahimov.wecare.fragments.SearchQueryFragment;
 import com.example.murodjonrahimov.wecare.fragments.YourPostFragment;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -33,6 +34,7 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
     private AllPatientsPostsFragment allPatientsPostsFragment;
     private String key;
     YourPostFragment yourPostFragment;
+    SearchQueryFragment searchQueryFragment;
 
 
     @Override
@@ -130,6 +132,19 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
         t.replace(R.id.frame_container, yourPostFragment);
         t.addToBackStack("fragalldocs");
         t.commit();
+    }
+
+    @Override
+    public void search(String search) {
+        Bundle bundle = new Bundle();
+        bundle.putString("search1", search);
+        searchQueryFragment = new SearchQueryFragment();
+        searchQueryFragment.setArguments(bundle);
+        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
+        t.replace(R.id.frame_container, searchQueryFragment);
+        t.addToBackStack("search");
+        t.commit();
+
     }
 
     @Override
