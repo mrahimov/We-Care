@@ -35,7 +35,7 @@
               android:id="@+id/posted_by_ed"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_marginTop="6dp"
+              android:layout_marginTop="35dp"
               android:layout_gravity="bottom"
               android:hint="@string/posted_by"
               android:textColor="#000"

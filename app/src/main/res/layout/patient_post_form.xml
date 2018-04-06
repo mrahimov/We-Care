@@ -17,14 +17,14 @@
           android:id="@+id/choose_doctor_textview"
           android:layout_width="wrap_content"
           android:layout_height="match_parent"
-          android:text="@string/choose_kind_of_doctor"
-          android:textSize="20sp"/>
+          android:text="Choose doctor you need"
+          android:textSize="18sp"/>
 
         <ImageView
           android:layout_width="40dp"
           android:layout_height="40dp"
-          android:layout_marginLeft="60dp"
-          android:background="@drawable/arrow"/>
+          android:layout_marginLeft="120dp"
+          android:background="@drawable/arrow1"/>
 
     </LinearLayout>
 
@@ -138,7 +138,19 @@
       android:id="@+id/message_ed"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:hint="@string/message"/>
+      android:hint="Type here..."/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Attach medical test, photo, diagnose:"
+            android:textSize="16dp"/>
 
     <LinearLayout
       android:layout_width="match_parent"
@@ -146,27 +158,26 @@
       android:layout_marginTop="20dp"
       android:orientation="horizontal">
 
+        <ImageButton
+            android:id="@+id/add_image_patient_post"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="90dp"
+            android:background="@drawable/camera"/>
 
         <Button
           android:id="@+id/save_button"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginTop="10dp"
-          android:layout_marginVertical="40dp"
           android:background="@drawable/buttonstyle"
-          android:text="  Save  "
-          android:textColor="#fff"
-        />
-
-        <ImageButton
-          android:id="@+id/add_image_patient_post"
-          android:layout_width="40dp"
-          android:layout_height="40dp"
-          android:layout_gravity="center"
-          android:layout_marginLeft="170dp"
-          android:background="@drawable/camera"/>
-
+          android:text="  Post  "
+            android:layout_marginLeft="130dp"
+            android:textColor="#fff"
+            android:textStyle="bold"/>
     </LinearLayout>
+
+
+</LinearLayout>
     <FrameLayout
       android:id="@+id/containerPostCamera"
       android:layout_width="wrap_content"
