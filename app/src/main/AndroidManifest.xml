@@ -23,8 +23,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" />
-        <activity android:name=".DoctorActivity" />
-        <activity android:name=".PatientActivity" />
+        <activity android:name=".DoctorActivity"
+            android:windowSoftInputMode="stateHidden"
+            />
+        <activity android:name=".PatientActivity"
+            android:windowSoftInputMode="stateHidden"
+            />
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".PatientProfileForm" />
         <activity android:name=".PatientPostForm" />
@@ -45,7 +49,9 @@
         <activity android:name=".TwoAuthActivityDoctorReg" />
         <activity
             android:name=".CameraPopUpActivity"
-            android:theme="@style/AppTheme.CustomTheme"></activity>
+            android:theme="@style/AppTheme.CustomTheme">
+
+        </activity>
     </application>
 
 </manifest>

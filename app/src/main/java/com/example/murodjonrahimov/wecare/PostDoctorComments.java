@@ -174,23 +174,29 @@ public class PostDoctorComments extends AppCompatActivity {
       @Override
       public void onClick(View v) {
 
+
         String receivedComment = addedComment.getText()
           .toString();
-        long date = System.currentTimeMillis();
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm a");
-        String dateString = sdf.format(date);
+          if(receivedComment.length()<1){
 
-        Comment comment = new Comment(receivedComment, Key, dateString, commentname);
-        comment.setUid(Database.getUserId());
-        Database.saveComment(comment);
-        //                int count = post.getCountOfComments() + 1;
-        //                post.setCountOfComments(count);
-        //                Database.updatePost(post.getKey(), count);
-        //
-          addedComment.getText()
-                  .clear();
+          }
 
+          else {
+              long date = System.currentTimeMillis();
+              SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm a");
+              String dateString = sdf.format(date);
 
+              Comment comment = new Comment(receivedComment, Key, dateString, commentname);
+              comment.setUid(Database.getUserId());
+              Database.saveComment(comment);
+              //                int count = post.getCountOfComments() + 1;
+              //                post.setCountOfComments(count);
+              //                Database.updatePost(post.getKey(), count);
+              //
+              addedComment.getText()
+                      .clear();
+
+          }
       }
     });
     

@@ -149,24 +149,27 @@ public class PostWithComments extends AppCompatActivity {
 
         String receivedComment = addedComment.getText()
           .toString();
+        if(receivedComment.length()<1){
 
+        }
 
-        long date = System.currentTimeMillis();
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm a");
-        String dateString = sdf.format(date);
+        else {
+          long date = System.currentTimeMillis();
+          SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm a");
+          String dateString = sdf.format(date);
 
-        Comment comment = new Comment(receivedComment, postKey, dateString, userName);
-        comment.setUid(Database.getUserId());
-        Database.saveComment(comment);
+          Comment comment = new Comment(receivedComment, postKey, dateString, userName);
+          comment.setUid(Database.getUserId());
+          Database.saveComment(comment);
 
-        int count = post.getCountOfComments() + 1;
-        post.setCountOfComments(count);
-        Database.updatePost(post.getKey(), count);
-        addedComment.getText()
-                .clear();
-        recyclerView.scrollToPosition(commentsAdapter.getItemCount()-1);
+          int count = post.getCountOfComments() + 1;
+          post.setCountOfComments(count);
+          Database.updatePost(post.getKey(), count);
+          addedComment.getText()
+                  .clear();
+          recyclerView.scrollToPosition(commentsAdapter.getItemCount() - 1);
 
-
+        }
 
       }
     });
