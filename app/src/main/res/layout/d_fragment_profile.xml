@@ -155,7 +155,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="20dp"
-                android:text="Occupation" />
+                android:text="Occupation"
+                />
 
             <TextView
                 android:id="@+id/type_doctor"
@@ -164,7 +165,8 @@
                 android:layout_gravity="center_vertical"
                 android:hint="Type of Doctor"
                 android:paddingLeft="20dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginLeft="45dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -224,7 +226,8 @@
                 android:layout_gravity="center_vertical"
                 android:hint="Country of Practice"
                 android:paddingLeft="20dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginLeft="20dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -254,7 +257,8 @@
                 android:layout_gravity="center_vertical"
                 android:hint="Speciality"
                 android:paddingLeft="20dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginLeft="26dp"/>
 
 
         </LinearLayout>
