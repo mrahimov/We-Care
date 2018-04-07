@@ -1,56 +1,62 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:orientation="vertical"
-  tools:context="com.example.murodjonrahimov.wecare.PatientProfileForm">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.murodjonrahimov.wecare.PatientProfileForm">
 
     <EditText
-      android:id="@+id/first_name"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="@string/first_name"/>
+        android:id="@+id/first_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/first_name" />
 
     <EditText
-      android:id="@+id/last_name"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="@string/last_name"/>
+        android:id="@+id/last_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/last_name" />
 
     <EditText
-      android:id="@+id/user_name"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="@string/user_name"/>
+        android:id="@+id/user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/user_name" />
 
     <EditText
-      android:id="@+id/country"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="@string/country"/>
+        android:id="@+id/country"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/country" />
 
     <EditText
-      android:id="@+id/dob"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="@string/dob"/>
+        android:id="@+id/dob"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/dob" />
 
     <EditText
-      android:id="@+id/weight"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="@string/weight"/>
+        android:id="@+id/weight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/weight" />
 
     <EditText
-      android:id="@+id/gender"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="@string/sex"/>
+        android:id="@+id/gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/sex" />
 
     <Button
-      android:id="@+id/save_button"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/save"/>
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/capsule_edit_cutton"
+        android:clickable="true"
+        android:text="save"
+        android:textColor="#fff"
+        android:textStyle="bold" />
 
 </LinearLayout>

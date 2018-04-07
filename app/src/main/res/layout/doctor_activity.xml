@@ -14,7 +14,7 @@
       android:layout_alignParentBottom="true"
       android:background="#eeeeee"
       android:foreground="?attr/selectableItemBackground"
-      app:itemTextColor="#ab47bc"
+      app:itemTextColor="#09c6df"
       app:menu="@menu/bottom_bar_navigation"/>
 
     <FrameLayout

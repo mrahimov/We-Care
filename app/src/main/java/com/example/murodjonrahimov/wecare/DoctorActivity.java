@@ -15,6 +15,8 @@ import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.fragments.DoctorsForumFragment;
 import com.example.murodjonrahimov.wecare.fragments.AllPatientsPostsFragment;
 import com.example.murodjonrahimov.wecare.fragments.DoctorProfileFragment;
+import com.example.murodjonrahimov.wecare.fragments.SearchQueryFragment;
+import com.example.murodjonrahimov.wecare.fragments.YourPostFragment;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
@@ -23,7 +25,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.UUID;
 
-public class DoctorActivity extends AppCompatActivity implements DoctorsForumFragment.onClickListenerDoctor {
+public class  DoctorActivity extends AppCompatActivity implements DoctorsForumFragment.onClickListenerDoctor {
 
     private ActionBar toolbar;
     private DoctorsForumFragment fragment2;
@@ -31,6 +33,8 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
     private DoctorProfileFragment doctorProfileFragment;
     private AllPatientsPostsFragment allPatientsPostsFragment;
     private String key;
+    YourPostFragment yourPostFragment;
+    SearchQueryFragment searchQueryFragment;
 
 
     @Override
@@ -122,6 +126,28 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
     }
 
     @Override
+    public void yourPost() {
+        yourPostFragment = new YourPostFragment();
+        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
+        t.replace(R.id.frame_container, yourPostFragment);
+        t.addToBackStack("fragalldocs");
+        t.commit();
+    }
+
+    @Override
+    public void search(String search) {
+        Bundle bundle = new Bundle();
+        bundle.putString("search1", search);
+        searchQueryFragment = new SearchQueryFragment();
+        searchQueryFragment.setArguments(bundle);
+        FragmentTransaction t = getSupportFragmentManager().beginTransaction();
+        t.replace(R.id.frame_container, searchQueryFragment);
+        t.addToBackStack("search");
+        t.commit();
+
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -154,12 +180,12 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
 
     @Override
     public void onBackPressed() {
-        if(fragment2.isVisible() || doctorProfileFragment.isVisible() || allPatientsPostsFragment.isVisible() ){
-            //**//Do Nothing - DOES NOT CLOSE THE APP**
-        }
-        else{
-            super.onBackPressed();
-        }
+//        if(fragment2.isVisible() || doctorProfileFragment.isVisible() || allPatientsPostsFragment.isVisible() || yourPostFragment.isVisible() ){
+//            //**//Do Nothing - DOES NOT CLOSE THE APP**
+//        }
+//        else{
+//            super.onBackPressed();
+//        }
     }
 }
 

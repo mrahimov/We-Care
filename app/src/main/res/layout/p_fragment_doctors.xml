@@ -1,12 +1,42 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  tools:context="com.example.murodjonrahimov.wecare.fragments.ListOfDoctorsFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.murodjonrahimov.wecare.fragments.DoctorsForumFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3">
 
-    <android.support.v7.widget.RecyclerView
-      android:id="@+id/RVDoctors"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"/>
+            <EditText
+                android:id="@+id/searchTextP"
+                android:layout_width="267dp"
+                android:layout_height="wrap_content"
+                android:hint="Seach for your doctor"
+                android:layout_weight="2"
+                />
+            <Button
+                android:id="@+id/searchp"
+                android:hint="search"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/RVDoctors"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
 
 </FrameLayout>
+
+

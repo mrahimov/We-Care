@@ -70,19 +70,21 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="20dp"
-          android:background="@drawable/rec_gradient"
+          android:background="@drawable/rec_gradient_fb"
           android:text="Log In"
           android:textAllCaps="false"
-          android:textColor="#FFF"/>
+            android:textSize="16sp"
+            android:textColor="#FFF"/>
 
         <Button
           android:id="@+id/register_button"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="10dp"
-          android:background="@drawable/rec_gradient_fb"
+          android:background="@drawable/rec_gradient"
           android:text="New User Sign Up"
           android:textAllCaps="false"
+            android:textSize="16sp"
           android:textColor="#FFF"/>
     </LinearLayout>
 
@@ -93,9 +95,8 @@
       android:layout_centerHorizontal="true"
       android:layout_marginBottom="5dp"
       android:layout_marginTop="15dp"
-      android:background="@drawable/background_white"
-      android:padding="5dp"
-      android:src="@mipmap/ic_care"/>
+        android:background="@drawable/logo"
+        />
 
     <TextView
       android:layout_width="wrap_content"
@@ -104,6 +105,7 @@
       android:layout_centerHorizontal="true"
       android:text="Log In"
       android:textColor="#FFF"
-      android:textSize="20sp"/>
+      android:textSize="20sp"
+        android:textStyle="bold"/>
 
 </RelativeLayout>

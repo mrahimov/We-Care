@@ -16,6 +16,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -104,9 +105,9 @@ public class AllPatientsPostsFragment extends Fragment implements CategoryPills 
 
     DatabaseReference ref1 = FirebaseDatabase.getInstance()
       .getReference();
-    DatabaseReference ref2 = ref1.child("posts");
+   Query query = ref1.child("posts").orderByChild(category);
 
-    ref2.addValueEventListener(new ValueEventListener() {
+    query.addValueEventListener(new ValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot dataSnapshot) {
         postList = new ArrayList<>();
@@ -130,8 +131,12 @@ public class AllPatientsPostsFragment extends Fragment implements CategoryPills 
           for (int i = 0; i < postList.size(); i++) {
             String doctorNeed = postList.get(i)
               .getDoctorINeed();
-            if (doctorNeed.equals(category)) {
-              newPostList.add(postList.get(i));
+            try {
+              if (doctorNeed.equals(category)) {
+                newPostList.add(postList.get(i));
+              }
+            }catch (NullPointerException e){
+
             }
           }
 

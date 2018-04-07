@@ -1,106 +1,184 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:id="@+id/main_content"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-    android:orientation="vertical">
-<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:background="@drawable/images">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/first_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="21sp"
-        android:textStyle="bold"
-        android:layout_marginTop="70dp"/>
-
-    <TextView
-        android:id="@+id/last_name"
-        android:layout_width="wrap_content"
-        android:layout_alignRight="@+id/first_name"
-        android:layout_height="wrap_content"
-        android:textSize="21sp"
-        android:textStyle="bold"
-        android:layout_marginTop="70dp"/>
-
-
-</RelativeLayout>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:tools="http://schemas.android.com/tools"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:orientation="vertical"
-      tools:context="com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment">
-
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/images"
+        android:orientation="vertical">
 
         <TextView
-          android:id="@+id/user_name_tv"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@string/user_name_plus"/>
+            android:id="@+id/first_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="160dp"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
         <TextView
-          android:id="@+id/user_name"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"/>
+            android:id="@+id/last_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="160dp"
 
-        <TextView
-          android:id="@+id/country_tv"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@string/country_plus"/>
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
-        <TextView
-          android:id="@+id/country"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"/>
-
-        <TextView
-          android:id="@+id/dob_tv"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@string/dob_plus"/>
-
-        <TextView
-          android:id="@+id/dob"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"/>
-
-        <TextView
-          android:id="@+id/weight_tv"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@string/weight_plus"/>
-
-        <TextView
-          android:id="@+id/weight"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"/>
-
-        <TextView
-          android:id="@+id/gender_tv"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="@string/sex"/>
-
-        <TextView
-          android:id="@+id/gender"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
-    <android.support.design.widget.FloatingActionButton
-      android:id="@+id/add_fab"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="bottom|right"
-      android:clickable="true"
-      android:src="@drawable/edit"
-      app:fabSize="normal"/>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        tools:context="com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="135dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/username" />
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="User Name"
+                android:textSize="18sp"
+                android:textColor="#000"
+                android:paddingLeft="15dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="135dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/country" />
+
+            <TextView
+                android:id="@+id/country"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="Country"
+                android:textSize="18sp"
+                android:textColor="#000"
+                android:paddingLeft="15dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="135dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/dob" />
+
+            <TextView
+                android:id="@+id/dob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="Date of Birth"
+                android:textSize="18sp"
+                android:textColor="#000"
+                android:paddingLeft="15dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="135dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/scale" />
+
+            <TextView
+                android:id="@+id/weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="Weight"
+                android:textSize="18sp"
+                android:textColor="#000"
+                android:paddingLeft="15dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="135dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/gender" />
+
+            <TextView
+                android:id="@+id/gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="Gender"
+                android:textSize="18sp"
+                android:textColor="#000"
+                android:paddingLeft="15dp"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/add_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/capsule_edit_cutton"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:text="edit"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:clickable="true" />
 
 </LinearLayout>
