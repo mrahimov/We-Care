@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.fragments.CameraPopUpFragment;
@@ -36,7 +37,7 @@ public class PatientPostForm extends AppCompatActivity implements CameraPopUpFra
 
   private EditText messageED;
   private Button saveButton;
-  private LinearLayout chooseDoctor;
+  private RelativeLayout chooseDoctor;
   private TextView textviewChooseDoctor;
   private TextView textViewGP;
   private TextView textViewAllergist;

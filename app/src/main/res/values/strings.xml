@@ -63,7 +63,7 @@
     <string name="welcome_label">The app that everyone is talking about</string>
     <string name="title_activity_pop_camera">PopCameraActivity</string>
     <string name="next_label">WeCare is here to give a helping hand, connecting doctors around the world right to you. Yay!</string>
-    <string name="category">category:</string>
+    <string name="Category">Category:</string>
     <string name="message1">Message:</string>
     <string name="no_message_added">No message added</string>
 

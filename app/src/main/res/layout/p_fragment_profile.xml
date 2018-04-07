@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,12 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         tools:context="com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:background="@drawable/gradientbackground"
             android:orientation="vertical"
             tools:context="com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment">
+
             <ImageView
                 android:id="@+id/imageview_doctor_profile"
                 android:layout_width="wrap_content"
@@ -25,54 +28,7 @@
                 android:layout_marginTop="5dp"
                 android:src="@drawable/man" />
 
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                tools:context="com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment">
 
-                <TextView
-                    android:id="@+id/first_name2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="10dp"
-                    android:hint="Name "
-                    android:textColor="#fff"
-                    android:textColorHint="#fff"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_centerInParent="true"/>
-
-                <TextView
-                    android:id="@+id/last_name2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:hint="LName"
-                    android:textColor="#fff"
-                    android:textColorHint="#fff"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    android:layout_centerInParent="true"
-                    android:visibility="invisible"/>
-
-                <TextView
-                    android:id="@+id/first_name_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/first_name"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/last_name_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/last_name"
-                    android:visibility="gone" />
-            </RelativeLayout>
 
         </LinearLayout>
 
@@ -82,12 +38,14 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="90dp"
             tools:context="com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:weightSum="2"
                 tools:context="com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment">
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -112,6 +70,7 @@
                         android:textStyle="bold" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -119,6 +78,7 @@
                     android:gravity="center"
                     android:orientation="vertical"
                     tools:context="com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -137,15 +97,6 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-
-                </LinearLayout>
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
@@ -158,16 +109,18 @@
         android:layout_marginTop="15dp"
         android:orientation="vertical"
         tools:context="com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="25dp"
             tools:context="com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment">
+
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/user" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/username" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -181,23 +134,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
                 android:hint="User Name"
                 android:paddingLeft="20dp"
-                android:textStyle="bold"
-                android:layout_marginLeft="5dp"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:layout_marginTop="25dp"
             android:orientation="horizontal"
             android:paddingLeft="25dp"
             tools:context="com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment">
+
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/flag" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/country" />
 
             <TextView
                 android:id="@+id/county_origin"
@@ -205,31 +160,31 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="20dp"
-                android:text="@string/country"
-                />
+                android:text="@string/country" />
 
             <TextView
                 android:id="@+id/country"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginLeft="25dp"
                 android:hint="Country"
                 android:paddingLeft="20dp"
-                android:textStyle="bold"
-                android:layout_marginLeft="25dp"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:layout_marginTop="25dp"
             android:orientation="horizontal"
             android:paddingLeft="25dp">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/dateofbirth" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/dob" />
 
             <TextView
                 android:id="@+id/birth"
@@ -252,14 +207,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:layout_marginTop="25dp"
             android:orientation="horizontal"
             android:paddingLeft="25dp"
             tools:context="com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment">
+
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/weight" />
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:src="@drawable/scale" />
 
             <TextView
                 android:id="@+id/wight"
@@ -273,14 +230,16 @@
                 android:id="@+id/weight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:layout_gravity="center_vertical"
+                android:layout_marginLeft="32dp"
                 android:hint="Weight"
                 android:paddingLeft="20dp"
-                android:textStyle="bold"
-                android:layout_marginLeft="32dp"/>
+                android:textStyle="bold" />
 
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -289,8 +248,8 @@
             android:paddingLeft="25dp">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/gender" />
 
             <TextView
@@ -306,14 +265,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginLeft="30dp"
                 android:hint="Gender"
                 android:paddingLeft="20dp"
-                android:textStyle="bold"
-                android:layout_marginLeft="30dp"/>
+                android:textStyle="bold" />
 
 
         </LinearLayout>
 
+        <Button
+            android:id="@+id/add_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginVertical="40dp"
+            android:background="@drawable/buttonstyle"
+            android:text="Edit Profile"
+            android:textColor="#fff" />
     </LinearLayout>
 
 
@@ -321,17 +291,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context="com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment">
-        <Button
-            android:id="@+id/add_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_marginVertical="40dp"
-            android:background="@drawable/buttonstyle"
-            android:text="Edit Profile"
-            android:textColor="#fff"
-            android:layout_centerHorizontal="true"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/button_patient_image"
@@ -343,11 +302,9 @@
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/ic_photo_camera"
-            app:fabSize="normal"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            app:fabSize="normal" />
     </RelativeLayout>
-
-
 
 
 </LinearLayout>

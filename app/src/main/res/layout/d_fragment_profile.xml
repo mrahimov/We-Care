@@ -291,6 +291,7 @@
             android:layout_gravity="end|bottom"
             android:clickable="true"
             android:focusable="true"
+            android:backgroundTint="#FF9800"
             android:src="@drawable/ic_photo_camera"
             app:fabSize="normal" />
     </RelativeLayout>

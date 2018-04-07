@@ -11,7 +11,7 @@
       android:id="@+id/cardview"
       android:layout_width="match_parent"
       android:background="#e0f7fa"
-      android:layout_height="120dp">
+      android:layout_height="wrap_content">
 
         <LinearLayout
           android:id="@+id/linear_layout"
@@ -35,10 +35,10 @@
               android:id="@+id/posted_by_ed"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_marginTop="6dp"
+              android:layout_marginTop="35dp"
               android:layout_gravity="bottom"
               android:hint="@string/posted_by"
-              android:textColor="#000"
+              android:textColor="#808080"
               android:textSize="12sp"/>
 
             <TextView
@@ -47,7 +47,7 @@
               android:layout_height="wrap_content"
               android:layout_gravity="bottom"
               android:hint="@string/date"
-              android:textColor="#000"
+              android:textColor="#808080"
               android:textSize="12sp"/>
 
 
@@ -87,7 +87,6 @@
       android:layout_above="@+id/adding_comment"
       android:layout_below="@+id/cardview"
       android:layout_marginTop="10dp"
-      android:background="#ECEFF1"
       android:padding="15dp"/>
 
     <EditText

@@ -96,7 +96,9 @@ public class AllPostsAdapter extends RecyclerView.Adapter<AllPostsAdapter.AllPos
       textViewMessage.setText(post.getMessage());
       textViewAddedBy.setText("Posted By: " + post.getPostedByUserName());
       textViewTimeStamp.setText(post.getTimeStamp());
-      textViewComments.setText(post.getCountOfComments() + " comments");
+      int countOfComments = post.getCountOfComments();
+      String commentCount = String.valueOf(countOfComments);
+      textViewComments.setText(commentCount);
       setStatusImage(post.isResolved());
     }
 

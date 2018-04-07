@@ -59,14 +59,15 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder{
   public void onBind(final Post post, ViewHolderCallback viewHolderCallback) {
     this.post = post;
     this.viewHolderCallback=viewHolderCallback;
-    message.setText("Message: " + post.getMessage());
+    message.setText(post.getMessage());
     addedBy.setText("Posted by: " + post.getPostedByUserName());
-    timestamp.setText("Date: " + post.getTimeStamp());
+    timestamp.setText(post.getTimeStamp());
     needDocroeTextview.setText(post.getDoctorINeed());
     int countOfComments = post.getCountOfComments();
     setStatusImage(post.isResolved());
     Database.updatePost(post.getKey(), countOfComments);
-    comments.setText(countOfComments + " comments");
+    String commentCount = String.valueOf(countOfComments);
+    comments.setText(commentCount);
 
     statusOfPost.setOnClickListener(new View.OnClickListener() {
       @Override

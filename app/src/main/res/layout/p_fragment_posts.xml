@@ -17,8 +17,10 @@
       android:layout_height="wrap_content"
       android:layout_gravity="bottom|right"
       android:clickable="true"
+        android:backgroundTint="#FF9800"
       android:src="@drawable/add"
-      app:fabSize="normal"/>
+      app:fabSize="normal"
+    />
 
 </android.support.design.widget.CoordinatorLayout>
 

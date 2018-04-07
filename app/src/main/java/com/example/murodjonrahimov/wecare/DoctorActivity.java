@@ -25,7 +25,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.UUID;
 
-public class DoctorActivity extends AppCompatActivity implements DoctorsForumFragment.onClickListenerDoctor {
+public class  DoctorActivity extends AppCompatActivity implements DoctorsForumFragment.onClickListenerDoctor {
 
     private ActionBar toolbar;
     private DoctorsForumFragment fragment2;

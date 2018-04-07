@@ -60,8 +60,8 @@ public class PostWithComments extends AppCompatActivity {
     final Post post = intent.getParcelableExtra(PatientPostsViewHolder.POST_KEY);
     final String postKey = post.getKey();
 
-    message.setText("Message:" + post.getMessage());
-    timestamp.setText("Date: " + post.getTimeStamp());
+    message.setText(post.getMessage());
+    timestamp.setText(post.getTimeStamp());
     userName = post.getPostedByUserName();
     postedBy.setText("Posted by: " + userName);
 
