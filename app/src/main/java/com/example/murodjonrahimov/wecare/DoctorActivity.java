@@ -58,7 +58,7 @@ public class  DoctorActivity extends AppCompatActivity implements DoctorsForumFr
 
                 switch (item.getItemId()) {
                     case R.id.navigation_doctors:
-                        toolbar.setTitle("Doctor's Forum");
+                        toolbar.setTitle("Doctors Forum");
                         DoctorsForumFragment doctorsForumFragment = (DoctorsForumFragment) getSupportFragmentManager().findFragmentByTag("docFrag");
                         if (doctorsForumFragment == null) {
                             fragment2 = new DoctorsForumFragment();
@@ -72,12 +72,12 @@ public class  DoctorActivity extends AppCompatActivity implements DoctorsForumFr
                         }
                         return true;
                     case R.id.navigation_my_profile:
-                        toolbar.setTitle("Doctor Profile");
+                        toolbar.setTitle("My Profile");
                          doctorProfileFragment = new DoctorProfileFragment();
                         loadFragment(doctorProfileFragment);
                         return true;
                     case R.id.navigation_posts:
-                        toolbar.setTitle("Posts");
+                        toolbar.setTitle("Patients Posts");
                          allPatientsPostsFragment = new AllPatientsPostsFragment();
                         loadFragment(allPatientsPostsFragment);
                         return true;

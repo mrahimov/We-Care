@@ -15,7 +15,7 @@
       android:background="#eeeeee"
       android:foreground="?attr/selectableItemBackground"
       app:itemTextColor="#09c6df"
-      app:menu="@menu/bottom_bar_navigation"/>
+      app:menu="@menu/bottom_bar_navigation_doc"/>
 
     <FrameLayout
       android:id="@+id/frame_container"

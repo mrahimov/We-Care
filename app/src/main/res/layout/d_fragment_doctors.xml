@@ -1,47 +1,62 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  tools:context="com.example.murodjonrahimov.wecare.fragments.DoctorsForumFragment">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background2"
+    tools:context="com.example.murodjonrahimov.wecare.fragments.DoctorsForumFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5sp"
             android:orientation="horizontal"
             android:weightSum="3">
 
+
             <EditText
                 android:id="@+id/searchPost"
-                android:layout_width="267dp"
-                android:layout_height="wrap_content"
-                android:hint="Search Doctor Post"
+                android:layout_width="330dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_weight="2"
-                />
-            <Button
+                android:background="@drawable/rounded_search_button"
+                android:hint="Seach for post..."
+                android:paddingLeft="15dp" />
+
+            <ImageButton
                 android:id="@+id/searchpost1"
-                android:hint="search"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:src="@drawable/search" />
 
         </LinearLayout>
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/doctorForum"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
 
     <android.support.design.widget.FloatingActionButton
-      android:id="@+id/fab"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="bottom|end"
-      android:src="@drawable/edit"/>
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:backgroundTint="#FF9815"
+        android:src="@drawable/edit"
+        app:fabSize="normal"/>
 
 </FrameLayout>
