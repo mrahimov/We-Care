@@ -24,7 +24,7 @@ public class PatientActivity extends AppCompatActivity implements ListOfDoctorsF
     setContentView(R.layout.patient_activity);
 
     toolbar = getSupportActionBar();
-    loadFragment(new ListOfDoctorsFragment());
+    loadFragment(new PatientProfileFragment());
 
     BottomNavigationView navigation = findViewById(R.id.navigation);
 
