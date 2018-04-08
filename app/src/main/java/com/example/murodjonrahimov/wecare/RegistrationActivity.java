@@ -18,12 +18,16 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Doctor;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.ProviderQueryResult;
+
+import es.dmoral.toasty.Toasty;
 
 import static com.example.murodjonrahimov.wecare.model.TermsAndConditions.terms;
 
@@ -61,11 +65,15 @@ public class RegistrationActivity extends AppCompatActivity {
     final EditText userNameRegistration = findViewById(R.id.username_edit_text);
     final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
-    emailRegistration.setText(getIntent().getExtras()
-      .getString(EMAIL_KEY));
-    passwordRegistration.setText(getIntent().getExtras()
-      .getString(PASSWORD_KEY));
+    Intent intent = getIntent();
 
+    String savedEmail = intent.getStringExtra(EMAIL_KEY);
+    String savedPassword = intent.getStringExtra(PASSWORD_KEY);
+
+    if (savedEmail != null || savedPassword != null) {
+      emailRegistration.setText(savedEmail);
+      passwordRegistration.setText(savedPassword);
+    }
     doctorCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
       @Override
       public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -91,37 +99,50 @@ public class RegistrationActivity extends AppCompatActivity {
           .toString();
         password = passwordRegistration.getText()
           .toString();
-
         licence = licenceId.getText()
           .toString();
-
         username = userNameRegistration.getText()
           .toString();
 
         if (email.equals("") || password.equals("") || licence.equals("") && username.equals("")) {
-          Toast.makeText(RegistrationActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG)
+
+          Toasty.error(RegistrationActivity.this, "Please enter a valid entry", Toast.LENGTH_LONG, true)
             .show();
           return;
         }
 
         if (doctorCheckbox.isChecked() && licence.equals("")) {
-          Toast.makeText(RegistrationActivity.this, "Please enter a valid licence id", Toast.LENGTH_LONG)
+
+          Toasty.error(RegistrationActivity.this, "Please enter a valid licence id", Toast.LENGTH_LONG, true)
             .show();
-        } else {
+        }
 
-          final ProgressDialog progressDialog =
-            ProgressDialog.show(RegistrationActivity.this, "Please wait ...", "Processing...", true);
-          (firebaseAuth.createUserWithEmailAndPassword(email, password)).addOnCompleteListener(
-            new OnCompleteListener<AuthResult>() {
-              @Override
-              public void onComplete(@NonNull final Task<AuthResult> task) {
-                progressDialog.dismiss();
+        final ProgressDialog progressDialog =
+          ProgressDialog.show(RegistrationActivity.this, "Please wait ...", "Processing...", true);
 
+        firebaseAuth.fetchProvidersForEmail(email)
+          .addOnCompleteListener(new OnCompleteListener<ProviderQueryResult>() {
+            @Override
+            public void onComplete(@NonNull Task<ProviderQueryResult> task) {
+              progressDialog.dismiss();
+              boolean check = !task.getResult()
+                .getProviders()
+                .isEmpty();
+
+              if (check) {
+
+                Toasty.info(RegistrationActivity.this,
+                  "It looks like you already have a WeCare account for this email address. Please try login in.",
+                  Toast.LENGTH_LONG, true)
+                  .show();
+
+                return;
+              } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(RegistrationActivity.this);
                 builder.setTitle("Terms and Conditions");
 
                 View viewInflated = LayoutInflater.from(RegistrationActivity.this)
-                        .inflate(R.layout.terms_layout, viewGroup, false);
+                  .inflate(R.layout.terms_layout, viewGroup, false);
                 final TextView textViewTerms = viewInflated.findViewById(R.id.terms_and_condition);
                 textViewTerms.setText(terms);
 
@@ -131,6 +152,7 @@ public class RegistrationActivity extends AppCompatActivity {
                   @Override
                   public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
+                    return;
                   }
                 });
 
@@ -138,34 +160,41 @@ public class RegistrationActivity extends AppCompatActivity {
                   @Override
                   public void onClick(DialogInterface dialog, int which) {
 
-                    Toast.makeText(RegistrationActivity.this, "Registration successful", Toast.LENGTH_LONG)
+                    (firebaseAuth.createUserWithEmailAndPassword(email, password)).addOnCompleteListener(
+                      new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull final Task<AuthResult> task) {
+                          progressDialog.dismiss();
+                          Toasty.success(RegistrationActivity.this, "Registration successful", Toast.LENGTH_LONG, true)
                             .show();
 
-                    SharedPreferences preferences = getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = preferences.edit();
-                    editor.putString(USERNAME_KEY, username);
-                    editor.apply();
+                          if (doctorCheckbox.isChecked()) {
+                            Doctor doctor = new Doctor();
+                            doctor.setType("doctor");
+                            Database.saveDoctor(doctor);
+                            Intent intent = new Intent(RegistrationActivity.this, TwoAuthActivityDoctorReg.class);
+                            startActivity(intent);
+                          }
+                          if (!doctorCheckbox.isChecked()) {
+                            Intent intent = new Intent(RegistrationActivity.this, PatientActivity.class);
+                            startActivity(intent);
+                          }
+                          SharedPreferences preferences =
+                            getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
+                          SharedPreferences.Editor editor = preferences.edit();
+                          editor.putString(USERNAME_KEY, username);
+                          editor.apply();
+                        }
+                      });
 
-                    if (doctorCheckbox.isChecked()) {
-                      Doctor doctor = new Doctor();
-                      doctor.setType("doctor");
-                      Database.saveDoctor(doctor);
-                      Intent intent = new Intent(RegistrationActivity.this, TwoAuthActivityDoctorReg.class);
-                      startActivity(intent);
-                    }
-                    if (!doctorCheckbox.isChecked()) {
-                      Intent intent = new Intent(RegistrationActivity.this, PatientActivity.class);
-                      startActivity(intent);
-                    }
 
                     dialog.dismiss();
                   }
                 });
                 builder.show();
-
               }
-            });
-        }
+            }
+          });
       }
     });
   }

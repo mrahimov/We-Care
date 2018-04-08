@@ -3,7 +3,8 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/main_content"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
+  android:layout_height="match_parent"
+    android:background="@drawable/background2">
 
     <android.support.v7.widget.RecyclerView
       android:id="@+id/recyclerview"
@@ -16,8 +17,10 @@
       android:layout_height="wrap_content"
       android:layout_gravity="bottom|right"
       android:clickable="true"
+        android:backgroundTint="#FF9815"
       android:src="@drawable/add"
-      app:fabSize="normal"/>
+      app:fabSize="normal"
+    />
 
 </android.support.design.widget.CoordinatorLayout>
 

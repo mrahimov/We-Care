@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/activity_main"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"
->
+  android:layout_height="match_parent">
 
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:orientation="vertical">
+
         <ImageView
           android:layout_width="match_parent"
           android:layout_height="0dp"
           android:layout_weight="1"
           android:background="@drawable/background_gradient"/>
+
         <ImageView
           android:layout_width="match_parent"
           android:layout_height="0dp"
@@ -34,46 +34,57 @@
       android:padding="20dp">
 
         <TextView
+
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="5dp"
           android:text="Email"/>
+
         <EditText
           android:id="@+id/email_login_edit_text"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:drawablePadding="20dp"
           android:drawableRight="@drawable/ic_envelope"
-          android:hint="Enter Your Email"/>
+          android:hint="Enter Your Email"
+          android:imeOptions="actionNext"
+          android:inputType="textEmailAddress"/>
+
         <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginTop="5dp"
           android:text="Password"/>
+
         <EditText
           android:id="@+id/password_login_edit_text"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:drawablePadding="20dp"
           android:drawableRight="@drawable/ic_lock"
-          android:hint="******"/>
+          android:hint="******"
+          android:inputType="textPassword"/>
+
         <Button
           android:id="@+id/sign_in_button"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="20dp"
-          android:background="@drawable/rec_gradient"
+          android:background="@drawable/rec_gradient_fb"
           android:text="Log In"
           android:textAllCaps="false"
-          android:textColor="#FFF"/>
+            android:textSize="16sp"
+            android:textColor="#FFF"/>
+
         <Button
           android:id="@+id/register_button"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="10dp"
-          android:background="@drawable/rec_gradient_fb"
+          android:background="@drawable/rec_gradient"
           android:text="New User Sign Up"
           android:textAllCaps="false"
+            android:textSize="16sp"
           android:textColor="#FFF"/>
     </LinearLayout>
 
@@ -84,9 +95,8 @@
       android:layout_centerHorizontal="true"
       android:layout_marginBottom="5dp"
       android:layout_marginTop="15dp"
-      android:background="@drawable/background_white"
-      android:padding="5dp"
-      android:src="@mipmap/ic_care"/>
+        android:background="@drawable/logo"
+        />
 
     <TextView
       android:layout_width="wrap_content"
@@ -95,5 +105,7 @@
       android:layout_centerHorizontal="true"
       android:text="Log In"
       android:textColor="#FFF"
-      android:textSize="20sp"/>
+      android:textSize="20sp"
+        android:textStyle="bold"/>
+
 </RelativeLayout>

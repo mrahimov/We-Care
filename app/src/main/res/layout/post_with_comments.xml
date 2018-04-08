@@ -1,76 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:orientation="vertical"
-  android:padding="8dp">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <android.support.v7.widget.CardView
-      android:id="@+id/cardview"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+        android:id="@+id/cardview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#e0f7fa">
 
-        <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="vertical"
-          android:padding="15dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <TextView
-              android:id="@+id/message_ed"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:hint="@string/message"
-              android:textColor="#000"
-              android:textSize="18sp"/>
+            <LinearLayout
+                android:id="@+id/linear_layout"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="#e0f7fa"
+                android:orientation="vertical"
+                android:padding="15dp">
 
-            <TextView
-              android:id="@+id/posted_by_ed"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:hint="@string/posted_by"
-              android:textColor="#000"
-              android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/message_ed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:hint="@string/message"
+                    android:textColor="#000"
+                    android:textSize="18sp" />
 
-            <TextView
-              android:id="@+id/timestamp_ed"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:hint="@string/date"
-              android:textColor="#000"
-              android:textSize="18sp"/>
+                <TextView
+                    android:id="@+id/posted_by_ed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="10dp"
+                    android:hint="@string/posted_by"
+                    android:textColor="#808080"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/timestamp_ed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:hint="@string/date"
+                    android:textColor="#808080"
+                    android:textSize="12sp" />
 
 
-        </LinearLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/patient_post_image01"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+android:layout_alignParentRight="true"
+                android:foregroundGravity="center"
+                android:background="#e0f7fa"/>
+
+        </RelativeLayout>
+
+
     </android.support.v7.widget.CardView>
 
+
     <android.support.v7.widget.RecyclerView
-      android:id="@+id/comments_recyclerview"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_above="@+id/adding_comment"
-      android:layout_below="@+id/cardview"/>
+        android:id="@+id/comments_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/adding_comment"
+        android:layout_below="@+id/cardview"
+        android:layout_marginTop="10dp"
+        android:padding="15dp" />
 
     <EditText
-      android:id="@+id/adding_comment"
-      android:layout_width="match_parent"
-      android:layout_height="50dp"
-      android:layout_alignParentBottom="true"
-      android:layout_marginBottom="8dp"
-      android:gravity="bottom"
-      android:hint="@string/write_a_comment"/>
+        android:id="@+id/adding_comment"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp"
+        android:gravity="bottom"
+        android:hint="@string/write_a_comment" />
 
     <ImageView
-      android:id="@+id/send_image_view"
-      android:layout_width="30dp"
-      android:layout_height="30dp"
-      android:layout_alignParentBottom="true"
-      android:layout_alignRight="@+id/adding_comment"
-      android:layout_marginBottom="8dp"
-      android:layout_marginRight="8dp"
-      android:gravity="bottom"
-      app:srcCompat="@drawable/send"/>
+        android:id="@+id/send_image_view"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/comments_recyclerview"
+        android:layout_marginTop="9dp"
+        android:gravity="bottom"
+        app:srcCompat="@drawable/ic_tosend" />
 
 </RelativeLayout>
+
+

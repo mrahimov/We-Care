@@ -1,25 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.murodjonrahimov.wecare.TwoAuthActivityDoctorReg">
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  tools:context="com.example.murodjonrahimov.wecare.TwoAuthActivityDoctorReg">
 
     <EditText
-        android:id="@+id/first_name1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Username"/>
+      android:id="@+id/first_name1"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="First Name"/>
 
     <EditText
-        android:id="@+id/last_name1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="LastName" />
+      android:id="@+id/last_name1"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="LastName"/>
+
+    <EditText
+      android:id="@+id/country1"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="Country"/>
+
+    <EditText
+      android:id="@+id/medical1"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="Medical Speciality"/>
+
+    <EditText
+      android:id="@+id/years_of_experience10"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="years of Experience"/>
+
+
     <Button
         android:id="@+id/savefirstlastname"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="continue"/>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginVertical="40dp"
+        android:background="@drawable/buttonstyle"
+        android:text="  Continue  "
+        android:textColor="#fff"
+        android:layout_centerHorizontal="true"/>
+
 </LinearLayout>

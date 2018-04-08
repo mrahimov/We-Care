@@ -11,6 +11,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.murodjonrahimov.wecare.R;
@@ -27,16 +32,29 @@ import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.squareup.picasso.Picasso;
+
+import java.util.Random;
+
+import es.dmoral.toasty.Toasty;
 
 public class ListOfDoctorsFragment extends Fragment {
   private View view;
   private DatabaseReference Database;
   private RecyclerView recyclerview;
   private FirebaseRecyclerAdapter<Doctor, ListOfDoctorsFragment.DoctorsListViewHolder> fireBaseRecyclerAdapter;
+  private EditText search;
+  private ImageButton searchbutton;
+  private ListOfDoctorsFragment.SearchDoctorslistener searchDoctorslistener;
 
   @Override
   public void onAttach(Context context) {
     super.onAttach(context);
+    try {
+      searchDoctorslistener = (ListOfDoctorsFragment.SearchDoctorslistener) context;
+    } catch (ClassCastException e) {
+      throw new ClassCastException(context.toString() + " must implement listener");
+    }
   }
 
 
@@ -66,6 +84,28 @@ public class ListOfDoctorsFragment extends Fragment {
     recyclerview = view.findViewById(R.id.RVDoctors);
     recyclerview.setHasFixedSize(true);
     recyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
+    searchbutton = view.findViewById(R.id.searchp);
+    search = view.findViewById(R.id.searchTextP);
+
+
+    searchbutton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        if(search.getText().toString().matches("")){
+          Toasty.normal(getActivity().getApplicationContext(),
+                  "please enter search query",
+                  500)
+                  .show();
+        }
+        else {
+          Toasty.normal(getActivity().getApplicationContext(),
+                  "searching for "+ search.getText().toString(),
+                  500)
+                  .show();
+        searchDoctorslistener.search(search.getText().toString());
+        }
+      }
+    });
 
     FirebaseRecyclerOptions<Doctor> options = new
             FirebaseRecyclerOptions.Builder<Doctor>()
@@ -89,11 +129,11 @@ public class ListOfDoctorsFragment extends Fragment {
                                               int position,
                                               @NonNull final Doctor doctor) {
 
-
+                Picasso.get().load(doctor.getUri()).into(holder.imageView);
                 holder.setNumberOfComments(doctor.getFirstName(), doctor.getLastName());
-                holder.name.setText(doctor.getFirstName() + " " + doctor.getLastName());
-                holder.yearsOfExp.setText(doctor.getYearsOfExperience());
-                holder.country.setText(doctor.getCountryOfPractice());
+                holder.name.setText("Dr. " + doctor.getFirstName() + " " + doctor.getLastName());
+                holder.yearsOfExp.setText("Experience: " + doctor.getYearsOfExperience());
+                holder.country.setText("Country: " + doctor.getCountryOfPractice());
                 holder.major.setText(doctor.getMajor());
               }
             };
@@ -113,14 +153,15 @@ public class ListOfDoctorsFragment extends Fragment {
   }
 
   public static class DoctorsListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    TextView name;
-    TextView yearsOfExp;
-    TextView country;
-    TextView major;
-    TextView numberOfComments;
+    private TextView name;
+    private TextView yearsOfExp;
+    private TextView country;
+    private TextView major;
+    private TextView numberOfComments;
     private int count;
-    GraphView graph;
-    DatabaseReference databaseReference =FirebaseDatabase.getInstance()
+    private GraphView graph;
+    private ImageView imageView;
+    private DatabaseReference databaseReference = FirebaseDatabase.getInstance()
             .getReference().child("comments");
 
 
@@ -132,9 +173,10 @@ public class ListOfDoctorsFragment extends Fragment {
       major = itemView.findViewById(R.id.major);
       numberOfComments = itemView.findViewById(R.id.number_of_doctors_comments1);
       graph = itemView.findViewById(R.id.graph);
+      imageView = itemView.findViewById(R.id.image1);
     }
 
-    private void setNumberOfComments( final String firstName, final String lastName) {
+    private void setNumberOfComments(final String firstName, final String lastName) {
 
       databaseReference.addValueEventListener(new ValueEventListener() {
         @Override
@@ -146,23 +188,25 @@ public class ListOfDoctorsFragment extends Fragment {
               count++;
             }
           }
-          numberOfComments.setText(String.valueOf(count));
-          LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] {
-                  new DataPoint(0, 1),
-                  new DataPoint(1, 5),
-                  new DataPoint(2, 3),
-                  new DataPoint(3, 2),
-                  new DataPoint(4, count)
-          });
+          numberOfComments.setText("Comments: " + String.valueOf(count));
+          LineGraphSeries<DataPoint> series = new LineGraphSeries<>(generateData());
+          //new DataPoint[] {
+//                  new DataPoint(0, 1),
+//                  new DataPoint(1, 5),
+//                  new DataPoint(2, 3),
+//                  new DataPoint(3, 2),
+//                  new DataPoint(4, count)
+          // });
           series.setDrawBackground(true);
 
           series.setColor(Color.argb(255, 255, 60, 60));
           series.setBackgroundColor(Color.argb(100, 64, 224, 208));
           series.setDrawDataPoints(true);
 
-          graph.setTitle("Doctor Activity");
           graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.NONE);
-          graph.getViewport().setDrawBorder(true);
+          graph.getGridLabelRenderer().setVerticalLabelsVisible(false);
+          graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+
           graph.addSeries(series);
 
 
@@ -181,5 +225,26 @@ public class ListOfDoctorsFragment extends Fragment {
     public void onClick(View v) {
 
     }
+
+    private DataPoint[] generateData() {
+      int count1 = 5;
+      Random mRand = new Random();
+      DataPoint[] values = new DataPoint[count1];
+      for (int i = 0; i < count1; i++) {
+        double x = i;
+        double f = mRand.nextDouble() * 0.15 + 0.3;
+        double y = Math.sin(i * f + 2) + mRand.nextDouble() * 0.3;
+        DataPoint v = new DataPoint(x, y);
+        values[i] = v;
+      }
+      values[4] = new DataPoint(4, count);
+      return values;
+    }
+
+
+  }
+  public interface SearchDoctorslistener{
+    void search(String s);
   }
 }
+

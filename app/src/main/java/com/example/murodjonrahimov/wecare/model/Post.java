@@ -12,24 +12,86 @@ public class Post implements Parcelable {
   private String postedByUserName;
   private int countOfComments;
   private String doctorINeed;
+  private boolean resolved;
+  private String uri;
 
-  public Post(String message, String addedBy, String timeStamp, String key, String postedByUserName, int countOfComments) {
+  public Post(String message, String addedBy, String timeStamp, String key, String postedByUserName, int countOfComments,
+              boolean resolved) {
     this.message = message;
     this.addedBy = addedBy;
     this.timeStamp = timeStamp;
     this.key = key;
     this.postedByUserName = postedByUserName;
     this.countOfComments = countOfComments;
+    this.resolved = resolved;
   }
 
+  public Post(String message, String timeStamp, String postedByUserName, String doctorINeed, String uri) {
+    this.message = message;
+    this.timeStamp = timeStamp;
+    this.postedByUserName = postedByUserName;
+    this.doctorINeed = doctorINeed;
+    this.uri = uri;
+  }
   public Post(String message, String timeStamp, String postedByUserName, String doctorINeed) {
     this.message = message;
     this.timeStamp = timeStamp;
     this.postedByUserName = postedByUserName;
     this.doctorINeed = doctorINeed;
+
   }
 
   public Post() {
+  }
+
+  protected Post(Parcel in) {
+    message = in.readString();
+    addedBy = in.readString();
+    timeStamp = in.readString();
+    key = in.readString();
+    postedByUserName = in.readString();
+    countOfComments = in.readInt();
+    doctorINeed = in.readString();
+    resolved = in.readByte() != 0;
+    uri = in.readString();
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags) {
+    dest.writeString(message);
+    dest.writeString(addedBy);
+    dest.writeString(timeStamp);
+    dest.writeString(key);
+    dest.writeString(postedByUserName);
+    dest.writeInt(countOfComments);
+    dest.writeString(doctorINeed);
+    dest.writeByte((byte) (resolved ? 1 : 0));
+    dest.writeString(uri);
+  }
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  public static final Creator<Post> CREATOR = new Creator<Post>() {
+    @Override
+    public Post createFromParcel(Parcel in) {
+      return new Post(in);
+    }
+
+    @Override
+    public Post[] newArray(int size) {
+      return new Post[size];
+    }
+  };
+
+  public boolean isResolved() {
+    return resolved;
+  }
+
+  public void setResolved(boolean resolved) {
+    this.resolved = resolved;
   }
 
   public String getPostedByUserName() {
@@ -92,41 +154,11 @@ public class Post implements Parcelable {
     this.doctorINeed = doctorINeed;
   }
 
-  @Override
-  public int describeContents() {
-    return 0;
+  public String getUri() {
+    return uri;
   }
 
-  @Override
-  public void writeToParcel(Parcel dest, int flags) {
-    dest.writeString(this.message);
-    dest.writeString(this.addedBy);
-    dest.writeString(this.timeStamp);
-    dest.writeString(this.key);
-    //dest.writeString(this.doctorINeed);
-    dest.writeString(this.postedByUserName);
-    dest.writeInt(this.countOfComments);
+  public void setUri(String uri) {
+    this.uri = uri;
   }
-
-  protected Post(Parcel in) {
-    this.message = in.readString();
-    this.addedBy = in.readString();
-    //this.doctorINeed = in.readString();
-    this.timeStamp = in.readString();
-    this.key = in.readString();
-    this.postedByUserName = in.readString();
-    this.countOfComments = in.readInt();
-  }
-
-  public static final Creator<Post> CREATOR = new Creator<Post>() {
-    @Override
-    public Post createFromParcel(Parcel source) {
-      return new Post(source);
-    }
-
-    @Override
-    public Post[] newArray(int size) {
-      return new Post[size];
-    }
-  };
 }

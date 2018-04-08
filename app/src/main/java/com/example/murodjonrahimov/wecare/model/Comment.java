@@ -6,12 +6,21 @@ public class Comment {
   private String postId;
   private String timeStamp;
   private String commentPostedByUserName;
+  private String uid;
 
   public Comment(String comment, String postId, String timeStamp, String commentPostedByUserName) {
     this.comment = comment;
     this.postId = postId;
     this.timeStamp = timeStamp;
     this.commentPostedByUserName = commentPostedByUserName;
+  }
+
+  public String getUid() {
+    return uid;
+  }
+
+  public void setUid(String uid) {
+    this.uid = uid;
   }
 
   public String getCommentPostedByUserName() {

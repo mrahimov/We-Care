@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import com.example.murodjonrahimov.wecare.LoginActivity;
 import com.example.murodjonrahimov.wecare.PatientProfileForm;
@@ -35,7 +36,7 @@ public class PatientProfileFragment extends Fragment {
   private TextView dob;
   private TextView gender;
   private TextView patientUserName;
-  private FloatingActionButton fab;
+  private Button fab;
 
   public PatientProfileFragment() {
   }

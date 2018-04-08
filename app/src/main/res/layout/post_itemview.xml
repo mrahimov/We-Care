@@ -1,68 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="2dp">
 
     <android.support.v7.widget.CardView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_margin="16dp">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cardview"
+        android:layout_width="match_parent"
+        android:backgroundTint="#EEEEEE"
+        android:layout_height="wrap_content"
+        card_view:cardUseCompatPadding="true"
+        card_view:contentPadding="10dp"
+        card_view:cardElevation="1dp">
+
+        <View
+            android:id="@+id/line_status"
+            android:layout_width="2dp"
+            android:layout_height="95dp"
+            android:background="#EEEEEE"/>
+
 
         <LinearLayout
-          android:id="@+id/linear_layout_comments"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="vertical"
-          android:padding="15dp">
+            android:id="@+id/linear_layout_comments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="7dp"
+            >
 
-            <TextView
-              android:id="@+id/need_docroe_textview"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:hint="@string/others"
-              android:textColor="#000"
-              android:textSize="18sp"/>
-
-            <TextView
-              android:id="@+id/message_ed"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:hint="@string/message"
-              android:textColor="#000"
-              android:textSize="18sp"/>
-
-            <TextView
-              android:id="@+id/posted_by_ed"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:hint="@string/posted_by"
-              android:textColor="#000"
-              android:textSize="18sp"/>
-
-            <TextView
-              android:id="@+id/timestamp_ed"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:hint="@string/date"
-              android:textColor="#000"
-              android:textSize="18sp"/>
-
-            <TextView
-              android:id="@+id/comments"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:clickable="true"
-              android:hint="@string/comments"
-              android:textColor="#000"
-              android:textSize="18sp"/>
-            <Button
-                android:id="@+id/del2"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Delete"/>
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:id="@+id/message_ed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="5dp"
+                    android:hint="@string/no_message_added"
+                    android:textColor="#000"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/comments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/resolve_unresolved_case"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/ic_comment_black_24dp"
+                    android:textColor="#000"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/resolve_unresolved_case"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentRight="true"
+                    app:srcCompat="@drawable/unresolved_case">
+
+                </ImageView>
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/need_docroe_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:hint="@string/others"
+                    android:textColor="#000"
+                    android:textSize="14sp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/posted_by_ed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:hint="@string/posted_by"
+                        android:textColor="#808080"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/timestamp_ed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:hint="@string/date"
+                        android:textColor=" #808080"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+
+                <Button
+                    android:id="@+id/del2"
+                    android:layout_width="27dp"
+                    android:layout_height="27dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="right"
+                    android:background="@drawable/delete_grey" />
+
+            </RelativeLayout>
+
 
         </LinearLayout>
-    </android.support.v7.widget.CardView>
-</LinearLayout>
+
+</android.support.v7.widget.CardView>
+
+</RelativeLayout>

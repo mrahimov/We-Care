@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -51,11 +52,11 @@ public class DoctorProfileFragment extends Fragment {
   private TextView yearsOfExperienceED;
   private TextView type;
   private TextView numberOfDoctorsComments;
-  private FloatingActionButton fab;
+  private Button fab;
   private ImageView doctorImage;
   private StorageReference storageReference;
   private ProgressDialog progressDialog;
-  private Button buttonDoctorImage;
+  private FloatingActionButton buttonDoctorImage;
   private Uri uri;
   private SharedPreferences preferences;
   private SharedPreferences.Editor myPrefsEdit;
@@ -66,7 +67,7 @@ public class DoctorProfileFragment extends Fragment {
   }
 
   @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+  public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
     View rootView = inflater.inflate(R.layout.d_fragment_profile, container, false);
     setHasOptionsMenu(true);
@@ -150,6 +151,7 @@ public class DoctorProfileFragment extends Fragment {
           public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
             Uri downloadUri = taskSnapshot.getDownloadUrl();
+            Database.saveURIDoctor(downloadUri.toString());
             myPrefsEdit = preferences.edit();
             myPrefsEdit.putString(userID, downloadUri.toString());
             myPrefsEdit.commit();
@@ -278,4 +280,8 @@ public class DoctorProfileFragment extends Fragment {
       .into(doctorImage);
     progressDialog.dismiss();
   }
+
+
+
 }
+

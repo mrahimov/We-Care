@@ -1,162 +1,303 @@
-<android.support.design.widget.CoordinatorLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/main_content"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:padding="16dp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/graylight"
+    android:orientation="vertical"
+    tools:context="com.example.murodjonrahimov.wecare.fragments.DoctorProfileFragment">
 
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      tools:context="com.example.murodjonrahimov.wecare.fragments.DoctorProfileFragment">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
 
         <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal"
-          tools:context="com.example.murodjonrahimov.wecare.fragments.DoctorProfileFragment">
-
-            <Button
-              android:id="@+id/button_doctor_image"
-              android:layout_width="40dp"
-              android:layout_height="40dp"
-              android:background="@drawable/add_male_user"/>
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@drawable/gradientbackground"
+            android:orientation="vertical"
+            tools:context="com.example.murodjonrahimov.wecare.fragments.DoctorProfileFragment">
 
             <ImageView
-              android:id="@+id/imageview_doctor_profile"
-              android:layout_width="wrap_content"
-              android:layout_height="200dp"
-              android:layout_gravity="center">
+                android:id="@+id/imageview_doctor_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/doc" />
 
-            </ImageView>
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true">
 
+
+                <TextView
+                    android:id="@+id/first_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="Name "
+                    android:textColor="#fff"
+                    android:textColorHint="#fff"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_centerInParent="true"/>
+
+                <TextView
+                    android:id="@+id/last_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/first_name"
+                    android:layout_alignBottom="@+id/first_name"
+                    android:layout_alignParentEnd="true"
+                    android:hint="LName"
+                    android:textColor="#fff"
+                    android:textColorHint="#fff"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:layout_centerInParent="true"
+                    android:visibility="invisible"/>
+
+                <TextView
+                    android:id="@+id/first_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/first_name"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/last_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/last_name"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="325dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="90dp"
+            tools:context="com.example.murodjonrahimov.wecare.fragments.DoctorProfileFragment">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Doctor Post Statistics"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/number_of_doctors_comments"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:text="1"
+                        android:textColor="@color/startblue"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical"
+        tools:context="com.example.murodjonrahimov.wecare.fragments.DoctorProfileFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="25dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/doctoricon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="Occupation"
+                />
+
+            <TextView
+                android:id="@+id/type_doctor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:hint="Type of Doctor"
+                android:paddingLeft="20dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="45dp"/>
         </LinearLayout>
 
         <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="8dp"
-          android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            android:paddingLeft="25dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/experience" />
 
             <TextView
-              android:id="@+id/first_name_tv"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="@string/first_name"/>
+                android:id="@+id/years_of_experience_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="@string/years_of_experience" />
 
             <TextView
-              android:id="@+id/first_name"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginLeft="20sp"
-              android:hint="@string/first_name"/>
-
+                android:id="@+id/years_of_experience"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:hint="Years of experience"
+                android:paddingLeft="20dp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            android:paddingLeft="25dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/flag" />
 
             <TextView
-              android:id="@+id/last_name_tv"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="@string/last_name"/>
+                android:id="@+id/country_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="@string/country_of_work" />
 
             <TextView
-              android:id="@+id/last_name"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginLeft="20sp"
-              android:hint="@string/last_name"/>
-
+                android:id="@+id/country"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:hint="Country of Practice"
+                android:paddingLeft="20dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="20dp"/>
         </LinearLayout>
 
         <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            android:paddingLeft="25dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/doctortype" />
 
             <TextView
-              android:id="@+id/country_tv"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="@string/country_of_work"/>
+                android:id="@+id/major_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:text="@string/major_speciality" />
 
             <TextView
-              android:id="@+id/country"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginLeft="20sp"/>
+                android:id="@+id/major"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:hint="Speciality"
+                android:paddingLeft="20dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="26dp"/>
+
 
         </LinearLayout>
-
-        <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal">
-
-            <TextView
-              android:id="@+id/major_tv"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="@string/major_speciality"/>
-
-            <TextView
-              android:id="@+id/major"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginLeft="20sp"
-              android:hint="@string/major_speciality"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal">
-
-            <TextView
-              android:id="@+id/years_of_experience_tv"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="@string/years_of_experience"/>
-
-            <TextView
-              android:id="@+id/years_of_experience"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginLeft="20sp"
-              android:hint="@string/years_of_experience"/>
-
-        </LinearLayout>
-
-        <TextView
-          android:id="@+id/type_doctor"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"/>
-
-        <TextView
-          android:id="@+id/number_of_doctors_comments"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:drawableTop="@drawable/number_of_doctors_comments"/>
-
 
     </LinearLayout>
 
-    <android.support.design.widget.FloatingActionButton
-      android:id="@+id/add_fab_doctor"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="bottom|right"
-      android:clickable="true"
-      android:src="@drawable/edit"
-      app:fabSize="normal"/>
 
-</android.support.design.widget.CoordinatorLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/add_fab_doctor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginVertical="40dp"
+            android:background="@drawable/buttonstyle"
+            android:text="Edit Profile"
+            android:textColor="#fff"
+            android:layout_centerHorizontal="true"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/button_doctor_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="end|bottom"
+            android:clickable="true"
+            android:focusable="true"
+            android:backgroundTint="#FF9800"
+            android:src="@drawable/ic_photo_camera"
+            app:fabSize="normal" />
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>
+
