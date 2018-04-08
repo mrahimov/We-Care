@@ -2,37 +2,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background2"
     tools:context="com.example.murodjonrahimov.wecare.fragments.DoctorsForumFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="3">
+            android:weightSum="3"
+            android:layout_marginLeft="5sp">
+
 
             <EditText
                 android:id="@+id/searchTextP"
-                android:layout_width="267dp"
-                android:layout_height="wrap_content"
-                android:hint="Seach for your doctor"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_width="330dp"
+                android:layout_height="35dp"
                 android:layout_weight="2"
-                />
-            <Button
+                android:paddingLeft="15dp"
+                android:background="@drawable/rounded_search_button"
+                android:hint="Seach for doctor..." />
+
+            <ImageButton
+                android:layout_marginTop="5dp"
                 android:id="@+id/searchp"
-                android:hint="search"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/search"
+                android:clickable="true"
+                android:background="@android:color/transparent" />
 
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/RVDoctors"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

@@ -41,12 +41,12 @@ public class PatientActivity extends AppCompatActivity implements ListOfDoctorsF
             loadFragment(fragment);
             return true;
           case R.id.navigation_my_profile:
-            toolbar.setTitle("Patient Profile");
+            toolbar.setTitle("My Profile");
             fragment = new PatientProfileFragment();
             loadFragment(fragment);
             return true;
           case R.id.navigation_posts:
-            toolbar.setTitle("Posts");
+            toolbar.setTitle("My Posts");
             fragment = new PatientMyPostFragment();
             loadFragment(fragment);
             return true;

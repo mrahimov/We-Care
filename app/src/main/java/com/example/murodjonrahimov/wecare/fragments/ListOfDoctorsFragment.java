@@ -13,7 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.murodjonrahimov.wecare.R;
@@ -42,7 +44,7 @@ public class ListOfDoctorsFragment extends Fragment {
   private RecyclerView recyclerview;
   private FirebaseRecyclerAdapter<Doctor, ListOfDoctorsFragment.DoctorsListViewHolder> fireBaseRecyclerAdapter;
   private EditText search;
-  private Button searchbutton;
+  private ImageButton searchbutton;
   private ListOfDoctorsFragment.SearchDoctorslistener searchDoctorslistener;
 
   @Override
@@ -129,10 +131,10 @@ public class ListOfDoctorsFragment extends Fragment {
 
                 Picasso.get().load(doctor.getUri()).into(holder.imageView);
                 holder.setNumberOfComments(doctor.getFirstName(), doctor.getLastName());
-                holder.name.setText("Name: " + doctor.getFirstName() + " " + doctor.getLastName());
-                holder.yearsOfExp.setText("years of exp: " + doctor.getYearsOfExperience());
+                holder.name.setText("Dr. " + doctor.getFirstName() + " " + doctor.getLastName());
+                holder.yearsOfExp.setText("Experience: " + doctor.getYearsOfExperience());
                 holder.country.setText("Country: " + doctor.getCountryOfPractice());
-                holder.major.setText("Major: " + doctor.getMajor());
+                holder.major.setText(doctor.getMajor());
               }
             };
     recyclerview.setAdapter(fireBaseRecyclerAdapter);
@@ -186,7 +188,7 @@ public class ListOfDoctorsFragment extends Fragment {
               count++;
             }
           }
-          numberOfComments.setText("Number of comments: " + String.valueOf(count));
+          numberOfComments.setText("Comments: " + String.valueOf(count));
           LineGraphSeries<DataPoint> series = new LineGraphSeries<>(generateData());
           //new DataPoint[] {
 //                  new DataPoint(0, 1),
@@ -201,7 +203,6 @@ public class ListOfDoctorsFragment extends Fragment {
           series.setBackgroundColor(Color.argb(100, 64, 224, 208));
           series.setDrawDataPoints(true);
 
-          graph.setTitle("Doctor Activity");
           graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.NONE);
           graph.getGridLabelRenderer().setVerticalLabelsVisible(false);
           graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);

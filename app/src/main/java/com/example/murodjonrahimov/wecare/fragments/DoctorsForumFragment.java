@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -53,8 +55,9 @@ public class DoctorsForumFragment extends Fragment {
     private RecyclerView recyclerView;
     private onClickListenerDoctor listenerDoc;
     private FirebaseRecyclerAdapter<DoctorPost, DoctorsForumFragment.DoctorPosts> fireBaseRecyclerAdapter;
-    private Button search;
+    private ImageButton search;
     private EditText searchText;
+    private CardView cardView;
 
     @Override
     public void onAttach(Context context) {
@@ -116,6 +119,7 @@ public class DoctorsForumFragment extends Fragment {
         search= view.findViewById(R.id.searchpost1);
         searchText =view.findViewById(R.id.searchPost);
 
+
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -161,15 +165,19 @@ public class DoctorsForumFragment extends Fragment {
                 if(doctor.getAddedBy().equals(user)){
                     holder.button1.setVisibility(View.VISIBLE);
                     holder.button.setVisibility(View.VISIBLE);
+                    holder.attach.setVisibility(View.VISIBLE);
+                    holder.delete.setVisibility(View.VISIBLE);
                 }
                 else {
                     holder.button1.setVisibility(View.GONE);
                     holder.button.setVisibility(View.GONE);
+                    holder.attach.setVisibility(View.GONE);
+                    holder.delete.setVisibility(View.GONE);
                 }
                 Glide.with(holder.imageView1.getContext())
                         .load(doctor.getUri()).into(holder.imageView1);
 
-                holder.doctorName.setText(doctor.getFirstname() + " " + doctor.getLastname());
+                holder.doctorName.setText("Posted by: " + doctor.getFirstname() + " " + doctor.getLastname());
                 holder.message.setText(doctor.getMessage());
                 holder.time.setText(doctor.getTimeStamp());
 
@@ -291,6 +299,8 @@ public class DoctorsForumFragment extends Fragment {
         TextView message;
         TextView time;
         TextView doctorName;
+        TextView attach;
+        TextView delete;
         Button button;
         ImageView imageView1;
         Button button1;
@@ -305,6 +315,10 @@ public class DoctorsForumFragment extends Fragment {
             button.setOnClickListener(this);
             imageView1 = itemView.findViewById(R.id.image2);
             button1 = itemView.findViewById(R.id.upload);
+            attach = itemView.findViewById(R.id.attach);
+            delete = itemView.findViewById(R.id.delete);
+
+
 
 
         }
@@ -337,7 +351,7 @@ public class DoctorsForumFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.MyPost:
                 listenerDoc.yourPost();
-                Toasty.normal(getActivity(), "My Post").show();
+                Toasty.normal(getActivity(), "My Posts").show();
 
                 return true;
             default:

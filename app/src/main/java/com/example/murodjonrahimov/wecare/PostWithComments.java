@@ -39,7 +39,6 @@ public class PostWithComments extends AppCompatActivity {
   private View contentView;
   private CardView cardView;
   private ImageView patientImage01;
-  private ImageView patientImage02;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +48,6 @@ public class PostWithComments extends AppCompatActivity {
     TextView message = findViewById(R.id.message_ed);
     TextView postedBy = findViewById(R.id.posted_by_ed);
     patientImage01 = findViewById(R.id.patient_post_image01);
-    patientImage02 = findViewById(R.id.patient_post_image02);
     final TextView timestamp = findViewById(R.id.timestamp_ed);
     contentView=this.getWindow().getDecorView().findViewById(android.R.id.content);
     cardView= findViewById(R.id.cardview);

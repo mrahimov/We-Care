@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -62,7 +63,7 @@ public class SearchQueryFragment extends Fragment {
     private DoctorsForumFragment.onClickListenerDoctor listenerDoc;
     private FirebaseRecyclerAdapter<DoctorPost, SearchQueryFragment.SearchPost> fireBaseRecyclerAdapter;
     private String search;
-    private Button search1;
+    private ImageButton search1;
     private EditText searchText;
 
     @Override
@@ -152,10 +153,14 @@ public class SearchQueryFragment extends Fragment {
                 if(doctor.getAddedBy().equals(user)){
                     holder.button1.setVisibility(View.VISIBLE);
                     holder.button.setVisibility(View.VISIBLE);
+                    holder.attach.setVisibility(View.VISIBLE);
+                    holder.delete.setVisibility(View.VISIBLE);
                 }
                 else {
                     holder.button1.setVisibility(View.GONE);
                     holder.button.setVisibility(View.GONE);
+                    holder.attach.setVisibility(View.GONE);
+                    holder.delete.setVisibility(View.GONE);
                 }
                 Glide.with(holder.imageView1.getContext())
                         .load(doctor.getUri()).into(holder.imageView1);
@@ -282,6 +287,8 @@ public class SearchQueryFragment extends Fragment {
         TextView message;
         TextView time;
         TextView doctorName;
+        TextView attach;
+        TextView delete;
         Button button;
         ImageView imageView1;
         Button button1;
@@ -296,6 +303,8 @@ public class SearchQueryFragment extends Fragment {
             button.setOnClickListener(this);
             imageView1 = itemView.findViewById(R.id.image2);
             button1 = itemView.findViewById(R.id.upload);
+            attach = itemView.findViewById(R.id.attach);
+            delete = itemView.findViewById(R.id.delete);
 
 
         }

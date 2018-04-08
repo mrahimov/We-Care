@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -49,7 +50,7 @@ public class SearchQueryDoc extends Fragment {
     private RecyclerView recyclerview;
     private FirebaseRecyclerAdapter<Doctor, SearchDoctorList> fireBaseRecyclerAdapter;
     private EditText search;
-    private Button searchbutton;
+    private ImageButton searchbutton;
     private ListOfDoctorsFragment.SearchDoctorslistener searchDoctorslistener;
     private Query query;
     DatabaseReference database2;
@@ -147,10 +148,10 @@ public class SearchQueryDoc extends Fragment {
 
                         Picasso.get().load(doctor.getUri()).into(holder.imageView);
                         holder.setNumberOfComments(doctor.getFirstName(), doctor.getLastName());
-                        holder.name.setText("Name: " + doctor.getFirstName() + " " + doctor.getLastName());
-                        holder.yearsOfExp.setText("years of exp: " + doctor.getYearsOfExperience());
+                        holder.name.setText("Dr. " + doctor.getFirstName() + " " + doctor.getLastName());
+                        holder.yearsOfExp.setText("Experience: " + doctor.getYearsOfExperience());
                         holder.country.setText("Country: " + doctor.getCountryOfPractice());
-                        holder.major.setText("Major: " + doctor.getMajor());
+                        holder.major.setText(doctor.getMajor());
                     }
                 };
         recyclerview.setAdapter(fireBaseRecyclerAdapter);
@@ -204,7 +205,7 @@ public class SearchQueryDoc extends Fragment {
                             count++;
                         }
                     }
-                    numberOfComments.setText("Number of comments: " + String.valueOf(count));
+                    numberOfComments.setText("Comments: " + String.valueOf(count));
                     LineGraphSeries<DataPoint> series = new LineGraphSeries<>(generateData());
 
                     series.setDrawBackground(true);

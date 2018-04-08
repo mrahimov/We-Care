@@ -168,6 +168,17 @@ public class RegistrationActivity extends AppCompatActivity {
                           Toasty.success(RegistrationActivity.this, "Registration successful", Toast.LENGTH_LONG, true)
                             .show();
 
+                          if (doctorCheckbox.isChecked()) {
+                            Doctor doctor = new Doctor();
+                            doctor.setType("doctor");
+                            Database.saveDoctor(doctor);
+                            Intent intent = new Intent(RegistrationActivity.this, TwoAuthActivityDoctorReg.class);
+                            startActivity(intent);
+                          }
+                          if (!doctorCheckbox.isChecked()) {
+                            Intent intent = new Intent(RegistrationActivity.this, PatientActivity.class);
+                            startActivity(intent);
+                          }
                           SharedPreferences preferences =
                             getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
                           SharedPreferences.Editor editor = preferences.edit();
@@ -176,18 +187,6 @@ public class RegistrationActivity extends AppCompatActivity {
                         }
                       });
 
-                    if (doctorCheckbox.isChecked()) {
-                      Doctor doctor = new Doctor();
-                      doctor.setType("doctor");
-                      Database.saveDoctor(doctor);
-                      finish();
-                      Intent intent = new Intent(RegistrationActivity.this, TwoAuthActivityDoctorReg.class);
-                      startActivity(intent);
-                    }
-                    if (!doctorCheckbox.isChecked()) {
-                      Intent intent = new Intent(RegistrationActivity.this, PatientActivity.class);
-                      startActivity(intent);
-                    }
 
                     dialog.dismiss();
                   }
