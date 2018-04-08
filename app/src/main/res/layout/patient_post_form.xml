@@ -21,8 +21,8 @@
         <ImageView
           android:layout_width="40dp"
           android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
-            android:background="@drawable/arrow1"/>
+          android:layout_alignParentEnd="true"
+          android:background="@drawable/arrow1"/>
 
     </RelativeLayout>
 
@@ -139,50 +139,50 @@
       android:hint="2. Type your case here..."/>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="30dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="3. Attach medical test, photo, diagnose:"
-            android:textSize="18dp"/>
-
-    <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="20dp"
+      android:layout_marginTop="30dp"
       android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/add_image_patient_post"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/attach"/>
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="3. Attach medical test, photo, diagnose:"
+          android:textSize="18dp"/>
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="20dp"
+          android:orientation="vertical">
+
+            <ImageButton
+              android:id="@+id/add_image_patient_post"
+              android:layout_width="40dp"
+              android:layout_height="40dp"
+              android:background="@drawable/attach"/>
 
 
-        <FrameLayout
-            android:id="@+id/containerPostCamera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            <FrameLayout
+              android:id="@+id/containerPostCamera"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"/>
 
-        <Button
-            android:id="@+id/save_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/buttonstyle"
-            android:text="  Post  "
-            android:layout_gravity="right"
-            android:textColor="#fff"
-            android:textStyle="bold"/>
+            <Button
+              android:id="@+id/save_button"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="right"
+              android:background="@drawable/buttonstyle"
+              android:text="  Post  "
+              android:textColor="#fff"
+              android:textStyle="bold"/>
+
+        </LinearLayout>
+
 
     </LinearLayout>
-
-
-</LinearLayout>
 
     <LinearLayout
       android:layout_width="match_parent"
@@ -207,28 +207,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="100dp"
-      android:layout_marginTop="20dp"
-      android:orientation="horizontal">
-
-        <ImageView
-          android:id="@+id/image_patient_post04"
-          android:layout_width="100dp"
-          android:layout_height="match_parent"/>
-
-        <ImageView
-          android:id="@+id/image_patient_post05"
-          android:layout_width="100dp"
-          android:layout_height="match_parent"/>
-
-        <ImageView
-          android:id="@+id/image_patient_post06"
-          android:layout_width="100dp"
-          android:layout_height="match_parent"/>
-
-    </LinearLayout>
 
 </LinearLayout>
 

@@ -33,8 +33,11 @@ import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.UUID;
 
-public class PatientPostForm extends AppCompatActivity implements CameraPopUpFragment.UriSender {
+import static com.example.murodjonrahimov.wecare.CameraPopUpActivity.CAMERA_REQUEST_CODE;
 
+public class PatientPostForm extends AppCompatActivity {
+
+  private static final int PATIENT_POST = 2;
   private EditText messageED;
   private Button saveButton;
   private RelativeLayout chooseDoctor;
@@ -57,10 +60,7 @@ public class PatientPostForm extends AppCompatActivity implements CameraPopUpFra
   private ImageButton imageButton;
   private String doctorINeed;
   private ImageView patientPostImage01;
-  private Dialog progressDialog;
-  private SharedPreferences preferences;
-  private String userID;
-  private Uri uriFromBundle;
+  private ProgressDialog progressDialog;
   Uri urionClick;
   private StorageReference storageReference;
 
@@ -72,26 +72,10 @@ public class PatientPostForm extends AppCompatActivity implements CameraPopUpFra
       .getReference();
 
     onBind();
-
-
-
-
-    //  preferences = PatientPostForm.this.getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
-    //
-    //  Bundle bundle = getIntent().getExtras();
-    //  try {
-    //
-    //    Uri downloadUriBundle = Uri.parse(preferences.getString("uriPatientPost", ""));
-    //    if (downloadUriBundle != null) {
-    //      uriFromBundle = downloadUriBundle;
-    //    }
-    //  } catch (IllegalArgumentException e) {
-    //    e.printStackTrace();
-    //  }
-    //onBind();
-    //
-    //preferences = PatientPostForm.this.getSharedPreferences(RegistrationActivity.WE_CARE_SHARED_PREFS_KEY, Context.MODE_PRIVATE);
-
+    progressDialog = new ProgressDialog(PatientPostForm.this);
+    progressDialog.setMax(100);
+    progressDialog.setMessage("Its loading....");
+    progressDialog.setTitle("ProgressDialog bar example");
 
     chooseDoctor.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -125,13 +109,9 @@ public class PatientPostForm extends AppCompatActivity implements CameraPopUpFra
       @Override
       public void onClick(View v) {
 
-        CameraPopUpFragment fragment2 = new CameraPopUpFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.containerPostCamera, fragment2);
-        transaction.addToBackStack(null);
-        transaction.commit();
-
-
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, PATIENT_POST);
       }
     });
 
@@ -274,7 +254,8 @@ public class PatientPostForm extends AppCompatActivity implements CameraPopUpFra
       @Override
       public void onClick(View v) {
 
-        String uniqueID = UUID.randomUUID().toString();
+        String uniqueID = UUID.randomUUID()
+          .toString();
 
         final String message = messageED.getText()
           .toString();
@@ -287,47 +268,42 @@ public class PatientPostForm extends AppCompatActivity implements CameraPopUpFra
         final String dateString = sdf.format(date);
 
         assert urionClick != null;
-        if(urionClick!=null) {
+        if (urionClick != null) {
           StorageReference docImage = storageReference.child(uniqueID)
-                  .child(urionClick.getAuthority());
+            .child(urionClick.getAuthority());
 
-          docImage.putFile(urionClick).
-                  addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+          docImage.putFile(urionClick)
+            .
+              addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                      Uri downloadUri = taskSnapshot.getDownloadUrl();
-                      Post post = new Post(message, dateString, postedByUserName, doctorINeed, downloadUri.toString());
-                      Database.savePost(post);
-                      finish();
+                  Uri downloadUri = taskSnapshot.getDownloadUrl();
+                  Post post = new Post(message, dateString, postedByUserName, doctorINeed, downloadUri.toString());
+                  Database.savePost(post);
+                  finish();
+                }
+              });
+        } else {
 
-                    }
-                  });
-        }
-        else {
           Post post = new Post(message, dateString, postedByUserName, doctorINeed);
           Database.savePost(post);
           finish();
         }
 
-
-
         if (doctorINeed == null) {
           doctorINeed = "Others";
         }
-        //Post post = new Post(message, dateString, postedByUserName, doctorINeed, uri);
-        //Database.savePost(post);
-        //finish();
       }
     });
   }
 
   private void loadingProfileImage(Uri downloadUri, String Lf) {
-    Log.d("url", "loadingProfileImage: " + Lf + downloadUri);
+    progressDialog.show();
     Picasso.get()
       .load(downloadUri)
       .into(patientPostImage01);
-    //progressDialog.dismiss();
+    progressDialog.dismiss();
   }
 
   public void makeTextGone() {
@@ -370,31 +346,29 @@ public class PatientPostForm extends AppCompatActivity implements CameraPopUpFra
     textviewChooseDoctor = findViewById(R.id.choose_doctor_textview);
     imageButton = findViewById(R.id.add_image_patient_post);
     patientPostImage01 = findViewById(R.id.image_patient_post01);
-
   }
 
   @Override
-  public void sendURI(Uri uri) {
-    this.urionClick = uri;
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-    loadingProfileImage(uri,"");
+    if (requestCode == PATIENT_POST && resultCode == RESULT_OK) {
+
+      progressDialog.show();
+      Uri uri = data.getData();
+      urionClick = uri;
+      loadingProfileImage(uri, "");
+      progressDialog.dismiss();
+
+    } else if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
+
+      progressDialog.show();
+      Uri uri = data.getData();
+      urionClick = uri;
+      loadingProfileImage(uri, "");
+      progressDialog.dismiss();
+
+    }
   }
-
-  //@Override
-  //public View onCreateView(String name, Context context, AttributeSet attrs) {
-  //  return super.onCreateView(name, context, attrs);
-  //
-  //  try {
-  //    Uri url = Uri.parse(preferences.getString(userID, ""));
-  //    if (url.toString()
-  //      .length() > 0) {
-  //      loadingProfileImage(url, "onResume");
-  //    }
-  //  } catch (IllegalArgumentException e) {
-  //    e.printStackTrace();
-  //  }
-  //
-  //}
 }
 
 
