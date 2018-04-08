@@ -48,6 +48,7 @@ public class CommentsViewHolder extends RecyclerView.ViewHolder {
 
         if (uid.equals(comment.getUid())) {
             cardView.setCardBackgroundColor(itemView.getResources().getColor(R.color.oooooo));
+            ///cardView.setp
             DrawableCompat.setTint(
                     itemView.getResources().getDrawable(R.drawable.shape),
                     ContextCompat.getColor(itemView.getContext(),

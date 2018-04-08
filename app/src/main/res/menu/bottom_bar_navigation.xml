@@ -14,6 +14,6 @@
     <item
       android:id="@+id/navigation_posts"
       android:icon="@drawable/posts"
-      android:title="My Posts" />
+      android:title="Posts" />
 
 </menu>
