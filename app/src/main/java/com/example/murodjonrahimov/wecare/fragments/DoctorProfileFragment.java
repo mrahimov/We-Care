@@ -131,17 +131,9 @@ public class DoctorProfileFragment extends Fragment {
       uri = data.getData();
 
       assert uri != null;
-      //myPrefsEdit = preferences.edit();
-      //myPrefsEdit.putString(userID, uri.toString());
-      //myPrefsEdit.commit();
+
       loadingProfileImage(uri, "onActivityResult");
-      //Log.d("userID= ", "onActivityResult: " + userID);
-      //Uri url = Uri.parse(preferences.getString(userID, ""));
-      //if (url != null) {
-      //  loadingProfileImage(url);
-      //} else {
-      //  loadingProfileImage(uri);
-      //}
+
       StorageReference docImage = storageReference.child(userID)
         .child(uri.getAuthority());
 
@@ -193,21 +185,6 @@ public class DoctorProfileFragment extends Fragment {
 
         }
       });
-
-    //try {
-    //  Uri url = Uri.parse(preferences.getString(userID, ""));
-    //  Log.d("url", "onViewCreated:onViewCreated " + url.toString());
-    //
-    //  if (url.toString()
-    //    .length() > 0) {
-    //    loadingProfileImage(url, "onViewCreated");
-    //  }
-    //} catch (IllegalArgumentException e) {
-    //  e.printStackTrace();
-    //}
-    //if (uri != null) {
-    //  loadingProfileImage(uri, "onViewCreated");
-    //}
 
     countDoctorsCommentsToPatientsPosts();
   }
@@ -280,8 +257,7 @@ public class DoctorProfileFragment extends Fragment {
       .into(doctorImage);
     progressDialog.dismiss();
   }
-
-
-
 }
+
+
 

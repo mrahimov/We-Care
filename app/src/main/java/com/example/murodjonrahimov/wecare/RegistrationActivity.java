@@ -18,7 +18,6 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Doctor;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -187,7 +186,6 @@ public class RegistrationActivity extends AppCompatActivity {
                         }
                       });
 
-
                     dialog.dismiss();
                   }
                 });
@@ -199,3 +197,6 @@ public class RegistrationActivity extends AppCompatActivity {
     });
   }
 }
+
+
+

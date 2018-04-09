@@ -1,21 +1,15 @@
 package com.example.murodjonrahimov.wecare.fragments;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.ImageButton;
-import android.widget.Toast;
-import com.example.murodjonrahimov.wecare.CameraPopUpActivity;
-import com.example.murodjonrahimov.wecare.PatientPostForm;
 import com.example.murodjonrahimov.wecare.R;
 
 import static android.app.Activity.RESULT_OK;
@@ -30,7 +24,6 @@ public class CameraPopUpFragment extends Fragment {
   private static final int PATIENT_POST = 2;
   private ImageButton imageButtonGallery;
   private ImageButton imageButtonCamera;
-  private ProgressDialog progressDialog;
   CameraPopUpFragment.UriSender uriSender;
 
   public CameraPopUpFragment() {
@@ -54,17 +47,6 @@ public class CameraPopUpFragment extends Fragment {
 
     imageButtonCamera = root.findViewById(R.id.image_button_camera);
     imageButtonGallery = root.findViewById(R.id.image_button_gallery);
-
-    //DisplayMetrics dm = new DisplayMetrics();
-    //root.getWindowManager().getDefaultDisplay()
-    //  .getMetrics(dm);
-
-    //progressDialog = new ProgressDialog(this);
-
-    //int width = dm.widthPixels;
-    //int height = dm.heightPixels;
-
-    //getWindow().setLayout((int) (width * .6), (int) (height * .3));
 
     imageButtonCamera.setOnClickListener(new View.OnClickListener() {
 
@@ -90,32 +72,15 @@ public class CameraPopUpFragment extends Fragment {
 
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    ///super.onActivityResult(requestCode, resultCode, data);
 
     if (requestCode == PATIENT_POST && resultCode == RESULT_OK) {
 
-      //progressDialog.setMessage("Uploading image...");
-      //progressDialog.show();
       Uri uri = data.getData();
       uriSender.sendURI(uri);
-
-      //Intent intent1 = new Intent(getContext(), PatientPostForm.class);
-      //intent1.putExtra("uriPatientPost", uri.toString());
-      //progressDialog.dismiss();
-      //Toast.makeText(getContext(), "Uploading finished", Toast.LENGTH_SHORT).show();
-      //startActivity(intent1);
     } else if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
 
-      //progressDialog.setMessage("Uploading Image...");
-      //progressDialog.show();
       Uri uri = data.getData();
       uriSender.sendURI(uri);
-
-      //Intent intent1 = new Intent(getContext(), PatientPostForm.class);
-      //intent1.putExtra("uriPatientPost", uri.toString());
-      //progressDialog.dismiss();
-      //Toast.makeText(getContext(), "Uploading finished", Toast.LENGTH_SHORT).show();
-      //startActivity(intent1);
     }
   }
 
@@ -123,3 +88,6 @@ public class CameraPopUpFragment extends Fragment {
     void sendURI(Uri uri);
   }
 }
+
+
+

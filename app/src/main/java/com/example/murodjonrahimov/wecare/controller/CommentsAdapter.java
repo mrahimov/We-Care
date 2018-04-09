@@ -7,17 +7,16 @@ import android.view.ViewGroup;
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Comment;
-import com.example.murodjonrahimov.wecare.view.CommentsViewHolder;
 import com.example.murodjonrahimov.wecare.view.RViewHolder;
 import com.example.murodjonrahimov.wecare.view.SViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommentsAdapter extends RecyclerView.Adapter{
+public class CommentsAdapter extends RecyclerView.Adapter {
 
   private List<Comment> commentList = new ArrayList<>();
-  private String user= Database.getUserId();
+  private String user = Database.getUserId();
   private static final int VIEW_TYPE_MESSAGE_SENT = 1;
   private static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
 
@@ -31,11 +30,11 @@ public class CommentsAdapter extends RecyclerView.Adapter{
 
     if (viewType == VIEW_TYPE_MESSAGE_SENT) {
       view = LayoutInflater.from(parent.getContext())
-              .inflate(R.layout.zsentmessage_itemview, parent, false);
+        .inflate(R.layout.zsentmessage_itemview, parent, false);
       return new SViewHolder(view);
     } else if (viewType == VIEW_TYPE_MESSAGE_RECEIVED) {
       view = LayoutInflater.from(parent.getContext())
-              .inflate(R.layout.zrecievedmessage_itemview, parent, false);
+        .inflate(R.layout.zrecievedmessage_itemview, parent, false);
       return new RViewHolder(view);
     }
 
@@ -52,7 +51,6 @@ public class CommentsAdapter extends RecyclerView.Adapter{
       case VIEW_TYPE_MESSAGE_RECEIVED:
         ((RViewHolder) holder).bind(comment);
     }
-
   }
 
   @Override
@@ -67,8 +65,8 @@ public class CommentsAdapter extends RecyclerView.Adapter{
 
   @Override
   public int getItemViewType(int position) {
-    Comment comment= commentList.get(position);
-    String uid= comment.getUid();
+    Comment comment = commentList.get(position);
+    String uid = comment.getUid();
 
     if (uid.equals(user)) {
       return VIEW_TYPE_MESSAGE_SENT;

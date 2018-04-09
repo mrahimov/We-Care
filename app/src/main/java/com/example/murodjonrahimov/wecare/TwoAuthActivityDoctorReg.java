@@ -7,11 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Doctor;
-
-import es.dmoral.toasty.Toasty;
 
 public class TwoAuthActivityDoctorReg extends AppCompatActivity {
   private EditText firstName;
@@ -76,3 +73,4 @@ public class TwoAuthActivityDoctorReg extends AppCompatActivity {
     });
   }
 }
+

@@ -1,21 +1,18 @@
 package com.example.murodjonrahimov.wecare.view;
 
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.listeners.ViewHolderCallback;
-
 import com.example.murodjonrahimov.wecare.model.Post;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class PatientPostsViewHolder extends RecyclerView.ViewHolder{
+public class PatientPostsViewHolder extends RecyclerView.ViewHolder {
 
   public final static String POST_KEY = "post";
   private TextView message;
@@ -40,25 +37,25 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder{
     needDocroeTextview = itemView.findViewById(R.id.need_docroe_textview);
     statusOfPost = itemView.findViewById(R.id.resolve_unresolved_case);
     lineStatus = itemView.findViewById(R.id.line_status);
-    delete= itemView.findViewById(R.id.del2);
+    delete = itemView.findViewById(R.id.del2);
 
     databaseReference = FirebaseDatabase.getInstance()
       .getReference()
       .child("posts");
 
-
     delete.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         viewHolderCallback.itemWasClicked(getAdapterPosition());
-        databaseReference.child(post.getKey()).removeValue();
+        databaseReference.child(post.getKey())
+          .removeValue();
       }
     });
   }
 
   public void onBind(final Post post, ViewHolderCallback viewHolderCallback) {
     this.post = post;
-    this.viewHolderCallback=viewHolderCallback;
+    this.viewHolderCallback = viewHolderCallback;
     message.setText(post.getMessage());
     addedBy.setText("Posted by: " + post.getPostedByUserName());
     timestamp.setText(post.getTimeStamp());
@@ -75,18 +72,17 @@ public class PatientPostsViewHolder extends RecyclerView.ViewHolder{
         Database.updateStatusOfPost(post.getKey(), !post.isResolved());
       }
     });
-
   }
 
   private void setStatusImage(boolean isResolved) {
-    if(isResolved) {
+    if (isResolved) {
       statusOfPost.setImageResource(R.drawable.resolved_case);
       lineStatus.setBackgroundResource(R.color.color_green);
-    }
-    else {
+    } else {
       statusOfPost.setImageResource(R.drawable.unresolved_case);
       lineStatus.setBackgroundResource(R.color.color_white);
-
     }
   }
 }
+
+

@@ -49,8 +49,10 @@ public class PostWithComments extends AppCompatActivity {
     TextView postedBy = findViewById(R.id.posted_by_ed);
     patientImage01 = findViewById(R.id.patient_post_image01);
     final TextView timestamp = findViewById(R.id.timestamp_ed);
-    contentView=this.getWindow().getDecorView().findViewById(android.R.id.content);
-    cardView= findViewById(R.id.cardview);
+    contentView = this.getWindow()
+      .getDecorView()
+      .findViewById(android.R.id.content);
+    cardView = findViewById(R.id.cardview);
 
     checkUserProfile();
 
@@ -63,23 +65,20 @@ public class PostWithComments extends AppCompatActivity {
     userName = post.getPostedByUserName();
     postedBy.setText("Posted by: " + userName);
 
-
     if (post.getUri() != null) {
       Uri uri = Uri.parse(post.getUri());
 
       loadingProfileImage(uri, "");
       patientImage01.setVisibility(View.VISIBLE);
-
     }
 
-      addedComment = findViewById(R.id.adding_comment);
+    addedComment = findViewById(R.id.adding_comment);
     ImageView sendComment = findViewById(R.id.send_image_view);
 
     final RecyclerView recyclerView = findViewById(R.id.comments_recyclerview);
     final CommentsAdapter commentsAdapter = new CommentsAdapter();
     LinearLayoutManager linearLayoutManager =
       new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-    //linearLayoutManager.setStackFromEnd(true);
 
     recyclerView.setAdapter(commentsAdapter);
     recyclerView.setLayoutManager(linearLayoutManager);
@@ -106,8 +105,7 @@ public class PostWithComments extends AppCompatActivity {
           }
           commentsAdapter.setData(allComments);
           commentsAdapter.notifyDataSetChanged();
-          recyclerView.scrollToPosition(commentsAdapter.getItemCount()-1);
-
+          recyclerView.scrollToPosition(commentsAdapter.getItemCount() - 1);
         }
 
         @Override
@@ -116,30 +114,31 @@ public class PostWithComments extends AppCompatActivity {
         }
       });
 
-    contentView.getRootView().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-      @Override
-      public void onGlobalLayout() {
+    contentView.getRootView()
+      .getViewTreeObserver()
+      .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        @Override
+        public void onGlobalLayout() {
 
-        Rect r = new Rect();
-        contentView.getWindowVisibleDisplayFrame(r);
-        int screenHeight = contentView.getRootView().getHeight();
+          Rect r = new Rect();
+          contentView.getWindowVisibleDisplayFrame(r);
+          int screenHeight = contentView.getRootView()
+            .getHeight();
 
-        // r.bottom is the position above soft keypad or device button.
-        // if keypad is shown, the r.bottom is smaller than that before.
-        int keypadHeight = screenHeight - r.bottom;
+          // r.bottom is the position above soft keypad or device button.
+          // if keypad is shown, the r.bottom is smaller than that before.
+          int keypadHeight = screenHeight - r.bottom;
 
-        Log.d("DDDD", "keypadHeight = " + keypadHeight);
+          Log.d("DDDD", "keypadHeight = " + keypadHeight);
 
-        if (keypadHeight > screenHeight * 0.15) { // 0.15 ratio is perhaps enough to determine keypad height.
-          // keyboard is opened
-          cardView.setVisibility(View.GONE);
+          if (keypadHeight > screenHeight * 0.15) { // 0.15 ratio is perhaps enough to determine keypad height.
+            // keyboard is opened
+            cardView.setVisibility(View.GONE);
+          } else {
+            cardView.setVisibility(View.VISIBLE);
+          }
         }
-        else {
-          cardView.setVisibility(View.VISIBLE);
-        }
-      }
-    });
-
+      });
 
     sendComment.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -147,11 +146,9 @@ public class PostWithComments extends AppCompatActivity {
 
         String receivedComment = addedComment.getText()
           .toString();
-        if(receivedComment.length()<1){
+        if (receivedComment.length() < 1) {
 
-        }
-
-        else {
+        } else {
           long date = System.currentTimeMillis();
           SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm a");
           String dateString = sdf.format(date);
@@ -164,11 +161,9 @@ public class PostWithComments extends AppCompatActivity {
           post.setCountOfComments(count);
           Database.updatePost(post.getKey(), count);
           addedComment.getText()
-                  .clear();
+            .clear();
           recyclerView.scrollToPosition(commentsAdapter.getItemCount() - 1);
-
         }
-
       }
     });
   }
@@ -224,12 +219,12 @@ public class PostWithComments extends AppCompatActivity {
         }
       });
   }
+
   private void loadingProfileImage(Uri downloadUri, String Lf) {
     Log.d("url", "loadingProfileImage: " + Lf + downloadUri);
     Picasso.get()
       .load(downloadUri)
       .into(patientImage01);
-    //progressDialog.dismiss();
   }
 }
 

@@ -10,7 +10,6 @@ public class Doctor {
   private String type;
   private String Uid;
   private String uri;
-  //  private String numberOfDoctorsComments;
 
   public Doctor() {
   }
@@ -24,16 +23,7 @@ public class Doctor {
     this.major = major;
     this.yearsOfExperience = yearsOfExperience;
     this.type = type;
-    //    this.numberOfDoctorsComments = numberOfDoctorsComments;
   }
-
-  //  public String getNumberOfDoctorsComments() {
-  //    return numberOfDoctorsComments;
-  //  }
-
-  //  public void setNumberOfDoctorsComments(String numberOfDoctorsComments) {
-  //    this.numberOfDoctorsComments = numberOfDoctorsComments;
-  //  }
 
   public void setUri(String uri) {
     this.uri = uri;

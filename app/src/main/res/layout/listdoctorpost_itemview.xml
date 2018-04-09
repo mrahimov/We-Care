@@ -1,121 +1,118 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/cardview_doctor_post"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:cardPreventCornerOverlap="false"
-        android:clipToPadding="false">
+      android:id="@+id/cardview_doctor_post"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="16dp"
+      android:clipToPadding="false"
+      app:cardPreventCornerOverlap="false">
 
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical">
 
 
             <ImageView
-                android:id="@+id/image2"
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:scaleType="fitXY"
-                android:adjustViewBounds="true"/>
-
-
+              android:id="@+id/image2"
+              android:layout_width="match_parent"
+              android:layout_height="160dp"
+              android:layout_alignParentLeft="true"
+              android:layout_alignParentStart="true"
+              android:layout_alignParentTop="true"
+              android:adjustViewBounds="true"
+              android:scaleType="fitXY"/>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:padding="16dp">
 
 
                 <TextView
-                    android:id="@+id/message1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_weight="1"
-                    android:text="@string/message"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
+                  android:id="@+id/message1"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginBottom="8dp"
+                  android:layout_weight="1"
+                  android:text="@string/message"
+                  android:textColor="#000"
+                  android:textSize="18sp"/>
 
 
+                <RelativeLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    <TextView
+                      android:id="@+id/posted_by"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:gravity="left"
+                      android:text="@string/posted_by"
+                      android:textColor="#555"
+                      android:textSize="14sp"/>
 
-                <TextView
-                    android:id="@+id/posted_by"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="left"
-                    android:text="@string/posted_by"
-                    android:textColor="#555"
-                    android:textSize="14sp" />
+                    <TextView
+                      android:id="@+id/time1"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginBottom="8dp"
+                      android:gravity="right"
+                      android:text="@string/time"
+                      android:textColor="#555"
+                      android:textSize="14sp"/>
+                </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/time1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:gravity="right"
-                    android:text="@string/time"
-                    android:textColor="#555"
-                    android:textSize="14sp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
+                <RelativeLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
 
 
-                <TextView
-                    android:id="@+id/attach"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Attach"
-                    android:layout_marginTop="5dp"
-                    android:textSize="12sp"
-                    android:layout_toRightOf="@id/upload" />
+                    <TextView
+                      android:id="@+id/attach"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="5dp"
+                      android:layout_toRightOf="@id/upload"
+                      android:text="Attach"
+                      android:textSize="12sp"/>
 
-                <Button
-                    android:id="@+id/upload"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="end"
-                    android:background="@drawable/attach1" />
+                    <Button
+                      android:id="@+id/upload"
+                      android:layout_width="30dp"
+                      android:layout_height="30dp"
+                      android:layout_gravity="end"
+                      android:background="@drawable/attach1"/>
 
-                <Button
-                    android:id="@+id/Del1"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentEnd="true"
-                    android:background="@drawable/delete_for" />
+                    <Button
+                      android:id="@+id/Del1"
+                      android:layout_width="30dp"
+                      android:layout_height="30dp"
+                      android:layout_alignParentEnd="true"
+                      android:background="@drawable/delete_for"/>
 
-                <TextView
-                    android:id="@+id/delete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Delete"
-                    android:layout_marginTop="5dp"
-                    android:textSize="12sp"
-                    android:layout_toLeftOf="@id/Del1" />
+                    <TextView
+                      android:id="@+id/delete"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="5dp"
+                      android:layout_toLeftOf="@id/Del1"
+                      android:text="Delete"
+                      android:textSize="12sp"/>
 
-            </RelativeLayout>
+                </RelativeLayout>
+            </LinearLayout>
+
         </LinearLayout>
-
-    </LinearLayout>
 
 
     </android.support.v7.widget.CardView>

@@ -11,13 +11,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.SearchView;
 import android.widget.TextView;
-
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.model.Comment;
 import com.example.murodjonrahimov.wecare.model.Doctor;
@@ -57,7 +54,6 @@ public class ListOfDoctorsFragment extends Fragment {
     }
   }
 
-
   public ListOfDoctorsFragment() {
     // Required empty public constructor
   }
@@ -66,11 +62,10 @@ public class ListOfDoctorsFragment extends Fragment {
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     Database = FirebaseDatabase.getInstance()
-            .getReference()
-            .child("doctors");
+      .getReference()
+      .child("doctors");
     Database.keepSynced(true);
   }
-
 
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -87,56 +82,52 @@ public class ListOfDoctorsFragment extends Fragment {
     searchbutton = view.findViewById(R.id.searchp);
     search = view.findViewById(R.id.searchTextP);
 
-
     searchbutton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        if(search.getText().toString().matches("")){
-          Toasty.normal(getActivity().getApplicationContext(),
-                  "please enter search query",
-                  500)
-                  .show();
-        }
-        else {
-          Toasty.normal(getActivity().getApplicationContext(),
-                  "searching for "+ search.getText().toString(),
-                  500)
-                  .show();
-        searchDoctorslistener.search(search.getText().toString());
+        if (search.getText()
+          .toString()
+          .matches("")) {
+          Toasty.normal(getActivity().getApplicationContext(), "please enter search query", 500)
+            .show();
+        } else {
+          Toasty.normal(getActivity().getApplicationContext(), "searching for " + search.getText()
+            .toString(), 500)
+            .show();
+          searchDoctorslistener.search(search.getText()
+            .toString());
         }
       }
     });
 
-    FirebaseRecyclerOptions<Doctor> options = new
-            FirebaseRecyclerOptions.Builder<Doctor>()
-            .setQuery(Database, Doctor.class)
-            .build();
+    FirebaseRecyclerOptions<Doctor> options = new FirebaseRecyclerOptions.Builder<Doctor>().setQuery(Database, Doctor.class)
+      .build();
 
-    fireBaseRecyclerAdapter = new
-            FirebaseRecyclerAdapter<Doctor, ListOfDoctorsFragment.DoctorsListViewHolder>(options) {
+    fireBaseRecyclerAdapter = new FirebaseRecyclerAdapter<Doctor, ListOfDoctorsFragment.DoctorsListViewHolder>(options) {
 
-              @Override
-              public DoctorsListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+      @Override
+      public DoctorsListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.listofdocs, parent, false);
+        View view = LayoutInflater.from(parent.getContext())
+          .inflate(R.layout.listofdocs, parent, false);
 
-                return new DoctorsListViewHolder(view);
-              }
+        return new DoctorsListViewHolder(view);
+      }
 
-              @Override
-              protected void onBindViewHolder(@NonNull ListOfDoctorsFragment.DoctorsListViewHolder holder,
-                                              int position,
-                                              @NonNull final Doctor doctor) {
+      @Override
+      protected void onBindViewHolder(@NonNull ListOfDoctorsFragment.DoctorsListViewHolder holder, int position,
+                                      @NonNull final Doctor doctor) {
 
-                Picasso.get().load(doctor.getUri()).into(holder.imageView);
-                holder.setNumberOfComments(doctor.getFirstName(), doctor.getLastName());
-                holder.name.setText("Dr. " + doctor.getFirstName() + " " + doctor.getLastName());
-                holder.yearsOfExp.setText("Experience: " + doctor.getYearsOfExperience());
-                holder.country.setText("Country: " + doctor.getCountryOfPractice());
-                holder.major.setText(doctor.getMajor());
-              }
-            };
+        Picasso.get()
+          .load(doctor.getUri())
+          .into(holder.imageView);
+        holder.setNumberOfComments(doctor.getFirstName(), doctor.getLastName());
+        holder.name.setText("Dr. " + doctor.getFirstName() + " " + doctor.getLastName());
+        holder.yearsOfExp.setText("Experience: " + doctor.getYearsOfExperience());
+        holder.country.setText("Country: " + doctor.getCountryOfPractice());
+        holder.major.setText(doctor.getMajor());
+      }
+    };
     recyclerview.setAdapter(fireBaseRecyclerAdapter);
   }
 
@@ -162,8 +153,8 @@ public class ListOfDoctorsFragment extends Fragment {
     private GraphView graph;
     private ImageView imageView;
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance()
-            .getReference().child("comments");
-
+      .getReference()
+      .child("comments");
 
     private DoctorsListViewHolder(View itemView) {
       super(itemView);
@@ -190,26 +181,21 @@ public class ListOfDoctorsFragment extends Fragment {
           }
           numberOfComments.setText("Comments: " + String.valueOf(count));
           LineGraphSeries<DataPoint> series = new LineGraphSeries<>(generateData());
-          //new DataPoint[] {
-//                  new DataPoint(0, 1),
-//                  new DataPoint(1, 5),
-//                  new DataPoint(2, 3),
-//                  new DataPoint(3, 2),
-//                  new DataPoint(4, count)
-          // });
+
           series.setDrawBackground(true);
 
           series.setColor(Color.argb(255, 255, 60, 60));
           series.setBackgroundColor(Color.argb(100, 64, 224, 208));
           series.setDrawDataPoints(true);
 
-          graph.getGridLabelRenderer().setGridStyle(GridLabelRenderer.GridStyle.NONE);
-          graph.getGridLabelRenderer().setVerticalLabelsVisible(false);
-          graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+          graph.getGridLabelRenderer()
+            .setGridStyle(GridLabelRenderer.GridStyle.NONE);
+          graph.getGridLabelRenderer()
+            .setVerticalLabelsVisible(false);
+          graph.getGridLabelRenderer()
+            .setHorizontalLabelsVisible(false);
 
           graph.addSeries(series);
-
-
         }
 
         @Override
@@ -217,8 +203,6 @@ public class ListOfDoctorsFragment extends Fragment {
 
         }
       });
-
-
     }
 
     @Override
@@ -240,11 +224,11 @@ public class ListOfDoctorsFragment extends Fragment {
       values[4] = new DataPoint(4, count);
       return values;
     }
-
-
   }
-  public interface SearchDoctorslistener{
+
+  public interface SearchDoctorslistener {
     void search(String s);
   }
 }
+
 

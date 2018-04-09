@@ -87,6 +87,7 @@
           android:textAllCaps="false"
           android:textColor="#FFF"
           android:textSize="16sp"/>
+
     </LinearLayout>
 
     <ImageView
@@ -96,8 +97,7 @@
       android:layout_centerHorizontal="true"
       android:layout_marginBottom="5dp"
       android:layout_marginTop="15dp"
-      android:background="@drawable/logo"
-    />
+      android:background="@drawable/logo"/>
 
     <TextView
       android:layout_width="wrap_content"

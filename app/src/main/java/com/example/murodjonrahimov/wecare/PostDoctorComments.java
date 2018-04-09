@@ -1,8 +1,6 @@
 package com.example.murodjonrahimov.wecare;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,7 +14,6 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.murodjonrahimov.wecare.controller.CommentsAdapter;
 import com.example.murodjonrahimov.wecare.database.Database;
 import com.example.murodjonrahimov.wecare.model.Comment;
@@ -27,7 +24,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +40,7 @@ public class PostDoctorComments extends AppCompatActivity {
   private View contentView;
   private CardView cardView;
 
-
-    private String commentname;
+  private String commentname;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -57,23 +52,24 @@ public class PostDoctorComments extends AppCompatActivity {
     TextView addedBy = findViewById(R.id.added_by_d);
     TextView timestamp = findViewById(R.id.timestamp_d);
     imageView = findViewById(R.id.image3);
-    contentView=this.getWindow().getDecorView().findViewById(android.R.id.content);
-    cardView= findViewById(R.id.cardview1);
+    contentView = this.getWindow()
+      .getDecorView()
+      .findViewById(android.R.id.content);
+    cardView = findViewById(R.id.cardview1);
 
-
-
-      Intent intent = getIntent();
+    Intent intent = getIntent();
     final String Key = intent.getStringExtra("key");
     doctorTimeStamp = intent.getStringExtra("timestamp");
     name = intent.getStringExtra("addedby");
     doctorMessage = intent.getStringExtra("message");
     String url = intent.getStringExtra("uri");
 
-   if(url==null){
+    if (url == null) {
       imageView.setVisibility(View.GONE);
-    }
-    else {
-      Picasso.get().load(url).into(imageView);
+    } else {
+      Picasso.get()
+        .load(url)
+        .into(imageView);
     }
 
     ImageView sendComment = findViewById(R.id.send_imageview);
@@ -86,9 +82,8 @@ public class PostDoctorComments extends AppCompatActivity {
     final RecyclerView recyclerView = findViewById(R.id.commentsrecyclerview);
     final CommentsAdapter commentsAdapter = new CommentsAdapter();
     final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-     // linearLayoutManager.setStackFromEnd(true);
 
-      recyclerView.setAdapter(commentsAdapter);
+    recyclerView.setAdapter(commentsAdapter);
     recyclerView.setLayoutManager(linearLayoutManager);
     String user = Database.getUserId();
     database10 = FirebaseDatabase.getInstance()
@@ -114,28 +109,30 @@ public class PostDoctorComments extends AppCompatActivity {
         }
       });
 
-      contentView.getRootView().getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-          @Override
-          public void onGlobalLayout() {
+    contentView.getRootView()
+      .getViewTreeObserver()
+      .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        @Override
+        public void onGlobalLayout() {
 
-              Rect r = new Rect();
-              contentView.getWindowVisibleDisplayFrame(r);
-              int screenHeight = contentView.getRootView().getHeight();
+          Rect r = new Rect();
+          contentView.getWindowVisibleDisplayFrame(r);
+          int screenHeight = contentView.getRootView()
+            .getHeight();
 
-              // r.bottom is the position above soft keypad or device button.
-              // if keypad is shown, the r.bottom is smaller than that before.
-              int keypadHeight = screenHeight - r.bottom;
+          // r.bottom is the position above soft keypad or device button.
+          // if keypad is shown, the r.bottom is smaller than that before.
+          int keypadHeight = screenHeight - r.bottom;
 
-              Log.d("DDDD", "keypadHeight = " + keypadHeight);
+          Log.d("DDDD", "keypadHeight = " + keypadHeight);
 
-              if (keypadHeight > screenHeight * 0.15) { // 0.15 ratio is perhaps enough to determine keypad height.
-                  // keyboard is opened
-                  cardView.setVisibility(View.GONE);
-              }
-              else {
-                  cardView.setVisibility(View.VISIBLE);
-              }
+          if (keypadHeight > screenHeight * 0.15) { // 0.15 ratio is perhaps enough to determine keypad height.
+            // keyboard is opened
+            cardView.setVisibility(View.GONE);
+          } else {
+            cardView.setVisibility(View.VISIBLE);
           }
+        }
       });
 
     DatabaseReference db = Database.getDatabase();
@@ -160,8 +157,7 @@ public class PostDoctorComments extends AppCompatActivity {
           }
           commentsAdapter.setData(allComments);
           commentsAdapter.notifyDataSetChanged();
-          recyclerView.scrollToPosition(commentsAdapter.getItemCount()-1);
-
+          recyclerView.scrollToPosition(commentsAdapter.getItemCount() - 1);
         }
 
         @Override
@@ -174,33 +170,26 @@ public class PostDoctorComments extends AppCompatActivity {
       @Override
       public void onClick(View v) {
 
-
         String receivedComment = addedComment.getText()
           .toString();
-          if(receivedComment.length()<1){
+        if (receivedComment.length() < 1) {
 
-          }
+        } else {
+          long date = System.currentTimeMillis();
+          SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm a");
+          String dateString = sdf.format(date);
 
-          else {
-              long date = System.currentTimeMillis();
-              SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy h:mm a");
-              String dateString = sdf.format(date);
+          Comment comment = new Comment(receivedComment, Key, dateString, commentname);
+          comment.setUid(Database.getUserId());
+          Database.saveComment(comment);
 
-              Comment comment = new Comment(receivedComment, Key, dateString, commentname);
-              comment.setUid(Database.getUserId());
-              Database.saveComment(comment);
-              //                int count = post.getCountOfComments() + 1;
-              //                post.setCountOfComments(count);
-              //                Database.updatePost(post.getKey(), count);
-              //
-              addedComment.getText()
-                      .clear();
-
-          }
+          addedComment.getText()
+            .clear();
+        }
       }
     });
-    
-    
   }
-  
 }
+
+
+

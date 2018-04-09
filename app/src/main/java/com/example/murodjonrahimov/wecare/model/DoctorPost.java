@@ -1,7 +1,5 @@
 package com.example.murodjonrahimov.wecare.model;
 
-import android.net.Uri;
-
 /**
  * Created by mohammadnaz on 3/19/18.
  */
@@ -16,21 +14,21 @@ public class DoctorPost {
   private String lastname;
   private String uri;
 
-  public DoctorPost(String message, String addedBy, String timeStamp, String key,String firstName, String lastName) {
+  public DoctorPost(String message, String addedBy, String timeStamp, String key, String firstName, String lastName) {
     this.message = message;
     this.addedBy = addedBy;
     this.timeStamp = timeStamp;
     this.key = key;
-    this.firstname=firstName;
-    this.lastname=lastName;
+    this.firstname = firstName;
+    this.lastname = lastName;
   }
 
   public DoctorPost(String message, String addedBy, String timeStamp, String firstname, String lastname) {
     this.message = message;
     this.addedBy = addedBy;
     this.timeStamp = timeStamp;
-    this.firstname=firstname;
-    this.lastname=lastname;
+    this.firstname = firstname;
+    this.lastname = lastname;
   }
 
   public DoctorPost() {
