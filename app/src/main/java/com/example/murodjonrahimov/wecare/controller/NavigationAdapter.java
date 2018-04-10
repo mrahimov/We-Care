@@ -60,3 +60,5 @@ public class NavigationAdapter extends RecyclerView.Adapter<NavigationViewHolder
     return categoryList.size();
   }
 }
+
+

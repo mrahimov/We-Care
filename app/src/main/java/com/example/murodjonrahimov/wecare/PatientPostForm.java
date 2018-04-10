@@ -1,35 +1,26 @@
 package com.example.murodjonrahimov.wecare;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.AttributeSet;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.example.murodjonrahimov.wecare.database.Database;
-import com.example.murodjonrahimov.wecare.fragments.CameraPopUpFragment;
-import com.example.murodjonrahimov.wecare.model.Patient;
 import com.example.murodjonrahimov.wecare.model.Post;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.UUID;
 
@@ -60,8 +51,7 @@ public class PatientPostForm extends AppCompatActivity {
   private ImageButton imageButton;
   private String doctorINeed;
   private ImageView patientPostImage01;
-  private ProgressDialog progressDialog;
-  Uri urionClick;
+  private Uri urionClick;
   private StorageReference storageReference;
 
   @Override
@@ -72,10 +62,6 @@ public class PatientPostForm extends AppCompatActivity {
       .getReference();
 
     onBind();
-    progressDialog = new ProgressDialog(PatientPostForm.this);
-    progressDialog.setMax(100);
-    progressDialog.setMessage("Its loading....");
-    progressDialog.setTitle("ProgressDialog bar example");
 
     chooseDoctor.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -269,21 +255,24 @@ public class PatientPostForm extends AppCompatActivity {
 
         assert urionClick != null;
         if (urionClick != null) {
+
           StorageReference docImage = storageReference.child(uniqueID)
             .child(urionClick.getAuthority());
 
-          docImage.putFile(urionClick)
-            .
-              addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+          final ProgressDialog progressDialog =
+            ProgressDialog.show(PatientPostForm.this, "Please wait... ", "Processing...", true);
 
-                  Uri downloadUri = taskSnapshot.getDownloadUrl();
-                  Post post = new Post(message, dateString, postedByUserName, doctorINeed, downloadUri.toString());
-                  Database.savePost(post);
-                  finish();
-                }
-              });
+          docImage.putFile(urionClick)
+            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+              @Override
+              public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                progressDialog.dismiss();
+                Uri downloadUri = taskSnapshot.getDownloadUrl();
+                Post post = new Post(message, dateString, postedByUserName, doctorINeed, downloadUri.toString());
+                Database.savePost(post);
+                finish();
+              }
+            });
         } else {
 
           Post post = new Post(message, dateString, postedByUserName, doctorINeed);
@@ -299,11 +288,9 @@ public class PatientPostForm extends AppCompatActivity {
   }
 
   private void loadingProfileImage(Uri downloadUri, String Lf) {
-    progressDialog.show();
     Picasso.get()
       .load(downloadUri)
       .into(patientPostImage01);
-    progressDialog.dismiss();
   }
 
   public void makeTextGone() {
@@ -353,20 +340,14 @@ public class PatientPostForm extends AppCompatActivity {
 
     if (requestCode == PATIENT_POST && resultCode == RESULT_OK) {
 
-      progressDialog.show();
       Uri uri = data.getData();
       urionClick = uri;
       loadingProfileImage(uri, "");
-      progressDialog.dismiss();
-
     } else if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
 
-      progressDialog.show();
       Uri uri = data.getData();
       urionClick = uri;
       loadingProfileImage(uri, "");
-      progressDialog.dismiss();
-
     }
   }
 }

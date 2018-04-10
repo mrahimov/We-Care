@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.murodjonrahimov.wecare.PostWithComments;
 import com.example.murodjonrahimov.wecare.R;
 import com.example.murodjonrahimov.wecare.listeners.ViewHolderCallback;
@@ -41,9 +40,8 @@ public class PatientsPostsAdapter extends RecyclerView.Adapter<PatientPostsViewH
         postsList.remove(position);
         notifyItemRemoved(position);
         Toasty.custom(holder.itemView.getContext(), "Post Deleted",
-          ContextCompat.getDrawable(holder.itemView.getContext(),
-            R.drawable.ic_rubbish_bin),
-          1000, true).show();
+          ContextCompat.getDrawable(holder.itemView.getContext(), R.drawable.ic_rubbish_bin), 1000, true)
+          .show();
       }
     });
 
@@ -67,6 +65,6 @@ public class PatientsPostsAdapter extends RecyclerView.Adapter<PatientPostsViewH
     this.postsList.clear();
     this.postsList.addAll(postsList);
   }
-
-
 }
+
+

@@ -105,7 +105,8 @@ public class AllPatientsPostsFragment extends Fragment implements CategoryPills 
 
     DatabaseReference ref1 = FirebaseDatabase.getInstance()
       .getReference();
-   Query query = ref1.child("posts").orderByChild(category);
+    Query query = ref1.child("posts")
+      .orderByChild(category);
 
     query.addValueEventListener(new ValueEventListener() {
       @Override
@@ -135,7 +136,7 @@ public class AllPatientsPostsFragment extends Fragment implements CategoryPills 
               if (doctorNeed.equals(category)) {
                 newPostList.add(postList.get(i));
               }
-            }catch (NullPointerException e){
+            } catch (NullPointerException e) {
 
             }
           }
@@ -152,3 +153,5 @@ public class AllPatientsPostsFragment extends Fragment implements CategoryPills 
     });
   }
 }
+
+

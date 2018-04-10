@@ -11,9 +11,8 @@ import com.example.murodjonrahimov.wecare.fragments.ListOfDoctorsFragment;
 import com.example.murodjonrahimov.wecare.fragments.PatientMyPostFragment;
 import com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment;
 import com.example.murodjonrahimov.wecare.fragments.SearchQueryDoc;
-import com.example.murodjonrahimov.wecare.fragments.SearchQueryFragment;
 
-public class PatientActivity extends AppCompatActivity implements ListOfDoctorsFragment.SearchDoctorslistener{
+public class PatientActivity extends AppCompatActivity implements ListOfDoctorsFragment.SearchDoctorslistener {
 
   private ActionBar toolbar;
   private SearchQueryDoc searchQueryDoc;
@@ -76,3 +75,5 @@ public class PatientActivity extends AppCompatActivity implements ListOfDoctorsF
     t.commit();
   }
 }
+
+

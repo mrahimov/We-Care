@@ -2,18 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_doctors"
-        android:icon="@drawable/ic_teamwork"
-        android:title="Doctors Forum"/>
+      android:id="@+id/navigation_doctors"
+      android:icon="@drawable/ic_teamwork"
+      android:title="Doctors Forum"/>
 
     <item
-        android:id="@+id/navigation_my_profile"
-        android:icon="@drawable/profile"
-        android:title="My Profile" />
+      android:id="@+id/navigation_my_profile"
+      android:icon="@drawable/profile"
+      android:title="My Profile"/>
 
     <item
-        android:id="@+id/navigation_posts"
-        android:icon="@drawable/posts"
-        android:title="Patients Posts" />
+      android:id="@+id/navigation_posts"
+      android:icon="@drawable/posts"
+      android:title="Patients Posts"/>
 
 </menu>

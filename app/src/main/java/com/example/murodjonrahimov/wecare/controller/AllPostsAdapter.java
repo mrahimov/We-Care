@@ -113,3 +113,8 @@ public class AllPostsAdapter extends RecyclerView.Adapter<AllPostsAdapter.AllPos
     }
   }
 }
+
+
+
+
+
