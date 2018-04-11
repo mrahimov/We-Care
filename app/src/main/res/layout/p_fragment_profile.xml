@@ -35,6 +35,8 @@
           android:layout_width="325dp"
           android:layout_height="80dp"
           android:layout_centerHorizontal="true"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="2dp"
           android:layout_marginTop="90dp"
           tools:context="com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment">
 
@@ -45,7 +47,7 @@
               android:weightSum="2"
               tools:context="com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment">
 
-                <LinearLayout
+               <LinearLayout
                   android:layout_width="0dp"
                   android:layout_height="match_parent"
                   android:layout_weight="1"
@@ -114,6 +116,7 @@
           android:layout_height="wrap_content"
           android:orientation="horizontal"
           android:paddingLeft="25dp"
+            android:layout_gravity="center"
           tools:context="com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment">
 
             <ImageView
