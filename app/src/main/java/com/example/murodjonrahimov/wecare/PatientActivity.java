@@ -22,8 +22,8 @@ public class PatientActivity extends AppCompatActivity implements ListOfDoctorsF
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.patient_activity);
-    FirebaseMessaging.getInstance().subscribeToTopic("notifications");
-
+    FirebaseMessaging.getInstance()
+            .subscribeToTopic("comments");
 
     toolbar = getSupportActionBar();
     loadFragment(new PatientProfileFragment());
