@@ -39,6 +39,11 @@ public class DoctorActivity extends AppCompatActivity implements DoctorsForumFra
     setContentView(R.layout.doctor_activity);
     FirebaseMessaging.getInstance()
       .subscribeToTopic("notifications");
+    FirebaseMessaging.getInstance()
+            .subscribeToTopic("comments");
+    FirebaseMessaging.getInstance()
+            .subscribeToTopic("posts");
+
 
     toolbar = getSupportActionBar();
     loadFragment(new DoctorProfileFragment());
