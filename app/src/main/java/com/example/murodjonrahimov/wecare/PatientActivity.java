@@ -11,6 +11,7 @@ import com.example.murodjonrahimov.wecare.fragments.ListOfDoctorsFragment;
 import com.example.murodjonrahimov.wecare.fragments.PatientMyPostFragment;
 import com.example.murodjonrahimov.wecare.fragments.PatientProfileFragment;
 import com.example.murodjonrahimov.wecare.fragments.SearchQueryDoc;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class PatientActivity extends AppCompatActivity implements ListOfDoctorsFragment.SearchDoctorslistener {
 
@@ -21,6 +22,8 @@ public class PatientActivity extends AppCompatActivity implements ListOfDoctorsF
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.patient_activity);
+    FirebaseMessaging.getInstance()
+            .subscribeToTopic("comments");
 
     toolbar = getSupportActionBar();
     loadFragment(new PatientProfileFragment());

@@ -6,6 +6,7 @@ package com.example.murodjonrahimov.wecare.service;
 
 import com.example.murodjonrahimov.wecare.DoctorActivity;
 import com.example.murodjonrahimov.wecare.R;
+import com.example.murodjonrahimov.wecare.database.Database;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import android.app.NotificationManager;
@@ -25,11 +26,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     String notificationTitle = null, notificationBody = null;
     String dataMessage = null;
+    String addedBy=null;
 
     if (remoteMessage.getData()
       .size() > 0) {
       dataMessage = remoteMessage.getData()
         .get("message");
+      addedBy = remoteMessage.getData()
+              .get("addedby");
     }
 
     if (remoteMessage.getNotification() != null) {
@@ -38,8 +42,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
       notificationBody = remoteMessage.getNotification()
         .getBody();
     }
+    if(!addedBy.equals(Database.getUserId())) {
 
-    sendNotification(notificationTitle, dataMessage);
+      sendNotification(notificationTitle, dataMessage);
+    }
   }
 
   private void sendNotification(String notificationTitle, String dataMessage) {
