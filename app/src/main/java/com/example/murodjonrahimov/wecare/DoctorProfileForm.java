@@ -72,8 +72,9 @@ public class DoctorProfileForm extends AppCompatActivity {
         String newType = editTextType.getText()
           .toString();
 
-        Doctor doctor = new Doctor(name, surname, countryOfPractice, majorSpecialty, yearsOfPractice, newType);
+        Doctor doctor = new Doctor(name, surname, countryOfPractice, majorSpecialty, yearsOfPractice, newType, true);
         Database.saveDoctor(doctor);
+
         finish();
       }
     });

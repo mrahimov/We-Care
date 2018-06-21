@@ -64,10 +64,17 @@ public class TwoAuthActivityDoctorReg extends AppCompatActivity {
           doctor.setMajor(medical.getText()
             .toString());
           doctor.setType("doctor");
+          doctor.setApproved(false);
 
           Database.saveDoctor(doctor);
-          Intent intent = new Intent(TwoAuthActivityDoctorReg.this, DoctorActivity.class);
-          startActivity(intent);
+          if(doctor.getApproved()) {
+            Intent intent = new Intent(TwoAuthActivityDoctorReg.this, DoctorActivity.class);
+            startActivity(intent);
+          }
+          else {
+            Intent intent= new Intent(TwoAuthActivityDoctorReg.this,NotApprovedActivity.class);
+            startActivity(intent);
+          }
         }
       }
     });
