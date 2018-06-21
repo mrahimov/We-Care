@@ -97,8 +97,13 @@ public class LoginActivity extends AppCompatActivity {
                             String country = doctor.getCountryOfPractice();
                             String years = doctor.getYearsOfExperience();
                             String major = doctor.getMajor();
-
-                            if (type != null) {
+                            boolean ap= doctor.getApproved();
+                            if(!ap){
+                              Toasty.success(LoginActivity.this, "Not approved yet", Toast.LENGTH_LONG, true)
+                                      .show();
+                              Intent intent= new Intent(LoginActivity.this,NotApprovedActivity.class);
+                              startActivity(intent);
+                            } else if (type != null && ap) {
                               Toasty.success(LoginActivity.this, "Doctor Login Successful", Toast.LENGTH_LONG, true)
                                 .show();
 

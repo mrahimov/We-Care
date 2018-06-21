@@ -10,12 +10,13 @@ public class Doctor {
   private String type;
   private String Uid;
   private String uri;
+  private boolean approved;
 
   public Doctor() {
   }
 
   public Doctor(String firstName, String lastName, String countryOfPractice, String major, String yearsOfExperience,
-                String type) {
+                String type, boolean approved) {
 
     this.firstName = firstName;
     this.lastName = lastName;
@@ -23,6 +24,8 @@ public class Doctor {
     this.major = major;
     this.yearsOfExperience = yearsOfExperience;
     this.type = type;
+    this.approved=approved;
+
   }
 
   public void setUri(String uri) {
@@ -87,5 +90,13 @@ public class Doctor {
 
   public String getUid() {
     return Uid;
+  }
+
+  public boolean getApproved() {
+    return approved;
+  }
+
+  public void setApproved(boolean approved) {
+    this.approved = approved;
   }
 }
