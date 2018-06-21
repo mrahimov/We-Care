@@ -74,6 +74,7 @@ public class DoctorProfileForm extends AppCompatActivity {
 
         Doctor doctor = new Doctor(name, surname, countryOfPractice, majorSpecialty, yearsOfPractice, newType, true);
         Database.saveDoctor(doctor);
+
         finish();
       }
     });
