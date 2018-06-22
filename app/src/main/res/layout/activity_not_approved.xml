@@ -1,9 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".NotApprovedActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:layout_marginBottom="20dp"
+      android:textSize="14sp"
+      android:textColor="@color/colorPrimary"
+      android:text="@string/you_register_successfully"/>
+
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="20dp"
+      android:textSize="14sp"
+      android:gravity="center"
+      android:textColor="@color/colorPrimaryDark"
+      android:text="@string/it_takes_3_business_days_to_approve_your_account"/>
+
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textSize="14sp"
+      android:gravity="center"
+      android:textColor="@color/colorPrimaryDark"
+      android:text="@string/please_check_your_account_latter"/>
+
+</LinearLayout>
