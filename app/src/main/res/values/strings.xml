@@ -66,5 +66,8 @@
     <string name="Category">Category:</string>
     <string name="message1">Message:</string>
     <string name="no_message_added">No message added</string>
+    <string name="you_register_successfully">You register successfully</string>
+    <string name="it_takes_3_business_days_to_approve_your_account">It takes 3 business days to approve your account</string>
+    <string name="please_check_your_account_latter">Please check your account latter.</string>
 
 </resources>
